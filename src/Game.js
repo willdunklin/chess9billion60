@@ -42,9 +42,10 @@ function initialBoard()
     return board;
 }
 
-function validMove()
+// return null if move is invalid, otherwise return updated board array
+function validMove(board, piece, from, to)
 {
-
+    return null;
 }
 
 export const Chess = {
@@ -61,14 +62,26 @@ export const Chess = {
     },
 
     moves: {
+        // moves a piece and produces new board, if move is illegal: returns null
         movePiece: (G, ctx, piece, from, to) => {
-            console.log(piece);
-            console.log(from);
-            console.log(to);
-            console.log(G.history);
+            // console.log(piece);
+            // console.log(from);
+            // console.log(to);
+            // console.log(G.history);
+
+            // using the most recent board in history
+            let board = G.history[G.history.length - 1];
+            // simulate move
+            board = validMove(board, piece, from, to);
+
+            if(board !== null)
+                G.history.push(board);
+
+            return board;
         },
     },
 
+    // TODO: ending conditions
     // endIf: (G, ctx) => {
         // if(G.cells.length === 4)
         //     return {draw: true};
