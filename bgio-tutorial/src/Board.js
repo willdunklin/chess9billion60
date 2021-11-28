@@ -1,4 +1,5 @@
 import React from "react";
+const Chess = require("react-chess");
 
 export class TicTacToeBoard extends React.Component {
     onClick(id)
@@ -53,13 +54,26 @@ export class TicTacToeBoard extends React.Component {
     }
 }
 
+// installed npm install --save --force react-chess
 export class ChessBoard extends React.Component {
+    onMove(piece, fromSquare, toSquare)
+    {
+        console.log(piece);
+        console.log(fromSquare);
+        console.log(toSquare);
+        console.log();
+    }
+    
     render()
     {
+        const s = {
+            width: '500px',
+            height: '500px',
+        };
         
         return (
-            <div>
-                Board
+            <div style={s}>
+                <Chess onMovePiece={this.onMove}/>
             </div>
         )
     }
