@@ -45,3 +45,26 @@ export const TicTacToe = {
             return {draw: true};
     },
 };
+
+export const Chess = {
+    name: "Chess",
+
+    setup: () => ({
+        board: Array(64).fill(null),
+    }),
+
+    turn: {
+        minMoves: 1,
+        maxMoves: 1,
+    },
+
+    moves: {
+
+    },
+
+    // endIf: (G, ctx) => {
+        // if(G.cells.length === 4)
+        //     return {draw: true};
+    // },
+
+};

@@ -52,3 +52,15 @@ export class TicTacToeBoard extends React.Component {
         );
     }
 }
+
+export class ChessBoard extends React.Component {
+    render()
+    {
+        
+        return (
+            <div>
+                Board
+            </div>
+        )
+    }
+}
