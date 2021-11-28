@@ -1,3 +1,9 @@
+# To build you need to install the react-chess9b60 node package
+```
+npm install --save https://github.com/willdunklin/react-chess9b60/ --legacy-peer-deps
+```
+More info in [said repo](https://github.com/willdunklin/react-chess9b60/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
