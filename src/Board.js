@@ -62,8 +62,12 @@ export class ChessBoard extends React.Component {
 
         this.state = {pieces: this.piecify(this.props.G.history[0])};
 
-        this.onMove = this.onMove.bind(this);
+        this.onMovePiece = this.onMovePiece.bind(this);
+        this.onDragStart = this.onDragStart.bind(this);
+        this.updateBoard = this.updateBoard.bind(this);
         this.piecify = this.piecify.bind(this);
+
+        this.current_length = 0;
     }
 
     piecify(board)
@@ -74,37 +78,63 @@ export class ChessBoard extends React.Component {
         }).filter(i => i !== null);
     }
 
-    onMove(piece, fromSquare, toSquare)
+    updateBoard()
+    {
+        this.setState({pieces: this.piecify(this.props.G.history[0])});
+    }
+
+    // if returns false, will cancel the drag animation
+    onDragStart(piece, fromSquare)
+    {
+        if(!this.props.isActive)
+            return false;
+
+        // TODO: add checks for checks
+        const black_piece = piece.name.charAt(0).toLowerCase() === piece.name.charAt(0);
+        const black_turn = this.props.ctx.currentPlayer === "1";
+
+        if((black_piece && !black_turn) || (!black_piece && black_turn))
+            return false;
+
+        return true;
+    }
+
+    onMovePiece(piece, fromSquare, toSquare)
     {
         // handle piece capture, snap to grid
-        // TODO: have this handled by server?
 
+        const prev_history = this.props.G.history.length;
         this.props.moves.movePiece(piece, fromSquare, toSquare);
 
-        const new_pieces = this.state.pieces.map((curr, index) => {
-            if(piece.index === index) {
-                return `${piece.name}@${toSquare}`;
-            } else if(curr.indexOf(toSquare) === 2) {
-                return false;
-            }
-            return curr;
-        }).filter(Boolean);
+        if(this.props.G.history.length === prev_history)
+        {
+            console.log('you suck');
+            return false;
+        }
 
-        this.setState({pieces: new_pieces});
+        // sync with client
+        this.updateBoard();
     }
     
     render()
     {
         const s = {
-            width: '500px',
-            height: '500px',
+            width: '250px',
+            height: '250px',
         };
 
         const {pieces} = this.state;
-        
+
+        // after any turn, update the board
+        if(this.current_length !== this.props.G.history.length)
+        {
+            this.current_length = this.props.G.history.length;
+            this.updateBoard();
+        }
+
         return (
             <div className="board" style={s}>
-                <Chess pieces={pieces} onMovePiece={this.onMove}/>
+                <Chess pieces={pieces} onMovePiece={this.onMovePiece} onDragStart={this.onDragStart}/>
             </div>
         )
     }

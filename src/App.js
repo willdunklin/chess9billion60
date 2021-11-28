@@ -13,6 +13,8 @@ const ChessClient = Client({
 const App = () => (
     <div>
         <ChessClient playerID="0"/>
+        <br/>
+        <ChessClient playerID="1"/>
     </div>
 );
 

@@ -45,7 +45,20 @@ function initialBoard()
 // return null if move is invalid, otherwise return updated board array
 function validMove(board, piece, from, to)
 {
-    return null;
+    let new_board = [...board];
+    // coordinates of "from" position
+    const from_x = from.toLowerCase().charCodeAt(0) - 97;
+    const from_y = Number(from[1]);
+
+    // coordinates of "to" position
+    const to_x = to.toLowerCase().charCodeAt(0) - 97;
+    const to_y = Number(to[1]);
+
+    // naive assumption that player is not breaking the law
+    new_board[(from_x + (8-from_y)*8)] = null;
+    new_board[(to_x + (8-to_y)*8)] = piece.name;
+
+    return new_board;
 }
 
 export const Chess = {
@@ -54,11 +67,14 @@ export const Chess = {
     setup: () => ({
         // TODO: randomize board
         history: [initialBoard()],
+        // update board variable to refresh after each turn
+        update: true,
     }),
 
     turn: {
         minMoves: 1,
         maxMoves: 1,
+
     },
 
     moves: {
@@ -70,16 +86,19 @@ export const Chess = {
             // console.log(G.history); // array of array(64)
 
             // using the most recent board in history
-            let board = G.history[G.history.length - 1];
+            let board = G.history[0];
             // simulate move
             board = validMove(board, piece, from, to);
 
             if(board !== null)
-                G.history.push(board);
+                G.history.unshift(board); // prepend new board to history
 
-            return board;
+
+            G.update = true;
         },
     },
+
+    
 
     // TODO: ending conditions
     // endIf: (G, ctx) => {
