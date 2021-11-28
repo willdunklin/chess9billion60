@@ -4,7 +4,7 @@ npm install --save https://github.com/willdunklin/react-chess9b60/ --legacy-peer
 ```
 More info in [said repo](https://github.com/willdunklin/react-chess9b60/)
 
-# Getting Started with Create React App
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
