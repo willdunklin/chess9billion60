@@ -64,10 +64,10 @@ export const Chess = {
     moves: {
         // moves a piece and produces new board, if move is illegal: returns null
         movePiece: (G, ctx, piece, from, to) => {
-            // console.log(piece);
-            // console.log(from);
-            // console.log(to);
-            // console.log(G.history);
+            // console.log(piece); // object: {notation: "P@a2", name: "P", index: 0, position: "a2"}
+            // console.log(from); // "a2"
+            // console.log(to); // "a3"
+            // console.log(G.history); // array of array(64)
 
             // using the most recent board in history
             let board = G.history[G.history.length - 1];
