@@ -1,22 +1,5 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 
-function IsVictory(cells) {
-    const positions = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
-        [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
-    ];
-    
-    const isRowComplete = row => {
-        const symbols = row.map(i => cells[i]);
-        return symbols.every(i => i !== null && i === symbols[0]);
-    };
-
-    return positions.map(isRowComplete).some(i => i === true);
-}
-
-function IsDraw(cells) {
-    return cells.filter(c => c === null).length === 0;
-}
 
 export const TicTacToe = {
     name: "TicTacToe",
@@ -37,20 +20,39 @@ export const TicTacToe = {
         }
     },
 
-    endIf: (G, ctx) => {
-        if(IsVictory(G.cells))
-            return {winner: ctx.currentPlayer};
+    // endIf: (G, ctx) => {
+    //     if(IsVictory(G.cells))
+    //         return {winner: ctx.currentPlayer};
 
-        if(IsDraw(G.cells))
-            return {draw: true};
-    },
+    //     if(IsDraw(G.cells))
+    //         return {draw: true};
+    // },
 };
+
+function initialBoard()
+{
+    // index 0: a8, index 63: h1
+    let board = Array(64).fill(null);
+    for(let i = 0; i < 8; i++)
+    {
+        board[8 + i] = 'p';
+        board[48 + i] = 'P'
+    }
+    console.log(board);
+    return board;
+}
+
+function validMove()
+{
+
+}
 
 export const Chess = {
     name: "Chess",
 
     setup: () => ({
-        board: Array(64).fill(null),
+        // TODO: randomize board
+        history: [initialBoard()],
     }),
 
     turn: {
@@ -59,7 +61,12 @@ export const Chess = {
     },
 
     moves: {
-
+        movePiece: (G, ctx, piece, from, to) => {
+            console.log(piece);
+            console.log(from);
+            console.log(to);
+            console.log(G.history);
+        },
     },
 
     // endIf: (G, ctx) => {

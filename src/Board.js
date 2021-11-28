@@ -60,14 +60,27 @@ export class ChessBoard extends React.Component {
     {
         super(props);
 
-        this.state = {pieces: Chess.getDefaultLineup()};
+        this.state = {pieces: this.piecify(this.props.G.history[0])};
+
         this.onMove = this.onMove.bind(this);
+        this.piecify = this.piecify.bind(this);
+    }
+
+    piecify(board)
+    {
+        // convert from position in board to react-chess position string
+        return board.map((piece, i) => {
+            return piece === null ? null : `${piece}@${String.fromCharCode(97 + (i % 8))}${8-Math.floor(i/8)}`;
+        }).filter(i => i !== null);
     }
 
     onMove(piece, fromSquare, toSquare)
     {
         // handle piece capture, snap to grid
         // TODO: have this handled by server?
+
+        this.props.moves.movePiece(piece, fromSquare, toSquare);
+
         const new_pieces = this.state.pieces.map((curr, index) => {
             if(piece.index === index) {
                 return `${piece.name}@${toSquare}`;
