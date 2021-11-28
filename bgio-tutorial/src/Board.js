@@ -56,12 +56,28 @@ export class TicTacToeBoard extends React.Component {
 
 // installed npm install --save --force react-chess
 export class ChessBoard extends React.Component {
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {pieces: Chess.getDefaultLineup()};
+        this.onMove = this.onMove.bind(this);
+    }
+
     onMove(piece, fromSquare, toSquare)
     {
-        console.log(piece);
-        console.log(fromSquare);
-        console.log(toSquare);
-        console.log();
+        // handle piece capture, snap to grid
+        // TODO: have this handled by server?
+        const new_pieces = this.state.pieces.map((curr, index) => {
+            if(piece.index === index) {
+                return `${piece.name}@${toSquare}`;
+            } else if(curr.indexOf(toSquare) === 2) {
+                return false;
+            }
+            return curr;
+        }).filter(Boolean);
+
+        this.setState({pieces: new_pieces});
     }
     
     render()
@@ -70,10 +86,12 @@ export class ChessBoard extends React.Component {
             width: '500px',
             height: '500px',
         };
+
+        const {pieces} = this.state;
         
         return (
-            <div style={s}>
-                <Chess onMovePiece={this.onMove}/>
+            <div className="board" style={s}>
+                <Chess pieces={pieces} onMovePiece={this.onMove}/>
             </div>
         )
     }
