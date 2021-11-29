@@ -15,16 +15,22 @@ function isInBounds(int1, int2) {
     return( 0 <= int1 <= 7 && 0 <= int2 <= 7);
 }
 
-function rider(startx, starty, gameboard, color, intervals, n=100) {
+function rider(startx, starty, gameboard, color, intervals, n=8) {
     var answers = []
+    let tests = intervals.map(
+        ([x, y]) => [startx+x, starty+y]
+    ).filter(([x, y]) => x > 0 && y > 0);
+
+    console.log(tests);
+
     intervals.forEach((vector) => {
         var xtemp = startx + vector[0]
         var ytemp = starty + vector[1]
         var i = 0
-        while (isInBounds(xtemp,ytemp)) {
+        while (isInBounds(xtemp,ytemp) && i < n) {
             var target = gameboard[xtemp + 8* (7 - ytemp)]
-            console.log(target)
-            if (target === null)
+            console.log(target, [xtemp, ytemp])
+            if (target === null || target === undefined)
                 answers.push([xtemp, ytemp])
             else if (target.charAt(0) !== color) {
                 answers.push([xtemp, ytemp])

@@ -1,34 +1,6 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 const PieceTypes = require("./pieces.js")
 
-export const TicTacToe = {
-    name: "TicTacToe",
-
-    setup: () => ({cells: Array(9).fill(null)}),
-
-    turn: {
-        minMoves: 1,
-        maxMoves: 1,
-    },
-
-    moves: {
-        clickCell: (G, ctx, id) => {
-            if(G.cells[id] !== null)
-                return INVALID_MOVE;
-
-            G.cells[id] = ctx.currentPlayer;
-        }
-    },
-
-    // endIf: (G, ctx) => {
-    //     if(IsVictory(G.cells))
-    //         return {winner: ctx.currentPlayer};
-
-    //     if(IsDraw(G.cells))
-    //         return {draw: true};
-    // },
-};
-
 function initialBoard()
 {
     // index 0: a8, index 63: h1
@@ -54,10 +26,19 @@ function validMove(board, piece, from, to)
     const to_x = to.toLowerCase().charCodeAt(0) - 97;
     const to_y = Number(to[1]) - 1;
 
-    if ([to_x, to_y] in PieceTypes[piece.name].getAvailableMoves(from_x, from_y, board, piece.name.charAt(0))) {
+    let moves = PieceTypes[piece.name].getAvailableMoves(from_x, from_y, board, piece.name.charAt(0));
+    console.log(moves, [to_x, to_y]);
+
+    if ([to_x, to_y] in moves) {
+        console.log('!valid');
         // naive assumption that player is not breaking the law
-        new_board[(from_x + (8-from_y)*8)] = null;
-        new_board[(to_x + (8-to_y)*8)] = piece.name;
+        new_board[(from_x + (7-from_y)*8)] = null;
+        new_board[(to_x + (7-to_y)*8)] = piece.name;
+    }
+    else
+    {
+        console.log('!invalid');
+        return null;
     }
 
 
