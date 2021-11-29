@@ -48,11 +48,11 @@ function validMove(board, piece, from, to)
     let new_board = [...board];
     // coordinates of "from" position
     const from_x = from.toLowerCase().charCodeAt(0) - 97;
-    const from_y = Number(from[1]);
+    const from_y = Number(from[1]) - 1;
 
     // coordinates of "to" position
     const to_x = to.toLowerCase().charCodeAt(0) - 97;
-    const to_y = Number(to[1]);
+    const to_y = Number(to[1]) - 1;
 
     if ([to_x, to_y] in PieceTypes[piece.name].getAvailableMoves(from_x, from_y, board, piece.name.charAt(0))) {
         // naive assumption that player is not breaking the law
