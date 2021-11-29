@@ -134,7 +134,12 @@ export class ChessBoard extends React.Component {
 
         return (
             <div className="board" style={s}>
-                <Chess pieces={pieces} onMovePiece={this.onMovePiece} onDragStart={this.onDragStart} isWhite ={this.props.ctx.currentPlayer === "0"}/>
+                <Chess
+                    pieces={pieces}
+                    onMovePiece={this.onMovePiece}
+                    onDragStart={this.onDragStart}
+                    isWhite={this.props.playerID === "0"}
+                />
             </div>
         )
     }
