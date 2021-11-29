@@ -1,66 +1,12 @@
 import React from "react";
 const Chess = require("react-chess");
 
-export class TicTacToeBoard extends React.Component {
-    onClick(id)
-    {
-        this.props.moves.clickCell(id);
-    }
-
-    render()
-    {
-        let winner = '';
-        if(this.props.ctx.gameover)
-        {
-            winner = this.props.ctx.gameover.winner !== undefined ? (
-                <div id="winner">Winner: {this.props.ctx.gameover.winner}</div>
-            ) : (
-                <div id="winner">Draw!</div>
-            );
-        }
-
-        const cellStyle = {
-            border: '1px solid #555',
-            width: '50px',
-            height: '50px',
-            lineHeight: '50px',
-            textAlign: 'center',
-        };
-
-        let tbody = [];
-        for(let i = 0; i < 3; i++)
-        {
-            let cells = [];
-            for(let j = 0; j < 3; j++)
-            {
-                const id = 3 * i + j;
-                cells.push(
-                    <td style={cellStyle} key={id} onClick={() => this.onClick(id)}>
-                        {this.props.G.cells[id]}
-                    </td>
-                )
-            }
-            tbody.push(<tr key={i}>{cells}</tr>);
-        }
-
-        return (
-            <div>
-                <table id="board">
-                    <tbody>{tbody}</tbody>
-                </table>
-                {winner}
-            </div>
-        );
-    }
-}
-
-// installed npm install --save --force react-chess
 export class ChessBoard extends React.Component {
     constructor(props)
     {
         super(props);
 
-        this.state = {pieces: this.piecify(this.props.G.history[0])};
+        this.state = {pieces: this.piecify(this.props.G.history[0]), update: 0};
 
         this.onMovePiece = this.onMovePiece.bind(this);
         this.onDragStart = this.onDragStart.bind(this);
@@ -80,7 +26,7 @@ export class ChessBoard extends React.Component {
 
     updateBoard()
     {
-        this.setState({pieces: this.piecify(this.props.G.history[0])});
+        this.setState({pieces: this.piecify(this.props.G.history[0]), update: Math.random()});
     }
 
     // if returns false, will cancel the drag animation
@@ -106,14 +52,11 @@ export class ChessBoard extends React.Component {
         const prev_history = this.props.G.history.length;
         this.props.moves.movePiece(piece, fromSquare, toSquare);
 
-        if(this.props.G.history.length === prev_history)
-        {
-            console.log('you suck');
-            return false;
-        }
-
         // sync with client
         this.updateBoard();
+
+        if(this.props.G.history.length === prev_history)
+            return false;
     }
     
     render()
@@ -123,7 +66,9 @@ export class ChessBoard extends React.Component {
             height: '250px',
         };
 
-        const {pieces} = this.state;
+        const {pieces, update} = this.state;
+
+        console.log(update);
 
         // after any turn, update the board
         if(this.current_length !== this.props.G.history.length)
@@ -136,6 +81,7 @@ export class ChessBoard extends React.Component {
             <div className="board" style={s}>
                 <Chess
                     pieces={pieces}
+                    update={update}
                     onMovePiece={this.onMovePiece}
                     onDragStart={this.onDragStart}
                     isWhite={this.props.playerID === "0"}
