@@ -29,19 +29,19 @@ function validMove(board, piece, from, to)
     let moves = PieceTypes[piece.name].getAvailableMoves(from_x, from_y, board, piece.name.charAt(0));
     console.log(moves, [to_x, to_y]);
 
-    if ([to_x, to_y] in moves) {
-        console.log('!valid');
-        // naive assumption that player is not breaking the law
-        new_board[(from_x + (7-from_y)*8)] = null;
-        new_board[(to_x + (7-to_y)*8)] = piece.name;
-    }
-    else
-    {
-        console.log('!invalid');
-        return null;
-    }
-}
+    for (var i = 0; i < moves.length; i++) {
+        var vector = moves[i]
+        if ((vector[0] === to_x) && (vector[1] === to_y)) {
+            console.log('valid');
+            new_board[(from_x + (7-from_y)*8)] = null;
+            new_board[(to_x + (7-to_y)*8)] = piece.name;
+            return new_board
+        }
+    };
 
+    console.log('invalid');
+    return null;
+}
 export const Chess = {
     name: "Chess",
 
