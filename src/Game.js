@@ -29,7 +29,7 @@ function validMove(board, piece, from, to)
     let moves = PieceTypes[piece.name].getAvailableMoves(from_x, from_y, board, piece.name.charAt(0));
     console.log(moves, [to_x, to_y]);
 
-    for(const [x, y] of moves.length) {
+    for(const [x, y] of moves) {
         if ((x === to_x) && (y === to_y)) {
             console.log('valid');
             new_board[(from_x + (7-from_y)*8)] = null;
