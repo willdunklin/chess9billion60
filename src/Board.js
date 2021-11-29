@@ -90,7 +90,7 @@ export class ChessBoard extends React.Component {
             return false;
 
         // TODO: add checks for checks
-        const black_piece = piece.name.charAt(0).toLowerCase() === piece.name.charAt(0);
+        const black_piece = piece.name.charAt(0) === 'B';
         const black_turn = this.props.ctx.currentPlayer === "1";
 
         if((black_piece && !black_turn) || (!black_piece && black_turn))

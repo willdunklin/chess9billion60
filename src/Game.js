@@ -35,8 +35,8 @@ function initialBoard()
     let board = Array(64).fill(null);
     for(let i = 0; i < 8; i++)
     {
-        board[8 + i] = 'p';
-        board[48 + i] = 'P'
+        board[8 + i] = 'BZ';
+        board[48 + i] = 'WP'
     }
     console.log(board);
     return board;
