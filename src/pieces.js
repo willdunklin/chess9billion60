@@ -12,35 +12,44 @@ function leaper(int1, int2, x=0, y=0) {
 }
 
 function isInBounds(int1, int2) {
-    return((0 <= int1) && (int1 <= 7)  && (0 <= int2) && (int2 <= 7) );
+    return((0 <= int1) && (int1 <= 7)  && (0 <= int2) && (int2 <= 7));
 }
 
 function rider(startx, starty, gameboard, color, intervals, n=7) {
     var answers = []
-    let tests = intervals.map(
-        ([x, y]) => [startx+x, starty+y]
-    ).filter(([x, y]) => x > 0 && y > 0);
+    let squares = intervals.map(
+        ([x, y]) => {
+            // look at continuation of vector to n steps
+            return [...Array(n-1).keys()].map(a => [(a+1)*x,(a+1)*y])
+        }).flat().map(
+            // adjust by offset
+            ([x, y]) => [startx+x, starty+y]
+        ).filter(
+            // filter for moves w/i bounds
+            ([x, y]) => isInBounds(x,y)
+        );
+    squares = [...new Set(squares)];
 
-    console.log(tests);
 
-    intervals.forEach((vector) => {
-        var xtemp = startx + vector[0]
-        var ytemp = starty + vector[1]
+
+    intervals.forEach(([x, y]) => {
+        var xtemp = startx + x;
+        var ytemp = starty + y;
         var i = 0
-        while (isInBounds(xtemp,ytemp) && i <= n) {
-            var target = gameboard[xtemp + 8 * (7 - ytemp)]
+        while (isInBounds(xtemp, ytemp) && i <= n) {
+            var target = gameboard[xtemp + 8 * (7 - ytemp)];
             if (target === null)
-                answers.push([xtemp, ytemp])
+                answers.push([xtemp, ytemp]);
             else if (target.charAt(0) !== color) {
-                answers.push([xtemp, ytemp])
-                break
+                answers.push([xtemp, ytemp]);
+                break;
             }
             else
-                break
+                break;
 
-            xtemp = xtemp + vector[0]
-            ytemp = ytemp + vector[1]
-            i += 1
+            xtemp = xtemp + x;
+            ytemp = ytemp + y;
+            i += 1;
         }
     });
     return answers
