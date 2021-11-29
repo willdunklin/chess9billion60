@@ -48,15 +48,15 @@ function validMove(board, piece, from, to)
     let new_board = [...board];
     // coordinates of "from" position
     const from_x = from.toLowerCase().charCodeAt(0) - 97;
-    const from_y = Number(from[1]);
+    const from_y = Number(from[1]) - 1;
 
     // coordinates of "to" position
     const to_x = to.toLowerCase().charCodeAt(0) - 97;
-    const to_y = Number(to[1]);
+    const to_y = Number(to[1]) - 1;
 
     // naive assumption that player is not breaking the law
-    new_board[(from_x + (8-from_y)*8)] = null;
-    new_board[(to_x + (8-to_y)*8)] = piece.name;
+    new_board[(from_x + (7-from_y)*8)] = null;
+    new_board[(to_x + (7-to_y)*8)] = piece.name;
 
     return new_board;
 }
