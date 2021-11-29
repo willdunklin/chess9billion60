@@ -59,15 +59,24 @@ class Piece {
 
     getAvailableMoves = function(x, y, gameboard, color) {return []}
 
-    constructor(id, strength, getAvailableMoves, canPromote = false) {
+    canPromote() {
+        return this.canPromote
+    }
+
+    isColorbound() {
+        return this.colorbound;
+    }
+
+    constructor(id, strength, getAvailableMoves, canPromote = false, colorbound = false) {
         this.getAvailableMoves = getAvailableMoves
         this.id = id
         this.strength = strength
         this.canPromote = canPromote
+        this.colorbound = colorbound
     }
 }
 
 module.exports = {
-    "BZ" : new Piece("BZ", 180, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z)}),
-    "WB" : new Piece("WB", 180, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F)})
+    "Z" : new Piece("Z", 180, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z)}),
+    "B" : new Piece("B", 180, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F)})
 }
