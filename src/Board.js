@@ -90,7 +90,7 @@ export class ChessBoard extends React.Component {
             return false;
 
         // TODO: add checks for checks
-        const black_piece = piece.name.charAt(0) === 'B';
+        const black_piece = piece.name.charAt(0) === "B";
         const black_turn = this.props.ctx.currentPlayer === "1";
 
         if((black_piece && !black_turn) || (!black_piece && black_turn))
@@ -134,7 +134,12 @@ export class ChessBoard extends React.Component {
 
         return (
             <div className="board" style={s}>
-                <Chess pieces={pieces} onMovePiece={this.onMovePiece} onDragStart={this.onDragStart}/>
+                <Chess 
+                    isWhite={this.props.G}
+                    pieces={pieces} 
+                    onMovePiece={this.onMovePiece} 
+                    onDragStart={this.onDragStart}
+                />
             </div>
         )
     }
