@@ -40,9 +40,6 @@ function validMove(board, piece, from, to)
         console.log('!invalid');
         return null;
     }
-
-
-    return new_board;
 }
 
 export const Chess = {

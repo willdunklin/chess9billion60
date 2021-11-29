@@ -12,10 +12,10 @@ function leaper(int1, int2, x=0, y=0) {
 }
 
 function isInBounds(int1, int2) {
-    return( 0 <= int1 <= 7 && 0 <= int2 <= 7);
+    return((0 <= int1) && (int1 <= 7)  && (0 <= int2) && (int2 <= 7) );
 }
 
-function rider(startx, starty, gameboard, color, intervals, n=8) {
+function rider(startx, starty, gameboard, color, intervals, n=7) {
     var answers = []
     let tests = intervals.map(
         ([x, y]) => [startx+x, starty+y]
@@ -27,10 +27,9 @@ function rider(startx, starty, gameboard, color, intervals, n=8) {
         var xtemp = startx + vector[0]
         var ytemp = starty + vector[1]
         var i = 0
-        while (isInBounds(xtemp,ytemp) && i < n) {
-            var target = gameboard[xtemp + 8* (7 - ytemp)]
-            console.log(target, [xtemp, ytemp])
-            if (target === null || target === undefined)
+        while (isInBounds(xtemp,ytemp) && i <= n) {
+            var target = gameboard[xtemp + 8 * (7 - ytemp)]
+            if (target === null)
                 answers.push([xtemp, ytemp])
             else if (target.charAt(0) !== color) {
                 answers.push([xtemp, ytemp])
