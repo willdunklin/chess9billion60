@@ -54,14 +54,15 @@ function validMove(board, piece, from, to)
     const to_x = to.toLowerCase().charCodeAt(0) - 97;
     const to_y = Number(to[1]) - 1;
 
+    console.log(PieceTypes[piece.name].getAvailableMoves(from_x, from_y, board, piece.name.charAt(0)))
     if ([to_x, to_y] in PieceTypes[piece.name].getAvailableMoves(from_x, from_y, board, piece.name.charAt(0))) {
         // naive assumption that player is not breaking the law
         new_board[(from_x + (8-from_y)*8)] = null;
         new_board[(to_x + (8-to_y)*8)] = piece.name;
+        return new_board;
+    } else {
+        return null
     }
-
-
-    return new_board;
 }
 
 export const Chess = {
