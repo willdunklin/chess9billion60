@@ -1,5 +1,5 @@
 import { INVALID_MOVE } from "boardgame.io/core";
-
+const PieceTypes = require("./pieces.js")
 
 export const TicTacToe = {
     name: "TicTacToe",
@@ -36,7 +36,7 @@ function initialBoard()
     for(let i = 0; i < 8; i++)
     {
         board[8 + i] = 'BZ';
-        board[48 + i] = 'WP';
+        board[48 + i] = 'WB';
     }
     console.log(board);
     return board;
@@ -54,9 +54,12 @@ function validMove(board, piece, from, to)
     const to_x = to.toLowerCase().charCodeAt(0) - 97;
     const to_y = Number(to[1]);
 
-    // naive assumption that player is not breaking the law
-    new_board[(from_x + (8-from_y)*8)] = null;
-    new_board[(to_x + (8-to_y)*8)] = piece.name;
+    if ([to_x, to_y] in PieceTypes[piece.name].getAvailableMoves(from_x, from_y, board, piece.name.charAt(0))) {
+        // naive assumption that player is not breaking the law
+        new_board[(from_x + (8-from_y)*8)] = null;
+        new_board[(to_x + (8-to_y)*8)] = piece.name;
+    }
+
 
     return new_board;
 }
