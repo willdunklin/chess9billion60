@@ -11,6 +11,26 @@ function shuffleArray(array) {
     }
 }
 
+function colorInCheck(board, color) {
+    var kingPos
+    for (var i = 0; i < 8*8; i++) {
+        if (board[i] === color + "K")
+            kingPos = [(i % 8), 7-Math.floor(i/8)]
+    }
+    for (var j = 0; j < 8*8; j++) {
+        var piece = board[j]
+        if (piece !== null && piece.charAt(0) !== color) {
+            let moves = PieceTypes[piece.substring(1)].getAvailableMoves(j % 8, 7-Math.floor(j/8), [board,board], piece.charAt(0));
+            for(const [x, y] of moves) {
+                if ((x === kingPos[0]) && (y === kingPos[1])) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 function generateArmy(lowerBound, upperBound) {
     const pool = Object.keys(PieceTypes)
     var attempts = 0
@@ -120,7 +140,11 @@ function validMove(history, piece, from, to)
             }
             new_board[(from_x + (7-from_y)*8)] = null;
             new_board[(to_x + (7-to_y)*8)] = piece.name;
-            return new_board
+            //Did we make a move which puts us or leaves us in check
+            if (!colorInCheck(new_board, piece.name.charAt(0)))
+                return new_board
+            else
+                return null
         }
     }
 

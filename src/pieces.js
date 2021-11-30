@@ -36,7 +36,7 @@ function rider(startx, starty, history, color, intervals, n=7) {
         let y = starty + dy;
         let i = 0
         // raycast rider piece 
-        while (isInBounds(x, y) && i <= n) {
+        while (isInBounds(x, y) && i < n) {
             var target = gameboard[x + 8 * (7 - y)];
             if (target === null)
                 squares.push([x, y]);
