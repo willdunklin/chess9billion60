@@ -19,7 +19,7 @@ function colorInStalemate(history, color) {
         if (piece !== null && piece.charAt(0) === color) {
             let moves = PieceTypes[piece.substring(1)].getAvailableMoves(from[0], from[1], history, piece.charAt(0));
             for(const [x, y] of moves) {
-                if (validMove(history,piece, from, [x,y])!== null)
+                if (validMove(history, piece, `${String.fromCharCode(97 + from[0])}${1+from[1]}`, `${String.fromCharCode(97 + (x))}${1+y}`) !== null)
                     return false
             }
         }
@@ -29,23 +29,37 @@ function colorInStalemate(history, color) {
 
 //run on board generation to prevent instant losses 
 function colorHasMateInOnes(history, color) {
-    var otherColor = "W"
+    
     var board = history[0]
-    if (color === "W")
+    var otherColor = "W"
+    if (color === "W") {
         otherColor = "B"
+    }
     for (var j = 0; j < 8*8; j++) {
-        var piece = board[j]
+        var piece = history[0][j]
         var from = [j % 8, 7-Math.floor(j/8)]
         if (piece !== null && piece.charAt(0) === color) {
             let moves = PieceTypes[piece.substring(1)].getAvailableMoves(from[0], from[1], history, piece.charAt(0));
             for(const [x, y] of moves) {
-                var board = validMove(history,piece, from, [x,y])
-                if (board !== null)
-                    if (colorInCheck(board, otherColor) && colorInStalemate(history, otherColor))
+                //console.log(history)
+                var result = validMove(history, piece, `${String.fromCharCode(97 + from[0])}${1+from[1]}`, `${String.fromCharCode(97 + (x))}${1+y}`)
+                //console.log(result)
+                if (result !== null) {
+                    history.unshift(result)
+                    //console.log(otherColor)
+                    //console.log(history)
+                    if (colorInCheck(result, otherColor) && colorInStalemate(history, otherColor)) {
+                        //fix the board I prepended in stalemate check
+                        history.splice(0,1)
                         return true
+                    }
+                    //fix the board I prepended in stalemate check
+                    history.splice(0,1)
+                }
             }
         }
     }
+    
     return false
 }
 
@@ -77,12 +91,12 @@ function generateArmy(lowerBound, upperBound) {
     var army = []
     while (attempts < 1000) {
         army = []
-        var banned_pieces = []
+        var banned_pieces = ["P","K"]
         var pieces_found = 0
         var strength = 0
         while (pieces_found < 7) {
             var piece = pool[Math.floor(Math.random() * (pool.length))]
-            if (!(banned_pieces.includes(piece)) && piece !== "P" && piece !== "K") {
+            if (!(banned_pieces.includes(piece))) {
                 if (army.includes(piece) || PieceTypes[piece].getStrength() > 750) {
                     banned_pieces.push(piece)
                 }
@@ -137,28 +151,29 @@ function generateArmy(lowerBound, upperBound) {
 function initialBoard()
 {
     // index 0: a8, index 63: h1
-    let board = Array(64).fill(null);
-    for(let i = 0; i < 8; i++)
-    {
-        board[8 + i] = 'BP';
-        board[48 + i] = 'WP';
-    }
+    var board = Array(64).fill(null);
+    do {
+        board = Array(64).fill(null);
+        for(let i = 0; i < 8; i++)
+        {
+            board[8 + i] = 'BP';
+            board[48 + i] = 'WP';
+        }
 
-    var random_army = generateArmy(3000, 4000)
-    for (var i = 0; i < 8; i++) {
-        board[i] = "B"+random_army[i]
-        board[56+i] = "W"+random_army[i]
-    }
-
-    if (colorHasMateInOnes([board,"W"]))
-        console.log("LOL")
-
+        var random_army = generateArmy(3000, 4000)
+        for (var i = 0; i < 8; i++) {
+            board[i] = "B"+random_army[i]
+            board[56+i] = "W"+random_army[i]
+        }
+        //no instant loss positions
+    } while (colorHasMateInOnes([board],"W"))
     return board;
 }
 
 // return null if move is invalid, otherwise return updated board array
-function validMove(history, piece, from, to)
+function validMove(history, name, from, to)
 {
+        
     let new_board = [...history[0]];
     // coordinates of "from" position
     const from_x = from.toLowerCase().charCodeAt(0) - 97;
@@ -168,12 +183,12 @@ function validMove(history, piece, from, to)
     const to_x = to.toLowerCase().charCodeAt(0) - 97;
     const to_y = Number(to[1]) - 1;
 
-    let moves = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, history, piece.name.charAt(0));
+    let moves = PieceTypes[name.substring(1)].getAvailableMoves(from_x, from_y, history, name.charAt(0));
 
     for(const [x, y] of moves) {
         if ((x === to_x) && (y === to_y)) {
             //en passant handling
-            if (piece.name.substring(1) === "P") {
+            if (name.substring(1) === "P") {
                 //are we moving to an empty square in a different file
                 if (history[0][(to_x + (7-to_y)*8)] === null && (from_x !== to_x)) {
                     //take the en passanted piece
@@ -181,9 +196,9 @@ function validMove(history, piece, from, to)
                 }
             }
             new_board[(from_x + (7-from_y)*8)] = null;
-            new_board[(to_x + (7-to_y)*8)] = piece.name;
+            new_board[(to_x + (7-to_y)*8)] = name;
             //Did we make a move which puts us or leaves us in check
-            if (!colorInCheck(new_board, piece.name.charAt(0)))
+            if (!colorInCheck(new_board, name.charAt(0)))
                 return new_board
             else
                 return null
@@ -217,7 +232,7 @@ export const Chess = {
             // using the most recent board in history
             let board = G.history[0];
             // simulate move
-            board = validMove(G.history, piece, from, to);
+            board = validMove(G.history, piece.name, from, to);
 
             if(board !== null)
                 G.history.unshift(board); // prepend new board to history
