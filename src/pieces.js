@@ -77,6 +77,31 @@ class Piece {
 }
 
 module.exports = {
-    "Z" : new Piece("Z", 180, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z)}),
-    "B" : new Piece("B", 180, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F)})
+    "N" : new Piece("N", 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N,1)}),
+    "R" : new Piece("R", 500, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W)}),
+    "B" : new Piece("B", 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F)}),
+    "Q" : new Piece("Q", 975, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K)}),
+    "K" : new Piece("K", 10000, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1)}),
+    //TODO, FIX
+    "P" : new Piece("P", 100, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W,1)}),
+    "NR" : new Piece("NR", 475, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N)}),
+    "M" : new Piece("M", 375, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1)}),
+    "F" : new Piece("F", 150, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F,1)}),
+    "W" : new Piece("W", 170, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W,1)}),
+    "A" : new Piece("A", 1250, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K).concat(rider(x,y,gameboard,color,N,1))}),
+    "CH" : new Piece("CH", 800, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W).concat(rider(x,y,gameboard,color,N,1))}),
+    "AB" : new Piece("AB", 770, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F).concat(rider(x,y,gameboard,color,N,1))}),
+    "R4" : new Piece("R4", 380, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W,4)}),
+    "R2" : new Piece("R2", 270, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W,2)}),
+    "B4" : new Piece("B4", 250, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F,4)}),
+    "B2" : new Piece("B2", 220, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F,2)}),
+    "U" : new Piece("U", 900, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F).concat(rider(x,y,gameboard,color,N))}),
+    "C" : new Piece("C", 220, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C,1)}),
+    "Z" : new Piece("Z", 180, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z,1)}),
+    "ZC" : new Piece("ZC", 400, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z,1).concat(rider(x,y,gameboard,color,C,1))}),
+    "CN" : new Piece("CN", 600, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1).concat(rider(x,y,gameboard,color,N,1))}),
+    "CNR" : new Piece("CNR", 900, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1).concat(rider(x,y,gameboard,color,N))}),
+    "BC" : new Piece("BC", 750, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C,1).concat(rider(x,y,gameboard,color,F))}),
+    "NZ" : new Piece("NZ", 600, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N,1).concat(rider(x,y,gameboard,color,Z,1))}),
+    "M2" : new Piece("M2", 500, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,2)}),
 }
