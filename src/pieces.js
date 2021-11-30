@@ -3,8 +3,8 @@ const F = leaper(1, 1);
 const N = leaper(2, 1);
 const C = leaper(3, 1);
 const Z = leaper(3, 2);
-const J = leaper(4, 1);
-const L = leaper(4, 3);
+//const J = leaper(4, 1);
+//const L = leaper(4, 3);
 const K = W.concat(F);
 
 function leaper(int1, int2, x=0, y=0) {
@@ -36,7 +36,7 @@ function rider(startx, starty, gameboard, color, intervals, n=7) {
         var xtemp = startx + x;
         var ytemp = starty + y;
         var i = 0
-        while (isInBounds(xtemp, ytemp) && i <= n) {
+        while (isInBounds(xtemp, ytemp) && i < n) {
             var target = gameboard[xtemp + 8 * (7 - ytemp)];
             if (target === null)
                 answers.push([xtemp, ytemp]);
@@ -62,6 +62,10 @@ class Piece {
     canPromote() {
         return this.canPromote
     }
+
+    getStrength() {
+        return this.strength
+    } 
 
     isColorbound() {
         return this.colorbound;
