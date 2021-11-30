@@ -7,60 +7,60 @@ const Z = leaper(3, 2);
 //const L = leaper(4, 3);
 const K = W.concat(F);
 
-function leaper(int1, int2, x=0, y=0) {
-    return [[x+int1, y+int2], [x-int1, y+int2], [x+int1, y-int2], [x-int1, y-int2], [x+int2, y+int1], [x-int2, y+int1], [x+int2, y-int1], [x-int2, y-int1]] 
+function leaper(dx, dy, x=0, y=0) {
+    return [[x+dx, y+dy], [x-dx, y+dy], [x+dx, y-dy], [x-dx, y-dy], [x+dy, y+dx], [x-dy, y+dx], [x+dy, y-dx], [x-dy, y-dx]] 
 }
 
-function isInBounds(int1, int2) {
-    return((0 <= int1) && (int1 <= 7)  && (0 <= int2) && (int2 <= 7));
+function isInBounds(x, y) {
+    return((0 <= x) && (x <= 7)  && (0 <= y) && (y <= 7));
 }
 
 function rider(startx, starty, gameboard, color, intervals, n=7) {
-    var answers = []
-    //let squares = intervals.map(
-    //    ([x, y]) => {
-    //        // look at continuation of vector to n steps
-    //        return [...Array(n-1).keys()].map(a => [(a+1)*x,(a+1)*y])
-    //    }).flat().map(
-    //        // adjust by offset
-    //        ([x, y]) => [startx+x, starty+y]
-    //    ).filter(
-    //        // filter for moves w/i bounds
-    //        ([x, y]) => isInBounds(x,y)
-    //    );
-    //squares = [...new Set(squares)];
+    var squares = [];
+    // let squares = intervals.map(
+    //     ([x, y]) => {
+    //         // look at continuation of vector to n steps
+    //         return [...Array(n-1).keys()].map(a => [(a+1)*x,(a+1)*y])
+    //     }).flat().map(
+    //         // adjust by offset
+    //         ([x, y]) => [startx+x, starty+y]
+    //     ).filter(
+    //         // filter for moves w/i bounds
+    //         ([x, y]) => isInBounds(x,y)
+    //     );
+    // squares = [...new Set(squares)];
 
-
-
-    intervals.forEach(([x, y]) => {
-        var xtemp = startx + x;
-        var ytemp = starty + y;
-        var i = 0
-        while (isInBounds(xtemp, ytemp) && i < n) {
-            var target = gameboard[xtemp + 8 * (7 - ytemp)];
+    intervals.forEach(([dx, dy]) => {
+        let x = startx + dx;
+        let y = starty + dy;
+        let i = 0
+        // raycast rider piece 
+        while (isInBounds(x, y) && i <= n) {
+            var target = gameboard[x + 8 * (7 - y)];
             if (target === null)
-                answers.push([xtemp, ytemp]);
+                squares.push([x, y]);
             else if (target.charAt(0) !== color) {
-                answers.push([xtemp, ytemp]);
+                squares.push([x, y]);
                 break;
             }
-            else
+            else {
                 break;
+            }
 
-            xtemp = xtemp + x;
-            ytemp = ytemp + y;
+            x = x + dx;
+            y = y + dy;
             i += 1;
         }
     });
-    return answers
+    return squares;
 }
 
 class Piece {
 
     getAvailableMoves = function(x, y, gameboard, color) {return []}
 
-    isPromoter() {
-        return this.canPromote
+    canPromote() {
+        return this.canPromote;
     }
 
     getStrength() {
@@ -68,11 +68,11 @@ class Piece {
     } 
 
     constructor(id, strength, getAvailableMoves, canPromote = false, colorbound = false) {
-        this.getAvailableMoves = getAvailableMoves
-        this.id = id
-        this.strength = strength
-        this.canPromote = canPromote
-        this.colorbound = colorbound
+        this.getAvailableMoves = getAvailableMoves;
+        this.id = id;
+        this.strength = strength;
+        this.canPromote = canPromote;
+        this.colorbound = colorbound;
     }
 }
 
