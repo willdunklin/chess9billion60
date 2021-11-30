@@ -11,6 +11,44 @@ function shuffleArray(array) {
     }
 }
 
+//checkmate checking is just stalemate + check. logic could either be added to this method or just two calls
+function colorInStalemate(history, color) {
+    for (var j = 0; j < 8*8; j++) {
+        var piece = history[0][j]
+        var from = [j % 8, 7-Math.floor(j/8)]
+        if (piece !== null && piece.charAt(0) === color) {
+            let moves = PieceTypes[piece.substring(1)].getAvailableMoves(from[0], from[1], history, piece.charAt(0));
+            for(const [x, y] of moves) {
+                if (validMove(history,piece, from, [x,y])!== null)
+                    return false
+            }
+        }
+    }
+    return true
+}
+
+//run on board generation to prevent instant losses 
+function colorHasMateInOnes(history, color) {
+    var otherColor = "W"
+    var board = history[0]
+    if (color === "W")
+        otherColor = "B"
+    for (var j = 0; j < 8*8; j++) {
+        var piece = board[j]
+        var from = [j % 8, 7-Math.floor(j/8)]
+        if (piece !== null && piece.charAt(0) === color) {
+            let moves = PieceTypes[piece.substring(1)].getAvailableMoves(from[0], from[1], history, piece.charAt(0));
+            for(const [x, y] of moves) {
+                var board = validMove(history,piece, from, [x,y])
+                if (board !== null)
+                    if (colorInCheck(board, otherColor) && colorInStalemate(history, otherColor))
+                        return true
+            }
+        }
+    }
+    return false
+}
+
 function colorInCheck(board, color) {
     var kingPos
     for (var i = 0; i < 8*8; i++) {
@@ -111,6 +149,10 @@ function initialBoard()
         board[i] = "B"+random_army[i]
         board[56+i] = "W"+random_army[i]
     }
+
+    if (colorHasMateInOnes([board,"W"]))
+        console.log("LOL")
+
     return board;
 }
 

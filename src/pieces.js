@@ -140,7 +140,7 @@ module.exports = {
             //begin vague enpassant check - requires knowledge of history to be perfect. 
             } else if (y === en_passant_rank && ((gameboard[xtemp + 8 * (7 - y)] === "WP" || gameboard[xtemp + 8 * (7 - y)] === "BP"))) {
                 if(gameboard[xtemp + 8 * (7 - y)].charAt(0) !== color)
-                    //was the last move a double pawn push in the direction I want to take?
+                    //was the last move a double pawn push in the direction I want to take? Calling history[1] here is fine since the pawns can't en passant move 1
                     if(history[1][xtemp + 8 * (7 - (y+2*direction))] === gameboard[xtemp + 8 * (7 - y)] && gameboard[xtemp + 8 * (7 - (y+2*direction))] === null)
                         moves.push([xtemp, ytemp])
             }
@@ -156,7 +156,7 @@ module.exports = {
             //begin vague enpassant check - requires knowledge of history to be perfect. 
             } else if (y === en_passant_rank && ((gameboard[xtemp + 8 * (7 - y)] === "WP" || gameboard[xtemp + 8 * (7 - y)] === "BP"))) {
                 if(gameboard[xtemp + 8 * (7 - y)].charAt(0) !== color)
-                    //was the last move a double pawn push in the direction I want to take?
+                    //was the last move a double pawn push in the direction I want to take? Calling history[1] here is fine since the pawns can't en passant move 1
                     if(history[1][xtemp + 8 * (7 - (y+2*direction))] === gameboard[xtemp + 8 * (7 - y)] && gameboard[xtemp + 8 * (7 - (y+2*direction))] === null)
                         moves.push([xtemp, ytemp])
             }
