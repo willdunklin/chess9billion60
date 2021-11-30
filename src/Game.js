@@ -1,14 +1,62 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 const PieceTypes = require("./pieces.js")
 
+/* Randomize array in-place using Durstenfeld shuffle algorithm */
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+function generateArmy(lowerBound, upperBound) {
+    const pool = Object.keys(PieceTypes)
+    var attempts = 0
+    //TODO, gracefully handle when this loop doesn't find an army, or make army generation more intelligent
+    //With lowerBound and upperBound as 3000 and 4000 it seems to work almost always, but if we let users choose...
+    var army = []
+    while (attempts < 1000) {
+        army = []
+        var banned_pieces = []
+        var pieces_found = 0
+        var strength = 0
+        while (pieces_found < 7) {
+            var piece = pool[Math.floor(Math.random() * (pool.length))]
+            if (!(banned_pieces.includes(piece)) && piece != "P" && piece != "K") {
+                if (army.includes(piece) || PieceTypes[piece].getStrength()  > 750) {
+                    banned_pieces.push(piece)
+                }
+                army.push(piece)
+                pieces_found += 1
+                strength += PieceTypes[piece].getStrength() 
+            }
+        }
+        if ((lowerBound <= strength) && (strength <= upperBound)) {
+            break;
+        }
+        attempts+=1
+    }
+    army.push("K")
+    shuffleArray(army)
+    return army;
+}
+
 function initialBoard()
 {
     // index 0: a8, index 63: h1
     let board = Array(64).fill(null);
     for(let i = 0; i < 8; i++)
     {
-        board[8 + i] = 'BZ';
-        board[48 + i] = 'WB';
+        board[8 + i] = 'BP';
+        board[48 + i] = 'WP';
+    }
+
+    var random_army = generateArmy(3000, 4000)
+    for (var i = 0; i < 8; i++) {
+        board[i] = "B"+random_army[i]
+        board[56+i] = "W"+random_army[i]
     }
     return board;
 }
