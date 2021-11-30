@@ -29,7 +29,6 @@ function colorInStalemate(history, color) {
 
 //run on board generation to prevent instant losses 
 function colorHasMateInOnes(history, color) {
-    
     var board = history[0]
     var otherColor = "W"
     if (color === "W") {
@@ -45,6 +44,7 @@ function colorHasMateInOnes(history, color) {
                 var result = validMove(history, piece, `${String.fromCharCode(97 + from[0])}${1+from[1]}`, `${String.fromCharCode(97 + (x))}${1+y}`)
                 //console.log(result)
                 if (result !== null) {
+                    // TODO: why???
                     history.unshift(result)
                     //console.log(otherColor)
                     //console.log(history)
@@ -65,12 +65,12 @@ function colorHasMateInOnes(history, color) {
 
 function colorInCheck(board, color) {
     var kingPos
-    for (var i = 0; i < 8*8; i++) {
+    for (var i = 0; i < (8*8); i++) {
         if (board[i] === color + "K")
             kingPos = [(i % 8), 7-Math.floor(i/8)]
     }
-    for (var j = 0; j < 8*8; j++) {
-        var piece = board[j]
+    for (var j = 0; j < (8*8); j++) {
+        var piece = board[j];
         if (piece !== null && piece.charAt(0) !== color) {
             let moves = PieceTypes[piece.substring(1)].getAvailableMoves(j % 8, 7-Math.floor(j/8), [board,board], piece.charAt(0));
             for(const [x, y] of moves) {
@@ -241,12 +241,25 @@ export const Chess = {
         },
     },
 
-    
+    endIf: (G, ctx) => {
+        const board = G.history[0];
+        // check if white in stalemate
+        if(colorInStalemate(G.history, "W"))
+        {
+            if(colorInCheck(board, "W"))
+                // winner = black
+                return {winner: "Black"};
+            return {draw: true};
+        }
 
-    // TODO: ending conditions
-    // endIf: (G, ctx) => {
-        // if(G.cells.length === 4)
-        //     return {draw: true};
-    // },
+        // check if black in stalemate
+        if(colorInStalemate(G.history, "B"))
+        {
+            if(colorInCheck(board, "B"))
+                // winner = white
+                return {winner: "White"};
+            return {draw: true};
+        }
+    },
 
 };

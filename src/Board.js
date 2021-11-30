@@ -34,6 +34,9 @@ export class ChessBoard extends React.Component {
     {
         if(!this.props.isActive)
             return false;
+        
+        if(this.props.ctx.gameover)
+            return false;
 
         // TODO: add checks for checks
         const black_piece = piece.name.charAt(0) === "B";
@@ -75,6 +78,17 @@ export class ChessBoard extends React.Component {
             this.updateBoard();
         }
 
+        let winner = "";
+        if(this.props.ctx.gameover)
+        {
+            winner = 
+                this.props.ctx.gameover.winner !== undefined ? (
+                    <div id="winner">Winner: {this.props.ctx.gameover.winner}</div>
+                ) : (
+                    <div id="winner">Draw</div>
+                );
+        }
+
         return (
             <div className="board" style={s}>
                 <Chess
@@ -84,6 +98,7 @@ export class ChessBoard extends React.Component {
                     onDragStart={this.onDragStart}
                     isWhite={this.props.playerID === "0"}
                 />
+                {winner}
             </div>
         )
     }
