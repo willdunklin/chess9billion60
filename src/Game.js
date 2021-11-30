@@ -24,8 +24,8 @@ function generateArmy(lowerBound, upperBound) {
         var strength = 0
         while (pieces_found < 7) {
             var piece = pool[Math.floor(Math.random() * (pool.length))]
-            if (!(banned_pieces.includes(piece)) && piece != "P" && piece != "K") {
-                if (army.includes(piece) || PieceTypes[piece].getStrength()  > 750) {
+            if (!(banned_pieces.includes(piece)) && piece !== "P" && piece !== "K") {
+                if (army.includes(piece) || PieceTypes[piece].getStrength() > 750) {
                     banned_pieces.push(piece)
                 }
                 army.push(piece)
@@ -39,7 +39,40 @@ function generateArmy(lowerBound, upperBound) {
         attempts+=1
     }
     army.push("K")
+
+    //mix the king in
     shuffleArray(army)
+
+    var evens = []
+    var odds = []
+    var cbCount = 0
+    for (var i = 7; i >= 0; i--) {
+        if (PieceTypes[army[i]].colorbound) {
+            cbCount += 1
+            if (cbCount % 2 === 0) {
+                evens.push(army[i])
+                army.splice(i,1)
+            } else {
+                odds.push(army[i])
+                army.splice(i,1)
+            }
+        }
+    }
+    while (evens.length < 4)
+        evens.push(army.pop())
+    while (odds.length < 4)
+        odds.push(army.pop())
+    shuffleArray(evens)
+    shuffleArray(odds)
+    army = []
+    //evens and odds are bad names because of this - it randomizes which is which
+    var randomBit = Math.floor(Math.random() * 2)
+    for (var i = 0; i < 8; i++) {
+        if (i % 2 === randomBit)
+            army.push(evens.pop())
+        else
+            army.push(odds.pop())
+    }
     return army;
 }
 
