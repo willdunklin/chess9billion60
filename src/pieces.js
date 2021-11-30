@@ -15,7 +15,7 @@ function isInBounds(x, y) {
     return((0 <= x) && (x <= 7)  && (0 <= y) && (y <= 7));
 }
 
-function rider(startx, starty, gameboard, color, intervals, n=7) {
+function rider(startx, starty, history, color, intervals, n=7) {
     var squares = [];
     // let squares = intervals.map(
     //     ([x, y]) => {
@@ -30,6 +30,7 @@ function rider(startx, starty, gameboard, color, intervals, n=7) {
     //     );
     // squares = [...new Set(squares)];
 
+    var gameboard = history[0]
     intervals.forEach(([dx, dy]) => {
         let x = startx + dx;
         let y = starty + dy;
@@ -77,11 +78,11 @@ class Piece {
 }
 
 module.exports = {
-    "N" : new Piece("N", 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N,1)}),
-    "R" : new Piece("R", 500, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W)}),
-    "B" : new Piece("B", 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F)}, false, true),
-    "Q" : new Piece("Q", 975, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K)}),
-    "K" : new Piece("K", 10000, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1)}),
+    "N"   : new Piece("N"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N,1)}),
+    "R"   : new Piece("R"  , 500, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W)}),
+    "B"   : new Piece("B"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F)}, false, true),
+    "Q"   : new Piece("Q"  , 975, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K)}),
+    "K"   : new Piece("K"  , 10000, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1)}),
     "NR"  : new Piece("NR" , 475 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N)}),
     "M"   : new Piece("M"  , 375 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1)}),
     "F"   : new Piece("F"  , 150 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F,1)}, false, true),
@@ -103,7 +104,8 @@ module.exports = {
     "NZ"  : new Piece("NZ" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N,1).concat(rider(x,y,gameboard,color,Z,1))}),
     "M2"  : new Piece("M2" , 500 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,2)}),
     //TODO, fix en passant
-    "P" : new Piece("P", 100, (x,y,gameboard,color) => {
+    "P" : new Piece("P", 100, (x,y,history,color) => {
+        var gameboard = history[0]
         var direction = 1
         var home_rank = 1
         var en_passant_rank = 4
@@ -138,7 +140,9 @@ module.exports = {
             //begin vague enpassant check - requires knowledge of history to be perfect. 
             } else if (y === en_passant_rank && ((gameboard[xtemp + 8 * (7 - y)] === "WP" || gameboard[xtemp + 8 * (7 - y)] === "BP"))) {
                 if(gameboard[xtemp + 8 * (7 - y)].charAt(0) !== color)
-                    moves.push([xtemp, ytemp])
+                    //was the last move a double pawn push in the direction I want to take?
+                    if(history[1][xtemp + 8 * (7 - (y+2*direction))] === gameboard[xtemp + 8 * (7 - y)] && gameboard[xtemp + 8 * (7 - (y+2*direction))] === null)
+                        moves.push([xtemp, ytemp])
             }
         }
 
@@ -152,7 +156,9 @@ module.exports = {
             //begin vague enpassant check - requires knowledge of history to be perfect. 
             } else if (y === en_passant_rank && ((gameboard[xtemp + 8 * (7 - y)] === "WP" || gameboard[xtemp + 8 * (7 - y)] === "BP"))) {
                 if(gameboard[xtemp + 8 * (7 - y)].charAt(0) !== color)
-                    moves.push([xtemp, ytemp])
+                    //was the last move a double pawn push in the direction I want to take?
+                    if(history[1][xtemp + 8 * (7 - (y+2*direction))] === gameboard[xtemp + 8 * (7 - y)] && gameboard[xtemp + 8 * (7 - (y+2*direction))] === null)
+                        moves.push([xtemp, ytemp])
             }
         }
         return moves

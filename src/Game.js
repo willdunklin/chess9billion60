@@ -95,9 +95,9 @@ function initialBoard()
 }
 
 // return null if move is invalid, otherwise return updated board array
-function validMove(board, piece, from, to)
+function validMove(history, piece, from, to)
 {
-    let new_board = [...board];
+    let new_board = [...history[0]];
     // coordinates of "from" position
     const from_x = from.toLowerCase().charCodeAt(0) - 97;
     const from_y = Number(from[1]) - 1;
@@ -106,7 +106,7 @@ function validMove(board, piece, from, to)
     const to_x = to.toLowerCase().charCodeAt(0) - 97;
     const to_y = Number(to[1]) - 1;
 
-    let moves = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, board, piece.name.charAt(0));
+    let moves = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, history, piece.name.charAt(0));
 
     for(const [x, y] of moves) {
         if ((x === to_x) && (y === to_y)) {
@@ -143,7 +143,7 @@ export const Chess = {
             // using the most recent board in history
             let board = G.history[0];
             // simulate move
-            board = validMove(board, piece, from, to);
+            board = validMove(G.history, piece, from, to);
 
             if(board !== null)
                 G.history.unshift(board); // prepend new board to history
