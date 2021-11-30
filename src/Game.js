@@ -110,6 +110,14 @@ function validMove(history, piece, from, to)
 
     for(const [x, y] of moves) {
         if ((x === to_x) && (y === to_y)) {
+            //en passant handling
+            if (piece.name.substring(1) === "P") {
+                //are we moving to an empty square in a different file
+                if (history[0][(to_x + (7-to_y)*8)] === null && (from_x !== to_x)) {
+                    //take the en passanted piece
+                    new_board[(to_x + (7-from_y)*8)] = null;
+                }
+            }
             new_board[(from_x + (7-from_y)*8)] = null;
             new_board[(to_x + (7-to_y)*8)] = piece.name;
             return new_board
