@@ -9,9 +9,9 @@ More info in [said repo](https://github.com/willdunklin/react-chess9b60/)
 npm update react-chess --legacy-peer-deps
 ```
 
-## Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Technologies
+react-chess, create-react-app, boardgame.io
 
 ## Available Scripts
 

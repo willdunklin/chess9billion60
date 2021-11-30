@@ -68,8 +68,6 @@ export class ChessBoard extends React.Component {
 
         const {pieces, update} = this.state;
 
-        console.log(update);
-
         // after any turn, update the board
         if(this.current_length !== this.props.G.history.length)
         {

@@ -10,7 +10,6 @@ function initialBoard()
         board[8 + i] = 'BZ';
         board[48 + i] = 'WB';
     }
-    console.log(board);
     return board;
 }
 
@@ -27,18 +26,15 @@ function validMove(board, piece, from, to)
     const to_y = Number(to[1]) - 1;
 
     let moves = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, board, piece.name.charAt(0));
-    console.log(moves, [to_x, to_y]);
 
     for(const [x, y] of moves) {
         if ((x === to_x) && (y === to_y)) {
-            console.log('valid');
             new_board[(from_x + (7-from_y)*8)] = null;
             new_board[(to_x + (7-to_y)*8)] = piece.name;
             return new_board
         }
     }
 
-    console.log('invalid');
     return null;
 }
 export const Chess = {
