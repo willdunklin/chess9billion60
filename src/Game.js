@@ -67,8 +67,8 @@ function generateArmy(lowerBound, upperBound) {
     army = []
     //evens and odds are bad names because of this - it randomizes which is which
     var randomBit = Math.floor(Math.random() * 2)
-    for (var i = 0; i < 8; i++) {
-        if (i % 2 === randomBit)
+    for (var j = 0; j < 8; j++) {
+        if (j % 2 === randomBit)
             army.push(evens.pop())
         else
             army.push(odds.pop())
