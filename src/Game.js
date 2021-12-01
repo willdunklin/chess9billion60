@@ -211,14 +211,15 @@ export const Chess = {
     name: "Chess",
 
     setup: () => ({
-        // TODO: randomize board
         history: [initialBoard()],
+        // by default white to move 
+        // TODO: change to be dynamic for load from pos
+        whiteTurn: true,
     }),
 
     turn: {
         minMoves: 1,
         maxMoves: 1,
-
     },
 
     moves: {
@@ -235,7 +236,10 @@ export const Chess = {
             board = validMove(G.history, piece.name, from, to);
 
             if(board !== null)
+            {
                 G.history.unshift(board); // prepend new board to history
+                G.whiteTurn = piece.name.charAt(0) !== "W";
+            }
             else
                 return INVALID_MOVE;
         },
@@ -244,7 +248,8 @@ export const Chess = {
     endIf: (G, ctx) => {
         const board = G.history[0];
         // check if white in stalemate
-        if(colorInStalemate(G.history, "W"))
+        // console.log(G.whiteTurn, ctx.currentPlayer, G.history[0]);
+        if(G.whiteTurn && colorInStalemate(G.history, "W"))
         {
             if(colorInCheck(board, "W"))
                 // winner = black
@@ -253,7 +258,7 @@ export const Chess = {
         }
 
         // check if black in stalemate
-        if(colorInStalemate(G.history, "B"))
+        if(!G.whiteTurn && colorInStalemate(G.history, "B"))
         {
             if(colorInCheck(board, "B"))
                 // winner = white
