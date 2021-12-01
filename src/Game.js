@@ -152,6 +152,11 @@ function initialBoard()
 {
     // index 0: a8, index 63: h1
     var board = Array(64).fill(null);
+    //board[0] = "WK"
+    //board[63] = "BK"
+    //board[62] = "BW"
+    //board[1] = "WA"
+    //board[2] = "WW"
     do {
         board = Array(64).fill(null);
         for(let i = 0; i < 8; i++)
@@ -171,9 +176,9 @@ function initialBoard()
 }
 
 // return null if move is invalid, otherwise return updated board array
-function validMove(history, name, from, to)
+function validMove(history, name, from, to, G)
 {
-        
+    var progressMade = false;
     let new_board = [...history[0]];
     // coordinates of "from" position
     const from_x = from.toLowerCase().charCodeAt(0) - 97;
@@ -187,26 +192,96 @@ function validMove(history, name, from, to)
 
     for(const [x, y] of moves) {
         if ((x === to_x) && (y === to_y)) {
-            //en passant handling
+            //Pawn moves are special for 50 move rule and en passant
             if (name.substring(1) === "P") {
+                //en passant handling
                 //are we moving to an empty square in a different file
                 if (history[0][(to_x + (7-to_y)*8)] === null && (from_x !== to_x)) {
                     //take the en passanted piece
                     new_board[(to_x + (7-from_y)*8)] = null;
                 }
+                
+                //Set 50 move counter to 0 since we made a pawn move
+                progressMade = true
             }
+            //will we capture something on the square we are moving to
+            if (new_board[(to_x + (7-to_y)*8)]!== null)
+                progressMade = true
             new_board[(from_x + (7-from_y)*8)] = null;
             new_board[(to_x + (7-to_y)*8)] = name;
             //Did we make a move which puts us or leaves us in check
-            if (!colorInCheck(new_board, name.charAt(0)))
+            if (!colorInCheck(new_board, name.charAt(0))) {
+                //since the move is being made, we can update G if required. The cursed undefined check is because moving and
+                //move validation kinda need to be separate things? But we're also doing fake moves in other methods. Messy!
+                if (G !== undefined) {
+                    if (progressMade)
+                        G.noProgressCounter = 0;
+                    else
+                        G.noProgressCounter += 1;
+                }
                 return new_board
-            else
+            } else
                 return null
         }
     }
 
     return null;
 }
+
+function compareTwoBoards(A, B) {
+    for (var i = 0; i < 8*8; i++) {
+        if (A[i] !== B[i])
+            return false
+    }
+    return true;
+}
+
+//TODO, make sure the legal moves are the same in all positions
+function isRepetitionDraw(history) {
+    var count = 0
+    var A = history[0]
+    //incrementing by 2 so we don't count a position with other side to move as the same
+    for (var i = 0; i < history.length; i+=2)
+        if (compareTwoBoards(A,history[i])) {
+            count += 1
+            if (count >= 3)
+                return true
+        }
+}
+
+//TODO check for multiple colorbound pieces
+function insufficentMaterialDraw(board) {
+    var wa = 0;
+    var ba = 0
+    //TODO this should maybe belong in pieces.js as a property of the piece or something
+    var insufficientPieces = ["N", "NR", "W", "Z", "NZ"]
+    //iterate over the whole board, or until we've determined both players still have pieces
+    for (var i = 0; i < 8*8 && (wa === 0 || ba === 0); i++) {
+        if (board[i] !== null) {
+            var piece = board[i]
+            var name = piece.substring(1)
+            if (name != "K") {
+                //can this piece give mate on its own
+                if (!PieceTypes[name].colorbound && !insufficientPieces.includes(name))
+                    return false
+                if (piece.charAt(0) === "W") {
+                    //was there already a white piece on the board (any pair of white pieces can give mate
+                    //unless they are both colorbound and on the same color, which I am currently not checking
+                    if (wa === 1)
+                        return false
+                    wa += 1
+                } else { //same stuff for black
+                    if (ba === 1)
+                        return false
+                    ba += 1
+                }
+            }
+        }
+    }
+    //one side has no pieces, the other has insufficient material.
+    return (wa === 0 || ba === 0)
+}
+
 export const Chess = {
     name: "Chess",
 
@@ -215,6 +290,7 @@ export const Chess = {
         // by default white to move 
         // TODO: change to be dynamic for load from pos
         whiteTurn: true,
+        noProgressCounter: 0
     }),
 
     turn: {
@@ -233,7 +309,7 @@ export const Chess = {
             // using the most recent board in history
             let board = G.history[0];
             // simulate move
-            board = validMove(G.history, piece.name, from, to);
+            board = validMove(G.history, piece.name, from, to, G);
 
             if(board !== null)
             {
@@ -265,6 +341,10 @@ export const Chess = {
                 return {winner: "White"};
             return {draw: true};
         }
+
+        //check the weird draws
+        if (G.noProgressCounter >= 200 || isRepetitionDraw(G.history) || insufficentMaterialDraw(G.history[0]))
+            return {draw: true}
     },
 
 };
