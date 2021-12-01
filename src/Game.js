@@ -29,7 +29,6 @@ function colorInStalemate(history, color) {
 
 //run on board generation to prevent instant losses 
 function colorHasMateInOnes(history, color) {
-    var board = history[0]
     var otherColor = "W"
     if (color === "W") {
         otherColor = "B"
@@ -52,9 +51,10 @@ function colorHasMateInOnes(history, color) {
                         //fix the board I prepended in stalemate check
                         history.splice(0,1)
                         return true
+                    } else {
+                        //fix the board I prepended in stalemate check
+                        history.splice(0,1)
                     }
-                    //fix the board I prepended in stalemate check
-                    history.splice(0,1)
                 }
             }
         }
