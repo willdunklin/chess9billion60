@@ -249,37 +249,54 @@ function isRepetitionDraw(history) {
         }
 }
 
-//TODO check for multiple colorbound pieces
 function insufficentMaterialDraw(board) {
     var wa = 0;
     var ba = 0
+    var lsFound = false
+    var dsFound = false
     //TODO this should maybe belong in pieces.js as a property of the piece or something
     var insufficientPieces = ["N", "NR", "W", "Z", "NZ"]
-    //iterate over the whole board, or until we've determined both players still have pieces
-    for (var i = 0; i < 8*8 && (wa === 0 || ba === 0); i++) {
+    for (var i = 0; i < 8*8; i++) {
         if (board[i] !== null) {
             var piece = board[i]
             var name = piece.substring(1)
-            if (name != "K") {
+            if (name !== "K") {
                 //can this piece give mate on its own
-                if (!PieceTypes[name].colorbound && !insufficientPieces.includes(name))
-                    return false
+                if (!PieceTypes[name].colorbound) {
+                    if(!insufficientPieces.includes(name)) {
+                        return false
+                    }
+                    //this piece can control both light squares and dark squares
+                    lsFound = true
+                    dsFound = true
+                } else {
+                    //this returns true in some checkerboard
+                    if (((i / 8) + (i % 8)) % 2 === 0)
+                        lsFound = true
+                    else
+                        dsFound = true
+                }
                 if (piece.charAt(0) === "W") {
-                    //was there already a white piece on the board (any pair of white pieces can give mate
-                    //unless they are both colorbound and on the same color, which I am currently not checking
-                    if (wa === 1)
-                        return false
+                    //If we made it here, this piece is not sufficent on its own. We must check if there
+                    //was there already a piece on the board which this can mate with (any pair of white pieces can give mate
+                    //provided they can control both dark squares and light squares, or if there is a black piece which can control other color)
                     wa += 1
-                } else { //same stuff for black
-                    if (ba === 1)
+                    if (wa >= 2 && lsFound && dsFound)
                         return false
+                } else { //same stuff for black
                     ba += 1
+                    if (ba >=2 && lsFound && dsFound)
+                        return false
                 }
             }
         }
     }
-    //one side has no pieces, the other has insufficient material.
-    return (wa === 0 || ba === 0)
+
+    //If we made it here, we know that we did not find many pieces controlling opposite colors
+    //either one side has no pieces and the other has insufficient material
+    //or both have pieces colorbound to same squares.
+    //We only need to return false in the case where both sides have pieces which control opposite color complexes.
+    return (wa === 0 || ba === 0) || !(lsFound && dsFound)
 }
 
 export const Chess = {
