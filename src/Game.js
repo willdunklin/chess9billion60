@@ -260,7 +260,7 @@ function insufficentMaterialDraw(board) {
         if (board[i] !== null) {
             var piece = board[i]
             var name = piece.substring(1)
-            if (name != "K") {
+            if (name !== "K") {
                 //can this piece give mate on its own
                 if (!PieceTypes[name].colorbound && !insufficientPieces.includes(name))
                     return false
