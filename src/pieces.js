@@ -7,15 +7,24 @@ const Z = leaper(3, 2);
 //const L = leaper(4, 3);
 const K = W.concat(F);
 
-function leaper(dx, dy, x=0, y=0) {
-    return [[x+dx, y+dy], [x-dx, y+dy], [x+dx, y-dy], [x-dx, y-dy], [x+dy, y+dx], [x-dy, y+dx], [x+dy, y-dx], [x-dy, y-dx]] 
+function leaper(dx, dy, x = 0, y = 0) {
+    return [
+        [x + dx, y + dy],
+        [x - dx, y + dy],
+        [x + dx, y - dy],
+        [x - dx, y - dy],
+        [x + dy, y + dx],
+        [x - dy, y + dx],
+        [x + dy, y - dx],
+        [x - dy, y - dx]
+    ]
 }
 
 function isInBounds(x, y) {
-    return((0 <= x) && (x <= 7)  && (0 <= y) && (y <= 7));
+    return ((0 <= x) && (x <= 7) && (0 <= y) && (y <= 7));
 }
 
-function rider(startx, starty, history, color, intervals, n=7) {
+function rider(startx, starty, history, color, intervals, n = 7) {
     let squares = [];
     // let squares = intervals.map(
     //     ([x, y]) => {
@@ -34,7 +43,7 @@ function rider(startx, starty, history, color, intervals, n=7) {
     intervals.forEach(([dx, dy]) => {
         let x = startx + dx;
         let y = starty + dy;
-        let i = 0
+        let i = 0;
         // raycast rider piece 
         while (isInBounds(x, y) && i < n) {
             let target = gameboard[x + 8 * (7 - y)];
@@ -43,8 +52,7 @@ function rider(startx, starty, history, color, intervals, n=7) {
             else if (target.charAt(0) !== color) {
                 squares.push([x, y]);
                 break;
-            }
-            else {
+            } else {
                 break;
             }
 
@@ -58,15 +66,17 @@ function rider(startx, starty, history, color, intervals, n=7) {
 
 class Piece {
 
-    getAvailableMoves = function(x, y, gameboard, color) {return []}
+    getAvailableMoves = function (x, y, gameboard, color) {
+        return [];
+    }
 
     isPromoter() {
         return this.canPromote;
     }
 
     getStrength() {
-        return this.strength
-    } 
+        return this.strength;
+    }
 
     constructor(id, strength, getAvailableMoves, canPromote = false, colorbound = false) {
         this.getAvailableMoves = getAvailableMoves;
@@ -104,63 +114,63 @@ module.exports = {
     "NZ"  : new Piece("NZ" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N,1).concat(rider(x,y,gameboard,color,Z,1))}),
     "M2"  : new Piece("M2" , 500 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,2)}),
     //TODO, fix en passant
-    "P" : new Piece("P", 100, (x,y,history,color) => {
-        let gameboard = history[0]
-        let direction = 1
-        let home_rank = 1
-        let en_passant_rank = 4
+    "P"   : new Piece("P", 100, (x, y, history, color) => {
+        let gameboard = history[0];
+        let direction = 1;
+        let home_rank = 1;
+        let en_passant_rank = 4;
         if (color === "B") {
-            direction = -1
-            home_rank = 7 - home_rank
-            en_passant_rank = 7 - en_passant_rank
+            direction = -1;
+            home_rank = 7 - home_rank;
+            en_passant_rank = 7 - en_passant_rank;
         }
-        let moves = []
-        let xtemp = x
-        let ytemp = y + direction
+        let moves = [];
+        let xtemp = x;
+        let ytemp = y + direction;
         //check for forward moves, including double moves on first turn
-        if (isInBounds(xtemp,ytemp)) {
+        if (isInBounds(xtemp, ytemp)) {
             if (gameboard[xtemp + 8 * (7 - ytemp)] === null) {
                 moves.push([xtemp, ytemp])
                 if (y === home_rank) {
-                    ytemp += direction
+                    ytemp += direction;
                     if (gameboard[xtemp + 8 * (7 - ytemp)] === null) {
-                        moves.push([xtemp, ytemp])
+                        moves.push([xtemp, ytemp]);
                     }
                 }
             }
         }
 
         //check for taking one way
-        ytemp = y + direction
-        xtemp = x - 1
-        if (isInBounds(xtemp,ytemp)) {
+        ytemp = y + direction;
+        xtemp = x - 1;
+        if (isInBounds(xtemp, ytemp)) {
             if (gameboard[xtemp + 8 * (7 - ytemp)] !== null) {
-                if(gameboard[xtemp + 8 * (7 - ytemp)].charAt(0) !== color)
-                    moves.push([xtemp, ytemp])
-            //begin vague enpassant check - requires knowledge of history to be perfect. 
+                if (gameboard[xtemp + 8 * (7 - ytemp)].charAt(0) !== color)
+                    moves.push([xtemp, ytemp]);
+                //begin vague enpassant check - requires knowledge of history to be perfect. 
             } else if (y === en_passant_rank && (gameboard[xtemp + 8 * (7 - y)] === "WP" || gameboard[xtemp + 8 * (7 - y)] === "BP")) {
-                if(gameboard[xtemp + 8 * (7 - y)].charAt(0) !== color)
+                if (gameboard[xtemp + 8 * (7 - y)].charAt(0) !== color)
                     //was the last move a double pawn push in the direction I want to take? Calling history[1] here is fine since the pawns can't en passant move 1
-                    if(history[1][xtemp + 8 * (7 - (y+2*direction))] === gameboard[xtemp + 8 * (7 - y)] && gameboard[xtemp + 8 * (7 - (y+2*direction))] === null)
-                        moves.push([xtemp, ytemp])
+                    if (history[1][xtemp + 8 * (7 - (y + 2 * direction))] === gameboard[xtemp + 8 * (7 - y)] && gameboard[xtemp + 8 * (7 - (y + 2 * direction))] === null)
+                        moves.push([xtemp, ytemp]);
             }
         }
 
         //check for taking one way
-        ytemp = y + direction
-        xtemp = x + 1
-        if (isInBounds(xtemp,ytemp)) {
+        ytemp = y + direction;
+        xtemp = x + 1;
+        if (isInBounds(xtemp, ytemp)) {
             if (gameboard[xtemp + 8 * (7 - ytemp)] !== null) {
-                if(gameboard[xtemp + 8 * (7 - ytemp)].charAt(0) !== color)
-                    moves.push([xtemp, ytemp])
-            //begin vague enpassant check - requires knowledge of history to be perfect. 
+                if (gameboard[xtemp + 8 * (7 - ytemp)].charAt(0) !== color)
+                    moves.push([xtemp, ytemp]);
+                //begin vague enpassant check - requires knowledge of history to be perfect. 
             } else if (y === en_passant_rank && (gameboard[xtemp + 8 * (7 - y)] === "WP" || gameboard[xtemp + 8 * (7 - y)] === "BP")) {
-                if(gameboard[xtemp + 8 * (7 - y)].charAt(0) !== color)
+                if (gameboard[xtemp + 8 * (7 - y)].charAt(0) !== color)
                     //was the last move a double pawn push in the direction I want to take? Calling history[1] here is fine since the pawns can't en passant move 1
-                    if(history[1][xtemp + 8 * (7 - (y+2*direction))] === gameboard[xtemp + 8 * (7 - y)] && gameboard[xtemp + 8 * (7 - (y+2*direction))] === null)
-                        moves.push([xtemp, ytemp])
+                    if (history[1][xtemp + 8 * (7 - (y + 2 * direction))] === gameboard[xtemp + 8 * (7 - y)] && gameboard[xtemp + 8 * (7 - (y + 2 * direction))] === null)
+                        moves.push([xtemp, ytemp]);
             }
         }
-        return moves
+        return moves;
     }, true)
 }
