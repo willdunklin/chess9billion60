@@ -6,7 +6,7 @@ export class ChessBoard extends React.Component {
     {
         super(props);
 
-        this.state = {pieces: this.piecify(this.props.G.history[0]), update: 0};
+        this.state = {pieces: this.piecify(this.props.G.history[0]), update: 0, highlights: []};
 
         this.onMovePiece = this.onMovePiece.bind(this);
         this.onDragStart = this.onDragStart.bind(this);
@@ -60,6 +60,8 @@ export class ChessBoard extends React.Component {
 
         if(this.props.G.history.length === prev_history)
             return false;
+
+        this.setState({highlights: [fromSquare, toSquare]});
     }
     
     render()
@@ -69,7 +71,7 @@ export class ChessBoard extends React.Component {
             height: '250px',
         };
 
-        const {pieces, update} = this.state;
+        const {pieces, update, highlights} = this.state;
 
         // after any turn, update the board
         if(this.current_length !== this.props.G.history.length)
@@ -89,10 +91,13 @@ export class ChessBoard extends React.Component {
                 );
         }
 
+        // console.log('hi',highlights)
+
         return (
             <div className="board" style={s}>
                 <Chess
                     pieces={pieces}
+                    highlights={highlights}
                     update={update}
                     onMovePiece={this.onMovePiece}
                     onDragStart={this.onDragStart}
