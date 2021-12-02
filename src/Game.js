@@ -304,6 +304,7 @@ export const Chess = {
 
     setup: () => ({
         history: [initialBoard()],
+        move_history: [],
         // by default white to move 
         // TODO: change to be dynamic for load from pos
         whiteTurn: true,
@@ -327,6 +328,7 @@ export const Chess = {
             {
                 G.history.unshift(board); // prepend new board to history
                 G.whiteTurn = piece.name.charAt(0) !== "W";
+                G.move_history.unshift([`${piece.name}@${from}`, `${piece.name}@${to}`]);
             }
             else
                 return INVALID_MOVE;

@@ -26,7 +26,11 @@ export class ChessBoard extends React.Component {
 
     updateBoard()
     {
-        this.setState({pieces: this.piecify(this.props.G.history[0]), update: Math.random()});
+        this.setState({
+            pieces: this.piecify(this.props.G.history[0]), 
+            update: Math.random(),
+            highlights: this.props.G.move_history[0],
+        });
     }
 
     // if returns false, will cancel the drag animation
@@ -61,7 +65,7 @@ export class ChessBoard extends React.Component {
         if(this.props.G.history.length === prev_history)
             return false;
 
-        this.setState({highlights: [fromSquare, toSquare]});
+        // this.setState({highlights: [fromSquare, toSquare]});
     }
     
     render()
@@ -90,8 +94,6 @@ export class ChessBoard extends React.Component {
                     <div id="winner">Draw</div>
                 );
         }
-
-        // console.log('hi',highlights)
 
         return (
             <div className="board" style={s}>
