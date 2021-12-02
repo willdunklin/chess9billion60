@@ -1,5 +1,5 @@
 import { INVALID_MOVE } from "boardgame.io/core";
-const PieceTypes = require("./pieces.js")
+const PieceTypes = require("./pieces.js");
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {
@@ -14,60 +14,58 @@ function shuffleArray(array) {
 //checkmate checking is just stalemate + check. logic could either be added to this method or just two calls
 function colorInStalemate(history, color) {
     for (let j = 0; j < 8*8; j++) {
-        let piece = history[0][j]
-        let from = [j % 8, 7-Math.floor(j/8)]
+        let piece = history[0][j];
+        let from = [j % 8, 7-Math.floor(j/8)];
         if (piece !== null && piece.charAt(0) === color) {
             let moves = PieceTypes[piece.substring(1)].getAvailableMoves(from[0], from[1], history, piece.charAt(0));
             for(const [x, y] of moves) {
                 if (validMove(history, piece, `${String.fromCharCode(97 + from[0])}${1+from[1]}`, `${String.fromCharCode(97 + (x))}${1+y}`) !== null)
-                    return false
+                    return false;
             }
         }
     }
-    return true
+    return true;
 }
 
 //run on board generation to prevent instant losses 
 function colorHasMateInOnes(history, color) {
-    let otherColor = "W"
+    let otherColor = "W";
     if (color === "W") {
-        otherColor = "B"
+        otherColor = "B";
     }
     for (let j = 0; j < 8*8; j++) {
-        let piece = history[0][j]
-        let from = [j % 8, 7-Math.floor(j/8)]
+        let piece = history[0][j];
+        let from = [j % 8, 7-Math.floor(j/8)];
         if (piece !== null && piece.charAt(0) === color) {
             let moves = PieceTypes[piece.substring(1)].getAvailableMoves(from[0], from[1], history, piece.charAt(0));
             for(const [x, y] of moves) {
-                //console.log(history)
-                let result = validMove(history, piece, `${String.fromCharCode(97 + from[0])}${1+from[1]}`, `${String.fromCharCode(97 + (x))}${1+y}`)
-                //console.log(result)
+
+                let result = validMove(history, piece, `${String.fromCharCode(97 + from[0])}${1+from[1]}`, `${String.fromCharCode(97 + (x))}${1+y}`);
+
                 if (result !== null) {
-                    // TODO: why???
-                    history.unshift(result)
-                    //console.log(otherColor)
-                    //console.log(history)
+                    history.unshift(result);
+
                     if (colorInCheck(result, otherColor) && colorInStalemate(history, otherColor)) {
                         //fix the board I prepended in stalemate check
-                        history.splice(0,1)
-                        return true
+                        history.splice(0,1);
+                        return true;
                     } else {
                         //fix the board I prepended in stalemate check
-                        history.splice(0,1)
+                        history.splice(0,1);
                     }
                 }
             }
         }
     }
     
-    return false
+    return false;
 }
 
 function colorInCheck(board, color) {
-    let kingPos
+    let kingPos;
     for (let i = 0; i < (8*8); i++) {
         if (board[i] === color + "K")
-            kingPos = [(i % 8), 7-Math.floor(i/8)]
+            kingPos = [(i % 8), 7-Math.floor(i/8)];
     }
     for (let j = 0; j < (8*8); j++) {
         let piece = board[j];
@@ -84,66 +82,66 @@ function colorInCheck(board, color) {
 }
 
 function generateArmy(lowerBound, upperBound) {
-    const pool = Object.keys(PieceTypes)
-    let attempts = 0
+    const pool = Object.keys(PieceTypes);
+    let attempts = 0;
     //TODO, gracefully handle when this loop doesn't find an army, or make army generation more intelligent
     //With lowerBound and upperBound as 3000 and 4000 it seems to work almost always, but if we let users choose...
-    let army = []
+    let army = [];
     while (attempts < 1000) {
-        army = []
-        let banned_pieces = ["P","K"]
-        let pieces_found = 0
-        let strength = 0
+        army = [];
+        let banned_pieces = ["P","K"];
+        let pieces_found = 0;
+        let strength = 0;
         while (pieces_found < 7) {
-            let piece = pool[Math.floor(Math.random() * (pool.length))]
+            let piece = pool[Math.floor(Math.random() * (pool.length))];
             if (!(banned_pieces.includes(piece))) {
                 if (army.includes(piece) || PieceTypes[piece].getStrength() > 750) {
-                    banned_pieces.push(piece)
+                    banned_pieces.push(piece);
                 }
                 army.push(piece)
-                pieces_found += 1
-                strength += PieceTypes[piece].getStrength() 
+                pieces_found += 1;
+                strength += PieceTypes[piece].getStrength();
             }
         }
         if ((lowerBound <= strength) && (strength <= upperBound)) {
             break;
         }
-        attempts+=1
+        attempts+=1;
     }
-    army.push("K")
+    army.push("K");
 
     //mix the king in
-    shuffleArray(army)
+    shuffleArray(army);
 
-    let evens = []
-    let odds = []
-    let cbCount = 0
+    let evens = [];
+    let odds = [];
+    let cbCount = 0;
     for (let i = 7; i >= 0; i--) {
         if (PieceTypes[army[i]].colorbound) {
-            cbCount += 1
+            cbCount += 1;
             if (cbCount % 2 === 0) {
-                evens.push(army[i])
-                army.splice(i,1)
+                evens.push(army[i]);
+                army.splice(i,1);
             } else {
-                odds.push(army[i])
-                army.splice(i,1)
+                odds.push(army[i]);
+                army.splice(i,1);
             }
         }
     }
     while (evens.length < 4)
-        evens.push(army.pop())
+        evens.push(army.pop());
     while (odds.length < 4)
-        odds.push(army.pop())
-    shuffleArray(evens)
-    shuffleArray(odds)
-    army = []
+        odds.push(army.pop());
+    shuffleArray(evens);
+    shuffleArray(odds);
+    army = [];
     //evens and odds are bad names because of this - it randomizes which is which
     let randomBit = Math.floor(Math.random() * 2)
     for (let j = 0; j < 8; j++) {
         if (j % 2 === randomBit)
-            army.push(evens.pop())
+            army.push(evens.pop());
         else
-            army.push(odds.pop())
+            army.push(odds.pop());
     }
     return army;
 }
@@ -167,8 +165,8 @@ function initialBoard()
 
         let random_army = generateArmy(3000, 4000)
         for (let i = 0; i < 8; i++) {
-            board[i] = "B"+random_army[i]
-            board[56+i] = "W"+random_army[i]
+            board[i] = "B"+random_army[i];
+            board[56+i] = "W"+random_army[i];
         }
         //no instant loss positions
     } while (colorHasMateInOnes([board],"W"))
@@ -202,11 +200,11 @@ function validMove(history, name, from, to, G)
                 }
                 
                 //Set 50 move counter to 0 since we made a pawn move
-                progressMade = true
+                progressMade = true;
             }
             //will we capture something on the square we are moving to
             if (new_board[(to_x + (7-to_y)*8)]!== null)
-                progressMade = true
+                progressMade = true;
             new_board[(from_x + (7-from_y)*8)] = null;
             new_board[(to_x + (7-to_y)*8)] = name;
             //Did we make a move which puts us or leaves us in check
@@ -219,9 +217,9 @@ function validMove(history, name, from, to, G)
                     else
                         G.noProgressCounter += 1;
                 }
-                return new_board
+                return new_board;
             } else
-                return null
+                return null;
         }
     }
 
@@ -231,62 +229,62 @@ function validMove(history, name, from, to, G)
 function compareTwoBoards(A, B) {
     for (let i = 0; i < 8*8; i++) {
         if (A[i] !== B[i])
-            return false
+            return false;
     }
     return true;
 }
 
 //TODO, make sure the legal moves are the same in all positions
 function isRepetitionDraw(history) {
-    let count = 0
-    let A = history[0]
+    let count = 0;
+    let A = history[0];
     //incrementing by 2 so we don't count a position with other side to move as the same
     for (let i = 0; i < history.length; i+=2)
         if (compareTwoBoards(A,history[i])) {
             count += 1
             if (count >= 3)
-                return true
+                return true;
         }
 }
 
 function insufficentMaterialDraw(board) {
     let wa = 0;
-    let ba = 0
-    let lsFound = false
-    let dsFound = false
+    let ba = 0;
+    let lsFound = false;
+    let dsFound = false;
     //TODO this should maybe belong in pieces.js as a property of the piece or something
-    let insufficientPieces = ["N", "NR", "W", "Z", "NZ"]
+    let insufficientPieces = ["N", "NR", "W", "Z", "NZ"];
     for (let i = 0; i < 8*8; i++) {
         if (board[i] !== null) {
-            let piece = board[i]
-            let name = piece.substring(1)
+            let piece = board[i];
+            let name = piece.substring(1);
             if (name !== "K") {
                 //can this piece give mate on its own
                 if (!PieceTypes[name].colorbound) {
                     if(!insufficientPieces.includes(name)) {
-                        return false
+                        return false;
                     }
                     //this piece can control both light squares and dark squares
-                    lsFound = true
-                    dsFound = true
+                    lsFound = true;
+                    dsFound = true;
                 } else {
                     //this returns true in some checkerboard
                     if (((i / 8) + (i % 8)) % 2 === 0)
-                        lsFound = true
+                        lsFound = true;
                     else
-                        dsFound = true
+                        dsFound = true;
                 }
                 if (piece.charAt(0) === "W") {
                     //If we made it here, this piece is not sufficent on its own. We must check if there
                     //was there already a piece on the board which this can mate with (any pair of white pieces can give mate
                     //provided they can control both dark squares and light squares, or if there is a black piece which can control other color)
-                    wa += 1
+                    wa += 1;
                     if (wa >= 2 && lsFound && dsFound)
-                        return false
+                        return false;
                 } else { //same stuff for black
-                    ba += 1
+                    ba += 1;
                     if (ba >=2 && lsFound && dsFound)
-                        return false
+                        return false;
                 }
             }
         }
@@ -296,7 +294,7 @@ function insufficentMaterialDraw(board) {
     //either one side has no pieces and the other has insufficient material
     //or both have pieces colorbound to same squares.
     //We only need to return false in the case where both sides have pieces which control opposite color complexes.
-    return (wa === 0 || ba === 0) || !(lsFound && dsFound)
+    return (wa === 0 || ba === 0) || !(lsFound && dsFound);
 }
 
 export const Chess = {
@@ -308,7 +306,7 @@ export const Chess = {
         // by default white to move 
         // TODO: change to be dynamic for load from pos
         whiteTurn: true,
-        noProgressCounter: 0
+        noProgressCounter: 0,
     }),
 
     turn: {
@@ -336,7 +334,6 @@ export const Chess = {
     endIf: (G, ctx) => {
         const board = G.history[0];
         // check if white in stalemate
-        // console.log(G.whiteTurn, ctx.currentPlayer, G.history[0]);
         if(G.whiteTurn && colorInStalemate(G.history, "W"))
         {
             if(colorInCheck(board, "W"))
@@ -356,7 +353,7 @@ export const Chess = {
 
         //check the weird draws
         if (G.noProgressCounter >= 200 || isRepetitionDraw(G.history) || insufficentMaterialDraw(G.history[0]))
-            return {draw: true}
+            return {draw: true};
     },
 
 };
