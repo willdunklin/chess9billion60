@@ -1,5 +1,6 @@
 import React from "react";
 const Chess = require("react-chess");
+const sound = require("./sound.js");
 
 export class ChessBoard extends React.Component {
     constructor(props) {
@@ -64,7 +65,8 @@ export class ChessBoard extends React.Component {
         if (this.props.G.history.length === prev_history)
             return false;
 
-        // this.setState({highlights: [fromSquare, toSquare]});
+        console.log(sound.move);
+        sound.move.play();
     }
 
     render() {
