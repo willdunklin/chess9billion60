@@ -318,11 +318,6 @@ export const Chess = {
     moves: {
         // moves a piece and produces new board, if move is illegal: returns null
         movePiece: (G, ctx, piece, from, to) => {
-            // console.log(piece); // object: {notation: "P@a2", name: "P", index: 0, position: "a2"}
-            // console.log(from); // "a2"
-            // console.log(to); // "a3"
-            // console.log(G.history); // array of array(64)
-
             // using the most recent board in history
             let board = G.history[0];
             // simulate move
