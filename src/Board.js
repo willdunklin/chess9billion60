@@ -65,14 +65,19 @@ export class ChessBoard extends React.Component {
         if (this.props.G.history.length === prev_history)
             return false;
 
-        console.log(sound.move);
-        sound.move.play();
+        console.log(this.props.G.inCheck);
+        console.log("log", this.props.log);
+        // if(this.props.G.inCheck)
+        //     sound.check.play();
+        // else
+            sound.move.play();
     }
 
     render() {
         const s = {
-            width: '250px',
-            height: '250px',
+            width: '400px',
+            height: '100%',
+            padding: '2em',
         };
 
         const {pieces, update, highlights} = this.state;
@@ -99,6 +104,8 @@ export class ChessBoard extends React.Component {
                     pieces={pieces}
                     highlights={highlights}
                     update={update}
+                    check={this.props.G.inCheck}
+                    whiteTurn={this.props.G.whiteTurn}
                     onMovePiece={this.onMovePiece}
                     onDragStart={this.onDragStart}
                     isWhite={this.props.playerID === "0"}

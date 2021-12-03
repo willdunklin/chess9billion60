@@ -10,10 +10,17 @@ const ChessClient = Client({
     multiplayer: SocketIO({server: "localhost:8000"})
 });
 
+const s = {
+    "display": "flex",
+    "flex-direction": "row",
+    "justify-content": "start",
+    "align-items": "center",
+    "height": "400px",
+}
+
 const App = () => (
-    <div>
+    <div style={s}>
         <ChessClient playerID="0"/>
-        <br/>
         <ChessClient playerID="1"/>
     </div>
 );

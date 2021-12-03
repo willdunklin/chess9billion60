@@ -305,6 +305,8 @@ export const Chess = {
         // by default white to move 
         // TODO: change to be dynamic for load from pos
         whiteTurn: true,
+        // "" "W" "B" depending on who is in check
+        inCheck: "",
         noProgressCounter: 0,
     }),
 
@@ -323,6 +325,8 @@ export const Chess = {
                 G.history.unshift(board); // prepend new board to history
                 G.whiteTurn = piece.name.charAt(0) !== "W";
                 G.move_history.unshift([`${piece.name}@${from}`, `${piece.name}@${to}`]);
+                const color = G.whiteTurn ? "W" : "B";
+                G.inCheck = colorInCheck(board, color) ? color : "";
             } else
                 return INVALID_MOVE;
         },
