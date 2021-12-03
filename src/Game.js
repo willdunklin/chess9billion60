@@ -117,27 +117,32 @@ function generateArmy(lowerBound, upperBound) {
 
     let evens = [];
     let odds = [];
-    let cbCount = 0;
+    let cb = [];
     for (let i = 7; i >= 0; i--) {
         if (PieceTypes[army[i]].colorbound) {
-            cbCount += 1;
-            if (cbCount % 2 === 0) {
-                evens.push(army[i]);
-                army.splice(i, 1);
-            } else {
-                odds.push(army[i]);
-                army.splice(i, 1);
-            }
+            cb.push(army[i])
+            army.splice(i,1)
         }
+    }
+    //sort cb pieces based on strength, to prevent strange drawish endgames where each side has complete control of a color
+    cb.sort((a, b) => (PieceTypes[a].strength > PieceTypes[b].strength) ? 1 :-1 )
+    while (cb.length > 0) {
+        if (cb.length % 2 === 0)
+            evens.push(cb.pop())
+        else 
+            odds.push(cb.pop())
     }
     while (evens.length < 4)
         evens.push(army.pop());
     while (odds.length < 4)
         odds.push(army.pop());
+       
+    //undo the sort
     shuffleArray(evens);
     shuffleArray(odds);
+
     army = [];
-    //evens and odds are bad names because of this - it randomizes which is which
+    //evens and odds are bad names because of this - it randomizes which is which, though our rules are mirror symmetric atm.
     let randomBit = Math.floor(Math.random() * 2)
     for (let j = 0; j < 8; j++) {
         if (j % 2 === randomBit)
