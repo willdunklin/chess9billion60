@@ -65,11 +65,13 @@ export class ChessBoard extends React.Component {
         if (this.props.G.history.length === prev_history)
             return false;
 
-        console.log(this.props.G.inCheck);
-        console.log("log", this.props.log);
-        // if(this.props.G.inCheck)
-        //     sound.check.play();
-        // else
+        // calculate the number of pieces on previous and current boards 
+        const prev_num_pieces = this.props.G.history[1].filter(p => p !== null).length;
+        const num_pieces = this.props.G.history[0].filter(p => p !== null).length;
+
+        if(prev_num_pieces !== num_pieces)
+            sound.capture.play();
+        else
             sound.move.play();
     }
 
