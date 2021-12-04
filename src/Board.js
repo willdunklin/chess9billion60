@@ -1,6 +1,8 @@
 import React from "react";
 const Chess = require("react-chess");
 const sound = require("./sound.js");
+const PieceTypes = require("./pieces.js");
+const { validMove } = require("./Game.js");
 
 export class ChessBoard extends React.Component {
     constructor(props) {
@@ -35,6 +37,7 @@ export class ChessBoard extends React.Component {
             pieces: this.piecify(this.props.G.history[0]),
             update: Math.random(),
             highlights: this.props.G.move_history[0],
+            dots: [],
         });
     }
 
@@ -85,7 +88,20 @@ export class ChessBoard extends React.Component {
             this.setState({dots: []});
             return;
         }
-        this.setState({dots: [piece.position]});
+
+        const from_square = piece.position;
+        const from_x = from_square.toLowerCase().charCodeAt(0) - 97;
+        const from_y = Number(from_square[1]) - 1;
+
+        // get available moves, filter through validity check
+        let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, this.props.G.history, piece.name.charAt(0))
+            .map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+            .filter(to_square => // filter move validity (stolen from colorHasMateInOnes)
+                validMove(this.props.G.history, piece.name, from_square, to_square) !== null)
+            .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
+
+        // set the new dot locations but remove duplicates
+        this.setState({dots: [...new Set(dot_locations)]});
     }
 
     render() {
@@ -155,7 +171,6 @@ export class ChessBoard extends React.Component {
                         onClickPiece={this.onClickPiece}
                         isWhite={this.props.playerID === "0"}
                     />
-                    
                 </div>
                 {winner}
             </div>

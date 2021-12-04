@@ -181,7 +181,7 @@ function initialBoard() {
 }
 
 // return null if move is invalid, otherwise return updated board array
-function validMove(history, name, from, to, G, promotion) {
+export function validMove(history, name, from, to, G, promotion) {
     let progressMade = false;
     let new_board = [...history[0]];
     // coordinates of "from" position
