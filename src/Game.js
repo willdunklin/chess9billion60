@@ -137,7 +137,7 @@ function generateArmy(lowerBound, upperBound) {
     while (odds.length < 4)
         odds.push(army.pop());
        
-    //undo the sort
+    //mix in the colorbound pieces with the normal ones
     shuffleArray(evens);
     shuffleArray(odds);
 
