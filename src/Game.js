@@ -2,7 +2,6 @@ import {
     INVALID_MOVE
 } from "boardgame.io/core";
 const PieceTypes = require("./pieces.js");
-var promotablePieces = ["Q","N","R","B"]
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {
@@ -43,6 +42,7 @@ function colorHasMateInOnes(history, color) {
             let moves = PieceTypes[piece.substring(1)].getAvailableMoves(from[0], from[1], history, piece.charAt(0));
             for (const [x, y] of moves) {
 
+                // 
                 let result = validMove(history, piece, `${String.fromCharCode(97 + from[0])}${1+from[1]}`, `${String.fromCharCode(97 + (x))}${1+y}`);
 
                 if (result !== null) {
@@ -156,7 +156,7 @@ function generateArmy(lowerBound, upperBound) {
 
 function initialBoard() {
     let board;
-    let random_army = []
+    let random_army = [];
     do {
         board = Array(64).fill(null);
         for (let i = 0; i < 8; i++) {
@@ -169,12 +169,14 @@ function initialBoard() {
             board[i] = "B" + random_army[i];
             board[56 + i] = "W" + random_army[i];
         }
+
+        // promotablePieces = random_army      
+        //         .filter(p => !["K", "P"].includes(p)) // filter pawns and kings
+        //         .sort((a, b) => (PieceTypes[a].strength < PieceTypes[b].strength) ? 1 : -1)
         //no instant loss positions
     } while (colorHasMateInOnes([board], "W"))
+
     //remove duplicates and sort promotion options by strength
-    promotablePieces = [...new Set(random_army)]
-    promotablePieces.splice(promotablePieces.indexOf("K"),1)
-    promotablePieces.sort((a, b) => (PieceTypes[a].strength < PieceTypes[b].strength) ? 1 :-1 )
     return board;
 }
 
@@ -207,9 +209,17 @@ function validMove(history, name, from, to, G, promotion) {
                     //are we promoting a legal piece type, and is it our color.
                     console.log(promotion)
                     if (promotion !== undefined && promotion !== null) {
-                        if (promotablePieces.indexOf(promotion.substring(1)) > -1 && promotion.charAt(0) === name.charAt(0)) {
+                        console.log(
+                            promotion,
+                            promotion.substring(1),
+                            G.promotablePieces,
+                            G.promotablePieces.indexOf(promotion.substring(1)) > -1,
+                            promotion.charAt(0) === name.charAt(0)
+                        )
+                        if (G.promotablePieces.indexOf(promotion.substring(1)) > -1 && promotion.charAt(0) === name.charAt(0)) {
                             //we're moving this piece now.
                             name = promotion
+                            console.log("did this work>???")
                         } else {
                             return null
                         }
@@ -320,17 +330,26 @@ function insufficentMaterialDraw(board) {
 export const Chess = {
     name: "Chess",
 
-    setup: () => ({
-        history: [initialBoard()],
-        promotablePieces: promotablePieces,
-        move_history: [],
-        // by default white to move 
-        // TODO: change to be dynamic for load from pos
-        whiteTurn: true,
-        // "" "W" "B" depending on who is in check
-        inCheck: "",
-        noProgressCounter: 0,
-    }),
+    setup: () => {
+        let initialPos = initialBoard();
+        return ({
+            history: [initialPos],
+            promotablePieces: [...new Set(
+                initialPos.filter(p => p !== null)
+                .map(p => p.substring(1)) // remove color
+                .filter(p => !["K", "P"].includes(p)) // filter pawns and kings
+                .sort((a, b) => (PieceTypes[a].strength < PieceTypes[b].strength) ? 1 : -1)
+            )],
+
+            move_history: [],
+            // by default white to move 
+            // TODO: change to be dynamic for load from pos
+            whiteTurn: true,
+            // "" "W" "B" depending on who is in check
+            inCheck: "",
+            noProgressCounter: 0,
+        })
+    },
 
     turn: {
         minMoves: 1,
@@ -342,6 +361,7 @@ export const Chess = {
         movePiece: (G, ctx, piece, from, to, promotion) => {
             // simulate move
             let board = validMove(G.history, piece.name, from, to, G, promotion);
+            console.log(board, piece, from, to, promotion);
 
             if (board !== null) {
                 G.history.unshift(board); // prepend new board to history
