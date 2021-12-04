@@ -19,7 +19,7 @@ const s = {
 }
 
 const client_style = {
-    "padding": "2em",
+    "padding": "4em",
 }
 
 const App = () => (

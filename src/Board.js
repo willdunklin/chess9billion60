@@ -147,6 +147,7 @@ export class ChessBoard extends React.Component {
                         dots={dots}
                         update={update}
                         check={this.props.G.inCheck}
+                        promotablePieces = {this.props.G.promotablePieces}
                         whiteTurn={this.props.G.whiteTurn}
                         onMovePiece={this.onMovePiece}
                         onDragStart={this.onDragStart}

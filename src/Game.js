@@ -2,6 +2,7 @@ import {
     INVALID_MOVE
 } from "boardgame.io/core";
 const PieceTypes = require("./pieces.js");
+var PromotablePieces = ["Q","N","R","B"]
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {
@@ -161,6 +162,7 @@ function initialBoard() {
     //board[62] = "BW"
     //board[1] = "WA"
     //board[2] = "WW"
+    let random_army = []
     do {
         board = Array(64).fill(null);
         for (let i = 0; i < 8; i++) {
@@ -168,13 +170,14 @@ function initialBoard() {
             board[48 + i] = 'WP';
         }
 
-        let random_army = generateArmy(3000, 4000)
+        random_army = generateArmy(3000, 4000)
         for (let i = 0; i < 8; i++) {
             board[i] = "B" + random_army[i];
             board[56 + i] = "W" + random_army[i];
         }
         //no instant loss positions
     } while (colorHasMateInOnes([board], "W"))
+    PromotablePieces = Array.from(new Set(random_army.slice(1,random_army.indexOf("K"))))//just eliminating duplicates
     return board;
 }
 
@@ -306,6 +309,7 @@ export const Chess = {
 
     setup: () => ({
         history: [initialBoard()],
+        promotablePieces: PromotablePieces,
         move_history: [],
         // by default white to move 
         // TODO: change to be dynamic for load from pos
