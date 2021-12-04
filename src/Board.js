@@ -56,11 +56,12 @@ export class ChessBoard extends React.Component {
         return true;
     }
 
-    onMovePiece(piece, fromSquare, toSquare) {
+    onMovePiece(piece, fromSquare, toSquare, promotion) {
         // handle piece capture, snap to grid
-
+        //promotion = this.props.G.history[0][0]
+        //console.log(promotion)
         const prev_history = this.props.G.history.length;
-        this.props.moves.movePiece(piece, fromSquare, toSquare);
+        this.props.moves.movePiece(piece, fromSquare, toSquare, promotion);
 
         // sync with client
         this.updateBoard();

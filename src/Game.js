@@ -2,7 +2,7 @@ import {
     INVALID_MOVE
 } from "boardgame.io/core";
 const PieceTypes = require("./pieces.js");
-var PromotablePieces = ["Q","N","R","B"]
+var promotablePieces = ["Q","N","R","B"]
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {
@@ -155,13 +155,7 @@ function generateArmy(lowerBound, upperBound) {
 }
 
 function initialBoard() {
-    // index 0: a8, index 63: h1
     let board;
-    //board[0] = "WK"
-    //board[63] = "BK"
-    //board[62] = "BW"
-    //board[1] = "WA"
-    //board[2] = "WW"
     let random_army = []
     do {
         board = Array(64).fill(null);
@@ -177,12 +171,15 @@ function initialBoard() {
         }
         //no instant loss positions
     } while (colorHasMateInOnes([board], "W"))
-    PromotablePieces = Array.from(new Set(random_army.slice(1,random_army.indexOf("K"))))//just eliminating duplicates
+    //remove duplicates and sort promotion options by strength
+    promotablePieces = [...new Set(random_army)]
+    promotablePieces.splice(promotablePieces.indexOf("K"),1)
+    promotablePieces.sort((a, b) => (PieceTypes[a].strength < PieceTypes[b].strength) ? 1 :-1 )
     return board;
 }
 
 // return null if move is invalid, otherwise return updated board array
-function validMove(history, name, from, to, G) {
+function validMove(history, name, from, to, G, promotion) {
     let progressMade = false;
     let new_board = [...history[0]];
     // coordinates of "from" position
@@ -197,7 +194,7 @@ function validMove(history, name, from, to, G) {
 
     for (const [x, y] of moves) {
         if ((x === to_x) && (y === to_y)) {
-            //Pawn moves are special for 50 move rule and en passant
+            //Pawn moves are special for 50 move rule, en passant, promotion
             if (name.substring(1) === "P") {
                 //en passant handling
                 //are we moving to an empty square in a different file
@@ -205,10 +202,22 @@ function validMove(history, name, from, to, G) {
                     //take the en passanted piece
                     new_board[(to_x + (7 - from_y) * 8)] = null;
                 }
-
+                //a pawn just moved to the last row
+                else if (to_y === 0 || to_y === 7) {
+                    //are we promoting a legal piece type, and is it our color.
+                    if (promotion !== null)
+                        if (promotablePieces.indexOf(promotion.substring(1)) > -1 && promotion.charAt(0) === name.charAt(0)) {
+                            //we're moving this piece now.
+                            name = promotion
+                        } else {
+                            return null
+                        }
+                }
+                
                 //Set 50 move counter to 0 since we made a pawn move
                 progressMade = true;
             }
+
             //will we capture something on the square we are moving to
             if (new_board[(to_x + (7 - to_y) * 8)] !== null)
                 progressMade = true;
@@ -309,7 +318,7 @@ export const Chess = {
 
     setup: () => ({
         history: [initialBoard()],
-        promotablePieces: PromotablePieces,
+        promotablePieces: promotablePieces,
         move_history: [],
         // by default white to move 
         // TODO: change to be dynamic for load from pos
@@ -326,9 +335,9 @@ export const Chess = {
 
     moves: {
         // moves a piece and produces new board, if move is illegal: returns null
-        movePiece: (G, ctx, piece, from, to) => {
+        movePiece: (G, ctx, piece, from, to, promotion) => {
             // simulate move
-            let board = validMove(G.history, piece.name, from, to, G);
+            let board = validMove(G.history, piece.name, from, to, G, promotion);
 
             if (board !== null) {
                 G.history.unshift(board); // prepend new board to history
