@@ -205,13 +205,17 @@ function validMove(history, name, from, to, G, promotion) {
                 //a pawn just moved to the last row
                 else if (to_y === 0 || to_y === 7) {
                     //are we promoting a legal piece type, and is it our color.
-                    if (promotion !== null)
+                    console.log(promotion)
+                    if (promotion !== undefined && promotion !== null) {
                         if (promotablePieces.indexOf(promotion.substring(1)) > -1 && promotion.charAt(0) === name.charAt(0)) {
                             //we're moving this piece now.
                             name = promotion
                         } else {
                             return null
                         }
+                    } else {
+                        return null
+                    }
                 }
                 
                 //Set 50 move counter to 0 since we made a pawn move
