@@ -13,15 +13,23 @@ const ChessClient = Client({
 const s = {
     "display": "flex",
     "flex-direction": "row",
-    "justify-content": "start",
+    "justify-content": "center",
     "align-items": "center",
     "height": "400px",
 }
 
+const client_style = {
+    "padding": "2em",
+}
+
 const App = () => (
     <div style={s}>
-        <ChessClient playerID="0"/>
-        <ChessClient playerID="1"/>
+        <div style={client_style}>
+            <ChessClient playerID="0"/>
+        </div>
+        <div style={client_style}>
+            <ChessClient playerID="1"/>
+        </div>
     </div>
 );
 

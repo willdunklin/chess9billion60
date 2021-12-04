@@ -9,11 +9,14 @@ export class ChessBoard extends React.Component {
         this.state = {
             pieces: this.piecify(this.props.G.history[0]),
             update: 0,
-            highlights: []
+            highlights: [],
+            dots: [],
         };
 
         this.onMovePiece = this.onMovePiece.bind(this);
         this.onDragStart = this.onDragStart.bind(this);
+        this.onClickPiece = this.onClickPiece.bind(this);
+
         this.updateBoard = this.updateBoard.bind(this);
         this.piecify = this.piecify.bind(this);
 
@@ -75,14 +78,46 @@ export class ChessBoard extends React.Component {
             sound.move.play();
     }
 
+    onClickPiece(piece, clear) {
+        if(clear) {
+            // clear the dots on the screen
+            this.setState({dots: []});
+            return;
+        }
+        this.setState({dots: [piece.position]});
+    }
+
     render() {
-        const s = {
-            width: '400px',
-            height: '100%',
-            padding: '2em',
+        const container = {
+            "position": "relative",
+            "width": "400px",
+            "height": "400px",
         };
 
-        const {pieces, update, highlights} = this.state;
+        const board_style = {
+            "width": "100%",
+            "height": "100%",
+            "position": "absolute",
+            "top": "0",
+            "left": "0",
+        };
+
+        const result_style = {
+            "width": "100%",
+            "height": "100%",
+            "position": "absolute",
+            "top": "0",
+            "left": "0",
+
+            "display": "flex",
+            "justify-content": "center",
+            "align-items": "center",
+            "z-index": "1",
+            "background-color": "#eee9",
+            "user-select": "none",
+        }
+
+        const {pieces, update, highlights, dots} = this.state;
 
         // after any turn, update the board
         if (this.current_length !== this.props.G.history.length) {
@@ -92,27 +127,35 @@ export class ChessBoard extends React.Component {
 
         let winner = "";
         if (this.props.ctx.gameover) {
+            // TODO: this sound still plays on refresh
+            sound.end.play();
+
             winner =
                 this.props.ctx.gameover.winner !== undefined ? (
-                    <div id="winner">Winner: {this.props.ctx.gameover.winner}</div>
+                    <div id="winner" style={result_style}>Winner: {this.props.ctx.gameover.winner}</div>
                 ) : (
-                    <div id="winner">Draw</div>
+                    <div id="winner" style={result_style}>Draw</div>
                 );
         }
 
         return (
-            <div className="board" style={s}>
-                <Chess
-                    pieces={pieces}
-                    highlights={highlights}
-                    update={update}
-                    check={this.props.G.inCheck}
-                    whiteTurn={this.props.G.whiteTurn}
-                    onMovePiece={this.onMovePiece}
-                    onDragStart={this.onDragStart}
-                    isWhite={this.props.playerID === "0"}
-                />
-                {winner} 
+            <div style={container}>
+                <div className="board" style={board_style}>
+                    <Chess
+                        pieces={pieces}
+                        highlights={highlights}
+                        dots={dots}
+                        update={update}
+                        check={this.props.G.inCheck}
+                        whiteTurn={this.props.G.whiteTurn}
+                        onMovePiece={this.onMovePiece}
+                        onDragStart={this.onDragStart}
+                        onClickPiece={this.onClickPiece}
+                        isWhite={this.props.playerID === "0"}
+                    />
+                    
+                </div>
+                {winner}
             </div>
         )
     }
