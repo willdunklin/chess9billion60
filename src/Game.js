@@ -208,13 +208,6 @@ export function validMove(history, name, from, to, G, promotion) {
                 else if (to_y === 0 || to_y === 7) {
                     //are we promoting a legal piece type, and is it our color.
                     if (promotion !== undefined && promotion !== null) {
-                        // console.log(
-                        //     promotion,
-                        //     promotion.substring(1),
-                        //     G.promotablePieces,
-                        //     G.promotablePieces.indexOf(promotion.substring(1)) > -1,
-                        //     promotion.charAt(0) === name.charAt(0)
-                        // )
                         if (G.promotablePieces.indexOf(promotion.substring(1)) > -1 && promotion.charAt(0) === name.charAt(0)) {
                             //we're moving this piece now.
                             name = promotion
@@ -359,7 +352,6 @@ export const Chess = {
         movePiece: (G, ctx, piece, from, to, promotion) => {
             // simulate move
             let board = validMove(G.history, piece.name, from, to, G, promotion);
-            // console.log(board, piece, from, to, promotion);
 
             if (board !== null) {
                 G.history.unshift(board); // prepend new board to history

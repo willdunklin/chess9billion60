@@ -39,6 +39,17 @@ export class ChessBoard extends React.Component {
             highlights: this.props.G.move_history[0],
             dots: [],
         });
+
+        if(this.props.G.history.length < 2)
+            return;
+        // calculate the number of pieces on previous and current boards
+        const prev_num_pieces = this.props.G.history[1].filter(p => p !== null).length;
+        const num_pieces = this.props.G.history[0].filter(p => p !== null).length;
+
+        if(prev_num_pieces !== num_pieces)
+            sound.capture.play();
+        else
+            sound.move.play();
     }
 
     // if returns false, will cancel the drag animation
@@ -61,25 +72,7 @@ export class ChessBoard extends React.Component {
 
     onMovePiece(piece, fromSquare, toSquare, promotion) {
         // handle piece capture, snap to grid
-        //promotion = this.props.G.history[0][0]
-        //console.log(promotion)
-        const prev_history = this.props.G.history.length;
         this.props.moves.movePiece(piece, fromSquare, toSquare, promotion);
-
-        // sync with client
-        this.updateBoard();
-
-        if (this.props.G.history.length === prev_history)
-            return false;
-
-        // calculate the number of pieces on previous and current boards 
-        const prev_num_pieces = this.props.G.history[1].filter(p => p !== null).length;
-        const num_pieces = this.props.G.history[0].filter(p => p !== null).length;
-
-        if(prev_num_pieces !== num_pieces)
-            sound.capture.play();
-        else
-            sound.move.play();
     }
 
     onClickPiece(piece, clear) {
