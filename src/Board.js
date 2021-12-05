@@ -32,7 +32,7 @@ export class ChessBoard extends React.Component {
         }).filter(i => i !== null);
     }
 
-    updateBoard() {
+    updateBoard(play_sound) {
         this.setState({
             pieces: this.piecify(this.props.G.history[0]),
             update: Math.random(),
@@ -40,7 +40,7 @@ export class ChessBoard extends React.Component {
             dots: [],
         });
 
-        if(this.props.G.history.length < 2)
+        if(this.props.G.history.length < 2 || !play_sound)
             return;
         // calculate the number of pieces on previous and current boards
         const prev_num_pieces = this.props.G.history[1].filter(p => p !== null).length;
@@ -73,6 +73,9 @@ export class ChessBoard extends React.Component {
     onMovePiece(piece, fromSquare, toSquare, promotion) {
         // handle piece capture, snap to grid
         this.props.moves.movePiece(piece, fromSquare, toSquare, promotion);
+
+        // update board if illegal move
+        this.updateBoard(false);
     }
 
     onClickPiece(piece, clear) {
@@ -132,7 +135,7 @@ export class ChessBoard extends React.Component {
         // after any turn, update the board
         if (this.current_length !== this.props.G.history.length) {
             this.current_length = this.props.G.history.length;
-            this.updateBoard();
+            this.updateBoard(true);
         }
 
         let winner = "";
