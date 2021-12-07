@@ -8,6 +8,7 @@ const ChessClient = Client({
     game: Chess,
     board: ChessBoard,
     multiplayer: SocketIO({server: "localhost:8000"})
+    // multiplayer: SocketIO({server: "35.223.213.73:42069"})
 });
 
 const s = {
