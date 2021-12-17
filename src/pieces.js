@@ -92,7 +92,7 @@ module.exports = {
     "R"   : new Piece("R"  , 500, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W)}),
     "B"   : new Piece("B"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F)}, false, true),
     "Q"   : new Piece("Q"  , 975, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K)}),
-    "K"   : new Piece("K"  , 10000, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1)}),
+    "K"   : new Piece("K"  , 100000, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1)}),
     "NR"  : new Piece("NR" , 475 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N)}),
     "M"   : new Piece("M"  , 375 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1)}),
     "F"   : new Piece("F"  , 150 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F,1)}, false, true),
@@ -113,6 +113,9 @@ module.exports = {
     "BC"  : new Piece("BC" , 750 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C,1).concat(rider(x,y,gameboard,color,F))}, false, true),
     "NZ"  : new Piece("NZ" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N,1).concat(rider(x,y,gameboard,color,Z,1))}),
     "M2"  : new Piece("M2" , 500 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,2)}),
+    //made up strength values
+    "BM"  : new Piece("BM" , 550 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1).concat(rider(x,y,gameboard,color,F))}),
+    "RM"  : new Piece("RM" , 700 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1).concat(rider(x,y,gameboard,color,W))}),
     //TODO, fix en passant
     "P"   : new Piece("P", 100, (x, y, history, color) => {
         let gameboard = history[0];
