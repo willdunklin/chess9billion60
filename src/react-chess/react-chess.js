@@ -350,13 +350,12 @@ export class Chess extends React.Component {
       // following piecePositionHoc as example
       const scale = 12.5; // do not change
       let size = 5; // scale of dot
-      let borderRadius = "100%"
+      let borderRadius = "100%";
       
       let pieceOnSquare = this.props.pieces.filter(p => p.split("@")[1] === s.split("@")[1]).length > 0;
 
       if (pieceOnSquare) {
-        size = 12.5
-        borderRadius = "40%"
+        size = 12;
       }
 
       const dot_style = {
@@ -371,7 +370,13 @@ export class Chess extends React.Component {
         borderRadius: `${borderRadius}`,
         //zIndex: 500,
         pointerEvents : "none",
+        mask: ''
         };
+      
+      if (pieceOnSquare) {
+        dot_style['background'] = `radial-gradient(ellipse at center, #0000 58%, ${this.props.dotColor} 40%)`;
+      }
+      console.log(dot_style);
       return (
         <div 
           className="dot"
