@@ -1,17 +1,5 @@
-# To build you need to install the react-chess9b60 node package
-```
-npm install --save https://github.com/willdunklin/react-chess9b60/ --legacy-peer-deps
-```
-More info in [said repo](https://github.com/willdunklin/react-chess9b60/)
-
-# To update react-chess to newer build
-```
-npm update react-chess --legacy-peer-deps
-```
-
-
 ## Technologies
-react-chess, create-react-app, boardgame.io
+create-react-app, boardgame.io
 
 ## Available Scripts
 
