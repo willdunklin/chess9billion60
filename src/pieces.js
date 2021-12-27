@@ -1,11 +1,11 @@
-const W = leaper(1, 0);
-const F = leaper(1, 1);
-const N = leaper(2, 1);
-const C = leaper(3, 1);
-const Z = leaper(3, 2);
-//const J = leaper(4, 1);
-//const L = leaper(4, 3);
-const K = W.concat(F);
+const W_leap = leaper(1, 0);
+const F_leap = leaper(1, 1);
+const N_leap = leaper(2, 1);
+const C_leap = leaper(3, 1);
+const Z_leap = leaper(3, 2);
+//const J_leap = leaper(4, 1);
+//const L_leap = leaper(4, 3);
+const K_leap = W_leap.concat(F_leap);
 
 function leaper(dx, dy, x = 0, y = 0) {
     return [
@@ -87,37 +87,38 @@ class Piece {
     }
 }
 
-module.exports = {
-    "N"   : new Piece("N"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N,1)}),
-    "R"   : new Piece("R"  , 500, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W)}),
-    "B"   : new Piece("B"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F)}, false, true),
-    "Q"   : new Piece("Q"  , 975, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K)}),
-    "K"   : new Piece("K"  , 100000, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1)}),
-    "NR"  : new Piece("NR" , 475 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N)}),
-    "M"   : new Piece("M"  , 375 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1)}),
-    "F"   : new Piece("F"  , 150 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F,1)}, false, true),
-    "W"   : new Piece("W"  , 170 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W,1)}),
-    "A"   : new Piece("A"  , 1250, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K).concat(rider(x,y,gameboard,color,N,1))}),
-    "CH"  : new Piece("CH" , 800 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W).concat(rider(x,y,gameboard,color,N,1))}),
-    "AB"  : new Piece("AB" , 770 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F).concat(rider(x,y,gameboard,color,N,1))}),
-    "R4"  : new Piece("R4" , 380 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W,4)}),
-    "R2"  : new Piece("R2" , 270 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W,2)}),
-    "B4"  : new Piece("B4" , 250 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F,4)}, false, true),
-    "B2"  : new Piece("B2" , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F,2)}, false, true),
-    "U"   : new Piece("U"  , 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F).concat(rider(x,y,gameboard,color,N))}),
-    "C"   : new Piece("C"  , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C,1)}, false, true),
-    "Z"   : new Piece("Z"  , 180 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z,1)}),
-    "ZC"  : new Piece("ZC" , 400 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z,1).concat(rider(x,y,gameboard,color,C,1))}),
-    "CN"  : new Piece("CN" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1).concat(rider(x,y,gameboard,color,N,1))}),
-    "CNR" : new Piece("CNR", 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1).concat(rider(x,y,gameboard,color,N))}),
-    "BC"  : new Piece("BC" , 750 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C,1).concat(rider(x,y,gameboard,color,F))}, false, true),
-    "NZ"  : new Piece("NZ" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N,1).concat(rider(x,y,gameboard,color,Z,1))}),
-    "M2"  : new Piece("M2" , 500 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,2)}),
-    //made up strength values
-    "BM"  : new Piece("BM" , 550 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1).concat(rider(x,y,gameboard,color,F))}),
-    "RM"  : new Piece("RM" , 700 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K,1).concat(rider(x,y,gameboard,color,W))}),
-    //TODO, fix en passant
-    "P"   : new Piece("P", 100, (x, y, history, color) => {
+// TODO: export these variables (export const ...)
+// have to fix Game.js's use of PieceTypes then
+const N =   new Piece("N"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1)})
+const R =   new Piece("R"  , 500, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap)})
+const B =   new Piece("B"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap)}, false, true)
+const Q =   new Piece("Q"  , 975, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap)})
+const K =   new Piece("K"  , 100000, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1)})
+const NR =  new Piece("NR" , 475 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap)})
+const M =   new Piece("M"  , 375 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1)})
+const F =   new Piece("F"  , 150 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,1)}, false, true)
+const W =   new Piece("W"  , 170 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,1)})
+const A =   new Piece("A"  , 1250, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap).concat(rider(x,y,gameboard,color,N_leap,1))})
+const CH =  new Piece("CH" , 800 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap).concat(rider(x,y,gameboard,color,N_leap,1))})
+const AB =  new Piece("AB" , 770 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap).concat(rider(x,y,gameboard,color,N_leap,1))})
+const R4 =  new Piece("R4" , 380 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,4)})
+const R2 =  new Piece("R2" , 270 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,2)})
+const B4 =  new Piece("B4" , 250 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,4)}, false, true)
+const B2 =  new Piece("B2" , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,2)}, false, true)
+const U =   new Piece("U"  , 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap).concat(rider(x,y,gameboard,color,N_leap))})
+const C =   new Piece("C"  , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C_leap,1)}, false, true)
+const Z =   new Piece("Z"  , 180 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z_leap,1)})
+const ZC =  new Piece("ZC" , 400 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z_leap,1).concat(rider(x,y,gameboard,color,C_leap,1))})
+const CN =  new Piece("CN" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap,1))})
+const CNR = new Piece("CNR", 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap))})
+const BC =  new Piece("BC" , 750 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C_leap,1).concat(rider(x,y,gameboard,color,F_leap))}, false, true)
+const NZ =  new Piece("NZ" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1).concat(rider(x,y,gameboard,color,Z_leap,1))})
+const M2 =  new Piece("M2" , 500 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,2)})
+//made up strength values
+const BM =   new Piece("BM" , 550 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,F_leap))})
+const RM =   new Piece("RM" , 700 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,W_leap))})
+//TODO, fix en passant
+const P =   new Piece("P", 100, (x, y, history, color) => {
         let gameboard = history[0];
         let direction = 1;
         let home_rank = 1;
@@ -176,4 +177,34 @@ module.exports = {
         }
         return moves;
     }, true)
+
+module.exports = {
+    "N": N,
+    "R": R,
+    "B": B,
+    "Q": Q,
+    "K": K,
+    "NR": NR,
+    "M": M,
+    "F": F,
+    "W": W,
+    "A": A,
+    "CH": CH,
+    "AB": AB,
+    "R4": R4,
+    "R2": R2,
+    "B4": B4,
+    "B2": B2,
+    "U": U,
+    "C": C,
+    "Z": Z,
+    "ZC": ZC,
+    "CN": CN,
+    "CNR": CNR,
+    "BC": BC,
+    "NZ": NZ,
+    "M2": M2,
+    "BM": BM,
+    "RM": RM,
+    "P": P,
 }
