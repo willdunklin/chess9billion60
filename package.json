@@ -13,6 +13,7 @@
         "react-draggable": "^4.4.4",
         "react-resize-aware": "^3.1.1",
         "react-scripts": "^5.0.0",
+        "uifx": "^2.0.7",
         "web-vitals": "^1.1.2"
     },
     "scripts": {
@@ -39,5 +40,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "eslint-plugin-react-hooks": "^4.3.0"
     }
 }

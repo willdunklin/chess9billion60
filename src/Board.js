@@ -1,6 +1,6 @@
 import React from "react";
 const {Chess} = require("./react-chess/react-chess.js");
-const sound = require("./sound.js");
+const {move, capture, end} = require("./sound.js");
 const PieceTypes = require("./pieces.js");
 const { validMove } = require("./Game.js");
 export class ChessBoard extends React.Component {
@@ -45,21 +45,11 @@ export class ChessBoard extends React.Component {
         const prev_num_pieces = this.props.G.history[1].filter(p => p !== null).length;
         const num_pieces = this.props.G.history[0].filter(p => p !== null).length;
         
-        let playPromise = undefined;
-
         if(prev_num_pieces !== num_pieces)
-            playPromise = sound.capture.play();
+            capture(0.9);
         else
-            playPromise = sound.move.play();
-        
-        if(playPromise !== undefined) {
-            playPromise.then(_ => {
-                // console.log('good');
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        }
+            move(1);
+
     }
 
     // if returns false, will cancel the drag animation
@@ -151,15 +141,7 @@ export class ChessBoard extends React.Component {
         let winner = "";
         if (this.props.ctx.gameover) {
             // TODO: this sound still plays on refresh
-            let playPromise = sound.end.play();
-            if(playPromise !== undefined) {
-                playPromise.then(_ => {
-                    // console.log('good');
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-            }
+            end(0.6);
 
             winner =
                 this.props.ctx.gameover.winner !== undefined ? (

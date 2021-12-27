@@ -1,11 +1,14 @@
-module.exports = {
-    move: new Audio(require("./sounds/Move.ogg").default),
-    capture: new Audio(require("./sounds/Capture.ogg").default),
-    select: new Audio(require("./sounds/Select.ogg").default),
+import UIfx from 'uifx';
+const Move = new UIfx(require("./sounds/Move.ogg"));
+const Capture = new UIfx(require("./sounds/Capture.ogg"));
+const GenericNotify = new UIfx(require("./sounds/GenericNotify.ogg"));
 
-    end: new Audio(require("./sounds/GenericNotify.ogg").default),
+export const move = volume => Move.play(volume);
+export const capture = volume => Capture.play(volume);
+export const end = volume => GenericNotify.play(volume);
 
-    // draw: new Audio(require("./sounds/Draw.ogg").default),
-    // victory: new Audio(require("./sounds/Victory.ogg").default),
-    // defeat: new Audio(require("./sounds/Defeat.ogg").default),
-}
+// module.exports = {
+//     move: volume => Move.play(volume), 
+//     capture: volume => Capture.play(volume), 
+//     end: volume => GenericNotify.play(volume), 
+// }
