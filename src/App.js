@@ -12,15 +12,15 @@ const ChessClient = Client({
 });
 
 const s = {
-    "display": "flex",
-    "flex-direction": "row",
-    "justify-content": "center",
-    "align-items": "center",
-    "height": "400px",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "400px",
 }
 
 const client_style = {
-    "padding": "4em",
+    padding: "4em",
 }
 
 const App = () => (

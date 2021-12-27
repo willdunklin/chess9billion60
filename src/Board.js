@@ -1,9 +1,8 @@
 import React from "react";
-const Chess = require("react-chess");
+const {Chess} = require("./react-chess/react-chess.js");
 const sound = require("./sound.js");
 const PieceTypes = require("./pieces.js");
 const { validMove } = require("./Game.js");
-
 export class ChessBoard extends React.Component {
     constructor(props) {
         super(props);
@@ -45,11 +44,22 @@ export class ChessBoard extends React.Component {
         // calculate the number of pieces on previous and current boards
         const prev_num_pieces = this.props.G.history[1].filter(p => p !== null).length;
         const num_pieces = this.props.G.history[0].filter(p => p !== null).length;
+        
+        let playPromise = undefined;
 
         if(prev_num_pieces !== num_pieces)
-            sound.capture.play();
+            playPromise = sound.capture.play();
         else
-            sound.move.play();
+            playPromise = sound.move.play();
+        
+        if(playPromise !== undefined) {
+            playPromise.then(_ => {
+                // console.log('good');
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
     }
 
     // if returns false, will cancel the drag animation
@@ -116,18 +126,18 @@ export class ChessBoard extends React.Component {
         };
 
         const result_style = {
-            "width": "100%",
-            "height": "100%",
-            "position": "absolute",
-            "top": "0",
-            "left": "0",
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            top: "0",
+            left: "0",
 
-            "display": "flex",
-            "justify-content": "center",
-            "align-items": "center",
-            "z-index": "1",
-            "background-color": "#eee9",
-            "user-select": "none",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: "1",
+            backgroundColor: "#eee9",
+            userSelect: "none",
         }
 
         const {pieces, update, highlights, dots} = this.state;
@@ -141,7 +151,15 @@ export class ChessBoard extends React.Component {
         let winner = "";
         if (this.props.ctx.gameover) {
             // TODO: this sound still plays on refresh
-            sound.end.play();
+            let playPromise = sound.end.play();
+            if(playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // console.log('good');
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            }
 
             winner =
                 this.props.ctx.gameover.winner !== undefined ? (

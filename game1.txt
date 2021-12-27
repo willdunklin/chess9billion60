@@ -1,0 +1,8880 @@
+
+Controls
+
+reset (shortcut: 1)
+save (shortcut: 2)
+restore (shortcut: 3)
+
+    hide (shortcut: .)
+
+Players
+Moves
+
+    movePiece ( )
+
+Events
+
+    endTurn ( )
+
+G
+
+Object {
+
+history: Array(116)[
+
+0: Array(64)[
+
+    0: "BK"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: null
+    9: null
+    10: null
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: "WK"
+    18: null
+    19: "WQ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+1: Array(64)[
+
+    0: "BK"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: null
+    9: null
+    10: null
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: "WK"
+    18: null
+    19: "WQ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+2: Array(64)[
+
+    0: null
+    1: "BK"
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: null
+    9: null
+    10: null
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: "WK"
+    18: null
+    19: "WQ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+3: Array(64)[
+
+    0: null
+    1: "BK"
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: null
+    9: null
+    10: null
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: "WK"
+    18: null
+    19: "BP"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WQ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+4: Array(64)[
+
+    0: null
+    1: null
+    2: "BK"
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: null
+    9: null
+    10: null
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: "WK"
+    18: null
+    19: "BP"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WQ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+5: Array(64)[
+
+    0: null
+    1: null
+    2: "BK"
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: null
+    9: null
+    10: null
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: "BP"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: "WK"
+    25: null
+    26: null
+    27: "WQ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+6: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: null
+    9: null
+    10: "BK"
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: "BP"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: "WK"
+    25: null
+    26: null
+    27: "WQ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+7: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: null
+    9: null
+    10: "BK"
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: "BP"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: "BP"
+    25: null
+    26: null
+    27: "WQ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WK"
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+8: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BK"
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: "BP"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WQ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WK"
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+9: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BK"
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: "BP"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WQ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+10: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: "BK"
+    19: "BP"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WQ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+11: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: "BK"
+    19: "BP"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: "WQ"
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+12: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BK"
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: "BP"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: "WQ"
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+13: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BK"
+    11: null
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: "BP"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: "WQ"
+    29: null
+    30: null
+    31: "BNZ"
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+14: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BK"
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: "WQ"
+    29: null
+    30: null
+    31: "BNZ"
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+15: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BK"
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "WQ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: "BNZ"
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+16: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BK"
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "WQ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: "WP"
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: "BNZ"
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+17: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: "BK"
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: "WP"
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: "BNZ"
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+18: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: "BK"
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "BNZ"
+    28: null
+    29: null
+    30: null
+    31: "WP"
+    32: null
+    33: null
+    34: "WP"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: null
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+19: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: "BK"
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "BNZ"
+    28: null
+    29: null
+    30: null
+    31: "WP"
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+20: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: "BK"
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: null
+    20: "BR2"
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "BNZ"
+    28: null
+    29: null
+    30: null
+    31: "WP"
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WK"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+21: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: "BK"
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: null
+    20: "BR2"
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "BNZ"
+    28: null
+    29: null
+    30: null
+    31: "WP"
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+22: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: "BK"
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: null
+    20: "BR2"
+    21: "BNZ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: "WP"
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+23: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: "BK"
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: null
+    20: "BR2"
+    21: "BNZ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: "WP"
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+24: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: null
+    16: null
+    17: null
+    18: null
+    19: null
+    20: "BR2"
+    21: "BNZ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: "WP"
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+25: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: "WQ"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: "BR2"
+    21: "BNZ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: "WP"
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+26: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: "BNZ"
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: "WQ"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: "BR2"
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: "WP"
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: null
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+27: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: "BNZ"
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: "WQ"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: "BR2"
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+28: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: "BNZ"
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: "WQ"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "BR2"
+    37: null
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+29: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: "BNZ"
+    5: null
+    6: "WQ"
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "BR2"
+    37: null
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+30: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: "WQ"
+    7: null
+    8: "BP"
+    9: null
+    10: "BNZ"
+    11: "BP"
+    12: null
+    13: null
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "BR2"
+    37: null
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+31: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BNZ"
+    11: "BP"
+    12: null
+    13: "WQ"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "BR2"
+    37: null
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+32: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BNZ"
+    11: "BP"
+    12: null
+    13: "WQ"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: "BR2"
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+33: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BNZ"
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WQ"
+    35: null
+    36: "WP"
+    37: "BR2"
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+34: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BNZ"
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WQ"
+    35: null
+    36: "WP"
+    37: null
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+35: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: "BNZ"
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: "WQ"
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+36: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: "BNZ"
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: null
+    39: null
+    40: "WK"
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: null
+    52: "WQ"
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+37: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: "BNZ"
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: null
+    52: "WQ"
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+38: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "BNZ"
+    52: "WQ"
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+39: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WQ"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "BNZ"
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+40: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: "BNZ"
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WQ"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "WP"
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+41: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: "BNZ"
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "BN"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "WP"
+    52: "WQ"
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+42: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: "BN"
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: "BNZ"
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "WP"
+    52: "WQ"
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+43: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: "BN"
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: "BNZ"
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "WP"
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: "WQ"
+    62: null
+    63: null
+    length: 64
+
+]
+44: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BNZ"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: "BN"
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "WP"
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: "WQ"
+    62: null
+    63: null
+    length: 64
+
+]
+45: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BNZ"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: "BN"
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: "WQ"
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "WP"
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+46: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BNZ"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WP"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: "WQ"
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "WP"
+    52: null
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+47: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BNZ"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: "WQ"
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+48: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: "BNZ"
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: "WQ"
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+49: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: "BNZ"
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WQ"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+50: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: "BNZ"
+    36: "WQ"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WK"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+51: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: "BNZ"
+    36: "WQ"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: null
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+52: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: "WQ"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "BNZ"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+53: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WQ"
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "BNZ"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+54: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: "WQ"
+    35: "BNZ"
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+55: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: "BNZ"
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WQ"
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+56: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: "BNZ"
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WQ"
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+57: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: "BNZ"
+    21: "BR2"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WQ"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: null
+    63: null
+    length: 64
+
+]
+58: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: "BNZ"
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: "WQ"
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: null
+    63: null
+    length: 64
+
+]
+59: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: "BNZ"
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: "WQ"
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: null
+    63: null
+    length: 64
+
+]
+60: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "WP"
+    19: null
+    20: "BNZ"
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "BN"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: "WQ"
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: null
+    63: null
+    length: 64
+
+]
+61: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: "BNZ"
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "WP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "BN"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: "WQ"
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: null
+    63: null
+    length: 64
+
+]
+62: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: "BNZ"
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "WP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: "WQ"
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: null
+    63: null
+    length: 64
+
+]
+63: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: null
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: "BNZ"
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "WP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: "WQ"
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+64: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: "BNZ"
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "WP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: "WQ"
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+65: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: "BNZ"
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: "WQ"
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+66: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "BNZ"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: "WQ"
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+67: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "BNZ"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WQ"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: null
+    length: 64
+
+]
+68: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: null
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WQ"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: "BNZ"
+    length: 64
+
+]
+69: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: "BNZ"
+    length: 64
+
+]
+70: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "BNZ"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: "WR"
+    length: 64
+
+]
+71: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "BNZ"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: "WK"
+    60: "WR2"
+    61: null
+    62: null
+    63: "WR"
+    length: 64
+
+]
+72: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: "BNZ"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: null
+    59: "WK"
+    60: "WR2"
+    61: null
+    62: null
+    63: "WR"
+    length: 64
+
+]
+73: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: "BNZ"
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: "WR"
+    length: 64
+
+]
+74: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "WQ"
+    8: "BP"
+    9: null
+    10: "BNZ"
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: "WR"
+    length: 64
+
+]
+75: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: null
+    6: null
+    7: "BR"
+    8: "BP"
+    9: null
+    10: "BNZ"
+    11: "BP"
+    12: "BK"
+    13: "BR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: "WR"
+    length: 64
+
+]
+76: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: null
+    10: "BNZ"
+    11: "BP"
+    12: "BK"
+    13: "WR2"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: "WR"
+    length: 64
+
+]
+77: Array(64)[
+
+    0: null
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: null
+    10: "BNZ"
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: "WR2"
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: "WR"
+    length: 64
+
+]
+78: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: "WR2"
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: "WR2"
+    61: null
+    62: null
+    63: "WR"
+    length: 64
+
+]
+79: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "BP"
+    27: null
+    28: null
+    29: "WR2"
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+80: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: "BP"
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: "WR2"
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+81: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: "BP"
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+82: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: "BR2"
+    15: "BP"
+    16: null
+    17: "BP"
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+83: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: "BR2"
+    15: "BP"
+    16: null
+    17: "BP"
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "WR2"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+84: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: "BP"
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "WR2"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+85: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: null
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: "BP"
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+86: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: "WR2"
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: null
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+87: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: null
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: "BR2"
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+88: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WQ"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: null
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+89: Array(64)[
+
+    0: "BNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+90: Array(64)[
+
+    0: "WNZ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: null
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+91: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "WNZ"
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+92: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: null
+    3: null
+    4: "BK"
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "WNZ"
+    11: "BP"
+    12: null
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+93: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: null
+    3: null
+    4: "BK"
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: null
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: "WNZ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+94: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: "WNZ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+95: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: "WNZ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: "BP"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+96: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: "BP"
+    21: "WNZ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: "WN"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+97: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: null
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BK"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: "BP"
+    21: "WNZ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WN"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+98: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: null
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: "BP"
+    21: "WNZ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: "WC"
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WN"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+99: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: null
+    3: "BK"
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: null
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: "BP"
+    21: "WNZ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "WC"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WN"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+100: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: null
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: "BP"
+    21: "WNZ"
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "WC"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WN"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+101: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: null
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: "BP"
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WNZ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "WC"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WN"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+102: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WNZ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "WC"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WN"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: null
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+103: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WNZ"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "BP"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WN"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+104: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WNZ"
+    28: null
+    29: null
+    30: "BP"
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "WP"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WN"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: null
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+105: Array(64)[
+
+    0: "BQ"
+    1: null
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WNZ"
+    28: null
+    29: null
+    30: "BP"
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WN"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "WP"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+106: Array(64)[
+
+    0: null
+    1: "BQ"
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WNZ"
+    28: null
+    29: null
+    30: "BP"
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: "WN"
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "WP"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: null
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+107: Array(64)[
+
+    0: null
+    1: "BQ"
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: "BNZ"
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WNZ"
+    28: null
+    29: null
+    30: "BP"
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "WP"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: "WN"
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+108: Array(64)[
+
+    0: "BNZ"
+    1: "BQ"
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "WNZ"
+    28: null
+    29: null
+    30: "BP"
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "WP"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: "WN"
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+109: Array(64)[
+
+    0: "BNZ"
+    1: "BQ"
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: null
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "BC"
+    28: null
+    29: null
+    30: "BP"
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "WNZ"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "WP"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: "WN"
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+110: Array(64)[
+
+    0: "BNZ"
+    1: "BQ"
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: "BP"
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "BC"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: "WNZ"
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: null
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "WP"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: "WN"
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+111: Array(64)[
+
+    0: "BNZ"
+    1: "BQ"
+    2: "BK"
+    3: null
+    4: null
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: "BP"
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: "BC"
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: "WNZ"
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "WP"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: "WN"
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+112: Array(64)[
+
+    0: "BNZ"
+    1: "BQ"
+    2: "BK"
+    3: null
+    4: "BC"
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: "BP"
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: "WP"
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: "WNZ"
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: null
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "WP"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: "WN"
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+113: Array(64)[
+
+    0: "BNZ"
+    1: "BQ"
+    2: "BK"
+    3: null
+    4: "BC"
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: "BP"
+    15: "BP"
+    16: null
+    17: null
+    18: "BN"
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: "WNZ"
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WP"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "WP"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: "WN"
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+114: Array(64)[
+
+    0: "BNZ"
+    1: "BQ"
+    2: "BK"
+    3: "BN"
+    4: "BC"
+    5: "BR2"
+    6: "BR2"
+    7: "BR"
+    8: "BP"
+    9: "BP"
+    10: "BP"
+    11: "BP"
+    12: "BP"
+    13: "BP"
+    14: "BP"
+    15: "BP"
+    16: null
+    17: null
+    18: null
+    19: null
+    20: null
+    21: null
+    22: null
+    23: null
+    24: null
+    25: null
+    26: null
+    27: null
+    28: null
+    29: null
+    30: null
+    31: null
+    32: null
+    33: null
+    34: null
+    35: null
+    36: null
+    37: null
+    38: null
+    39: null
+    40: null
+    41: null
+    42: null
+    43: "WNZ"
+    44: null
+    45: null
+    46: null
+    47: null
+    48: "WP"
+    49: "WP"
+    50: "WP"
+    51: "WP"
+    52: "WP"
+    53: "WP"
+    54: "WP"
+    55: "WP"
+    56: null
+    57: "WQ"
+    58: "WK"
+    59: "WN"
+    60: "WC"
+    61: "WR2"
+    62: "WR2"
+    63: "WR"
+    length: 64
+
+]
+
+    115: Array(64)[
+        0: "BNZ"
+        1: "BQ"
+        2: "BK"
+        3: "BN"
+        4: "BC"
+        5: "BR2"
+        6: "BR2"
+        7: "BR"
+        8: "BP"
+        9: "BP"
+        10: "BP"
+        11: "BP"
+        12: "BP"
+        13: "BP"
+        14: "BP"
+        15: "BP"
+        16: null
+        17: null
+        18: null
+        19: null
+        20: null
+        21: null
+        22: null
+        23: null
+        24: null
+        25: null
+        26: null
+        27: null
+        28: null
+        29: null
+        30: null
+        31: null
+        32: null
+        33: null
+        34: null
+        35: null
+        36: null
+        37: null
+        38: null
+        39: null
+        40: null
+        41: null
+        42: null
+        43: null
+        44: null
+        45: null
+        46: null
+        47: null
+        48: "WP"
+        49: "WP"
+        50: "WP"
+        51: "WP"
+        52: "WP"
+        53: "WP"
+        54: "WP"
+        55: "WP"
+        56: "WNZ"
+        57: "WQ"
+        58: "WK"
+        59: "WN"
+        60: "WC"
+        61: "WR2"
+        62: "WR2"
+        63: "WR"
+        length: 64
+    ]
+    length: 116
+
+]
+promotablePieces: Array(6)[
+
+    0: "Q"
+    1: "NZ"
+    2: "R"
+    3: "N"
+    4: "R2"
+    5: "C"
+    length: 6
+
+]
+move_history: Array(115)[
+
+0: Array(2)[
+
+    0: "WP@c4"
+    1: "WP@c5"
+    length: 2
+
+]
+1: Array(2)[
+
+    0: "BK@b8"
+    1: "BK@a8"
+    length: 2
+
+]
+2: Array(2)[
+
+    0: "WQ@d5"
+    1: "WQ@d6"
+    length: 2
+
+]
+3: Array(2)[
+
+    0: "BK@c8"
+    1: "BK@b8"
+    length: 2
+
+]
+4: Array(2)[
+
+    0: "WK@a5"
+    1: "WK@b6"
+    length: 2
+
+]
+5: Array(2)[
+
+    0: "BK@c7"
+    1: "BK@c8"
+    length: 2
+
+]
+6: Array(2)[
+
+    0: "WK@b4"
+    1: "WK@a5"
+    length: 2
+
+]
+7: Array(2)[
+
+    0: "BP@a7"
+    1: "BP@a5"
+    length: 2
+
+]
+8: Array(2)[
+
+    0: "WK@b3"
+    1: "WK@b4"
+    length: 2
+
+]
+9: Array(2)[
+
+    0: "BK@c6"
+    1: "BK@c7"
+    length: 2
+
+]
+10: Array(2)[
+
+    0: "WQ@h5"
+    1: "WQ@d5"
+    length: 2
+
+]
+11: Array(2)[
+
+    0: "BK@c7"
+    1: "BK@c6"
+    length: 2
+
+]
+12: Array(2)[
+
+    0: "WQ@e5"
+    1: "WQ@h5"
+    length: 2
+
+]
+13: Array(2)[
+
+    0: "BP@d7"
+    1: "BP@d6"
+    length: 2
+
+]
+14: Array(2)[
+
+    0: "WQ@f6"
+    1: "WQ@e5"
+    length: 2
+
+]
+15: Array(2)[
+
+    0: "BNZ@g3"
+    1: "BNZ@h5"
+    length: 2
+
+]
+16: Array(2)[
+
+    0: "WQ@h8"
+    1: "WQ@f6"
+    length: 2
+
+]
+17: Array(2)[
+
+    0: "BNZ@d5"
+    1: "BNZ@g3"
+    length: 2
+
+]
+18: Array(2)[
+
+    0: "WP@c2"
+    1: "WP@c4"
+    length: 2
+
+]
+19: Array(2)[
+
+    0: "BR2@e6"
+    1: "BR2@f6"
+    length: 2
+
+]
+20: Array(2)[
+
+    0: "WK@a3"
+    1: "WK@b3"
+    length: 2
+
+]
+21: Array(2)[
+
+    0: "BNZ@f6"
+    1: "BNZ@d5"
+    length: 2
+
+]
+22: Array(2)[
+
+    0: "WP@h4"
+    1: "WP@h5"
+    length: 2
+
+]
+23: Array(2)[
+
+    0: "BK@d8"
+    1: "BK@c7"
+    length: 2
+
+]
+24: Array(2)[
+
+    0: "WQ@h7"
+    1: "WQ@h8"
+    length: 2
+
+]
+25: Array(2)[
+
+    0: "BNZ@e8"
+    1: "BNZ@f6"
+    length: 2
+
+]
+26: Array(2)[
+
+    0: "WP@h2"
+    1: "WP@h4"
+    length: 2
+
+]
+27: Array(2)[
+
+    0: "BR2@e4"
+    1: "BR2@e6"
+    length: 2
+
+]
+28: Array(2)[
+
+    0: "WQ@g8"
+    1: "WQ@h7"
+    length: 2
+
+]
+29: Array(2)[
+
+    0: "BNZ@c7"
+    1: "BNZ@e8"
+    length: 2
+
+]
+30: Array(2)[
+
+    0: "WQ@f7"
+    1: "WQ@g8"
+    length: 2
+
+]
+31: Array(2)[
+
+    0: "BR2@f4"
+    1: "BR2@e4"
+    length: 2
+
+]
+32: Array(2)[
+
+    0: "WQ@c4"
+    1: "WQ@f7"
+    length: 2
+
+]
+33: Array(2)[
+
+    0: "BR2@f6"
+    1: "BR2@f4"
+    length: 2
+
+]
+34: Array(2)[
+
+    0: "WQ@e2"
+    1: "WQ@c4"
+    length: 2
+
+]
+35: Array(2)[
+
+    0: "BNZ@a4"
+    1: "BNZ@c7"
+    length: 2
+
+]
+36: Array(2)[
+
+    0: "WK@b2"
+    1: "WK@a3"
+    length: 2
+
+]
+37: Array(2)[
+
+    0: "BNZ@d2"
+    1: "BNZ@a4"
+    length: 2
+
+]
+38: Array(2)[
+
+    0: "WQ@f3"
+    1: "WQ@e2"
+    length: 2
+
+]
+39: Array(2)[
+
+    0: "BNZ@g4"
+    1: "BNZ@d2"
+    length: 2
+
+]
+40: Array(2)[
+
+    0: "WQ@e2"
+    1: "WQ@f3"
+    length: 2
+
+]
+41: Array(2)[
+
+    0: "BN@e5"
+    1: "BN@f3"
+    length: 2
+
+]
+42: Array(2)[
+
+    0: "WQ@f1"
+    1: "WQ@e2"
+    length: 2
+
+]
+43: Array(2)[
+
+    0: "BNZ@e7"
+    1: "BNZ@g4"
+    length: 2
+
+]
+44: Array(2)[
+
+    0: "WQ@d3"
+    1: "WQ@f1"
+    length: 2
+
+]
+45: Array(2)[
+
+    0: "BN@c6"
+    1: "BN@e5"
+    length: 2
+
+]
+46: Array(2)[
+
+    0: "WP@e2"
+    1: "WP@e4"
+    length: 2
+
+]
+47: Array(2)[
+
+    0: "BNZ@b5"
+    1: "BNZ@e7"
+    length: 2
+
+]
+48: Array(2)[
+
+    0: "WQ@e4"
+    1: "WQ@d3"
+    length: 2
+
+]
+49: Array(2)[
+
+    0: "BNZ@d4"
+    1: "BNZ@b5"
+    length: 2
+
+]
+50: Array(2)[
+
+    0: "WK@c1"
+    1: "WK@b2"
+    length: 2
+
+]
+51: Array(2)[
+
+    0: "BNZ@g2"
+    1: "BNZ@d4"
+    length: 2
+
+]
+52: Array(2)[
+
+    0: "WQ@c4"
+    1: "WQ@e4"
+    length: 2
+
+]
+53: Array(2)[
+
+    0: "BNZ@d4"
+    1: "BNZ@g2"
+    length: 2
+
+]
+54: Array(2)[
+
+    0: "WQ@b3"
+    1: "WQ@c4"
+    length: 2
+
+]
+55: Array(2)[
+
+    0: "BNZ@e6"
+    1: "BNZ@d4"
+    length: 2
+
+]
+56: Array(2)[
+
+    0: "WR2@f1"
+    1: "WR2@f3"
+    length: 2
+
+]
+57: Array(2)[
+
+    0: "BR2@g6"
+    1: "BR2@f6"
+    length: 2
+
+]
+58: Array(2)[
+
+    0: "WQ@e3"
+    1: "WQ@b3"
+    length: 2
+
+]
+59: Array(2)[
+
+    0: "BN@b4"
+    1: "BN@c6"
+    length: 2
+
+]
+60: Array(2)[
+
+    0: "WP@c5"
+    1: "WP@c6"
+    length: 2
+
+]
+61: Array(2)[
+
+    0: "BN@c6"
+    1: "BN@b4"
+    length: 2
+
+]
+62: Array(2)[
+
+    0: "WR2@e1"
+    1: "WR2@f1"
+    length: 2
+
+]
+63: Array(2)[
+
+    0: "BK@e7"
+    1: "BK@d8"
+    length: 2
+
+]
+64: Array(2)[
+
+    0: "WP@b4"
+    1: "WP@c5"
+    length: 2
+
+]
+65: Array(2)[
+
+    0: "BNZ@f4"
+    1: "BNZ@e6"
+    length: 2
+
+]
+66: Array(2)[
+
+    0: "WQ@c3"
+    1: "WQ@e3"
+    length: 2
+
+]
+67: Array(2)[
+
+    0: "BNZ@h1"
+    1: "BNZ@f4"
+    length: 2
+
+]
+68: Array(2)[
+
+    0: "WQ@h8"
+    1: "WQ@c3"
+    length: 2
+
+]
+69: Array(2)[
+
+    0: "BNZ@f2"
+    1: "BNZ@h1"
+    length: 2
+
+]
+70: Array(2)[
+
+    0: "WK@d1"
+    1: "WK@c1"
+    length: 2
+
+]
+71: Array(2)[
+
+    0: "BNZ@e4"
+    1: "BNZ@f2"
+    length: 2
+
+]
+72: Array(2)[
+
+    0: "WK@c1"
+    1: "WK@d1"
+    length: 2
+
+]
+73: Array(2)[
+
+    0: "BNZ@c7"
+    1: "BNZ@e4"
+    length: 2
+
+]
+74: Array(2)[
+
+    0: "WQ@b2"
+    1: "WQ@h8"
+    length: 2
+
+]
+75: Array(2)[
+
+    0: "BR2@f8"
+    1: "BR2@f7"
+    length: 2
+
+]
+76: Array(2)[
+
+    0: "WR2@f5"
+    1: "WR2@f7"
+    length: 2
+
+]
+77: Array(2)[
+
+    0: "BNZ@a8"
+    1: "BNZ@c7"
+    length: 2
+
+]
+78: Array(2)[
+
+    0: "WR2@g1"
+    1: "WR2@e1"
+    length: 2
+
+]
+79: Array(2)[
+
+    0: "BP@b6"
+    1: "BP@c5"
+    length: 2
+
+]
+80: Array(2)[
+
+    0: "WR2@f3"
+    1: "WR2@f5"
+    length: 2
+
+]
+81: Array(2)[
+
+    0: "BR2@g7"
+    1: "BR2@g6"
+    length: 2
+
+]
+82: Array(2)[
+
+    0: "WR2@f4"
+    1: "WR2@f3"
+    length: 2
+
+]
+83: Array(2)[
+
+    0: "BR2@g6"
+    1: "BR2@g7"
+    length: 2
+
+]
+84: Array(2)[
+
+    0: "WR2@f3"
+    1: "WR2@f4"
+    length: 2
+
+]
+85: Array(2)[
+
+    0: "BP@b7"
+    1: "BP@b6"
+    length: 2
+
+]
+86: Array(2)[
+
+    0: "WR2@f1"
+    1: "WR2@f3"
+    length: 2
+
+]
+87: Array(2)[
+
+    0: "BR2@g8"
+    1: "BR2@g6"
+    length: 2
+
+]
+88: Array(2)[
+
+    0: "WQ@b1"
+    1: "WQ@b2"
+    length: 2
+
+]
+89: Array(2)[
+
+    0: "BNZ@d6"
+    1: "BNZ@a8"
+    length: 2
+
+]
+90: Array(2)[
+
+    0: "WNZ@c7"
+    1: "WNZ@a8"
+    length: 2
+
+]
+91: Array(2)[
+
+    0: "BK@e8"
+    1: "BK@e7"
+    length: 2
+
+]
+92: Array(2)[
+
+    0: "WNZ@d5"
+    1: "WNZ@c7"
+    length: 2
+
+]
+93: Array(2)[
+
+    0: "BK@e7"
+    1: "BK@e8"
+    length: 2
+
+]
+94: Array(2)[
+
+    0: "WNZ@f6"
+    1: "WNZ@d5"
+    length: 2
+
+]
+95: Array(2)[
+
+    0: "BP@e6"
+    1: "BP@d5"
+    length: 2
+
+]
+96: Array(2)[
+
+    0: "WN@c3"
+    1: "WN@d5"
+    length: 2
+
+]
+97: Array(2)[
+
+    0: "BK@d8"
+    1: "BK@e7"
+    length: 2
+
+]
+98: Array(2)[
+
+    0: "WC@f4"
+    1: "WC@c5"
+    length: 2
+
+]
+99: Array(2)[
+
+    0: "BK@c8"
+    1: "BK@d8"
+    length: 2
+
+]
+100: Array(2)[
+
+    0: "WNZ@d5"
+    1: "WNZ@f6"
+    length: 2
+
+]
+101: Array(2)[
+
+    0: "BP@e7"
+    1: "BP@e6"
+    length: 2
+
+]
+102: Array(2)[
+
+    0: "WC@e1"
+    1: "WC@f4"
+    length: 2
+
+]
+103: Array(2)[
+
+    0: "BP@g5"
+    1: "BP@f4"
+    length: 2
+
+]
+104: Array(2)[
+
+    0: "WP@f2"
+    1: "WP@f4"
+    length: 2
+
+]
+105: Array(2)[
+
+    0: "BQ@b8"
+    1: "BQ@a8"
+    length: 2
+
+]
+106: Array(2)[
+
+    0: "WN@d1"
+    1: "WN@c3"
+    length: 2
+
+]
+107: Array(2)[
+
+    0: "BNZ@a8"
+    1: "BNZ@d6"
+    length: 2
+
+]
+108: Array(2)[
+
+    0: "WNZ@f4"
+    1: "WNZ@d5"
+    length: 2
+
+]
+109: Array(2)[
+
+    0: "BP@g7"
+    1: "BP@g5"
+    length: 2
+
+]
+110: Array(2)[
+
+    0: "WNZ@d3"
+    1: "WNZ@f4"
+    length: 2
+
+]
+111: Array(2)[
+
+    0: "BC@e8"
+    1: "BC@d5"
+    length: 2
+
+]
+112: Array(2)[
+
+    0: "WP@b2"
+    1: "WP@b4"
+    length: 2
+
+]
+113: Array(2)[
+
+    0: "BN@d8"
+    1: "BN@c6"
+    length: 2
+
+]
+
+            114: Array(2)[
+                0: "WNZ@a1"
+                1: "WNZ@d3"
+                length: 2
+            ]
+            length: 115
+        ]
+        whiteTurn: false
+        inCheck: ""
+        noProgressCounter: 0
+    }
+
+ctx
+
+Object {
+
+    numPlayers: 2
+    turn: 115
+    currentPlayer: "0"
+
+playOrder: Array(2)[
+
+    0: "0"
+    1: "1"
+    length: 2
+
+]
+playOrderPos: 0
+phase: null
+activePlayers: null
+numMoves: 1
+
+        gameover: Object {
+            draw: true
+        }
+    }
+
+Client 
