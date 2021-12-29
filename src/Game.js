@@ -2,6 +2,7 @@ import {
     INVALID_MOVE
 } from "boardgame.io/core";
 const PieceTypes = require("./pieces.js");
+const timer_state ={whiteTime: 3 * 1000, blackTime: 3 * 1000, increment: 10 * 1000, last_event: Date.now()}
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {
@@ -11,6 +12,17 @@ function shuffleArray(array) {
         array[i] = array[j];
         array[j] = temp;
     }
+}
+
+
+function handleTimers(whiteTurn) {
+    const {whiteTime, blackTime, increment, last_event} = timer_state
+    const delta = Date.now() - last_event
+    if (whiteTurn)
+        timer_state["whiteTime"] = whiteTime - delta + increment;
+    else
+        timer_state["blackTime"] = blackTime - delta + increment;
+    timer_state["last_event"] = Date.now()
 }
 
 //checkmate checking is just stalemate + check. logic could either be added to this method or just two calls
@@ -354,6 +366,7 @@ export const Chess = {
             let board = validMove(G.history, piece.name, from, to, G, promotion);
 
             if (board !== null) {
+                handleTimers(G.whiteTurn)
                 G.history.unshift(board); // prepend new board to history
                 G.whiteTurn = piece.name.charAt(0) !== "W";
                 G.move_history.unshift([`${piece.name}@${from}`, `${piece.name}@${to}`]);
