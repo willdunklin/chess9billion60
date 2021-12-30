@@ -4,6 +4,7 @@ const {Timer} = require("./timer.js")
 const {move, capture, end} = require("./sound.js");
 const PieceTypes = require("./pieces.js");
 const { validMove } = require("./Game.js");
+
 export class ChessBoard extends React.Component {
     constructor(props) {
         super(props);
