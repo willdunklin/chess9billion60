@@ -1,5 +1,6 @@
 import React from "react";
 const {Chess} = require("./react-chess/react-chess.js");
+const {Timer} = require("./timer.js")
 const {move, capture, end} = require("./sound.js");
 const PieceTypes = require("./pieces.js");
 const { validMove } = require("./Game.js");
@@ -106,14 +107,15 @@ export class ChessBoard extends React.Component {
             "position": "relative",
             "width": "400px",
             "height": "400px",
+            "display": 'grid',
         };
 
         const board_style = {
             "width": "100%",
             "height": "100%",
-            "position": "absolute",
-            "top": "0",
-            "left": "0",
+            //"position": "absolute",
+            //"top": "0",
+            //"left": "0",
         };
 
         const result_style = {
@@ -153,7 +155,10 @@ export class ChessBoard extends React.Component {
         }
 
         return (
+            
             <div style={container}>
+                <Timer/>
+                <div>
                 <div className="board" style={board_style}>
                     <Chess
                         pieces={pieces}
@@ -169,6 +174,8 @@ export class ChessBoard extends React.Component {
                         isWhite={this.props.playerID === "0"}
                     />
                 </div>
+                </div>
+                <Timer/>
                 {winner}
             </div>
         )

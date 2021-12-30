@@ -376,7 +376,7 @@ export class Chess extends React.Component {
       if (pieceOnSquare) {
         dot_style['background'] = `radial-gradient(ellipse at center, #0000 58%, ${this.props.dotColor} 40%)`;
       }
-      console.log(dot_style);
+      //console.log(dot_style);
       return (
         <div 
           className="dot"
