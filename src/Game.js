@@ -1,8 +1,6 @@
-import {
-    INVALID_MOVE
-} from "boardgame.io/core";
+import { INVALID_MOVE } from "boardgame.io/core";
 const PieceTypes = require("./pieces.js");
-const timer_state ={whiteTime: 3 * 1000, blackTime: 3 * 1000, increment: 10 * 1000, last_event: Date.now()}
+const timer_state = {whiteTime: 3 * 1000, blackTime: 3 * 1000, increment: 10 * 1000, last_event: Date.now()}
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {
@@ -374,6 +372,9 @@ export const Chess = {
                 G.inCheck = colorInCheck(board, color) ? color : "";
             } else
                 return INVALID_MOVE;
+        },
+        timeout: (G, ctx) => {
+            
         },
     },
 
