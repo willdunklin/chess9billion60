@@ -156,7 +156,7 @@ export class ChessBoard extends React.Component {
         return (
             
             <div style={container}>
-                <Timer/>
+                <Timer milliseconds={1000} white = {!(this.props.playerID === "0")}/>
                 <div>
                 <div className="board" style={board_style}>
                     <Chess
@@ -174,7 +174,7 @@ export class ChessBoard extends React.Component {
                     />
                 </div>
                 </div>
-                <Timer/>
+                <Timer milliseconds={1000 * 60 * 60 * 12} white = {(this.props.playerID === "0")}/>
                 {winner}
             </div>
         )
