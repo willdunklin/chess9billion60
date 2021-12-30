@@ -16,7 +16,7 @@ const s = {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    height: "400px",
+    // height: "400px",
 }
 
 const client_style = {

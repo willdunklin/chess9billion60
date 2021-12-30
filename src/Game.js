@@ -1,6 +1,5 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 const PieceTypes = require("./pieces.js");
-const timer_state = {whiteTime: 3 * 1000, blackTime: 3 * 1000, increment: 10 * 1000, last_event: Date.now()}
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {
@@ -13,14 +12,14 @@ function shuffleArray(array) {
 }
 
 
-function handleTimers(whiteTurn) {
-    const {whiteTime, blackTime, increment, last_event} = timer_state
-    const delta = Date.now() - last_event
+function handleTimers(G, whiteTurn) {
+    // const {whiteTime, blackTime, increment, last_event} = timer_state
+    const delta = Date.now() - G.last_event;
     if (whiteTurn)
-        timer_state["whiteTime"] = whiteTime - delta + increment;
+        G.wTime = G.wTime - delta + G.increment;
     else
-        timer_state["blackTime"] = blackTime - delta + increment;
-    timer_state["last_event"] = Date.now()
+        G.bTime = G.bTime - delta + G.increment;
+    G.last_event = Date.now();
 }
 
 //checkmate checking is just stalemate + check. logic could either be added to this method or just two calls
@@ -349,6 +348,12 @@ export const Chess = {
             // "" "W" "B" depending on who is in check
             inCheck: "",
             noProgressCounter: 0,
+
+            // times for each of the players (multiplied by 1000 for ms)
+            wTime:      600 * 1000,
+            bTime:      600 * 1000,
+            increment:  10  * 1000,
+            last_event: Date.now(),
         })
     },
 
@@ -364,7 +369,7 @@ export const Chess = {
             let board = validMove(G.history, piece.name, from, to, G, promotion);
 
             if (board !== null) {
-                handleTimers(G.whiteTurn)
+                handleTimers(G, G.whiteTurn);
                 G.history.unshift(board); // prepend new board to history
                 G.whiteTurn = piece.name.charAt(0) !== "W";
                 G.move_history.unshift([`${piece.name}@${from}`, `${piece.name}@${to}`]);
@@ -373,13 +378,19 @@ export const Chess = {
             } else
                 return INVALID_MOVE;
         },
-        timeout: (G, ctx) => {
-            
-        },
+        timeout: (G, ctx) => {},
     },
 
     endIf: (G, ctx) => {
-        const board = G.history[0];
+        // Check for timeout
+        // TODO: add stalemate
+        if(G.bTime <= 0)
+            return {winner: "White"};
+        if(G.wTime <= 0)
+            return {winner: "Black"};
+
+
+        const board = G.history[0]; 
         // check if white in stalemate
         if (G.whiteTurn && colorInStalemate(G.history, "W")) {
             if (colorInCheck(board, "W"))

@@ -105,14 +105,16 @@ export class ChessBoard extends React.Component {
     render() {
         const container = {
             "position": "relative",
-            "width": "400px",
-            "height": "400px",
-            "display": 'grid',
+            "width": "600px",
+            "height": "600px",
+            "display": 'flex',
+            "flexDirection": 'column',
+            'alignItems': 'end',
         };
 
         const board_style = {
-            "width": "100%",
-            "height": "100%",
+            "width": "85%",
+            "height": "85%",
             //"position": "absolute",
             //"top": "0",
             //"left": "0",
@@ -158,7 +160,6 @@ export class ChessBoard extends React.Component {
             
             <div style={container}>
                 <Timer/>
-                <div>
                 <div className="board" style={board_style}>
                     <Chess
                         pieces={pieces}
@@ -173,7 +174,6 @@ export class ChessBoard extends React.Component {
                         onClickPiece={this.onClickPiece}
                         isWhite={this.props.playerID === "0"}
                     />
-                </div>
                 </div>
                 <Timer/>
                 {winner}
