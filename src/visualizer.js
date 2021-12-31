@@ -31,6 +31,7 @@ export class Visualizer extends React.Component {
                             highlights={[]}
                             drawLabels = {false}
                             dots={dots}
+                            onDragStart = {() => {return false;}}
                             check={""}
                             promotablePieces = {[]}
                             whiteTurn={false}

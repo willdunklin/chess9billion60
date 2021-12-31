@@ -169,11 +169,12 @@ export class ChessBoard extends React.Component {
         //  if the time elapses and the board is the player's who lost on time, call the this.props.moves.timeout()
 
         //Making the piece visualizer
-        let visualizers = [<Visualizer piece = "K" color = "W" square = "e5"/>,<Visualizer piece = "K" color = "W" square = "a1"/>]
+        let visualizers = []
         for (let i = 0; i < this.props.G.promotablePieces.length; i++) {
             visualizers.push(<Visualizer piece = {this.props.G.promotablePieces[i]} color = "W" square = "e5"/>)
             visualizers.push(<Visualizer piece = {this.props.G.promotablePieces[i]} color = "W" square = "a1"/>)
         }
+        visualizers.push(<Visualizer piece = "K" color = "W" square = "e5"/>,<Visualizer piece = "K" color = "W" square = "a1"/>)
 
         return (
             <div style={container}>
