@@ -107,9 +107,9 @@ export class ChessBoard extends React.Component {
             "position": "relative",
             "width": "600px",
             "height": "600px",
-            "display": 'flex',
-            "flexDirection": 'column',
-            'alignItems': 'end',
+            // "display": 'flex',
+            // "flexDirection": 'column',
+            // 'alignItems': 'end',
         };
 
         const board_style = {
@@ -156,10 +156,20 @@ export class ChessBoard extends React.Component {
                 );
         }
 
+        const isWhite = this.props.playerID === "0";
+        const wTime = this.props.G.wTime;
+        const bTime = this.props.G.bTime;
+
+        // TODO: make the local time update on interval
+        // https://www.geeksforgeeks.org/create-a-stop-watch-using-reactjs/
+        //  use this.props to store a local w and b time
+        //  use setInterval to decrement local timer based on whose turn it is (isWhite is what we're looking at I think)
+        //  sync with server on new move
+        //  if the time elapses and the board is the player's who lost on time, call the this.props.moves.timeout()
+
         return (
-            
             <div style={container}>
-                <Timer milliseconds={1000} white = {!(this.props.playerID === "0")}/>
+                <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/>
                 <div>
                 <div className="board" style={board_style}>
                     <Chess
@@ -177,7 +187,7 @@ export class ChessBoard extends React.Component {
                     />
                 </div>
                 </div>
-                <Timer milliseconds={1000 * 60 * 60 * 12} white = {(this.props.playerID === "0")}/>
+                <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>
                 {winner}
             </div>
         )

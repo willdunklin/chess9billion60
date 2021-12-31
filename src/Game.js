@@ -352,7 +352,7 @@ export const Chess = {
             // times for each of the players (multiplied by 1000 for ms)
             wTime:      600 * 1000,
             bTime:      600 * 1000,
-            increment:  10  * 1000,
+            increment:  0   * 1000,
             last_event: Date.now(),
         })
     },
