@@ -15,6 +15,8 @@ export class ChessBoard extends React.Component {
             update: 0,
             highlights: [],
             dots: [],
+            wTime: 600 * 1000,
+            bTime: 600 * 1000,
         };
 
         this.onMovePiece = this.onMovePiece.bind(this);
@@ -23,6 +25,11 @@ export class ChessBoard extends React.Component {
 
         this.updateBoard = this.updateBoard.bind(this);
         this.piecify = this.piecify.bind(this);
+
+        // timer stuff
+        this.timer = 0;
+        this.decrementTimer = this.decrementTimer.bind(this);
+        this.dec_amt = 100; // 10ms
 
         this.current_length = 0;
     }
@@ -103,6 +110,26 @@ export class ChessBoard extends React.Component {
         this.setState({dots: [...new Set(dot_locations)]});
     }
 
+    decrementTimer() {
+        const isWhite = this.props.playerID === "0";
+        const whiteTurn = this.props.ctx.currentPlayer === "0";
+
+        if(whiteTurn) {
+            this.setState({wTime: this.props.G.wTime - (Date.now() - this.props.G.last_event)})
+
+            // if the player's time expires play a timeout move
+            if (isWhite && this.state.wTime <= 0)
+                this.props.moves.timeout();
+        
+        } else {
+            this.setState({bTime: this.props.G.bTime - (Date.now() - this.props.G.last_event)})
+
+            // if the player's time expires play a timeout move
+            if (!isWhite && this.state.bTime <= 0)
+                this.props.moves.timeout();
+        }
+    }
+
     render() {
         const container = {
             "position": "relative",
@@ -142,6 +169,10 @@ export class ChessBoard extends React.Component {
         if (this.current_length !== this.props.G.history.length) {
             this.current_length = this.props.G.history.length;
             this.updateBoard(true);
+
+            this.setState({wTime: this.props.G.wTime, bTime: this.props.G.bTime})
+            clearInterval(this.timer);
+            this.timer = setInterval(this.decrementTimer, this.dec_amt);
         }
 
         let winner = "";
@@ -161,6 +192,8 @@ export class ChessBoard extends React.Component {
         const wTime = this.props.G.wTime;
         const bTime = this.props.G.bTime;
 
+
+
         // TODO: make the local time update on interval
         // https://www.geeksforgeeks.org/create-a-stop-watch-using-reactjs/
         //  use this.props to store a local w and b time
@@ -178,7 +211,7 @@ export class ChessBoard extends React.Component {
 
         return (
             <div style={container}>
-                <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/>
+                <Timer milliseconds={isWhite ? this.state.bTime : this.state.wTime} white = {!isWhite}/>
                 <div>
                 <div className="board" style={board_style}>
                     <Chess
@@ -194,11 +227,11 @@ export class ChessBoard extends React.Component {
                         onClickPiece={this.onClickPiece}
                         isWhite={this.props.playerID === "0"}
                     />
+                </div>                
                 </div>
-                </div>
-                <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>
+                <Timer milliseconds={isWhite ? this.state.wTime : this.state.bTime} white = {isWhite}/>
                 {winner}
-                {visualizers}
+                {/* {visualizers} */}
             </div>
         )
     }
