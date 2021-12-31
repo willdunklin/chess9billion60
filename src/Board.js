@@ -15,8 +15,8 @@ export class ChessBoard extends React.Component {
             update: 0,
             highlights: [],
             dots: [],
-            wTime: 600 * 1000,
-            bTime: 600 * 1000,
+            wTime: this.props.G.wTime,
+            bTime: this.props.G.bTime,
         };
 
         this.onMovePiece = this.onMovePiece.bind(this);
@@ -114,7 +114,12 @@ export class ChessBoard extends React.Component {
         const isWhite = this.props.playerID === "0";
         const whiteTurn = this.props.ctx.currentPlayer === "0";
 
-        if(whiteTurn) {
+        if (this.props.ctx.gameover) {
+            clearInterval(this.timer);
+            return;
+        }
+
+        if (whiteTurn) {
             this.setState({wTime: this.props.G.wTime - (Date.now() - this.props.G.last_event)})
 
             // if the player's time expires play a timeout move
@@ -165,14 +170,18 @@ export class ChessBoard extends React.Component {
 
         const {pieces, update, highlights, dots} = this.state;
 
-        // after any turn, update the board
+        // this will run after every move
         if (this.current_length !== this.props.G.history.length) {
             this.current_length = this.props.G.history.length;
-            this.updateBoard(true);
 
-            this.setState({wTime: this.props.G.wTime, bTime: this.props.G.bTime})
+            // redraw board
+            this.updateBoard(true);
+            
+            // sync timer + reset timer update interval 
             clearInterval(this.timer);
-            this.timer = setInterval(this.decrementTimer, this.dec_amt);
+            this.setState({wTime: this.props.G.wTime, bTime: this.props.G.bTime}); // sync
+            if(!this.props.ctx.gameover) // only repeat while game is running
+                this.timer = setInterval(this.decrementTimer, this.dec_amt);
         }
 
         let winner = "";
@@ -189,10 +198,6 @@ export class ChessBoard extends React.Component {
         }
 
         const isWhite = this.props.playerID === "0";
-        const wTime = this.props.G.wTime;
-        const bTime = this.props.G.bTime;
-
-
 
         // TODO: make the local time update on interval
         // https://www.geeksforgeeks.org/create-a-stop-watch-using-reactjs/

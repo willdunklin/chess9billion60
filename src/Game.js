@@ -332,6 +332,7 @@ export const Chess = {
 
     setup: () => {
         let initialPos = initialBoard();
+        let startTime = 10 * 1000;
         return ({
             history: [initialPos],
             promotablePieces: [...new Set(
@@ -350,9 +351,10 @@ export const Chess = {
             noProgressCounter: 0,
 
             // times for each of the players (multiplied by 1000 for ms)
-            wTime:      600 * 1000,
-            bTime:      600 * 1000,
-            increment:  0   * 1000,
+            startTime:  startTime,
+            wTime:      startTime,
+            bTime:      startTime,
+            increment:  0 * 1000,
             last_event: Date.now(),
         })
     },
@@ -378,7 +380,10 @@ export const Chess = {
             } else
                 return INVALID_MOVE;
         },
-        timeout: (G, ctx) => {},
+        timeout: (G, ctx) => {
+            handleTimers(G, G.whiteTurn);
+            console.log("timeout!", G.wTime, G.bTime);
+        },
     },
 
     endIf: (G, ctx) => {
