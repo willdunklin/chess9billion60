@@ -204,10 +204,9 @@ export class ChessBoard extends React.Component {
         //Making the piece visualizer
         let visualizers = []
         for (let i = 0; i < this.props.G.promotablePieces.length; i++) {
-            visualizers.push(<Visualizer piece = {this.props.G.promotablePieces[i]} color = "W" square = "e5"/>)
-            visualizers.push(<Visualizer piece = {this.props.G.promotablePieces[i]} color = "W" square = "a1"/>)
+            visualizers.push(<Visualizer piece = {this.props.G.promotablePieces[i]}/>)
         }
-        visualizers.push(<Visualizer piece = "K" color = "W" square = "e5"/>,<Visualizer piece = "K" color = "W" square = "a1"/>)
+        visualizers.push(<Visualizer piece = "K"/>)
 
         return (
             <div style={container}>
