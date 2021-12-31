@@ -1,4 +1,5 @@
 import React from "react";
+import { Visualizer } from "./visualizer.js";
 const {Chess} = require("./react-chess/react-chess.js");
 const {Timer} = require("./timer.js")
 const {move, capture, end} = require("./sound.js");
@@ -167,6 +168,13 @@ export class ChessBoard extends React.Component {
         //  sync with server on new move
         //  if the time elapses and the board is the player's who lost on time, call the this.props.moves.timeout()
 
+        //Making the piece visualizer
+        let visualizers = [<Visualizer piece = "K" color = "W" square = "e5"/>,<Visualizer piece = "K" color = "W" square = "a1"/>]
+        for (let i = 0; i < this.props.G.promotablePieces.length; i++) {
+            visualizers.push(<Visualizer piece = {this.props.G.promotablePieces[i]} color = "W" square = "e5"/>)
+            visualizers.push(<Visualizer piece = {this.props.G.promotablePieces[i]} color = "W" square = "a1"/>)
+        }
+
         return (
             <div style={container}>
                 <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/>
@@ -189,6 +197,7 @@ export class ChessBoard extends React.Component {
                 </div>
                 <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>
                 {winner}
+                {visualizers}
             </div>
         )
     }
