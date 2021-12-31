@@ -206,13 +206,6 @@ export class ChessBoard extends React.Component {
         //  sync with server on new move
         //  if the time elapses and the board is the player's who lost on time, call the this.props.moves.timeout()
 
-        //Making the piece visualizer
-        let visualizers = []
-        for (let i = 0; i < this.props.G.promotablePieces.length; i++) {
-            visualizers.push(<Visualizer piece = {this.props.G.promotablePieces[i]}/>)
-        }
-        visualizers.push(<Visualizer piece = "K"/>)
-
         return (
             <div style={container}>
                 <Timer milliseconds={isWhite ? this.state.bTime : this.state.wTime} white = {!isWhite}/>
@@ -235,7 +228,6 @@ export class ChessBoard extends React.Component {
                 </div>
                 <Timer milliseconds={isWhite ? this.state.wTime : this.state.bTime} white = {isWhite}/>
                 {winner}
-                {/* {visualizers} */}
             </div>
         )
     }
