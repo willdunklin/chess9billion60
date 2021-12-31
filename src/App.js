@@ -35,11 +35,11 @@ const client_style = {
 
 //Making the piece visualizer
 let visualizers = []
-let pieces = ["Q","A","ZC","CNR","W"]
+let pieces = ["Q","A","ZC","CNR","W","R","F"]
 for (let i = 0; i < pieces.length; i++) {
     visualizers.push(<Visualizer piece = {pieces[i]}/>)
 }
-visualizers.push(<Visualizer piece = "K"/>)
+//visualizers.push(<Visualizer piece = "K"/>)
 
 
 const App = () => (

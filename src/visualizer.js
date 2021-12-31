@@ -7,8 +7,8 @@ export class Visualizer extends React.Component {
     render() {
 
         const result_style = {
-            width: "240px",
-            height: "560px",
+            width: "200px",
+            height: "400px",
             top: "0",
             left: "0",
 
@@ -22,8 +22,8 @@ export class Visualizer extends React.Component {
 
         const container = {
             "position": "relative",
-            "width": "240px",
-            "height": "240px",
+            "width": "200px",
+            "height": "400px",
         };
 
         const board_style = {
