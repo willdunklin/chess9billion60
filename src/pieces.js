@@ -38,22 +38,24 @@ function rider(startx, starty, history, color, intervals, n = 7) {
     //         ([x, y]) => isInBounds(x,y)
     //     );
     // squares = [...new Set(squares)];
-
-    let gameboard = history[0]
     intervals.forEach(([dx, dy]) => {
         let x = startx + dx;
         let y = starty + dy;
         let i = 0;
         // raycast rider piece 
         while (isInBounds(x, y) && i < n) {
-            let target = gameboard[x + 8 * (7 - y)];
-            if (target === null)
-                squares.push([x, y]);
-            else if (target.charAt(0) !== color) {
-                squares.push([x, y]);
-                break;
+            if (history !== null) {
+                let target = history[0][x + 8 * (7 - y)];
+                if (target === null)
+                    squares.push([x, y]);
+                else if (target.charAt(0) !== color) {
+                    squares.push([x, y]);
+                    break;
+                } else {
+                    break;
+                }
             } else {
-                break;
+                squares.push([x, y]);
             }
 
             x = x + dx;
