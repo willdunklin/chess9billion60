@@ -107,7 +107,7 @@ function generateArmy(lowerBound, upperBound) {
         while (pieces_found < 7) {
             let piece = pool[Math.floor(Math.random() * (pool.length))];
             if (!(banned_pieces.includes(piece))) {
-                if (army.includes(piece) || PieceTypes[piece].getStrength() > 750) {
+                if (army.includes(piece) || PieceTypes[piece].tooStrong()) {
                     banned_pieces.push(piece);
                 }
                 army.push(piece)
