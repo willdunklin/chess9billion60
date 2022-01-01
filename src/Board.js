@@ -154,10 +154,10 @@ export class ChessBoard extends React.Component {
         };
 
         const result_style = {
-            width: "100%",
-            height: "100%",
+            width: "85%",
+            height: "85%",
             position: "absolute",
-            top: "0",
+            top: "36px",
             left: "0",
 
             display: "flex",
@@ -210,24 +210,24 @@ export class ChessBoard extends React.Component {
             <div style={container}>
                 <Timer milliseconds={isWhite ? this.state.bTime : this.state.wTime} white = {!isWhite}/>
                 <div>
-                <div className="board" style={board_style}>
-                    <Chess
-                        pieces={pieces}
-                        highlights={highlights}
-                        dots={dots}
-                        update={update}
-                        check={this.props.G.inCheck}
-                        promotablePieces = {this.props.G.promotablePieces}
-                        whiteTurn={this.props.G.whiteTurn}
-                        onMovePiece={this.onMovePiece}
-                        onDragStart={this.onDragStart}
-                        onClickPiece={this.onClickPiece}
-                        isWhite={this.props.playerID === "0"}
-                    />
-                </div>                
+                    <div className="board" style={board_style}>
+                        <Chess
+                            pieces={pieces}
+                            highlights={highlights}
+                            dots={dots}
+                            update={update}
+                            check={this.props.G.inCheck}
+                            promotablePieces = {this.props.G.promotablePieces}
+                            whiteTurn={this.props.G.whiteTurn}
+                            onMovePiece={this.onMovePiece}
+                            onDragStart={this.onDragStart}
+                            onClickPiece={this.onClickPiece}
+                            isWhite={this.props.playerID === "0"}
+                        />
+                    </div>
+                    {winner}          
                 </div>
                 <Timer milliseconds={isWhite ? this.state.wTime : this.state.bTime} white = {isWhite}/>
-                {winner}
             </div>
         )
     }
