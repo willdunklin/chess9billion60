@@ -1,4 +1,5 @@
 import React from "react";
+import { Visualizer } from "./visualizer.js";
 const {Chess} = require("./react-chess/react-chess.js");
 const {Timer} = require("./timer.js")
 const {move, capture, end} = require("./sound.js");
@@ -140,6 +141,27 @@ export class ChessBoard extends React.Component {
     }
 
     render() {
+
+        const s = {
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            // height: "400px",
+        }
+        
+        const s1 = {
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            // height: "400px",
+        }
+        
+        const client_style = {
+            padding: "4em",
+        }
+
         const container = {
             "position": "relative",
             "width": "600px",
@@ -221,29 +243,40 @@ export class ChessBoard extends React.Component {
         //  use setInterval to decrement local timer based on whose turn it is (isWhite is what we're looking at I think)
         //  sync with server on new move
         //  if the time elapses and the board is the player's who lost on time, call the this.props.moves.timeout()
+        
+        //Making the piece visualizer
+        let visualizers = []
+        for (let i = 0; i < this.props.G.promotablePieces.length; i++) {
+            visualizers.push(<Visualizer piece = {this.props.G.promotablePieces[i]}/>)
+        }
 
         return (
-            <div style={container}>
-                <Timer milliseconds={isWhite ? this.state.bTime : this.state.wTime} white = {!isWhite}/>
-                <div>
-                    <div className="board" style={board_style}>
-                        <Chess
-                            pieces={pieces}
-                            highlights={highlights}
-                            dots={dots}
-                            update={update}
-                            check={this.props.G.inCheck}
-                            promotablePieces = {this.props.G.promotablePieces}
-                            whiteTurn={this.props.G.whiteTurn}
-                            onMovePiece={this.onMovePiece}
-                            onDragStart={this.onDragStart}
-                            onClickPiece={this.onClickPiece}
-                            isWhite={this.props.playerID === "0"}
-                        />
+            <div style={s1}>
+                <div style={s}>
+                    <div style={container}>
+                        <Timer milliseconds={isWhite ? this.state.bTime : this.state.wTime} white = {!isWhite}/>
+                        <div>
+                            <div className="board" style={board_style}>
+                                <Chess
+                                    pieces={pieces}
+                                    highlights={highlights}
+                                    dots={dots}
+                                    update={update}
+                                    check={this.props.G.inCheck}
+                                    promotablePieces = {this.props.G.promotablePieces}
+                                    whiteTurn={this.props.G.whiteTurn}
+                                    onMovePiece={this.onMovePiece}
+                                    onDragStart={this.onDragStart}
+                                    onClickPiece={this.onClickPiece}
+                                    isWhite={this.props.playerID === "0"}
+                                />
+                            </div>
+                            {winner}          
+                        </div>
+                        <Timer milliseconds={isWhite ? this.state.wTime : this.state.bTime} white = {isWhite}/>
                     </div>
-                    {winner}          
                 </div>
-                <Timer milliseconds={isWhite ? this.state.wTime : this.state.bTime} white = {isWhite}/>
+                <div style={s}>{visualizers}</div>
             </div>
         )
     }
