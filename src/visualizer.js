@@ -3,35 +3,43 @@ const {Chess} = require("./react-chess/react-chess.js");
 const PropTypes = require('prop-types')
 const PieceTypes = require("./pieces.js");
 
+const result_style = {
+    width: "200px",
+    height: "500px",
+    top: "0",
+    left: "0",
+    padding: '5px',
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: "1",
+    userSelect: "none",
+}
+
+const container = {
+    "position": "relative",
+    "width": "200px",
+    "height": "200px",
+    padding: '5px',
+};
+
+const board_style = {
+    "width": "100%",
+    "height": "100%",
+};
+
+const name_style = {
+    "fontSize" : "large"
+}
+
+const blurb_style = {
+    "fontSize" : "small"
+}
+
 export class Visualizer extends React.Component {
     render() {
-
-        const result_style = {
-            width: "200px",
-            height: "500px",
-            top: "0",
-            left: "0",
-            padding: '5px',
-
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: "1",
-            userSelect: "none",
-        }
-
-        const container = {
-            "position": "relative",
-            "width": "200px",
-            "height": "200px",
-            padding: '5px',
-        };
-
-        const board_style = {
-            "width": "100%",
-            "height": "100%",
-        };
 
         var x = 4
         var y = 4
@@ -48,7 +56,7 @@ export class Visualizer extends React.Component {
 
         return (
             <div style={result_style}>
-                <div>{PieceTypes[this.props.piece].getName()}</div>
+                <div style={name_style}>{PieceTypes[this.props.piece].getName()}</div>
                 <div style={container}>
                     <div className="board" style={board_style}>
                         <Chess
@@ -79,6 +87,7 @@ export class Visualizer extends React.Component {
                         />
                     </div>
                 </div>
+                <div style={blurb_style}>{PieceTypes[this.props.piece].getBlurb()}</div>
             </div>
         )
     }

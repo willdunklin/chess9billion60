@@ -107,6 +107,15 @@ class Piece {
         return this.pieceName;
     }
 
+    setBlurb(string) {
+        this.blurb = string
+        return this
+    }
+
+    getBlurb() {
+        return this.blurb;
+    }
+
     constructor(id, strength, getAvailableMoves) {
         this.getAvailableMoves = getAvailableMoves;
         this.id = id;
@@ -115,39 +124,40 @@ class Piece {
         this.colorbound = false;
         this.onlyOne = false;
         this.pieceName = "Unnamed Piece";
+        this.blurb = "Weird huh"
     }
 }
 
 // TODO: export these variables (export const ...)
 // have to fix Game.js's use of PieceTypes then
-const N =   new Piece("N"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1)}).name("Knight")
-const R =   new Piece("R"  , 500, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap)}).name("Rook")
-const B =   new Piece("B"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap)}).markColorbound().name("Bishop")
-const Q =   new Piece("Q"  , 975, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap)}).allowOnlyOne().name("Queen")
-const K =   new Piece("K"  , 100000, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1)}).allowOnlyOne().name("King")
-const NR =  new Piece("NR" , 475 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap)}).name("Knightrider")
-const M =   new Piece("M"  , 375 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1)}).name("Mann")
-const F =   new Piece("F"  , 150 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,1)}).markColorbound().name("Ferz")
-const W =   new Piece("W"  , 170 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,1)}).name("Wazir")
-const A =   new Piece("A"  , 1250, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne().name("Amazon")
-const CH =  new Piece("CH" , 800 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne().name("Chancellor")
-const AB =  new Piece("AB" , 770 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne().name("Archbishop")
-const R4 =  new Piece("R4" , 380 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,4)}).name("Short Rook")
-const R2 =  new Piece("R2" , 270 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,2)}).name("Shorter Rook")
-const B4 =  new Piece("B4" , 250 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,4)}).markColorbound().name("Short Bishop")
-const B2 =  new Piece("B2" , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,2)}).markColorbound().name("Shorter Bishop")
-const U =   new Piece("U"  , 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap).concat(rider(x,y,gameboard,color,N_leap))}).allowOnlyOne().name("Unicorn")
-const C =   new Piece("C"  , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C_leap,1)}).markColorbound().name("Camel")
-const Z =   new Piece("Z"  , 180 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z_leap,1)}).name("Zebra")
-const ZC =  new Piece("ZC" , 400 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z_leap,1).concat(rider(x,y,gameboard,color,C_leap,1))}).allowOnlyOne().name("Zebramel")
-const CN =  new Piece("CN" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap,1))}).name("Centaur")
-const CNR = new Piece("CNR", 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap))}).allowOnlyOne().name("Centaur Rider")
-const BC =  new Piece("BC" , 750 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C_leap,1).concat(rider(x,y,gameboard,color,F_leap))}).markColorbound().name("Bishop Camel")
-const NZ =  new Piece("NZ" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1).concat(rider(x,y,gameboard,color,Z_leap,1))}).allowOnlyOne().name("Zorse")
-const M2 =  new Piece("M2" , 500 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,2)}).name("Freddie Mercury")
+const N =   new Piece("N"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1)}).name("Knight").setBlurb("A Chess Classic")
+const R =   new Piece("R"  , 500, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap)}).name("Rook").setBlurb("A Chess Classic")
+const B =   new Piece("B"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap)}).markColorbound().name("Bishop").setBlurb("A Chess Classic")
+const Q =   new Piece("Q"  , 975, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap)}).allowOnlyOne().name("Queen").setBlurb("A Chess Classic")
+const K =   new Piece("K"  , 100000, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1)}).allowOnlyOne().name("King").setBlurb("A Chess Classic")
+const NR =  new Piece("NR" , 475 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap)}).name("Knightrider").setBlurb("If knights weren't lazy")
+const M =   new Piece("M"  , 375 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1)}).name("Mann").setBlurb("Like the king, but poor")
+const F =   new Piece("F"  , 150 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,1)}).markColorbound().name("Ferz").setBlurb("Slow and steady wins the race")
+const W =   new Piece("W"  , 170 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,1)}).name("Wazir").setBlurb("Wins some endgames")
+const A =   new Piece("A"  , 1250, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne().name("Amazon").setBlurb("Terrifying")
+const CH =  new Piece("CH" , 800 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne().name("Chancellor").setBlurb("The power behind the throne")
+const AB =  new Piece("AB" , 770 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne().name("Archbishop").setBlurb("Owns a cool cathedral")
+const R4 =  new Piece("R4" , 380 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,4)}).name("Short Rook").setBlurb("Bullies the shorter rook")
+const R2 =  new Piece("R2" , 270 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,2)}).name("Shorter Rook").setBlurb("Bullies the wazir")
+const B4 =  new Piece("B4" , 250 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,4)}).markColorbound().name("Short Bishop").setBlurb("It's not as good as a bishop")
+const B2 =  new Piece("B2" , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,2)}).markColorbound().name("Shorter Bishop").setBlurb("Bullies the Ferz")
+const U =   new Piece("U"  , 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap).concat(rider(x,y,gameboard,color,N_leap))}).allowOnlyOne().name("Unicorn").setBlurb("Pointy!")
+const C =   new Piece("C"  , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C_leap,1)}).markColorbound().name("Camel").setBlurb("Cannot leave its color")
+const Z =   new Piece("Z"  , 180 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z_leap,1)}).name("Zebra").setBlurb("Annoying to maneuver")
+const ZC =  new Piece("ZC" , 400 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z_leap,1).concat(rider(x,y,gameboard,color,C_leap,1))}).allowOnlyOne().name("Zebramel").setBlurb("Watch out for smothered mates!")
+const CN =  new Piece("CN" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap,1))}).name("Centaur").setBlurb("A strong piece with limited range")
+const CNR = new Piece("CNR", 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap))}).allowOnlyOne().name("Centaur Rider").setBlurb("Scary")
+const BC =  new Piece("BC" , 750 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C_leap,1).concat(rider(x,y,gameboard,color,F_leap))}).markColorbound().name("Bishop Camel").setBlurb("Queen tier, but just on one color!")
+const NZ =  new Piece("NZ" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1).concat(rider(x,y,gameboard,color,Z_leap,1))}).allowOnlyOne().name("Zorse").setBlurb("Do not leave holes in your position.")
+const M2 =  new Piece("M2" , 500 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,2)}).name("Freddie Mercury").setBlurb("Part of Queen!")
 //made up strength values
-const BM =   new Piece("BM" , 550 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,F_leap))}).name("Cardinal")
-const RM =   new Piece("RM" , 700 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,W_leap))}).name("Tank")
+const BM =   new Piece("BM" , 550 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,F_leap))}).name("Cardinal").setBlurb("Finally the Bishop can reach both colors")
+const RM =   new Piece("RM" , 700 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,W_leap))}).name("Rook Mann").setBlurb("Can often stop a king and pawn")
 //TODO, fix en passant
 const P =   new Piece("P", 100, (x, y, history, color) => {
         let gameboard = history[0];
@@ -207,7 +217,7 @@ const P =   new Piece("P", 100, (x, y, history, color) => {
             }
         }
         return moves;
-    }).makePromoter().name("Pawn")
+    }).makePromoter().name("Pawn").setBlurb("What will you promote to?")
 
 module.exports = {
     "N": N,

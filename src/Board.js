@@ -7,6 +7,7 @@ const PieceTypes = require("./pieces.js");
 const { validMove } = require("./Game.js");
 
 const s = {
+    padding: "10px",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
