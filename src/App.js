@@ -3,7 +3,6 @@ import { Client } from "boardgame.io/react";
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Chess } from "./Game";
 import { ChessBoard } from "./Board";
-const PieceTypes = require("./pieces.js");
 
 const ChessClient = Client({
     game: Chess,
@@ -16,11 +15,14 @@ const ChessClient = Client({
 
 //visualizers.push(<Visualizer piece = "K"/>)
 
-//TODO center these again
+const client_style = {
+    padding: "4em",
+}
+
 const App = () => (
     <div>
-        <ChessClient playerID="0"/>
-        <ChessClient playerID="1"/>
+        <div style={client_style}><ChessClient playerID="0"/> </div>  
+        <div style={client_style}><ChessClient playerID="1"/> </div>
     </div>
 );
 

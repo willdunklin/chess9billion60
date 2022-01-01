@@ -6,6 +6,54 @@ const {move, capture, end} = require("./sound.js");
 const PieceTypes = require("./pieces.js");
 const { validMove } = require("./Game.js");
 
+const s = {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    // height: "400px",
+}
+
+const s1 = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    // height: "400px",
+}
+
+const container = {
+    "position": "relative",
+    "width": "600px",
+    "height": "600px",
+    // "display": 'flex',
+    // "flexDirection": 'column',
+    // 'alignItems': 'end',
+};
+
+const board_style = {
+    "width": "85%",
+    "height": "85%",
+    //"position": "absolute",
+    //"top": "0",
+    //"left": "0",
+};
+
+const result_style = {
+    width: "85%",
+    height: "85%",
+    position: "absolute",
+    top: "36px",
+    left: "0",
+
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: "1",
+    backgroundColor: "#eee9",
+    userSelect: "none",
+}
+
 export class ChessBoard extends React.Component {
     constructor(props) {
         super(props);
@@ -141,59 +189,6 @@ export class ChessBoard extends React.Component {
     }
 
     render() {
-
-        const s = {
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            // height: "400px",
-        }
-        
-        const s1 = {
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            // height: "400px",
-        }
-        
-        const client_style = {
-            padding: "4em",
-        }
-
-        const container = {
-            "position": "relative",
-            "width": "600px",
-            "height": "600px",
-            // "display": 'flex',
-            // "flexDirection": 'column',
-            // 'alignItems': 'end',
-        };
-
-        const board_style = {
-            "width": "85%",
-            "height": "85%",
-            //"position": "absolute",
-            //"top": "0",
-            //"left": "0",
-        };
-
-        const result_style = {
-            width: "85%",
-            height: "85%",
-            position: "absolute",
-            top: "36px",
-            left: "0",
-
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: "1",
-            backgroundColor: "#eee9",
-            userSelect: "none",
-        }
-
         const {pieces, update, highlights, dots} = this.state;
         const isWhite = this.props.playerID === "0";
 
