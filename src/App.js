@@ -22,7 +22,6 @@ const client_style = {
 const App = () => (
     <div>
         <div style={client_style}><ChessClient playerID="0"/> </div>  
-        <div style={client_style}><ChessClient playerID="1"/> </div>
     </div>
 );
 

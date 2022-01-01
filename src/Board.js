@@ -6,8 +6,17 @@ const {move, capture, end} = require("./sound.js");
 const PieceTypes = require("./pieces.js");
 const { validMove } = require("./Game.js");
 
-const s = {
-    padding: "12px",
+const visualizerStyles = {
+    paddingTop: "50px",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    // height: "400px",
+}
+
+const boardContainerStyles = {
+    //padding: "12px",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -248,7 +257,7 @@ export class ChessBoard extends React.Component {
 
         return (
             <div style={s1}>
-                <div style={s}>
+                <div style={boardContainerStyles}>
                     <div style={container}>
                         <Timer milliseconds={isWhite ? this.state.bTime : this.state.wTime} white = {!isWhite}/>
                         <div>
@@ -272,7 +281,7 @@ export class ChessBoard extends React.Component {
                         <Timer milliseconds={isWhite ? this.state.wTime : this.state.bTime} white = {isWhite}/>
                     </div>
                 </div>
-                <div style={s}>{visualizers}</div>
+                <div style={visualizerStyles}>{visualizers}</div>
             </div>
         )
     }

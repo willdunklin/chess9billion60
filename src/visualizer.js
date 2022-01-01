@@ -12,7 +12,7 @@ const result_style = {
 
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    //justifyContent: "center",
     alignItems: "center",
     zIndex: "1",
     userSelect: "none",
@@ -35,7 +35,8 @@ const name_style = {
 }
 
 const blurb_style = {
-    "fontSize" : "small"
+    "fontSize" : "small",
+    "textAlign" : "center"
 }
 
 export class Visualizer extends React.Component {
