@@ -31,6 +31,7 @@ export class ChessBoard extends React.Component {
         this.dec_amt = 100; // 10ms
 
         this.current_length = 0;
+        this.gameover = false;
     }
 
     piecify(board) {
@@ -188,12 +189,22 @@ export class ChessBoard extends React.Component {
             // decrement time while game is running (but not for each color's first move)
             if(!this.props.ctx.gameover && this.current_length > 2)
                 this.timer = setInterval(this.decrementTimer, this.dec_amt);
+            
+            this.gameover = this.props.ctx.gameover;
         }
 
         let winner = "";
         if (this.props.ctx.gameover) {
-            // TODO: this sound still plays on refresh
-            end(0.6);
+            
+            if(!this.gameover) {
+                // TODO: this sound still plays on refresh
+                end(0.6);
+
+                // sync timer
+                this.setState({wTime: this.props.G.wTime, bTime: this.props.G.bTime}); 
+                // set flag so this doesnt repeat
+                this.gameover = true;
+            }
 
             winner =
                 this.props.ctx.gameover.winner !== undefined ? (
