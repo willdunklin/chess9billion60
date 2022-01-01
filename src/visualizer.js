@@ -5,7 +5,7 @@ const PieceTypes = require("./pieces.js");
 
 const result_style = {
     width: "200px",
-    height: "720px",
+    height: "754px", //pretty arbitrary, don't worry about it
     top: "0",
     left: "0",
     padding: '5px',

@@ -163,11 +163,11 @@ const ZC =  new Piece("ZC" , 400 , (x,y,gameboard,color) => {return rider(x,y,ga
 const CN =  new Piece("CN" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap,1))}).name("Centaur").setBlurb("A strong piece with limited range").setRules("King and Knight moves")
 const CNR = new Piece("CNR", 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap))}).allowOnlyOne().name("Centaur Rider").setBlurb("Scary").setRules("King and Knightrider moves")
 const BC =  new Piece("BC" , 750 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C_leap,1).concat(rider(x,y,gameboard,color,F_leap))}).markColorbound().name("Bishop Camel").setBlurb("Queen tier, but just on one color!").setRules("Combo Camel (3,1) and Bishop")
-const NZ =  new Piece("NZ" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1).concat(rider(x,y,gameboard,color,Z_leap,1))}).allowOnlyOne().name("Zorse").setBlurb("Do not leave holes in your position.").setRules("Combo Zebra (3,2) and Knight (2,1)")
+const NZ =  new Piece("NZ" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1).concat(rider(x,y,gameboard,color,Z_leap,1))}).allowOnlyOne().name("Zorse").setBlurb("Do not leave holes in your position.").setRules("Combo Zebra (3,2) and Knight")
 const M2 =  new Piece("M2" , 500 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,2)}).name("Freddie Mercury").setBlurb("Part of Queen!").setRules("Queen moves up to two squares")
 //made up strength values
-const BM =   new Piece("BM" , 550 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,F_leap))}).name("Cardinal").setBlurb("Finally the bishop can reach both colors").setRules("Combo Bishop and King")
-const RM =   new Piece("RM" , 700 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,W_leap))}).name("Rook Mann").setBlurb("Can often stop a king and pawn").setRules("Combo Rook and King")
+const BM =   new Piece("BM" , 550 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,F_leap))}).name("Cardinal").setBlurb("Can reach both colors!").setRules("Combo Bishop and King")
+const RM =   new Piece("RM" , 700 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,W_leap))}).name("Rook Mann").setBlurb("The rook's been working out").setRules("Combo Rook and King")
 //TODO, fix en passant
 const P =   new Piece("P", 100, (x, y, history, color) => {
         let gameboard = history[0];
