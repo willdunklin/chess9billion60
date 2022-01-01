@@ -87,7 +87,8 @@ export class Visualizer extends React.Component {
                         />
                     </div>
                 </div>
-                <div style={blurb_style}>{PieceTypes[this.props.piece].getBlurb()}</div>
+                <div style={blurb_style}>{PieceTypes[this.props.piece].getRules()}</div>
+                <div style={blurb_style}><em>{PieceTypes[this.props.piece].getBlurb()}</em></div>
             </div>
         )
     }
