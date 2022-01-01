@@ -371,7 +371,15 @@ export const Chess = {
             let board = validMove(G.history, piece.name, from, to, G, promotion);
 
             if (board !== null) {
-                handleTimers(G, G.whiteTurn);
+                // don't start timers until first move
+                if (G.history.length <= 2) {
+                    G.last_event = Date.now();
+                    G.wTime = G.startTime;
+                    G.bTime = G.startTime;
+                }
+                else
+                    handleTimers(G, G.whiteTurn);
+                
                 G.history.unshift(board); // prepend new board to history
                 G.whiteTurn = piece.name.charAt(0) !== "W";
                 G.move_history.unshift([`${piece.name}@${from}`, `${piece.name}@${to}`]);
@@ -382,7 +390,7 @@ export const Chess = {
         },
         timeout: (G, ctx) => {
             handleTimers(G, G.whiteTurn);
-            console.log("timeout!", G.wTime, G.bTime);
+            // console.log("timeout!", G.wTime, G.bTime);
         },
     },
 

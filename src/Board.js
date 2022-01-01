@@ -126,7 +126,9 @@ export class ChessBoard extends React.Component {
                 this.props.moves.timeout();
         
         } else {
-            this.setState({bTime: this.props.G.bTime - (Date.now() - this.props.G.last_event)})
+            // don't decrement on black's first move (edge case)
+            if (!isWhite && this.current_length > 3)
+                this.setState({bTime: this.props.G.bTime - (Date.now() - this.props.G.last_event)})
 
             // if the player's time expires play a timeout move
             if (!isWhite && this.state.bTime <= 0)
@@ -168,6 +170,7 @@ export class ChessBoard extends React.Component {
         }
 
         const {pieces, update, highlights, dots} = this.state;
+        const isWhite = this.props.playerID === "0";
 
         // this will run after every move
         if (this.current_length !== this.props.G.history.length) {
@@ -179,7 +182,9 @@ export class ChessBoard extends React.Component {
             // sync timer + reset timer update interval 
             clearInterval(this.timer);
             this.setState({wTime: this.props.G.wTime, bTime: this.props.G.bTime}); // sync
-            if(!this.props.ctx.gameover) // only repeat while game is running
+            
+            // decrement time while game is running (but not for each color's first move)
+            if(!this.props.ctx.gameover && this.current_length > 2)
                 this.timer = setInterval(this.decrementTimer, this.dec_amt);
         }
 
@@ -196,7 +201,6 @@ export class ChessBoard extends React.Component {
                 );
         }
 
-        const isWhite = this.props.playerID === "0";
 
         // TODO: make the local time update on interval
         // https://www.geeksforgeeks.org/create-a-stop-watch-using-reactjs/
