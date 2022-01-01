@@ -127,8 +127,10 @@ export class ChessBoard extends React.Component {
         
         } else {
             // don't decrement on black's first move (edge case)
-            if (!isWhite && this.current_length > 3)
-                this.setState({bTime: this.props.G.bTime - (Date.now() - this.props.G.last_event)})
+            if (!isWhite && this.current_length <= 3)
+                return;
+
+            this.setState({bTime: this.props.G.bTime - (Date.now() - this.props.G.last_event)})
 
             // if the player's time expires play a timeout move
             if (!isWhite && this.state.bTime <= 0)
