@@ -5,7 +5,7 @@ const PieceTypes = require("./pieces.js");
 
 const result_style = {
     width: "200px",
-    height: "500px",
+    height: "720px",
     top: "0",
     left: "0",
     padding: '5px',
@@ -48,11 +48,17 @@ export class Visualizer extends React.Component {
         .map(to_square => `${"W" + this.props.piece}@${to_square}`); // of the form piece_name@to_square
         let dots1 = [...new Set(dot_locations)]
 
-        x = 0
+        x = 4
         y = 0
         dot_locations = PieceTypes[this.props.piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
         .map(to_square => `${"W" + this.props.piece}@${to_square}`); // of the form piece_name@to_square
         let dots2 = [...new Set(dot_locations)]
+
+        x = 0
+        y = 0
+        dot_locations = PieceTypes[this.props.piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+        .map(to_square => `${"W" + this.props.piece}@${to_square}`); // of the form piece_name@to_square
+        let dots3 = [...new Set(dot_locations)]
 
         return (
             <div style={result_style}>
@@ -75,10 +81,25 @@ export class Visualizer extends React.Component {
                 <div style={container}>
                     <div className="board" style={board_style}>
                         <Chess
-                            pieces={["W" + this.props.piece + '@a1']}
+                            pieces={["W" + this.props.piece + '@e1']}
                             highlights={[]}
                             drawLabels = {false}
                             dots={dots2}
+                            onDragStart = {() => {return false;}}
+                            check={""}
+                            promotablePieces = {[]}
+                            whiteTurn={false}
+                            isWhite={true}
+                        />
+                    </div>
+                </div>
+                <div style={container}>
+                    <div className="board" style={board_style}>
+                        <Chess
+                            pieces={["W" + this.props.piece + '@a1']}
+                            highlights={[]}
+                            drawLabels = {false}
+                            dots={dots3}
                             onDragStart = {() => {return false;}}
                             check={""}
                             promotablePieces = {[]}
