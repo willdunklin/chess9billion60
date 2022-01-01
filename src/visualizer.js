@@ -8,9 +8,10 @@ export class Visualizer extends React.Component {
 
         const result_style = {
             width: "200px",
-            height: "400px",
+            height: "500px",
             top: "0",
             left: "0",
+            padding: '5px',
 
             display: "flex",
             flexDirection: "column",
@@ -23,12 +24,13 @@ export class Visualizer extends React.Component {
         const container = {
             "position": "relative",
             "width": "200px",
-            "height": "400px",
+            "height": "200px",
+            padding: '5px',
         };
 
         const board_style = {
-            "width": "85%",
-            "height": "85%",
+            "width": "100%",
+            "height": "100%",
         };
 
         var x = 4
@@ -46,6 +48,7 @@ export class Visualizer extends React.Component {
 
         return (
             <div style={result_style}>
+                <div>{PieceTypes[this.props.piece].getName()}</div>
                 <div style={container}>
                     <div className="board" style={board_style}>
                         <Chess

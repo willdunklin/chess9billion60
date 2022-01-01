@@ -98,6 +98,15 @@ class Piece {
         return this.strength;
     }
 
+    name(string) {
+        this.pieceName = string
+        return this
+    }
+
+    getName() {
+        return this.pieceName;
+    }
+
     constructor(id, strength, getAvailableMoves) {
         this.getAvailableMoves = getAvailableMoves;
         this.id = id;
@@ -105,39 +114,40 @@ class Piece {
         this.canPromote = false;
         this.colorbound = false;
         this.onlyOne = false;
+        this.pieceName = "Unnamed Piece";
     }
 }
 
 // TODO: export these variables (export const ...)
 // have to fix Game.js's use of PieceTypes then
-const N =   new Piece("N"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1)})
-const R =   new Piece("R"  , 500, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap)})
-const B =   new Piece("B"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap)}).markColorbound()
-const Q =   new Piece("Q"  , 975, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap)}).allowOnlyOne()
-const K =   new Piece("K"  , 100000, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1)}).allowOnlyOne()
-const NR =  new Piece("NR" , 475 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap)})
-const M =   new Piece("M"  , 375 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1)})
-const F =   new Piece("F"  , 150 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,1)}).markColorbound()
-const W =   new Piece("W"  , 170 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,1)})
-const A =   new Piece("A"  , 1250, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne()
-const CH =  new Piece("CH" , 800 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne()
-const AB =  new Piece("AB" , 770 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne()
-const R4 =  new Piece("R4" , 380 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,4)})
-const R2 =  new Piece("R2" , 270 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,2)})
-const B4 =  new Piece("B4" , 250 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,4)}).markColorbound()
-const B2 =  new Piece("B2" , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,2)}).markColorbound()
-const U =   new Piece("U"  , 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap).concat(rider(x,y,gameboard,color,N_leap))}).allowOnlyOne()
-const C =   new Piece("C"  , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C_leap,1)}).markColorbound()
-const Z =   new Piece("Z"  , 180 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z_leap,1)})
-const ZC =  new Piece("ZC" , 400 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z_leap,1).concat(rider(x,y,gameboard,color,C_leap,1))}).allowOnlyOne()
-const CN =  new Piece("CN" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap,1))})
-const CNR = new Piece("CNR", 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap))}).allowOnlyOne()
-const BC =  new Piece("BC" , 750 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C_leap,1).concat(rider(x,y,gameboard,color,F_leap))}).markColorbound()
-const NZ =  new Piece("NZ" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1).concat(rider(x,y,gameboard,color,Z_leap,1))}).allowOnlyOne()
-const M2 =  new Piece("M2" , 500 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,2)})
+const N =   new Piece("N"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1)}).name("Knight")
+const R =   new Piece("R"  , 500, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap)}).name("Rook")
+const B =   new Piece("B"  , 315, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap)}).markColorbound().name("Bishop")
+const Q =   new Piece("Q"  , 975, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap)}).allowOnlyOne().name("Queen")
+const K =   new Piece("K"  , 100000, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1)}).allowOnlyOne().name("King")
+const NR =  new Piece("NR" , 475 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap)}).name("Knightrider")
+const M =   new Piece("M"  , 375 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1)}).name("Mann")
+const F =   new Piece("F"  , 150 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,1)}).markColorbound().name("Ferz")
+const W =   new Piece("W"  , 170 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,1)}).name("Wazir")
+const A =   new Piece("A"  , 1250, (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne().name("Amazon")
+const CH =  new Piece("CH" , 800 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne().name("Chancellor")
+const AB =  new Piece("AB" , 770 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap).concat(rider(x,y,gameboard,color,N_leap,1))}).allowOnlyOne().name("Archbishop")
+const R4 =  new Piece("R4" , 380 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,4)}).name("Short Rook")
+const R2 =  new Piece("R2" , 270 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,W_leap,2)}).name("Shorter Rook")
+const B4 =  new Piece("B4" , 250 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,4)}).markColorbound().name("Short Bishop")
+const B2 =  new Piece("B2" , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap,2)}).markColorbound().name("Shorter Bishop")
+const U =   new Piece("U"  , 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,F_leap).concat(rider(x,y,gameboard,color,N_leap))}).allowOnlyOne().name("Unicorn")
+const C =   new Piece("C"  , 220 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C_leap,1)}).markColorbound().name("Camel")
+const Z =   new Piece("Z"  , 180 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z_leap,1)}).name("Zebra")
+const ZC =  new Piece("ZC" , 400 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,Z_leap,1).concat(rider(x,y,gameboard,color,C_leap,1))}).allowOnlyOne().name("Zebramel")
+const CN =  new Piece("CN" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap,1))}).name("Centaur")
+const CNR = new Piece("CNR", 900 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,N_leap))}).allowOnlyOne().name("Centaur Rider")
+const BC =  new Piece("BC" , 750 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,C_leap,1).concat(rider(x,y,gameboard,color,F_leap))}).markColorbound().name("Bishop Camel")
+const NZ =  new Piece("NZ" , 600 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,N_leap,1).concat(rider(x,y,gameboard,color,Z_leap,1))}).allowOnlyOne().name("Zorse")
+const M2 =  new Piece("M2" , 500 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,2)}).name("Freddie Mercury")
 //made up strength values
-const BM =   new Piece("BM" , 550 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,F_leap))})
-const RM =   new Piece("RM" , 700 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,W_leap))})
+const BM =   new Piece("BM" , 550 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,F_leap))}).name("Cardinal")
+const RM =   new Piece("RM" , 700 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,W_leap))}).name("Tank")
 //TODO, fix en passant
 const P =   new Piece("P", 100, (x, y, history, color) => {
         let gameboard = history[0];
@@ -197,7 +207,7 @@ const P =   new Piece("P", 100, (x, y, history, color) => {
             }
         }
         return moves;
-    }).makePromoter()
+    }).makePromoter().name("Pawn")
 
 module.exports = {
     "N": N,
