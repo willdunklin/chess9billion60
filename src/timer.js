@@ -21,9 +21,9 @@ function msToTime(s) {
   var mins = s % 60;
   var hrs = (s - mins) / 60;
   if (hrs > 0)
-      return pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3);
+      return pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + (pad(ms, 3)+'')[0];
   else
-      return pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3);
+      return pad(mins) + ':' + pad(secs) + '.' + (pad(ms, 3)+'')[0];
 }
 
 export class Timer extends React.Component {
