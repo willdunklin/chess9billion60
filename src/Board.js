@@ -1,5 +1,4 @@
 import React from "react";
-import { Visualizer } from "./visualizer.js";
 const {Chess} = require("./react-chess/react-chess.js");
 const {Timer} = require("./timer.js")
 const {move, capture, end} = require("./sound.js");

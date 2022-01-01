@@ -35,6 +35,7 @@ export class Timer extends React.Component {
             lineHeight: '30px',
             textAlign: 'center',
             border: '3px solid black',
+            userSelect: 'none',
         }
         if (this.props.white) {
             timerStyles.background = light
