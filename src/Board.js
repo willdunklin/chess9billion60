@@ -129,7 +129,6 @@ export class ChessBoard extends React.Component {
         if (this.props.ctx.gameover)
             return false;
 
-        // TODO: add checks for checks
         const black_piece = piece.name.charAt(0) === "B";
         const black_turn = this.props.ctx.currentPlayer === "1";
 
