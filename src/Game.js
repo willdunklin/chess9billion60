@@ -282,8 +282,6 @@ function insufficentMaterialDraw(board) {
     let ba = 0;
     let lsFound = false;
     let dsFound = false;
-    //TODO this should maybe belong in pieces.js as a property of the piece or something
-    let insufficientPieces = ["N", "NR", "W", "Z", "NZ"];
     for (let i = 0; i < 8 * 8; i++) {
         if (board[i] !== null) {
             let piece = board[i];
@@ -291,7 +289,7 @@ function insufficentMaterialDraw(board) {
             if (name !== "K") {
                 //can this piece give mate on its own
                 if (!PieceTypes[name].colorbound) {
-                    if (!insufficientPieces.includes(name)) {
+                    if (!PieceTypes[name].isInsufficient()) {
                         return false;
                     }
                     //this piece can control both light squares and dark squares
