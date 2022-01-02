@@ -41,33 +41,34 @@ const blurb_style = {
 
 export class Visualizer extends React.Component {
     render() {
+        const {piece, color} = this.props;
 
         var x = 4
         var y = 4
 
-        let dot_locations = PieceTypes[this.props.piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
-        .map(to_square => `${"W" + this.props.piece}@${to_square}`); // of the form piece_name@to_square
+        let dot_locations = PieceTypes[piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+        .map(to_square => `${color + piece}@${to_square}`); // of the form piece_name@to_square
         let dots1 = [...new Set(dot_locations)]
 
         x = 4
         y = 0
-        dot_locations = PieceTypes[this.props.piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
-        .map(to_square => `${"W" + this.props.piece}@${to_square}`); // of the form piece_name@to_square
+        dot_locations = PieceTypes[piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+        .map(to_square => `${color + piece}@${to_square}`); // of the form piece_name@to_square
         let dots2 = [...new Set(dot_locations)]
 
         x = 0
         y = 0
-        dot_locations = PieceTypes[this.props.piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
-        .map(to_square => `${"W" + this.props.piece}@${to_square}`); // of the form piece_name@to_square
+        dot_locations = PieceTypes[piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+        .map(to_square => `${color + piece}@${to_square}`); // of the form piece_name@to_square
         let dots3 = [...new Set(dot_locations)]
 
         return (
             <div style={result_style}>
-                <div style={name_style}>{PieceTypes[this.props.piece].getName()}</div>
+                <div style={name_style}>{PieceTypes[piece].getName()}</div>
                 <div style={container}>
                     <div className="board" style={board_style}>
                         <Chess
-                            pieces={["W" + this.props.piece + '@e5']}
+                            pieces={[color + piece + '@e5']}
                             highlights={[]}
                             drawLabels = {false}
                             dots={dots1}
@@ -82,7 +83,7 @@ export class Visualizer extends React.Component {
                 <div style={container}>
                     <div className="board" style={board_style}>
                         <Chess
-                            pieces={["W" + this.props.piece + '@e1']}
+                            pieces={[color + piece + '@e1']}
                             highlights={[]}
                             drawLabels = {false}
                             dots={dots2}
@@ -97,7 +98,7 @@ export class Visualizer extends React.Component {
                 <div style={container}>
                     <div className="board" style={board_style}>
                         <Chess
-                            pieces={["W" + this.props.piece + '@a1']}
+                            pieces={[color + piece + '@a1']}
                             highlights={[]}
                             drawLabels = {false}
                             dots={dots3}
@@ -109,8 +110,8 @@ export class Visualizer extends React.Component {
                         />
                     </div>
                 </div>
-                <div style={blurb_style}>{PieceTypes[this.props.piece].getRules()}</div>
-                <div style={blurb_style}><em>{PieceTypes[this.props.piece].getBlurb()}</em></div>
+                <div style={blurb_style}>{PieceTypes[piece].getRules()}</div>
+                <div style={blurb_style}><em>{PieceTypes[piece].getBlurb()}</em></div>
             </div>
         )
     }
