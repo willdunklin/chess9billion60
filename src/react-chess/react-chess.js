@@ -49,7 +49,6 @@ export class Chess extends React.Component {
     }
     const odd = x % 2
 
-    //TODO this is a bad thing I did. should support more than 2 highlights or something
     if (this.props.highlights.length === 2) {
       const square0 = decode.fromPieceDecl(this.props.highlights[0]);
       const square1 = decode.fromPieceDecl(this.props.highlights[1]);
@@ -164,7 +163,6 @@ export class Chess extends React.Component {
           //Are we moving from the previous rank?
           if ((dragFrom.y === 1 && this.props.isWhite) || (dragFrom.y === 6 && !this.props.isWhite)) {
             //Render the promotion menu, and save where we are moving to.
-            //TODO, snap the pawn to grid while waiting for the choice.
             this.setState({promotionArgs : [draggingPiece, dragFrom.pos, dragTo.pos]})
             this.setState({showPromotion : true})
             this.setState({promotionFile : dragTo.x})
@@ -232,7 +230,6 @@ export class Chess extends React.Component {
       return <span style={isLeftColumn ? yBLabelStyles : xBLabelStyles}>{label}</span>
   }
 
-  //TODO, make this tell the server and set some state.
   handlePromotionSelection(piece) {
     return () => {
       //console.log("wanted to promote to " + piece)
@@ -315,7 +312,6 @@ export class Chess extends React.Component {
 
         let styles = Object.assign({
           position: 'absolute',
-          //put the pieces a little more than one square to the side. TODO negative = sin? Maybe should be its own element
           left: `${12.5 * promotionFile}%`,
           
           //center them

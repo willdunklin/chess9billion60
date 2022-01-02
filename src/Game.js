@@ -396,7 +396,6 @@ export const Chess = {
 
     endIf: (G, ctx) => {
         // Check for timeout
-        // TODO: add stalemate
         if(G.bTime <= 0)
             return {winner: "White"};
         if(G.wTime <= 0)
