@@ -39,28 +39,65 @@ const blurb_style = {
     "textAlign" : "center"
 }
 
+
 export class Visualizer extends React.Component {
-    render() {
+
+    constructor(props) {
+        super(props);
         const {piece, color} = this.props;
+        
+        this.handleMovePiece1 = this.handleMovePiece1.bind(this);
+        this.handleMovePiece2 = this.handleMovePiece2.bind(this);
 
-        var x = 4
-        var y = 4
+        let x = 4
+        let y = 4
 
-        let dot_locations = PieceTypes[piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+        let dot_locations1 = PieceTypes[piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
         .map(to_square => `${color + piece}@${to_square}`); // of the form piece_name@to_square
-        let dots1 = [...new Set(dot_locations)]
-
-        x = 4
-        y = 0
-        dot_locations = PieceTypes[piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
-        .map(to_square => `${color + piece}@${to_square}`); // of the form piece_name@to_square
-        let dots2 = [...new Set(dot_locations)]
 
         x = 0
         y = 0
-        dot_locations = PieceTypes[piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+        let dot_locations2 = PieceTypes[piece].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
         .map(to_square => `${color + piece}@${to_square}`); // of the form piece_name@to_square
-        let dots3 = [...new Set(dot_locations)]
+
+        this.state = {pieces1: [color + piece + "@e5"], pieces2: [color + piece + "@a1"],dots1: [...new Set(dot_locations1)],dots2: [...new Set(dot_locations2)]};
+        //this.handleClickPiece = this.handleClickPiece.bind(this);
+      }
+    
+      handleMovePiece1(piece, fromSquare, toSquare, promotion) {
+
+        const x = toSquare.toLowerCase().charCodeAt(0) - 97
+        const y = Number(toSquare[1]) - 1
+
+        this.setState({pieces1: [`${piece.name}@${toSquare}`]})
+        let dot_locations1 = PieceTypes[piece.name.substring(1)].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+        .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
+        this.setState({dots1: [...new Set(dot_locations1)]})
+      }
+
+      handleMovePiece2(piece, fromSquare, toSquare, promotion) {
+        const x = toSquare.toLowerCase().charCodeAt(0) - 97
+        const y = Number(toSquare[1]) - 1
+        
+        this.setState({pieces2: [`${piece.name}@${toSquare}`]})
+
+        let dot_locations2 = PieceTypes[piece.name.substring(1)].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+        .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
+        this.setState({dots2: [...new Set(dot_locations2)]})
+      }
+    
+    
+      /*handleClickPiece(piece, clear) {
+        if(clear) {
+          this.setState({dots: []});
+          return;
+        } 
+        this.setState({dots: [piece.notation]});
+      }*/
+    
+    render() {
+        const {piece} = this.props;
+        const {pieces1, pieces2, dots1, dots2} = this.state;
 
         return (
             <div style={result_style}>
@@ -68,45 +105,20 @@ export class Visualizer extends React.Component {
                 <div style={container}>
                     <div className="board" style={board_style}>
                         <Chess
-                            pieces={[color + piece + '@e5']}
-                            highlights={[]}
+                            pieces={pieces1}
                             drawLabels = {false}
                             dots={dots1}
-                            onDragStart = {() => {return false;}}
-                            check={""}
-                            promotablePieces = {[]}
-                            whiteTurn={false}
-                            isWhite={true}
+                            onMovePiece={this.handleMovePiece1} 
                         />
                     </div>
                 </div>
                 <div style={container}>
                     <div className="board" style={board_style}>
                         <Chess
-                            pieces={[color + piece + '@e1']}
-                            highlights={[]}
+                            pieces={pieces2}
                             drawLabels = {false}
                             dots={dots2}
-                            onDragStart = {() => {return false;}}
-                            check={""}
-                            promotablePieces = {[]}
-                            whiteTurn={false}
-                            isWhite={true}
-                        />
-                    </div>
-                </div>
-                <div style={container}>
-                    <div className="board" style={board_style}>
-                        <Chess
-                            pieces={[color + piece + '@a1']}
-                            highlights={[]}
-                            drawLabels = {false}
-                            dots={dots3}
-                            onDragStart = {() => {return false;}}
-                            check={""}
-                            promotablePieces = {[]}
-                            whiteTurn={false}
-                            isWhite={true}
+                            onMovePiece={this.handleMovePiece2}
                         />
                     </div>
                 </div>
