@@ -168,9 +168,7 @@ const M2 =  new Piece("M2" , 500 , (x,y,gameboard,color) => {return rider(x,y,ga
 //made up strength values
 const BM =   new Piece("BM" , 550 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,F_leap))}).name("Cardinal").setBlurb("Can reach both colors!").setRules("Combo Bishop and King")
 const RM =   new Piece("RM" , 700 , (x,y,gameboard,color) => {return rider(x,y,gameboard,color,K_leap,1).concat(rider(x,y,gameboard,color,W_leap))}).name("Rook Mann").setBlurb("The rook's been working out").setRules("Combo Rook and King")
-//TODO, fix en passant
-const P =   new Piece("P", 100, (x, y, history, color) => {
-        let gameboard = history[0];
+const P =  new Piece("P", 100, (x, y, history, color) => {
         let direction = 1;
         let home_rank = 1;
         let en_passant_rank = 4;
@@ -182,6 +180,20 @@ const P =   new Piece("P", 100, (x, y, history, color) => {
         let moves = [];
         let xtemp = x;
         let ytemp = y + direction;
+
+        if (history === null) {
+            moves.push([xtemp, ytemp])
+            if (isInBounds(xtemp+1, ytemp))
+                moves.push([xtemp+1, ytemp]);
+            if (isInBounds(xtemp-1, ytemp))
+                moves.push([xtemp-1, ytemp]);
+            if (y === home_rank) {
+                ytemp += direction;
+                moves.push([xtemp, ytemp]);
+            }
+            return moves
+        }
+        let gameboard = history[0];
         //check for forward moves, including double moves on first turn
         if (isInBounds(xtemp, ytemp)) {
             if (gameboard[xtemp + 8 * (7 - ytemp)] === null) {
