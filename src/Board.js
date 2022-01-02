@@ -158,15 +158,25 @@ export class ChessBoard extends React.Component {
         const from_x = from_square.toLowerCase().charCodeAt(0) - 97;
         const from_y = Number(from_square[1]) - 1;
 
-        // get available moves, filter through validity check
-        let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, this.props.G.history, piece.name.charAt(0))
-            .map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
-            .filter(to_square => // filter move validity (stolen from colorHasMateInOnes)
-                validMove(this.props.G.history, piece.name, from_square, to_square) !== null)
-            .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
+        // get available moves, filter through validity check if its our turn
+        if ((this.props.G.whiteTurn && piece.name.charAt(0) === "W") || (!this.props.G.whiteTurn && piece.name.charAt(0) !== "W")) {
+            let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, this.props.G.history, piece.name.charAt(0))
+                .map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+                .filter(to_square => // filter move validity (stolen from colorHasMateInOnes)
+                    validMove(this.props.G.history, piece.name, from_square, to_square) !== null)
+                .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
 
-        // set the new dot locations but remove duplicates
-        this.setState({dots: [...new Set(dot_locations)]});
+            // set the new dot locations but remove duplicates
+            this.setState({dots: [...new Set(dot_locations)]});
+        } else {
+            //don't filter out invalid moves for the player who is not about to move
+            let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, null, piece.name.charAt(0))
+                .map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+                .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
+
+            // set the new dot locations but remove duplicates
+            this.setState({dots: [...new Set(dot_locations)]});
+        }
     }
 
     decrementTimer() {
