@@ -90,6 +90,7 @@ export class ChessBoard extends React.Component {
         this.dec_amt = 100; // 10ms
 
         this.current_length = 0;
+        this.curr_promotablePieces = [];
         this.gameover = false;
     }
 
@@ -208,7 +209,7 @@ export class ChessBoard extends React.Component {
     }
 
     render() {
-        const {pieces, update, highlights, dots} = this.state;
+        const {pieces, update, highlights, dots, wTime, bTime} = this.state;
         const isWhite = this.props.playerID === "0";
 
         // this will run after every move
@@ -250,25 +251,30 @@ export class ChessBoard extends React.Component {
                 );
         }
 
+        // if the local promotablepieces record is different from the server, re-render the board 
+        if(!(this.curr_promotablePieces.length === this.props.G.promotablePieces.length &&
+             this.curr_promotablePieces.every((v, i) => v === this.props.G.promotablePieces[i]))) {
 
-        // TODO: make the local time update on interval
-        // https://www.geeksforgeeks.org/create-a-stop-watch-using-reactjs/
-        //  use this.props to store a local w and b time
-        //  use setInterval to decrement local timer based on whose turn it is (isWhite is what we're looking at I think)
-        //  sync with server on new move
-        //  if the time elapses and the board is the player's who lost on time, call the this.props.moves.timeout()
-        
+            this.curr_promotablePieces = this.props.G.promotablePieces;
+            this.updateBoard(false);
+        }
+
+        // console.log(this.props.playerID, this.props.G.promotablePieces);
         //Making the piece visualizer
         let visualizers = []
-        for (let i = 0; i < this.props.G.promotablePieces.length; i++) {
-            visualizers.push(<Visualizer piece={this.props.G.promotablePieces[i]} color={isWhite ? "W" : "B"}/>)
+        for (let piece of this.props.G.promotablePieces) {
+            visualizers.push(<Visualizer 
+                key={`${piece}-${this.props.G.promotablePieces}-visualizer`} // fixes bug when promPieces changes
+                piece={piece} 
+                color={isWhite ? "W" : "B"}/>
+            )
         }
 
         return (
             <div style={s1}>
                 <div style={boardContainerStyles}>
                     <div style={container}>
-                        <Timer milliseconds={isWhite ? this.state.bTime : this.state.wTime} white = {!isWhite}/>
+                        <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/>
                         <div>
                             <div className="board" style={board_style}>
                                 <Chess
@@ -287,7 +293,7 @@ export class ChessBoard extends React.Component {
                             </div>
                             {winner}          
                         </div>
-                        <Timer milliseconds={isWhite ? this.state.wTime : this.state.bTime} white = {isWhite}/>
+                        <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>
                     </div>
                 </div>
                 <div style={visualizerStyles}>{visualizers}</div>
