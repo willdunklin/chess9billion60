@@ -1,29 +1,18 @@
 import React from "react";
-import { Client } from "boardgame.io/react";
-import { SocketIO } from "boardgame.io/multiplayer";
-import { Chess } from "./Game";
-import { ChessBoard } from "./Board";
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
-const ChessClient = Client({
-    game: Chess,
-    board: ChessBoard,
-    multiplayer: SocketIO({server: "localhost:8000"})
-    // multiplayer: SocketIO({server: "35.223.213.73:42069"})
-});
+import { Multiplayer, Spectator } from './components/Multiplayer';
+import { Main } from './components/Main';
 
-
-
-//visualizers.push(<Visualizer piece = "K"/>)
-
-const client_style = {
-    padding: "4em",
-}
 
 const App = () => (
-    <div>
-        <div style={client_style}><ChessClient playerID="0"/> </div> 
-        <div style={client_style}><ChessClient playerID="1"/> </div> 
-    </div>
+    <BrowserRouter>
+        <Routes>
+            <Route key="1" exact path="/:gameid/:playerid" element={<Multiplayer />} />
+            <Route key="2" exact path="/:gameid/" element={<Spectator />} />
+            <Route key="3" exact path="/" element={<Main />} />
+        </Routes>
+    </BrowserRouter>
 );
 
 export default App;

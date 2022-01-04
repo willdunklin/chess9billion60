@@ -127,10 +127,6 @@ export class Chess extends React.Component {
   handleDragStart(evt, drag) {
     evt.preventDefault()
 
-    if (!this.props.allowMoves) {
-      return false
-    }
-
     const node = drag.node
     node.style.cursor = "grabbing";
 
@@ -144,6 +140,9 @@ export class Chess extends React.Component {
       return false
     }
 
+    if (!this.props.allowMoves) {
+      return false;
+    }
 
     this.setState({dragFrom, draggingPiece})
     return evt

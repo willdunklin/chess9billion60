@@ -212,6 +212,8 @@ export class ChessBoard extends React.Component {
         const {pieces, update, highlights, dots, wTime, bTime} = this.state;
         const isWhite = this.props.playerID === "0";
 
+        console.log('spec', this.props.spectator)
+
         // this will run after every move
         if (this.current_length !== this.props.G.history.length) {
             this.current_length = this.props.G.history.length;
@@ -289,9 +291,10 @@ export class ChessBoard extends React.Component {
                                     onDragStart={this.onDragStart}
                                     onClickPiece={this.onClickPiece}
                                     isWhite={this.props.playerID === "0"}
+                                    allowMoves={!this.props.spectator}
                                 />
                             </div>
-                            {winner}          
+                            {winner}
                         </div>
                         <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>
                     </div>

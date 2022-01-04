@@ -12,8 +12,10 @@
         "react-dom": "^17.0.2",
         "react-draggable": "^4.4.4",
         "react-resize-aware": "^3.1.1",
+        "react-router-dom": "^6.2.1",
         "react-scripts": "^5.0.0",
         "uifx": "^2.0.7",
+        "uuid": "^8.3.2",
         "web-vitals": "^1.1.2"
     },
     "scripts": {
