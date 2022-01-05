@@ -32,7 +32,7 @@ export const Multiplayer = props => {
 
     return (
         <div style={client_style}>
-            <ChessClient debug={false} playerID={playerid} gameID={gameid} spectator={false} />
+            <ChessClient debug={false} playerID={playerid} matchID={gameid} spectator={false} />
         </div>
     );
 }
@@ -44,7 +44,7 @@ export const Spectator = props => {
     return (
         <div style={client_style}>
             {/* TODO: make playerID dynamically flip if */}
-            <ChessClient debug={true} playerID={whitePerspective ? '0' : '1'} gameID={gameid} spectator={true} />
+            <ChessClient debug={true} playerID={whitePerspective ? '0' : '1'} matchID={gameid} spectator={true} />
         </div>
     );
 }
