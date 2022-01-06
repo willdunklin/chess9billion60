@@ -20,6 +20,7 @@ const boardContainerStyles = {
     //padding: "12px",
     display: "flex",
     flexDirection: "row",
+    //flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
     // height: "400px",
@@ -28,6 +29,7 @@ const boardContainerStyles = {
 const s1 = {
     display: "flex",
     flexDirection: "column",
+    flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
     // height: "400px",

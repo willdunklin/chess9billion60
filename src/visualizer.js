@@ -3,9 +3,10 @@ const {Chess} = require("./react-chess/react-chess.js");
 const PropTypes = require('prop-types')
 const { PieceTypes } = require("./pieces.js");
 
+const boardWidth = 180
 const result_style = {
-    width: "200px",
-    height: "554px", //pretty arbitrary, don't worry about it
+    width: boardWidth + "px",
+    height: ((2* boardWidth) + 50) + "px", //pretty arbitrary, don't worry about it
     top: "0",
     left: "0",
     padding: '5px',
@@ -20,8 +21,8 @@ const result_style = {
 
 const container = {
     "position": "relative",
-    "width": "200px",
-    "height": "200px",
+    "width": boardWidth + "px",
+    "height": boardWidth + "px",
     padding: '5px',
 };
 
@@ -85,6 +86,7 @@ export class Visualizer extends React.Component {
         .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
         this.setState({dots2: [...new Set(dot_locations2)]})
       }
+
     
     render() {
         const {piece} = this.props;
