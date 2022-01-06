@@ -3,7 +3,7 @@ const PropTypes = require('prop-types')
 const Draggable = require('react-draggable')
 const defaultLineup = require('./defaultLineup')
 var pieceComponents = require('./pieces')
-const decode = require('./decode')
+const {fromPieceDecl, charCodeOffset} = require('./decode')
 
 // const ResizeAware = resizeAware.default || resizeAware
 const getDefaultLineup = () => defaultLineup.slice()
@@ -50,8 +50,8 @@ export class Chess extends React.Component {
     const odd = x % 2
 
     if (this.props.highlights.length === 2) {
-      const square0 = decode.fromPieceDecl(this.props.highlights[0]);
-      const square1 = decode.fromPieceDecl(this.props.highlights[1]);
+      const square0 = fromPieceDecl(this.props.highlights[0]);
+      const square1 = fromPieceDecl(this.props.highlights[1]);
       if ((square0.x === x && square0.y === 7-y) ||
           (square1.x === x && square1.y === 7-y)) {
         lightSquareColor = this.props.lightHighlightColor;
@@ -63,7 +63,7 @@ export class Chess extends React.Component {
       let king_in_check = this.props.pieces.filter(p => 
           p.split("@")[0] === (this.props.check + "K")
         )[0];
-      const king_square = decode.fromPieceDecl(king_in_check);
+      const king_square = fromPieceDecl(king_in_check);
       if(king_square.x === x && king_square.y === 7-y) {
         lightSquareColor = this.props.lightCheckColor;
         darkSquareColor = this.props.darkCheckColor;
@@ -100,7 +100,7 @@ export class Chess extends React.Component {
     return {
       x,
       y,
-      pos: `${String.fromCharCode(decode.charCodeOffset + x)}${8 - y}`
+      pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`
     }
   }
 
@@ -222,7 +222,7 @@ export class Chess extends React.Component {
         ]
     }
 
-    const label = isLeftColumn ? 8 - y : String.fromCharCode(decode.charCodeOffset + x)
+    const label = isLeftColumn ? 8 - y : String.fromCharCode(charCodeOffset + x)
     if (this.props.isWhite)
       return <span style={isLeftColumn ? yLabelStyles : xLabelStyles}>{label}</span>
     else
@@ -272,7 +272,7 @@ export class Chess extends React.Component {
 
     const pieces = this.props.pieces.map((decl, i) => {
       const isMoving = draggingPiece && i === draggingPiece.index
-      let {x, y, piece} = decode.fromPieceDecl(decl)
+      let {x, y, piece} = fromPieceDecl(decl)
       const Piece = pieceComponents(piece)
       if (!this.props.isWhite) {
         x = 7 - x
@@ -337,7 +337,7 @@ export class Chess extends React.Component {
     }
 
     const dots = this.props.dots.map(s => {
-      let {x, y, piece} = decode.fromPieceDecl(s);
+      let {x, y, piece} = fromPieceDecl(s);
       if (!this.props.isWhite) {
         x = 7 - x
         y = 7 - y

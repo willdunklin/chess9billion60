@@ -252,7 +252,7 @@ const P =  new Piece("P", 100, (x, y, history, color) => {
         return moves;
     }).makePromoter().name("Pawn").setBlurb("Google en passant").setRules("Standard pawn moves")
 
-module.exports = {
+export const PieceTypes = {
     "N": N,
     "R": R,
     "B": B,

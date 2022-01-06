@@ -1,5 +1,5 @@
 import { INVALID_MOVE } from "boardgame.io/core";
-const PieceTypes = require("./pieces.js");
+const { PieceTypes } = require("./pieces.js");
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {

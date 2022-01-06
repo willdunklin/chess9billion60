@@ -1,7 +1,7 @@
 const React = require('react')
 const {Chess} = require("./react-chess/react-chess.js");
 const PropTypes = require('prop-types')
-const PieceTypes = require("./pieces.js");
+const { PieceTypes } = require("./pieces.js");
 
 const result_style = {
     width: "200px",
