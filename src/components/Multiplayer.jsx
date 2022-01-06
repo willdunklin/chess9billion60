@@ -5,10 +5,12 @@ import { Chess } from "../Game";
 import { ChessBoard } from "../Board";
 import { useParams } from 'react-router-dom';
 
+
+const { protocol, hostname, port } = window.location;
 const ChessClient = Client({
     game: Chess,
     board: ChessBoard,
-    multiplayer: SocketIO({server: "localhost:8000"}),
+    multiplayer: SocketIO({server: `${protocol}//${hostname}:${port}`}),
     // debug: false,
     // multiplayer: SocketIO({server: "35.223.213.73:42069"})
 });
