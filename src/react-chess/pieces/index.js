@@ -1,8 +1,8 @@
 /* eslint-disable id-length */
 
-var React = require('react');
-var images = {}
-var piecePositionHoc = require('../piecePositionHoc');
+let React = require('react');
+let images = {}
+let piecePositionHoc = require('../piecePositionHoc');
 
 function make_piece(id) {
   return function b(props) {
@@ -11,8 +11,8 @@ function make_piece(id) {
 }
 
 function Piece(props, id) {
-  var path = "./img/" + id.charAt(0) + "/" + id + ".png";
-  var myVar =  require(''+path)
+  let path = "./img/" + id.charAt(0) + "/" + id + ".png";
+  let myVar =  require(''+path)
   if (typeof myVar === 'string' || myVar instanceof String) {
     return React.createElement('img', { src: require(''+path), style: props, alt: '' + id, width: props.size, height: props.size });
   } else {

@@ -3,16 +3,16 @@ const React = require('react')
 
 module.exports = function (Piece) {
   return function (props) {
-    var onMouseDown = props.onMouseDown,
+    let onMouseDown = props.onMouseDown,
         onMouseUp = props.onMouseUp,
         onTouchEnd = props.onTouchEnd,
         onTouchStart = props.onTouchStart,
         style = props.style,
         isMoving = props.isMoving;
 
-    var y = 7 - props.y;
+    let y = 7 - props.y;
 
-    var styles = Object.assign({}, style, {
+    let styles = Object.assign({}, style, {
       position: 'absolute',
       left: props.x * 12.5 + '%',
       top: y * 12.5 + '%',
