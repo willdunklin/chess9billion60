@@ -2,7 +2,7 @@ const React = require('react')
 const PropTypes = require('prop-types')
 const Draggable = require('react-draggable')
 const defaultLineup = require('./defaultLineup')
-var pieceComponents = require('./pieces')
+let pieceComponents = require('./pieces')
 const {fromPieceDecl, charCodeOffset} = require('./decode')
 
 // const ResizeAware = resizeAware.default || resizeAware
@@ -42,7 +42,7 @@ export class Chess extends React.Component {
 
   getSquareColor(x, y) {
     
-    var {lightSquareColor, darkSquareColor} = this.props
+    let {lightSquareColor, darkSquareColor} = this.props
     if (this.state.showPromotion) {
       lightSquareColor = this.props.lightGreyedOutColor
       darkSquareColor = this.props.darkGreyedOutColor
@@ -91,8 +91,8 @@ export class Chess extends React.Component {
   }
 
   coordsToPosition(coords) {
-    var x = Math.round(coords.x / this.state.tileSize)
-    var y = Math.round(coords.y / this.state.tileSize)
+    let x = Math.round(coords.x / this.state.tileSize)
+    let y = Math.round(coords.y / this.state.tileSize)
     if (!this.props.isWhite) {
       x = 7 - x
       y = 7 - y
@@ -191,7 +191,7 @@ export class Chess extends React.Component {
 
   renderLabelText(x, y) {
     const isLeftColumn = x === 0
-    var isBottomRow 
+    let isBottomRow 
     if (this.props.isWhite)
       isBottomRow = y === 7
     else
@@ -297,7 +297,7 @@ export class Chess extends React.Component {
     const promotion = []
     //const {chosenPromoter} = this.state
     if (this.state.showPromotion) {
-      var promotionFile = -1 + (-5 / 12.5)
+      let promotionFile = -1 + (-5 / 12.5)
       if (this.state.promotionFile !== null) {
         promotionFile = this.state.promotionFile
         if (!this.props.isWhite)
