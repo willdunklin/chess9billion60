@@ -5,7 +5,7 @@ const { PieceTypes } = require("./pieces.js");
 
 const result_style = {
     width: "200px",
-    height: "754px", //pretty arbitrary, don't worry about it
+    height: "554px", //pretty arbitrary, don't worry about it
     top: "0",
     left: "0",
     padding: '5px',
@@ -85,15 +85,6 @@ export class Visualizer extends React.Component {
         .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
         this.setState({dots2: [...new Set(dot_locations2)]})
       }
-    
-    
-      /*handleClickPiece(piece, clear) {
-        if(clear) {
-          this.setState({dots: []});
-          return;
-        } 
-        this.setState({dots: [piece.notation]});
-      }*/
     
     render() {
         const {piece} = this.props;

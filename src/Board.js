@@ -10,6 +10,7 @@ const visualizerStyles = {
     paddingTop: "50px",
     display: "flex",
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
     // height: "400px",
