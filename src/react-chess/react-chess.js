@@ -199,7 +199,7 @@ export class Chess extends React.Component {
 
     let xStyles
     let yStyles
-    const c = {color : this.getSquareColor(x,y+1)}
+    const c = {color : this.getSquareColor(x,y+17)} //17 is huge hack, the point is that it's big and odd so highlights can't be a problem
     if (this.props.isWhite) {
       xStyles = Object.assign({}, {bottom: '5%', right: '5%'},labelStyles, c)
       yStyles = Object.assign({}, {top: '5%', left: '5%'},labelStyles, c)
