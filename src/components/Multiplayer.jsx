@@ -14,7 +14,7 @@ const ChessClient = Client({
 });
 
 const client_style = {
-    padding: "4em",
+    padding: "1em",
 };
 
 export const Multiplayer = props => {

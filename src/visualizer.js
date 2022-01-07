@@ -6,7 +6,7 @@ const { PieceTypes } = require("./pieces.js");
 const boardWidth = 180
 const result_style = {
     width: boardWidth + "px",
-    height: ((2* boardWidth) + 100) + "px", //pretty arbitrary, don't worry about it
+    height: ((2* boardWidth) + 120) + "px", //pretty arbitrary, don't worry about it
     top: "0",
     left: "0",
     padding: '5px',

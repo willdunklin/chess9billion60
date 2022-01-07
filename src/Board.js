@@ -6,6 +6,39 @@ const {move, capture, end} = require("./sound.js");
 const { PieceTypes } = require("./pieces.js");
 const { validMove } = require("./Game.js");
 
+//Thanks SO
+function getWidth(){
+    console.log(Math.max(
+        document.body.scrollWidth,
+        document.documentElement.scrollWidth,
+        document.body.offsetWidth,
+        document.documentElement.offsetWidth,
+        document.documentElement.clientWidth
+    ))
+    return Math.max(
+        document.body.scrollWidth,
+        document.documentElement.scrollWidth,
+        document.body.offsetWidth,
+        document.documentElement.offsetWidth,
+        document.documentElement.clientWidth
+    )
+}
+
+function getHeight(){
+    console.log(document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight,
+        document.documentElement.clientHeight)
+    return Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight,
+        document.documentElement.clientHeight
+    )
+}
+
 const visualizerStyles = {
     paddingTop: "50px",
     display: "flex",
@@ -37,24 +70,24 @@ const s1 = {
 
 const container = {
     "position": "relative",
-    "width": "600px",
-    "height": "600px",
+    "width": Math.min(getHeight() - 100, getWidth() - 50) + "px", //TODO, magic numbers bad
+    //"height": "800px",
     // "display": 'flex',
     // "flexDirection": 'column',
     // 'alignItems': 'end',
 };
 
 const board_style = {
-    "width": "85%",
-    "height": "85%",
+    "width": "100%",
+    "height": "100%",
     //"position": "absolute",
     //"top": "0",
     //"left": "0",
 };
 
 const result_style = {
-    width: "85%",
-    height: "85%",
+    width: "100%",
+    height: "100%",
     position: "absolute",
     top: "36px",
     left: "0",
