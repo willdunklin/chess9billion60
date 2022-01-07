@@ -236,7 +236,7 @@ export class ChessBoard extends React.Component {
         const {pieces, update, highlights, dots, wTime, bTime} = this.state;
         const isWhite = this.props.playerID === "0";
 
-        console.log('spec', this.props.spectator)
+        //console.log('spec', this.props.spectator)
 
         // this will run after every move
         if (this.current_length !== this.props.G.history.length) {
