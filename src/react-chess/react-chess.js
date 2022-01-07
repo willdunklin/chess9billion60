@@ -201,32 +201,32 @@ export class Chess extends React.Component {
       return null
     }
 
+    let xStyles
+    let yStyles
+    const c = {color : this.getSquareColor(x,y+1)}
+    if (this.props.isWhite) {
+      xStyles = Object.assign({},xLabelStyles, c)
+      yStyles = Object.assign({},yLabelStyles, c)
+    } else {
+      xStyles = Object.assign({},xBLabelStyles, c)
+      xStyles = Object.assign({},yBLabelStyles, c)
+    }
+
+
     if (isLeftColumn && isBottomRow) {
-      if (this.props.isWhite)
         return [
-          <span key="blx" style={xLabelStyles}>
+          <span key="blx" style={xStyles}>
             a
           </span>,
-          <span key="bly" style={yLabelStyles}>
+          <span key="bly" style={yStyles}>
             1
           </span>
         ]
-      else
-        return [
-          <span key="blx" style={xBLabelStyles}>
-            a
-          </span>,
-          <span key="bly" style={yBLabelStyles}>
-            8
-          </span>
-        ]
+      } else {
     }
 
     const label = isLeftColumn ? 8 - y : String.fromCharCode(charCodeOffset + x)
-    if (this.props.isWhite)
-      return <span style={isLeftColumn ? yLabelStyles : xLabelStyles}>{label}</span>
-    else
-      return <span style={isLeftColumn ? yBLabelStyles : xBLabelStyles}>{label}</span>
+    return <span style={isLeftColumn ? yStyles : xStyles}>{label}</span>
   }
 
   handlePromotionSelection(piece) {
