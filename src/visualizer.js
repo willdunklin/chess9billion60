@@ -3,7 +3,7 @@ const {Chess} = require("./react-chess/react-chess.js");
 const PropTypes = require('prop-types')
 const { PieceTypes } = require("./pieces.js");
 
-const boardWidth = 180
+const boardWidth = Math.max(180, Math.floor((getWidth() - 120) / 7))
 const result_style = {
     width: boardWidth + "px",
     height: ((2* boardWidth) + 120) + "px", //pretty arbitrary, don't worry about it
@@ -40,6 +40,23 @@ const blurb_style = {
     "textAlign" : "center"
 }
 
+//Thanks SO
+function getWidth(){
+    console.log(Math.max(
+        document.body.scrollWidth,
+        document.documentElement.scrollWidth,
+        document.body.offsetWidth,
+        document.documentElement.offsetWidth,
+        document.documentElement.clientWidth
+    ))
+    return Math.max(
+        document.body.scrollWidth,
+        document.documentElement.scrollWidth,
+        document.body.offsetWidth,
+        document.documentElement.offsetWidth,
+        document.documentElement.clientWidth
+    )
+}
 
 export class Visualizer extends React.Component {
 

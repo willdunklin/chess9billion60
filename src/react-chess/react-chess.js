@@ -23,10 +23,6 @@ const squareStyles = {
 }
 
 const labelStyles = {fontSize: 'calc(7px + .5vw)', position: 'absolute', userSelect: 'none'}
-const yLabelStyles = Object.assign({top: '5%', left: '5%'}, labelStyles)
-const xLabelStyles = Object.assign({bottom: '5%', right: '5%'}, labelStyles)
-const yBLabelStyles = Object.assign({top: '5%', right: '5%'}, labelStyles)
-const xBLabelStyles = Object.assign({bottom: '5%', left: '5%'}, labelStyles)
 
 export class Chess extends React.Component {
   constructor(...args) {
@@ -205,11 +201,11 @@ export class Chess extends React.Component {
     let yStyles
     const c = {color : this.getSquareColor(x,y+1)}
     if (this.props.isWhite) {
-      xStyles = Object.assign({},xLabelStyles, c)
-      yStyles = Object.assign({},yLabelStyles, c)
+      xStyles = Object.assign({}, {bottom: '5%', right: '5%'},labelStyles, c)
+      yStyles = Object.assign({}, {top: '5%', left: '5%'},labelStyles, c)
     } else {
-      xStyles = Object.assign({},xBLabelStyles, c)
-      xStyles = Object.assign({},yBLabelStyles, c)
+      xStyles = Object.assign({},{bottom: '5%', left: '5%'},labelStyles, c)
+      yStyles = Object.assign({},{top: '5%', right: '5%'},labelStyles, c)
     }
 
 
