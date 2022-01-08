@@ -2,6 +2,7 @@ const React = require('react')
 const {Chess} = require("./react-chess/react-chess.js");
 const PropTypes = require('prop-types')
 const { PieceTypes } = require("./pieces.js");
+const {move} = require("./sound.js");
                 //0 1 2 3 4 5 6 7 8
 const widthMap = [4,4,4,4,4,3,3,4,4]; //anything below 4 looks dumb, don't really like 3.
 
@@ -87,6 +88,7 @@ export class Visualizer extends React.Component {
         let dot_locations1 = PieceTypes[piece.name.substring(1)].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
         .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
         this.setState({dots1: [...new Set(dot_locations1)]})
+        move(0.05)
       }
 
       handleMovePiece2(piece, fromSquare, toSquare, promotion) {
@@ -98,6 +100,7 @@ export class Visualizer extends React.Component {
         let dot_locations2 = PieceTypes[piece.name.substring(1)].getAvailableMoves(x,y,null,"W").map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
         .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
         this.setState({dots2: [...new Set(dot_locations2)]})
+        move(0.05)
       }
 
     
