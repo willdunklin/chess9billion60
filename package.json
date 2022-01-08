@@ -24,7 +24,9 @@
     },
     "scripts": {
         "start": "node -r esm src/server.js",
+        "start-dev": "react-scripts start",
         "serve": "node -r esm src/server.js",
+        "heroku": "react-scripts build && nodemon heroku local",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
