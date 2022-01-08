@@ -9,21 +9,23 @@ const { validMove } = require("./Game.js");
 //Thanks SO
 function getWidth(){
     return Math.max(
-        document.body.scrollWidth,
-        document.documentElement.scrollWidth,
-        document.body.offsetWidth,
-        document.documentElement.offsetWidth,
-        document.documentElement.clientWidth
+        window.innerWidth
+        //document.body.scrollWidth,
+        //document.documentElement.scrollWidth,
+        //document.body.offsetWidth,
+        //document.documentElement.offsetWidth,
+        //document.documentElement.clientWidth
     )
 }
 
 function getHeight(){
     return Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-        document.body.offsetHeight,
-        document.documentElement.offsetHeight,
-        document.documentElement.clientHeight
+        window.innerHeight
+        //document.body.scrollHeight,
+        //document.documentElement.scrollHeight,
+        //document.body.offsetHeight,
+        //document.documentElement.offsetHeight,
+        //document.documentElement.clientHeight
     )
 }
 
@@ -99,11 +101,13 @@ export class ChessBoard extends React.Component {
             dots: [],
             wTime: this.props.G.wTime,
             bTime: this.props.G.bTime,
+            boardWidth: Math.min(getHeight() - 100, getWidth() - 50)
         };
 
         this.onMovePiece = this.onMovePiece.bind(this);
         this.onDragStart = this.onDragStart.bind(this);
         this.onClickPiece = this.onClickPiece.bind(this);
+        this.handleResize = this.handleResize.bind(this);
 
         this.updateBoard = this.updateBoard.bind(this);
         this.piecify = this.piecify.bind(this);
@@ -116,6 +120,14 @@ export class ChessBoard extends React.Component {
         this.current_length = 0;
         this.curr_promotablePieces = [];
         this.gameover = false;
+        
+        window.addEventListener('resize', this.handleResize)
+    }
+
+    handleResize() {
+        this.setState({
+            boardWidth: Math.min(getHeight() - 100, getWidth() - 50)
+        })
     }
 
     piecify(board) {
@@ -301,7 +313,7 @@ export class ChessBoard extends React.Component {
         return (
             <div style={s1}>
                 <div style={boardContainerStyles}>
-                    <div style={container}>
+                    <div style={{position: "relative", width : this.state.boardWidth +"px"}}>
                         <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/>
                         <div>
                             <div className="board" style={board_style}>

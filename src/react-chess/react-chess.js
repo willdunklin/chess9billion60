@@ -34,6 +34,9 @@ export class Chess extends React.Component {
     this.handleDragStart = this.handleDragStart.bind(this)
     this.handleDragStop = this.handleDragStop.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
+    this.handleResize = this.handleResize.bind(this)
+
+    window.addEventListener('resize', this.handleResize)
   }
 
   getSquareColor(x, y) {
@@ -81,9 +84,10 @@ export class Chess extends React.Component {
 
   // TODO: this was axed by removing react-resize-aware
   // make sure that tileSize isn't getting clobbered
-  handleResize(size) {
-    const tileSize = size.width / 8
-    this.setState({boardSize: size.width, tileSize})
+  handleResize() {
+    const boardSize = this.els.board.clientWidth
+    const tileSize = boardSize / 8
+    this.setState({boardSize, tileSize})
   }
 
   coordsToPosition(coords) {
