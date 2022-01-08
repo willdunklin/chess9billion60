@@ -214,6 +214,7 @@ export class Chess extends React.Component {
 
 
     if (isLeftColumn && isBottomRow) {
+      if(this.props.isWhite)
         return [
           <span key="blx" style={xStyles}>
             a
@@ -222,8 +223,16 @@ export class Chess extends React.Component {
             1
           </span>
         ]
-      } else {
-    }
+        else
+        return [
+          <span key="blx" style={xStyles}>
+            a
+          </span>,
+          <span key="bly" style={yStyles}>
+            8
+          </span>
+        ]
+      }
 
     const label = isLeftColumn ? 8 - y : String.fromCharCode(charCodeOffset + x)
     return <span style={isLeftColumn ? yStyles : xStyles}>{label}</span>
