@@ -10,7 +10,7 @@ const { protocol, hostname, port } = window.location;
 const ChessClient = Client({
     game: Chess,
     board: ChessBoard,
-    multiplayer: SocketIO({server: `${protocol}//${hostname}:${8000 /*port*/}`}),
+    multiplayer: SocketIO({server: `${protocol}//${hostname}:${5000 /*port*/}`}),
     // debug: false,
 });
 
