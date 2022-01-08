@@ -2,11 +2,10 @@ const React = require('react')
 const {Chess} = require("./react-chess/react-chess.js");
 const PropTypes = require('prop-types')
 const { PieceTypes } = require("./pieces.js");
+                //0 1 2 3 4 5 6 7 8
+const widthMap = [4,4,4,4,4,3,3,4,4]; //anything below 4 looks dumb, don't really like 3.
 
-const boardWidth = Math.max(180, Math.floor((getWidth() - 120) / 7))
-const result_style = {
-    width: boardWidth + "px",
-    height: ((2* boardWidth) + 120) + "px", //pretty arbitrary, don't worry about it
+let result_style = {
     top: "0",
     left: "0",
     padding: '5px',
@@ -19,10 +18,8 @@ const result_style = {
     userSelect: "none",
 }
 
-const container = {
+let container = {
     "position": "relative",
-    "width": boardWidth + "px",
-    "height": boardWidth + "px",
     padding: '5px',
 };
 
@@ -55,8 +52,14 @@ export class Visualizer extends React.Component {
 
     constructor(props) {
         super(props);
-        const {piece, color} = this.props;
-        
+        const {piece, color, count} = this.props;
+        //let boardWidth = Math.max(180, Math.floor((getWidth() - 120) / 7))
+        //if (count !== undefined)
+        let boardWidth = Math.max(180, Math.floor((getWidth() - 120) / widthMap[count]))
+        console.log(boardWidth)
+        result_style = Object.assign({},result_style, {width: boardWidth + "px", height: ((/*2**/ boardWidth) + 120) + "px",})
+        container = Object.assign({},container, {width: boardWidth + "px", height: boardWidth + "px"})
+
         this.handleMovePiece1 = this.handleMovePiece1.bind(this);
         this.handleMovePiece2 = this.handleMovePiece2.bind(this);
 
@@ -115,7 +118,16 @@ export class Visualizer extends React.Component {
                         />
                     </div>
                 </div>
-                <div style={container}>
+                
+                <div style={blurb_style}>{PieceTypes[piece].getRules()}</div>
+                <div style={blurb_style}><em>{PieceTypes[piece].getBlurb()}</em></div>
+            </div>
+        )
+    }
+}
+
+/* The missing div
+<div style={container}>
                     <div className="board" style={board_style}>
                         <Chess
                             pieces={pieces2}
@@ -124,13 +136,7 @@ export class Visualizer extends React.Component {
                             onMovePiece={this.handleMovePiece2}
                         />
                     </div>
-                </div>
-                <div style={blurb_style}>{PieceTypes[piece].getRules()}</div>
-                <div style={blurb_style}><em>{PieceTypes[piece].getBlurb()}</em></div>
-            </div>
-        )
-    }
-}
+                </div>*/
 
 Visualizer.propTypes = {
     // vanilla react-chess

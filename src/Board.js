@@ -292,7 +292,9 @@ export class ChessBoard extends React.Component {
             visualizers.push(<Visualizer 
                 key={`${piece}-${this.props.G.promotablePieces}-visualizer`} // fixes bug when promPieces changes
                 piece={piece} 
-                color={isWhite ? "W" : "B"}/>
+                color={isWhite ? "W" : "B"}
+                count={this.props.G.promotablePieces.length}
+                />
             )
         }
 
