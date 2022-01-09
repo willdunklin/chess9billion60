@@ -1,4 +1,5 @@
 import React from 'react';
+// TODO: change this to nanoid
 import {parse, v4} from "uuid";
 
 export const Main = props => {

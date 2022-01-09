@@ -74,9 +74,6 @@ export class Visualizer extends React.Component {
         .map(to_square => `${color + piece}@${to_square}`); // of the form piece_name@to_square
 
         this.state = {pieces1: [color + piece + "@e5"], pieces2: [color + piece + "@a1"],dots1: [...new Set(dot_locations1)],dots2: [...new Set(dot_locations2)], boardWidth: Math.max(180, Math.floor((getWidth() - 120) / widthMap[count])),count: count};
-        console.log(Math.max(180, Math.floor((getWidth() - 120) / widthMap[count])))
-        console.log(count)
-        console.log(this.state.boardWidth)
         window.addEventListener('resize', this.handleResize)
       }
 

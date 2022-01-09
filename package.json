@@ -3,19 +3,26 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@aws-sdk/client-dynamodb": "^3.46.0",
         "@testing-library/jest-dom": "^5.15.1",
         "@testing-library/react": "^11.2.7",
         "@testing-library/user-event": "^12.8.3",
+        "aws-sdk": "^2.1053.0",
         "boardgame.io": "^0.49.5",
         "esm": "^3.2.25",
+        "https-browserify": "^1.0.0",
         "koa-static": "^5.0.0",
+        "mongodb": "^4.3.0",
+        "nanoid": "^3.1.30",
         "react": "^17.0.2",
+        "react-cookie": "^4.1.1",
         "react-dom": "^17.0.2",
         "react-draggable": "^4.4.4",
         "react-resize-aware": "^3.1.1",
         "react-router-dom": "^6.2.1",
         "react-scripts": "^5.0.0",
         "uifx": "^2.0.7",
+        "util": "^0.12.4",
         "uuid": "^8.3.2",
         "web-vitals": "^1.1.2"
     },
@@ -50,6 +57,7 @@
         ]
     },
     "devDependencies": {
-        "eslint-plugin-react-hooks": "^4.3.0"
+        "eslint-plugin-react-hooks": "^4.3.0",
+        "nodemon": "^2.0.15"
     }
 }

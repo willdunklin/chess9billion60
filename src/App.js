@@ -1,18 +1,31 @@
-import React from "react";
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes, Switch } from 'react-router-dom';
 
-import { Multiplayer, Spectator } from './components/Multiplayer';
+import { Multiplayer } from './components/Multiplayer';
 import { Main } from './components/Main';
 
+import { CookiesProvider } from "react-cookie";
+import { useCookies } from "react-cookie";
+import { nanoid } from "nanoid";
 
-const App = () => (
-    <BrowserRouter>
-        <Routes>
-            <Route key="1" exact path="/:gameid/:playerid" element={<Multiplayer />} />
-            <Route key="2" exact path="/:gameid/" element={<Spectator />} />
-            <Route key="3" exact path="/" element={<Main />} />
-        </Routes>
-    </BrowserRouter>
-);
+const App = () => {
+    const [ cookies, setCookie ] = useCookies(['user']);
+    // Add cookie 
+    if (cookies.idtoken === undefined)
+        setCookie('idtoken', nanoid());
+
+    return (
+        <CookiesProvider>
+
+            <BrowserRouter>
+                <Routes>
+                    <Route exact path="/:gameid/" element={<Multiplayer />} />
+                    <Route exact path="/" element={<Main />} />
+                </Routes>
+            </BrowserRouter>
+
+        </CookiesProvider>
+    );
+};
 
 export default App;
