@@ -76,8 +76,6 @@ const board_style = {
 };
 
 const result_style = {
-    width: "100%",
-    height: "100%",
     position: "absolute",
     top: "36px",
     left: "0",
@@ -283,9 +281,9 @@ export class ChessBoard extends React.Component {
 
             winner =
                 this.props.ctx.gameover.winner !== undefined ? (
-                    <div id="winner" style={result_style}>Winner: {this.props.ctx.gameover.winner}</div>
+                    <div id="winner" style={ Object.assign({}, result_style, {width: this.state.boardWidth +"px", height: this.state.boardWidth +"px"})}>Winner: {this.props.ctx.gameover.winner}</div>
                 ) : (
-                    <div id="winner" style={result_style}>Draw</div>
+                    <div id="winner"  style={ Object.assign({}, result_style, {width: this.state.boardWidth +"px", height: this.state.boardWidth +"px"})}>Draw</div>
                 );
         }
 

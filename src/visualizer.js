@@ -6,23 +6,23 @@ const {move} = require("./sound.js");
                 //0 1 2 3 4 5 6 7 8
 const widthMap = [4,4,4,4,4,3,3,4,4]; //anything below 4 looks dumb, don't really like 3.
 
-const result_style = {
-    top: "0",
-    left: "0",
-    padding: '5px',
-
-    display: "flex",
-    flexDirection: "column",
-    //justifyContent: "center",
-    alignItems: "center",
-    zIndex: "1",
-    userSelect: "none",
-}
-
-const container = {
-    "position": "relative",
-    padding: '5px',
-};
+//const result_style = {
+//    top: "0",
+//    left: "0",
+//    padding: '5px',
+//
+//    display: "flex",
+//    flexDirection: "column",
+//    //justifyContent: "center",
+//    alignItems: "center",
+//    zIndex: "1",
+//    userSelect: "none",
+//}
+//
+//const container = {
+//    "position": "relative",
+//    padding: '5px',
+//};
 
 const board_style = {
     "width": "100%",
@@ -108,7 +108,7 @@ export class Visualizer extends React.Component {
     
     render() {
         const {piece} = this.props;
-        const {pieces1, pieces2, dots1, dots2, boardWidth} = this.state;
+        const {pieces1, /*pieces2,*/ dots1, /*dots2,*/ boardWidth} = this.state;
 
         return (
             <div style={{
