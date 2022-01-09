@@ -85,9 +85,11 @@ export class Chess extends React.Component {
   // TODO: this was axed by removing react-resize-aware
   // make sure that tileSize isn't getting clobbered
   handleResize() {
-    const boardSize = this.els.board.clientWidth
-    const tileSize = boardSize / 8
-    this.setState({boardSize, tileSize})
+    if (this.els.board != undefined) {
+      const boardSize = this.els.board.clientWidth
+      const tileSize = boardSize / 8
+      this.setState({boardSize, tileSize})
+    }
   }
 
   coordsToPosition(coords) {
