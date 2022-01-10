@@ -1,32 +1,19 @@
 import React from "react";
-import { Visualizer } from "./visualizer.js";
-const {Chess} = require("./react-chess/react-chess.js");
-const {Timer} = require("./timer.js")
-const {move, capture, end} = require("./sound.js");
+const { Visualizer } = require("./visualizer.js");
+const { Chess } = require("./react-chess/react-chess.js");
+const { Timer } = require("./timer.js")
+const { move, capture, end } = require("./sound.js");
 const { PieceTypes } = require("./pieces.js");
 const { validMove } = require("./Game.js");
 
-//Thanks SO
 function getWidth(){
-    return Math.max(
-        window.innerWidth
-        //document.body.scrollWidth,
-        //document.documentElement.scrollWidth,
-        //document.body.offsetWidth,
-        //document.documentElement.offsetWidth,
-        //document.documentElement.clientWidth
-    )
+    const width = window.innerWidth - 50;
+    return width;
 }
 
 function getHeight(){
-    return Math.max(
-        window.innerHeight
-        //document.body.scrollHeight,
-        //document.documentElement.scrollHeight,
-        //document.body.offsetHeight,
-        //document.documentElement.offsetHeight,
-        //document.documentElement.clientHeight
-    )
+    const height = window.innerHeight - 150
+    return height;
 }
 
 const visualizerStyles = {
@@ -36,17 +23,13 @@ const visualizerStyles = {
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    // height: "400px",
 }
 
 const boardContainerStyles = {
-    //padding: "12px",
     display: "flex",
     flexDirection: "row",
-    //flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    // height: "400px",
 }
 
 const s1 = {
@@ -55,24 +38,11 @@ const s1 = {
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    // height: "400px",
 }
-
-//const container = {
-//    "position": "relative",
-//    "width": Math.min(getHeight() - 100, getWidth() - 50) + "px", //TODO, magic numbers bad
-//    //"height": "800px",
-//    // "display": 'flex',
-//    // "flexDirection": 'column',
-//    // 'alignItems': 'end',
-//};
 
 const board_style = {
     "width": "100%",
     "height": "100%",
-    //"position": "absolute",
-    //"top": "0",
-    //"left": "0",
 };
 
 const result_style = {
@@ -92,7 +62,12 @@ const result_style = {
 export class ChessBoard extends React.Component {
     constructor(props) {
         super(props);
-        document.body.style.overflowY = "scroll"
+
+        document.body.style.overflowY = "scroll";
+
+        this.xbuffer = 50;
+        this.ybuffer = 200;
+
         this.state = {
             pieces: this.piecify(this.props.G.history[0]),
             update: 0,
@@ -100,7 +75,7 @@ export class ChessBoard extends React.Component {
             dots: [],
             wTime: this.props.G.wTime,
             bTime: this.props.G.bTime,
-            boardWidth: Math.min(getHeight() - 100, getWidth() - 50),
+            boardWidth: Math.min(getHeight(), getWidth()),
             historyIndex: 0,
         };
 
@@ -153,7 +128,7 @@ export class ChessBoard extends React.Component {
 
     handleResize() {
         this.setState({
-            boardWidth: Math.min(getHeight() - 100, getWidth() - 50)
+            boardWidth: Math.min(getHeight(), getWidth())
         })
     }
 
@@ -368,7 +343,6 @@ export class ChessBoard extends React.Component {
             this.updateBoard(false);
         }
 
-        // console.log(this.props.playerID, this.props.G.promotablePieces);
         //Making the piece visualizer
         let visualizers = []
         for (let piece of this.props.G.promotablePieces) {
