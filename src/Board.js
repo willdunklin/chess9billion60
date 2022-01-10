@@ -65,9 +65,6 @@ export class ChessBoard extends React.Component {
 
         document.body.style.overflowY = "scroll";
 
-        this.xbuffer = 50;
-        this.ybuffer = 200;
-
         this.state = {
             pieces: this.piecify(this.props.G.history[0]),
             update: 0,
@@ -379,19 +376,23 @@ export class ChessBoard extends React.Component {
                             </div>
                             {winner}
                         </div>
-                        <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>
-                        <button onClick={this.startHistoryButton}>
-                            Start
-                        </button>
-                        <button onClick={this.backHistoryButton}>
-                            Back
-                        </button>
-                        <button onClick={this.forwardHistoryButton}>
-                            Forward
-                        </button>
-                        <button onClick={this.endHistoryButton}>
-                            End
-                        </button>
+                        <div style={{display: "flex", justifyContent: "space-between"}}>
+                            <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>
+                            <div style={{display: "flex", alignItems: "middle"}}>
+                                <button onClick={this.startHistoryButton}>
+                                    Start
+                                </button>
+                                <button onClick={this.backHistoryButton}>
+                                    Back
+                                </button>
+                                <button onClick={this.forwardHistoryButton}>
+                                    Forward
+                                </button>
+                                <button onClick={this.endHistoryButton}>
+                                    End
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div style={visualizerStyles}>{visualizers}</div>
