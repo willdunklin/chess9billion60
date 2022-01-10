@@ -5,7 +5,7 @@ import { Chess } from "../Game";
 import { ChessBoard } from "../Board";
 import { useParams } from 'react-router-dom';
 import { useCookies } from "react-cookie";
-import { DynamoDBClient, QueryCommand, PutItemCommand, GetItemCommand, UpdateItemCommand, ListTablesCommand, CreateTableCommand } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, PutItemCommand, GetItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 
 const { protocol, hostname, port } = window.location;
 const ChessClient = Client({
@@ -149,7 +149,7 @@ export const Multiplayer = props => {
                     console.error('eror!', e);
                     setLoadedSuccessfully(false);
             })
-    }, [])
+    }, [gameid, cookies.idtoken])
 
     // TODO: add stronger clientside checks
     // if the gameid is invalidly formatted, draw an error
