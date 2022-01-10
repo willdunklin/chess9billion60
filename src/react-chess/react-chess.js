@@ -85,7 +85,7 @@ export class Chess extends React.Component {
   // TODO: this was axed by removing react-resize-aware
   // make sure that tileSize isn't getting clobbered
   handleResize() {
-    if (this.els.board !== undefined) {
+    if (this.els.board !== undefined && this.els.board !== null) {
       const boardSize = this.els.board.clientWidth
       const tileSize = boardSize / 8
       this.setState({boardSize, tileSize})
