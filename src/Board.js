@@ -172,7 +172,7 @@ export class ChessBoard extends React.Component {
             dots: [],
         });
 
-        if(this.props.G.history.length < 2 || !play_sound)
+        if(this.props.ctx.turn < 2 || !play_sound)
             return;
         // calculate the number of pieces on previous and current boards
         const prev_num_pieces = this.props.G.history[1].filter(p => p !== null).length;
@@ -276,7 +276,7 @@ export class ChessBoard extends React.Component {
     }
 
     backHistoryButton() {
-        //console.log(this.props.G.history.length + " " + this.state.historyIndex)
+        //console.log(this.props.ctx.turn + " " + this.state.historyIndex)
         if (this.state.historyIndex < this.props.G.history.length - 1) {
             this.setState({pieces: this.piecify(this.props.G.history[this.state.historyIndex + 1])})
             this.setState({historyIndex: Math.min(this.props.G.history.length - 1, this.state.historyIndex + 1)})
@@ -321,8 +321,8 @@ export class ChessBoard extends React.Component {
         //console.log('spec', this.props.spectator)
 
         // this will run after every move
-        if (this.current_length !== this.props.G.history.length) {
-            this.current_length = this.props.G.history.length;
+        if (this.current_length !== this.props.ctx.turn) {
+            this.current_length = this.props.ctx.turn;
 
             // redraw board
             this.updateBoard(true);
