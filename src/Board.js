@@ -58,14 +58,14 @@ const s1 = {
     // height: "400px",
 }
 
-const container = {
-    "position": "relative",
-    "width": Math.min(getHeight() - 100, getWidth() - 50) + "px", //TODO, magic numbers bad
-    //"height": "800px",
-    // "display": 'flex',
-    // "flexDirection": 'column',
-    // 'alignItems': 'end',
-};
+//const container = {
+//    "position": "relative",
+//    "width": Math.min(getHeight() - 100, getWidth() - 50) + "px", //TODO, magic numbers bad
+//    //"height": "800px",
+//    // "display": 'flex',
+//    // "flexDirection": 'column',
+//    // 'alignItems': 'end',
+//};
 
 const board_style = {
     "width": "100%",
@@ -99,13 +99,18 @@ export class ChessBoard extends React.Component {
             dots: [],
             wTime: this.props.G.wTime,
             bTime: this.props.G.bTime,
-            boardWidth: Math.min(getHeight() - 100, getWidth() - 50)
+            boardWidth: Math.min(getHeight() - 100, getWidth() - 50),
+            historyIndex: 0,
         };
 
         this.onMovePiece = this.onMovePiece.bind(this);
         this.onDragStart = this.onDragStart.bind(this);
         this.onClickPiece = this.onClickPiece.bind(this);
         this.handleResize = this.handleResize.bind(this);
+        this.backHistoryButton = this.backHistoryButton.bind(this);
+        this.forwardHistoryButton = this.forwardHistoryButton.bind(this);
+        this.startHistoryButton = this.startHistoryButton.bind(this);
+        this.endHistoryButton = this.endHistoryButton.bind(this);
 
         this.updateBoard = this.updateBoard.bind(this);
         this.piecify = this.piecify.bind(this);
@@ -164,6 +169,10 @@ export class ChessBoard extends React.Component {
         if (this.props.ctx.gameover)
             return false;
 
+        if (this.state.historyIndex !== 0) {
+            return false;
+        }
+
         const black_piece = piece.name.charAt(0) === "B";
         const black_turn = this.props.ctx.currentPlayer === "1";
 
@@ -193,11 +202,11 @@ export class ChessBoard extends React.Component {
         const from_y = Number(from_square[1]) - 1;
 
         // get available moves, filter through validity check if its our turn
-        if ((this.props.G.whiteTurn && piece.name.charAt(0) === "W") || (!this.props.G.whiteTurn && piece.name.charAt(0) !== "W")) {
-            let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, this.props.G.history, piece.name.charAt(0))
+        if ((this.props.G.whiteTurn && piece.name.charAt(0) === "W") || (!this.props.G.whiteTurn && piece.name.charAt(0) !== "W") || this.state.historyIndex !== 0) {
+            let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, this.props.G.history.slice(this.state.historyIndex), piece.name.charAt(0))
                 .map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
                 .filter(to_square => // filter move validity (stolen from colorHasMateInOnes)
-                    validMove(this.props.G.history, piece.name, from_square, to_square) !== null)
+                    validMove(this.props.G.history.slice(this.state.historyIndex), piece.name, from_square, to_square) !== null)
                 .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
 
             // set the new dot locations but remove duplicates
@@ -242,8 +251,47 @@ export class ChessBoard extends React.Component {
         }
     }
 
+    backHistoryButton() {
+        //console.log(this.props.G.history.length + " " + this.state.historyIndex)
+        if (this.state.historyIndex < this.props.G.history.length - 1) {
+            this.setState({pieces: this.piecify(this.props.G.history[this.state.historyIndex + 1])})
+            this.setState({historyIndex: Math.min(this.props.G.history.length - 1, this.state.historyIndex + 1)})
+            this.setState({dots: []})
+            move(1);
+        }
+        
+    }
+
+    forwardHistoryButton() {
+        //console.log(this.props.G.history.length + " " + this.state.historyIndex)
+        if (this.state.historyIndex > 0) {
+            this.setState({pieces: this.piecify(this.props.G.history[this.state.historyIndex-1])})
+            this.setState({historyIndex: Math.max(0, this.state.historyIndex - 1)})
+            this.setState({dots: []})
+            move(1);
+        }
+    }
+
+    startHistoryButton() {
+        if (this.state.historyIndex !== this.props.G.history.length - 1) {
+            this.setState({pieces: this.piecify(this.props.G.history[this.props.G.history.length - 1])})
+            this.setState({historyIndex: this.props.G.history.length - 1})
+            this.setState({dots: []})
+            move(1);
+        }
+    }
+
+    endHistoryButton() {
+        if (this.state.historyIndex !== 0) {
+            this.setState({pieces: this.piecify(this.props.G.history[0])})
+            this.setState({historyIndex: 0})
+            this.setState({dots: []})
+            move(1);
+        }
+    }
+
     render() {
-        const {pieces, update, highlights, dots, wTime, bTime} = this.state;
+        const {pieces, update, highlights, dots, wTime, bTime, historyIndex} = this.state;
         const isWhite = this.props.playerID === "0";
 
         //console.log('spec', this.props.spectator)
@@ -267,7 +315,7 @@ export class ChessBoard extends React.Component {
         }
 
         let winner = "";
-        if (this.props.ctx.gameover) {
+        if (this.props.ctx.gameover && this.state.historyIndex === 0) {
             
             if(!this.gameover) {
                 // TODO: this sound still plays on refresh
@@ -317,10 +365,10 @@ export class ChessBoard extends React.Component {
                             <div className="board" style={board_style}>
                                 <Chess
                                     pieces={pieces}
-                                    highlights={highlights}
+                                    highlights={historyIndex === 0 ? highlights : []}
                                     dots={dots}
                                     update={update}
-                                    check={this.props.G.inCheck}
+                                    check={historyIndex === 0 ? this.props.G.inCheck : ""}
                                     promotablePieces = {this.props.G.promotablePieces}
                                     whiteTurn={this.props.G.whiteTurn}
                                     onMovePiece={this.onMovePiece}
@@ -333,6 +381,18 @@ export class ChessBoard extends React.Component {
                             {winner}
                         </div>
                         <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>
+                        <button onClick={this.startHistoryButton}>
+                            start
+                        </button>
+                        <button onClick={this.backHistoryButton}>
+                            back
+                        </button>
+                        <button onClick={this.forwardHistoryButton}>
+                            forward
+                        </button>
+                        <button onClick={this.endHistoryButton}>
+                            end
+                        </button>
                     </div>
                 </div>
                 <div style={visualizerStyles}>{visualizers}</div>

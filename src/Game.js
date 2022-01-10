@@ -330,7 +330,7 @@ export const Chess = {
 
     setup: () => {
         let initialPos = initialBoard();
-        let startTime = 900 * 1000;
+        let startTime = 600 * 1000;
         return ({
             history: [initialPos],
             promotablePieces: [...new Set(
@@ -352,7 +352,7 @@ export const Chess = {
             startTime:  startTime,
             wTime:      startTime,
             bTime:      startTime,
-            increment:  10 * 1000,
+            increment:  0 * 1000,
             last_event: Date.now(),
         })
     },
