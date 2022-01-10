@@ -6,8 +6,6 @@ const path = require("path");
 const server = Server({
     games: [Chess],
     origins: [Origins.LOCALHOST],
-    // generateCredentials,
-    // authenticateCredentials,
 });
 
 const frontEndAppBuildPath = path.resolve(__dirname, '../build');
