@@ -382,16 +382,16 @@ export class ChessBoard extends React.Component {
                         </div>
                         <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>
                         <button onClick={this.startHistoryButton}>
-                            start
+                            Start
                         </button>
                         <button onClick={this.backHistoryButton}>
-                            back
+                            Back
                         </button>
                         <button onClick={this.forwardHistoryButton}>
-                            forward
+                            Forward
                         </button>
                         <button onClick={this.endHistoryButton}>
-                            end
+                            End
                         </button>
                     </div>
                 </div>
