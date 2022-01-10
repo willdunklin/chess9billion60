@@ -91,7 +91,7 @@ const result_style = {
 export class ChessBoard extends React.Component {
     constructor(props) {
         super(props);
-
+        document.body.style.overflowY = "scroll"
         this.state = {
             pieces: this.piecify(this.props.G.history[0]),
             update: 0,
@@ -129,11 +129,11 @@ export class ChessBoard extends React.Component {
     }
 
     handleMouseEnterBoard() {
-        document.body.style.overflow = "hidden"
+        document.body.style.position = "fixed"
     }
 
     handleMouseExitBoard() {
-        document.body.style.overflow = "auto"
+        document.body.style.position = "static"
     }
 
     handleScroll = e => {
