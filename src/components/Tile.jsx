@@ -20,7 +20,7 @@ export const Tile = props => {
     const styles = Object.assign({background, boxShadow}, squareStyles)
 
     return (
-        <div key={`rect-${x}-${y}`} style={styles}>
+        <div style={styles} key={`${x}-${y}-rect`}>
             {text}
         </div>
     );

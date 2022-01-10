@@ -332,7 +332,8 @@ export class Chess extends React.Component {
     const boardStyles = {position: 'relative', width: '100%', height: boardSize};
 
     const children = tileElems.concat(piecesElems).concat(promotionElems).concat(dotElems);
-
+    // TODO: for some reason tileElems doesnt have keys (they are all null)
+    // console.log(tileElems)
     return (
       <div ref={this.setBoardRef} style={boardStyles}>
         {children}
