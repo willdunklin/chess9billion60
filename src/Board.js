@@ -336,6 +336,7 @@ export class ChessBoard extends React.Component {
                 this.timer = setInterval(this.decrementTimer, this.dec_amt);
             
             this.gameover = this.props.ctx.gameover;
+            this.setState({historyIndex: 0})
         }
 
         let winner = "";
