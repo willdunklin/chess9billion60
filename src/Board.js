@@ -111,6 +111,7 @@ export class ChessBoard extends React.Component {
         this.forwardHistoryButton = this.forwardHistoryButton.bind(this);
         this.startHistoryButton = this.startHistoryButton.bind(this);
         this.endHistoryButton = this.endHistoryButton.bind(this);
+        this.handleScroll = this.handleScroll.bind(this)
 
         this.updateBoard = this.updateBoard.bind(this);
         this.piecify = this.piecify.bind(this);
@@ -125,6 +126,23 @@ export class ChessBoard extends React.Component {
         this.gameover = false;
         
         window.addEventListener('resize', this.handleResize)
+    }
+
+    handleMouseEnterBoard() {
+        document.body.style.overflow = "hidden"
+    }
+
+    handleMouseExitBoard() {
+        document.body.style.overflow = "auto"
+    }
+
+    handleScroll = e => {
+        if (e.nativeEvent.wheelDelta > 0) {
+            this.forwardHistoryButton()
+        } else {
+            this.backHistoryButton()
+        }
+        
     }
 
     handleResize() {
@@ -362,7 +380,7 @@ export class ChessBoard extends React.Component {
                     <div style={{position: "relative", width : this.state.boardWidth +"px"}}>
                         <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/>
                         <div>
-                            <div className="board" style={board_style}>
+                            <div className="board" style={board_style} onWheel={this.handleScroll} onMouseEnter={this.handleMouseEnterBoard} onMouseLeave={this.handleMouseExitBoard}>
                                 <Chess
                                     pieces={pieces}
                                     highlights={historyIndex === 0 ? highlights : []}
