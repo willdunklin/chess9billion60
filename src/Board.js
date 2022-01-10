@@ -86,6 +86,7 @@ const result_style = {
     zIndex: "1",
     backgroundColor: "#eee9",
     userSelect: "none",
+    pointerEvents: "none"
 }
 
 export class ChessBoard extends React.Component {
@@ -129,11 +130,16 @@ export class ChessBoard extends React.Component {
     }
 
     handleMouseEnterBoard() {
+        const top = document.documentElement.scrollTop
         document.body.style.position = "fixed"
+        document.body.style.top = -top + "px"
     }
 
     handleMouseExitBoard() {
+        let top = document.body.style.top
+        top = top.substring(1,top.length - 2)
         document.body.style.position = "static"
+        document.documentElement.scrollTo(0,top)
     }
 
     handleScroll = e => {
