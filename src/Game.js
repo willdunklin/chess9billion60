@@ -12,13 +12,17 @@ function shuffleArray(array) {
 }
 
 
-function handleTimers(G, whiteTurn) {
-    // const {whiteTime, blackTime, increment, last_event} = timer_state
-    const delta = Date.now() - G.last_event;
+function handleTimers(G, whiteTurn, increment) {
+    if (G.wTime <= 0 || G.bTime <= 0)
+        return
+            
+    let delta = Date.now() - G.last_event;
+    if (increment)
+        delta -= G.increment
     if (whiteTurn)
-        G.wTime = G.wTime - delta + G.increment;
+        G.wTime = G.wTime - delta;
     else
-        G.bTime = G.bTime - delta + G.increment;
+        G.bTime = G.bTime - delta;
     G.last_event = Date.now();
 }
 
@@ -330,7 +334,7 @@ export const Chess = {
 
     setup: () => {
         let initialPos = initialBoard();
-        let startTime = 600 * 1000;
+        let startTime = 3 * 1000;
         return ({
             history: [initialPos],
             promotablePieces: [...new Set(
@@ -352,7 +356,7 @@ export const Chess = {
             startTime:  startTime,
             wTime:      startTime,
             bTime:      startTime,
-            increment:  0 * 1000,
+            increment:  2 * 1000,
             last_event: Date.now(),
         })
     },
@@ -376,7 +380,7 @@ export const Chess = {
                     G.bTime = G.startTime;
                 }
                 else
-                    handleTimers(G, G.whiteTurn);
+                    handleTimers(G, G.whiteTurn, true);
                 
                 G.history.unshift(board); // prepend new board to history
                 G.whiteTurn = piece.name.charAt(0) !== "W";
@@ -387,7 +391,9 @@ export const Chess = {
                 return INVALID_MOVE;
         },
         timeout: (G, ctx) => {
-            handleTimers(G, G.whiteTurn);
+            handleTimers(G, G.whiteTurn, false)
+            if (G.bTime > 0 && G.wTime > 0)
+                return INVALID_MOVE
             // console.log("timeout!", G.wTime, G.bTime);
         },
     },
