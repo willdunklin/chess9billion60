@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter, Route, Routes, Switch } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { Multiplayer } from './components/Multiplayer';
 import { Main } from './components/Main';
