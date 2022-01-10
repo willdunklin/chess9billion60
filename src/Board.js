@@ -137,7 +137,7 @@ export class ChessBoard extends React.Component {
 
     handleMouseExitBoard() {
         let top = document.body.style.top
-        top = top.substring(1,top.length - 2)
+        top = Math.abs(top.substring(0,top.length - 2))
         document.body.style.position = "static"
         document.documentElement.scrollTo(0,top)
     }
