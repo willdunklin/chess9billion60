@@ -5,6 +5,9 @@ const { Timer } = require("./timer.js")
 const { move, capture, end } = require("./sound.js");
 const { PieceTypes } = require("./pieces.js");
 const { validMove } = require("./Game.js");
+const pieceComponents = require('./react-chess/pieces')
+let wImbalance = []
+let bImbalance = []
 
 function getWidth(){
     const width = window.innerWidth - 50;
@@ -286,10 +289,38 @@ export class ChessBoard extends React.Component {
         }
     }
 
+    getMaterialDifferences(pieces) {
+        let A = []
+        for (let piece of pieces) {
+            if (piece !== null) {
+                const name = piece.split("@")[0]
+                const type = name.substring(1)
+                const color = name.charAt(0)
+                if (color === 'W') {
+                    A[type] = (A[type] || 0) + 1;
+                } else {
+                    A[type] = (A[type] || 0) - 1;
+                }
+            }
+        }
+        let whitePieces = []
+        let blackPieces = []
+        for (const [piece, score] of Object.entries(A)) {
+            if (score > 0) {
+                for(let i = 0; i < score; i++)
+                    whitePieces.push("W" + piece)
+            } else if (score < 0) {
+                for(let i = 0; i < -score; i++)
+                    blackPieces.push("B" + piece)
+            }
+        }
+        return [whitePieces,blackPieces]
+    }
+    
     render() {
         const {pieces, update, highlights, dots, wTime, bTime, historyIndex} = this.state;
         const isWhite = this.props.playerID === "0";
-
+        
         //console.log('spec', this.props.spectator)
 
         // this will run after every move
@@ -309,6 +340,8 @@ export class ChessBoard extends React.Component {
             
             this.gameover = this.props.ctx.gameover;
             this.setState({historyIndex: 0})
+            
+            //this.updateBoard(true);
         }
 
         let winner = "";
@@ -351,12 +384,33 @@ export class ChessBoard extends React.Component {
                 />
             )
         }
+        
+        //handle all the imbalances
+        let imbalence = this.getMaterialDifferences(pieces)
+        //if (imbalence[0].length >= 0 || imbalence[1].length >= 0) {
+            wImbalance = []
+            bImbalance = []
+            let i = 0
+            imbalence[0].sort((a, b) => (PieceTypes[a.substring(1)].strength < PieceTypes[b.substring(1)].strength) ? 1 :-1 )
+            imbalence[1].sort((a, b) => (PieceTypes[a.substring(1)].strength < PieceTypes[b.substring(1)].strength) ? 1 :-1 )
+            for (let imbPiece of imbalence[0]) {
+                let Piece = pieceComponents(imbPiece)
+                wImbalance.push(<div style={{width: "30px"}}><Piece size = {"35px"} key = {i + "-unbPiece"}/></div>)
+            }
+            for (let imbPiece of imbalence[1]) {
+                let Piece = pieceComponents(imbPiece)
+                bImbalance.push(<div style={{width: "30px"}}><Piece size = {"35px"} key = {i + "-unbPiece"}/></div>)
+            }
+        //}
 
         return (
             <div style={s1}>
                 <div style={boardContainerStyles}>
                     <div style={{position: "relative", width : this.state.boardWidth +"px"}}>
-                        <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/>
+                        <div style={{display: "flex"}}>
+                            <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/>     
+                            {isWhite ? bImbalance : wImbalance}
+                        </div>
                         <div>
                             <div className="board" style={board_style} onWheel={this.handleScroll} onMouseEnter={this.handleMouseEnterBoard} onMouseLeave={this.handleMouseExitBoard}>
                                 <Chess
@@ -377,7 +431,10 @@ export class ChessBoard extends React.Component {
                             {winner}
                         </div>
                         <div style={{display: "flex", justifyContent: "space-between"}}>
-                            <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>
+                            <div style={{display: "flex"}}>
+                                <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>   
+                                {isWhite ? wImbalance : bImbalance}
+                            </div>
                             <div style={{display: "flex", alignItems: "middle"}}>
                                 <button onClick={this.startHistoryButton}>
                                     Start
