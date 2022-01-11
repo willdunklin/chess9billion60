@@ -9,14 +9,8 @@ const pieceComponents = require('./react-chess/pieces')
 let wImbalance = []
 let bImbalance = []
 
-function getWidth(){
-    const width = window.innerWidth - 50;
-    return width;
-}
-
-function getHeight(){
-    const height = window.innerHeight - 150
-    return height;
+function getSize() {
+    return Math.min(window.innerWidth - 50, window.innerHeight - 150)
 }
 
 const visualizerStyles = {
@@ -75,7 +69,7 @@ export class ChessBoard extends React.Component {
             dots: [],
             wTime: this.props.G.wTime,
             bTime: this.props.G.bTime,
-            boardWidth: Math.min(getHeight(), getWidth()),
+            boardWidth: getSize(),
             historyIndex: 0,
         };
 
@@ -128,7 +122,7 @@ export class ChessBoard extends React.Component {
 
     handleResize() {
         this.setState({
-            boardWidth: Math.min(getHeight(), getWidth())
+            boardWidth: getSize()
         })
     }
 
@@ -387,21 +381,26 @@ export class ChessBoard extends React.Component {
         
         //handle all the imbalances
         let imbalence = this.getMaterialDifferences(pieces)
-        //if (imbalence[0].length >= 0 || imbalence[1].length >= 0) {
+        if (imbalence[0].length >= 0 || imbalence[1].length >= 0) {
             wImbalance = []
             bImbalance = []
             let i = 0
             imbalence[0].sort((a, b) => (PieceTypes[a.substring(1)].strength < PieceTypes[b.substring(1)].strength) ? 1 :-1 )
             imbalence[1].sort((a, b) => (PieceTypes[a.substring(1)].strength < PieceTypes[b.substring(1)].strength) ? 1 :-1 )
             for (let imbPiece of imbalence[0]) {
+                i++
                 let Piece = pieceComponents(imbPiece)
-                wImbalance.push(<div style={{width: "30px"}}><Piece size = {"35px"} key = {i + "-unbPiece"}/></div>)
+                if (i * 20 < getSize() - 220)
+                    wImbalance.push(<div style={{width: "20px", zIndex: 100-i}}><Piece size = {"30px"} key = {i + "-wInbPiece"}/></div>)
             }
+            i=0
             for (let imbPiece of imbalence[1]) {
+                i++
                 let Piece = pieceComponents(imbPiece)
-                bImbalance.push(<div style={{width: "30px"}}><Piece size = {"35px"} key = {i + "-unbPiece"}/></div>)
+                if (i * 20 < getSize() - 220)
+                    bImbalance.push(<div style={{width: "20px", zIndex: 100-i}}><Piece size = {"30px"} key = {i + "-bInbPiece"}/></div>)
             }
-        //}
+        }
 
         return (
             <div style={s1}>
@@ -437,16 +436,16 @@ export class ChessBoard extends React.Component {
                             </div>
                             <div style={{display: "flex", alignItems: "middle"}}>
                                 <button onClick={this.startHistoryButton}>
-                                    Start
+                                    &#60;&#60;
                                 </button>
                                 <button onClick={this.backHistoryButton}>
-                                    Back
+                                    &#60;
                                 </button>
                                 <button onClick={this.forwardHistoryButton}>
-                                    Forward
+                                    &#62;
                                 </button>
                                 <button onClick={this.endHistoryButton}>
-                                    End
+                                    &#62;&#62;
                                 </button>
                             </div>
                         </div>
