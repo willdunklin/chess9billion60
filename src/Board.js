@@ -82,6 +82,7 @@ export class ChessBoard extends React.Component {
         this.startHistoryButton = this.startHistoryButton.bind(this);
         this.endHistoryButton = this.endHistoryButton.bind(this);
         this.handleScroll = this.handleScroll.bind(this)
+        this.handleKey = this.handleKey.bind(this)
 
         this.updateBoard = this.updateBoard.bind(this);
         this.piecify = this.piecify.bind(this);
@@ -96,6 +97,8 @@ export class ChessBoard extends React.Component {
         this.gameover = false;
         
         window.addEventListener('resize', this.handleResize)
+
+        window.addEventListener('keydown', this.handleKey)
     }
 
     handleMouseEnterBoard() {
@@ -124,6 +127,25 @@ export class ChessBoard extends React.Component {
         this.setState({
             boardWidth: getSize()
         })
+    }
+
+    handleKey(event) {
+        switch(event.key) {
+            case "ArrowLeft":
+                this.backHistoryButton()
+                break;
+            case "ArrowRight":
+                this.forwardHistoryButton()
+                break;
+            case "ArrowUp":
+                this.endHistoryButton()
+                break;
+            case "ArrowDown":
+                this.startHistoryButton()
+                break;
+            default:
+                break;
+        }
     }
 
     piecify(board) {
@@ -403,7 +425,7 @@ export class ChessBoard extends React.Component {
         }
 
         return (
-            <div style={s1}>
+            <div style={s1} onKeyDown={evt => {console.log(evt)}}>
                 <div style={boardContainerStyles}>
                     <div style={{position: "relative", width : this.state.boardWidth +"px"}}>
                         <div style={{display: "flex"}}>
