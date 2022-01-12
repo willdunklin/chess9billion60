@@ -1,11 +1,14 @@
-const { Server, Origins } = require("boardgame.io/server");
+const { Server, FlatFile, Origins } = require("boardgame.io/server");
 const { Chess } = require("./Game");
 const serve = require("koa-static");
 const path = require("path");
 
+const db = new FlatFile({dir: './storage'})
+
 const server = Server({
     games: [Chess],
     origins: [Origins.LOCALHOST],
+    db: db,
 });
 
 const frontEndAppBuildPath = path.resolve(__dirname, '../build');
