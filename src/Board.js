@@ -156,11 +156,13 @@ export class ChessBoard extends React.Component {
     }
 
     updateBoard(play_sound) {
-        this.setState({
-            pieces: this.piecify(this.props.G.history[0]),
-            update: Math.random(),
-            highlights: this.props.G.move_history[0],
-            dots: [],
+        this.setState((state, props) => {
+            return {
+                pieces: this.piecify(props.G.history[0]),
+                update: Math.random(),
+                highlights: props.G.move_history[0],
+                dots: [],
+            }
         });
 
         if(this.props.ctx.turn < 2 || !play_sound)
@@ -247,7 +249,9 @@ export class ChessBoard extends React.Component {
         }
 
         if (whiteTurn) {
-            this.setState({wTime: this.props.G.wTime - (Date.now() - this.props.G.last_event)})
+            this.setState((state, props) => {
+                return {wTime: props.G.wTime - (Date.now() - props.G.last_event)}
+            })
 
             // if the player's time expires play a timeout move
             if (isWhite && this.state.wTime <= 0)
@@ -258,7 +262,9 @@ export class ChessBoard extends React.Component {
             if (!isWhite && this.current_length <= 3)
                 return;
 
-            this.setState({bTime: this.props.G.bTime - (Date.now() - this.props.G.last_event)})
+            this.setState((state, props) => {
+                return {bTime: props.G.bTime - (Date.now() - props.G.last_event)}
+            })
 
             // if the player's time expires play a timeout move
             if (!isWhite && this.state.bTime <= 0)
@@ -269,9 +275,13 @@ export class ChessBoard extends React.Component {
     backHistoryButton() {
         //console.log(this.props.ctx.turn + " " + this.state.historyIndex)
         if (this.state.historyIndex < this.props.G.history.length - 1) {
-            this.setState({pieces: this.piecify(this.props.G.history[this.state.historyIndex + 1])})
-            this.setState({historyIndex: Math.min(this.props.G.history.length - 1, this.state.historyIndex + 1)})
-            this.setState({dots: []})
+            this.setState((state, props) => {
+                return {
+                    pieces: this.piecify(props.G.history[state.historyIndex + 1]),
+                    historyIndex: Math.min(props.G.history.length - 1, state.historyIndex + 1),
+                    dots: []
+                }
+            })
             move(1);
         }
         
@@ -280,27 +290,39 @@ export class ChessBoard extends React.Component {
     forwardHistoryButton() {
         //console.log(this.props.G.history.length + " " + this.state.historyIndex)
         if (this.state.historyIndex > 0) {
-            this.setState({pieces: this.piecify(this.props.G.history[this.state.historyIndex-1])})
-            this.setState({historyIndex: Math.max(0, this.state.historyIndex - 1)})
-            this.setState({dots: []})
+            this.setState((state, props) => {
+                return {
+                    pieces: this.piecify(props.G.history[state.historyIndex - 1]),
+                    historyIndex: Math.max(0, state.historyIndex - 1),
+                    dots: []
+                }
+            })
             move(1);
-        }
+        }  
     }
 
     startHistoryButton() {
-        if (this.state.historyIndex !== this.props.G.history.length - 1) {
-            this.setState({pieces: this.piecify(this.props.G.history[this.props.G.history.length - 1])})
-            this.setState({historyIndex: this.props.G.history.length - 1})
-            this.setState({dots: []})
+        if (this.state.historyIndex < this.props.G.history.length - 1) {
+            this.setState((state, props) => {
+                return {
+                    pieces: this.piecify(props.G.history[props.G.history.length - 1]),
+                    historyIndex: props.G.history.length - 1,
+                    dots: []
+                }
+            })
             move(1);
         }
     }
 
     endHistoryButton() {
-        if (this.state.historyIndex !== 0) {
-            this.setState({pieces: this.piecify(this.props.G.history[0])})
-            this.setState({historyIndex: 0})
-            this.setState({dots: []})
+        if (this.state.historyIndex > 0) {
+            this.setState((state, props) => {
+                return {
+                    pieces: this.piecify(props.G.history[0]),
+                    historyIndex: 0,
+                    dots: []
+                }
+            })
             move(1);
         }
     }
@@ -332,15 +354,11 @@ export class ChessBoard extends React.Component {
         }
         return [whitePieces,blackPieces]
     }
-    
-    render() {
-        const {pieces, update, highlights, dots, wTime, bTime, historyIndex} = this.state;
-        const isWhite = this.props.playerID === "0";
-        
-        //console.log('spec', this.props.spectator)
 
+    componentDidUpdate() {
         // this will run after every move
         if (this.current_length !== this.props.ctx.turn) {
+            console.log('hey');
             this.current_length = this.props.ctx.turn;
 
             // redraw board
@@ -348,7 +366,9 @@ export class ChessBoard extends React.Component {
             
             // sync timer + reset timer update interval 
             clearInterval(this.timer);
-            this.setState({wTime: this.props.G.wTime, bTime: this.props.G.bTime}); // sync
+            this.setState((state, props) => {
+                return {wTime: props.G.wTime, bTime: props.G.bTime}
+            }); // sync
             
             // decrement time while game is running (but not for each color's first move)
             if(!this.props.ctx.gameover && this.current_length > 2)
@@ -360,33 +380,45 @@ export class ChessBoard extends React.Component {
             //this.updateBoard(true);
         }
 
-        let winner = "";
+        // if the local promotablepieces record is different from the server, re-render the board 
+        if(!(this.curr_promotablePieces.length === this.props.G.promotablePieces.length &&
+            this.curr_promotablePieces.every((v, i) => v === this.props.G.promotablePieces[i]))) {
+
+           this.curr_promotablePieces = this.props.G.promotablePieces;
+           this.updateBoard(false);
+        }
+
+        // when the game ends
         if (this.props.ctx.gameover && this.state.historyIndex === 0) {
-            
             if(!this.gameover) {
                 // TODO: this sound still plays on refresh
                 end(0.6);
 
                 // sync timer
-                this.setState({wTime: this.props.G.wTime, bTime: this.props.G.bTime}); 
+                this.setState((state, props) => {
+                    return {wTime: props.G.wTime, bTime: props.G.bTime}
+                }); 
                 // set flag so this doesnt repeat
                 this.gameover = true;
             }
+        }
+    }
+    
+    render() {
+        const {pieces, update, highlights, dots, wTime, bTime, historyIndex} = this.state;
+        const isWhite = this.props.playerID === "0";
+        
+        //console.log('spec', this.props.spectator)
+
+        let winner = "";
+        if (this.props.ctx.gameover && this.state.historyIndex === 0) {
 
             winner =
                 this.props.ctx.gameover.winner !== undefined ? (
                     <div id="winner" style={ Object.assign({}, result_style, {width: this.state.boardWidth +"px", height: this.state.boardWidth +"px"})}>Winner: {this.props.ctx.gameover.winner}</div>
                 ) : (
-                    <div id="winner"  style={ Object.assign({}, result_style, {width: this.state.boardWidth +"px", height: this.state.boardWidth +"px"})}>Draw</div>
+                    <div id="winner" style={ Object.assign({}, result_style, {width: this.state.boardWidth +"px", height: this.state.boardWidth +"px"})}>Draw</div>
                 );
-        }
-
-        // if the local promotablepieces record is different from the server, re-render the board 
-        if(!(this.curr_promotablePieces.length === this.props.G.promotablePieces.length &&
-             this.curr_promotablePieces.every((v, i) => v === this.props.G.promotablePieces[i]))) {
-
-            this.curr_promotablePieces = this.props.G.promotablePieces;
-            this.updateBoard(false);
         }
 
         //Making the piece visualizer
