@@ -5,14 +5,13 @@ const path = require("path");
 
 const server = Server({
     games: [Chess],
-    origins: [Origins.LOCALHOST]
+    origins: [Origins.LOCALHOST],
 });
-
-const PORT = process.env.PORT || 8000;
 
 const frontEndAppBuildPath = path.resolve(__dirname, '../build');
 server.app.use(serve(frontEndAppBuildPath));
 
+const PORT = (process.env.NODE_ENV === "production") ? process.env.PORT || 8000 : 8000;
 server.run(PORT, () => {
     server.app.use(
         async (ctx, next) => serve(frontEndAppBuildPath)(

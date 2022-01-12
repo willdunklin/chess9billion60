@@ -4,40 +4,33 @@ const Draggable = require('react-draggable')
 const defaultLineup = require('./defaultLineup')
 let pieceComponents = require('./pieces')
 const {fromPieceDecl, charCodeOffset} = require('./decode')
+const { Dot } = require("../components/Dot")
+const { Promoter } = require("../components/Promoter")
+const { Tile } = require("../components/Tile")
 
-// const ResizeAware = resizeAware.default || resizeAware
 const getDefaultLineup = () => defaultLineup.slice()
-const noop = () => {
-  /* intentional noop */
-}
+const noop = () => {/* intentional noop */}
 
-const square = 100 / 8
-const squareSize = `${square}%`
 
-const squareStyles = {
-  width: squareSize,
-  paddingBottom: squareSize,
-  float: 'left',
-  position: 'relative',
-  pointerEvents: 'none'
-}
 
-const labelStyles = {fontSize: 'calc(7px + .5vw)', position: 'absolute', userSelect: 'none'}
+const labelStyles = {fontSize: 'calc(7px + .5vw)', position: 'absolute', userSelect: 'none'};
 
 export class Chess extends React.Component {
   constructor(...args) {
     super(...args)
 
-    this.els = {}
     this.state = {}
-    this.setBoardRef = el => (this.els.board = el)
+    this.setBoardRef = el => (this.state.board = el)
     this.handleDragStart = this.handleDragStart.bind(this)
     this.handleDragStop = this.handleDragStop.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
+    this.handleResize = this.handleResize.bind(this)
+
+    window.addEventListener('resize', this.handleResize)
   }
 
   getSquareColor(x, y) {
-    
+
     let {lightSquareColor, darkSquareColor} = this.props
     if (this.state.showPromotion) {
       lightSquareColor = this.props.lightGreyedOutColor
@@ -74,16 +67,18 @@ export class Chess extends React.Component {
   }
 
   componentDidMount() {
-    const boardSize = this.els.board.clientWidth
+    const boardSize = this.state.board.clientWidth
     const tileSize = boardSize / 8
     this.setState({boardSize, tileSize})
   }
 
-  // TODO: this was axed by removing react-resize-aware
-  // make sure that tileSize isn't getting clobbered
-  handleResize(size) {
-    const tileSize = size.width / 8
-    this.setState({boardSize: size.width, tileSize})
+  handleResize() {
+    if (this.state.board !== undefined && this.state.board !== null) {
+      // TODO: change to using a hook https://stackoverflow.com/questions/43817118/how-to-get-the-width-of-a-react-element
+      const boardSize = this.state.board.clientWidth
+      const tileSize = boardSize / 8
+      this.setState({boardSize, tileSize})
+    }
   }
 
   coordsToPosition(coords) {
@@ -210,6 +205,7 @@ export class Chess extends React.Component {
 
 
     if (isLeftColumn && isBottomRow) {
+      if(this.props.isWhite) {
         return [
           <span key="blx" style={xStyles}>
             a
@@ -219,6 +215,15 @@ export class Chess extends React.Component {
           </span>
         ]
       } else {
+        return [
+          <span key="blx" style={xStyles}>
+            a
+          </span>,
+          <span key="bly" style={yStyles}>
+            8
+          </span>
+        ]
+      }
     }
 
     const label = isLeftColumn ? 8 - y : String.fromCharCode(charCodeOffset + x)
@@ -227,8 +232,8 @@ export class Chess extends React.Component {
 
   handlePromotionSelection(piece) {
     return () => {
-      //console.log("wanted to promote to " + piece)
       const {promotionArgs} = this.state
+      // console.log("wanted to promote to " + piece, promotionArgs)
       this.props.onMovePiece(promotionArgs[0], promotionArgs[1], promotionArgs[2], piece)
       this.setState({promotionArgs : null})
       this.setState({showPromotion : false})
@@ -237,46 +242,48 @@ export class Chess extends React.Component {
   }
 
   render() {
-    const {targetTile, draggingPiece, boardSize} = this.state
+    const { isWhite, pieces, update, promotablePieces, lightSquareColor, darkSquareColor, dots, dotColor } = this.props;
+    const { targetTile, draggingPiece, boardSize, showPromotion, promotionArgs } = this.state;
 
-    const tiles = []
+    const tileElems = [];
     for (let y = 0; y < 8; y++) {
       for (let x = 0; x < 8; x++) {
-        if (!this.props.isWhite) {
-          x = 7 - x
-          y = 7 - y
+        // transform coords for black
+        if (!isWhite) {
+          x = 7 - x;
+          y = 7 - y;
         }
 
-        const isTarget = targetTile && targetTile.x === x && targetTile.y === y
-        const background = this.getSquareColor(x, y)
-        const boxShadow = isTarget ? 'inset 0px 0px 0px 0.4vmin yellow' : undefined
-        const styles = Object.assign({background, boxShadow}, squareStyles)
+        tileElems.push(
+          <Tile 
+            key={`${x}-${y}-tile`}
+            xpos={x} ypos={y} 
+            targetTile={targetTile} 
+            background={this.getSquareColor(x, y)} 
+            text={this.renderLabelText(x, y)}
+          />
+        );
 
-        tiles.push(
-          <div key={`rect-${x}-${y}`} style={styles}>
-            {this.renderLabelText(x, y)}
-          </div>
-        )
-
-        //Undo the hack fix earlier since we're in a loop
-        if (!this.props.isWhite) {
-          x = 7 - x
-          y = 7 - y
+        // undo transformation
+        if (!isWhite) {
+          x = 7 - x;
+          y = 7 - y;
         }
       }
     }
 
-    const pieces = this.props.pieces.map((decl, i) => {
+    const piecesElems = pieces.map((decl, i) => {
       const isMoving = draggingPiece && i === draggingPiece.index
       let {x, y, piece} = fromPieceDecl(decl)
       const Piece = pieceComponents(piece)
-      if (!this.props.isWhite) {
+      if (!isWhite) {
         x = 7 - x
         y = 7 - y
       }
       // if this piece is the pawn promoting, don't render it
-      if (this.state.showPromotion && decl === this.state.promotionArgs[0].notation)
+      if (showPromotion && decl === promotionArgs[0].notation)
         return null;
+
       return (
         <Draggable
           bounds="parent"
@@ -284,113 +291,56 @@ export class Chess extends React.Component {
           onStart={this.handleDragStart}
           onDrag={this.handleDrag}
           onStop={this.handleDragStop}
-          key={`${piece}-${x}-${y}-${this.props.update}-${this.state.showPromotion}`}>
+          key={`${piece}-${x}-${y}-${update}-${showPromotion}`}>
           <Piece isMoving={isMoving} x={x} y={y} />
         </Draggable>
       )
     })
 
-    const promotion = []
-    //const {chosenPromoter} = this.state
-    if (this.state.showPromotion) {
-      let promotionFile = -1 + (-5 / 12.5)
+    let promotionElems = [];
+    if (showPromotion) {
+      let promotionFile = -1 + (-5 / 12.5);
       if (this.state.promotionFile !== null) {
-        promotionFile = this.state.promotionFile
-        if (!this.props.isWhite)
-         promotionFile = 7 - promotionFile
+        promotionFile = this.state.promotionFile;
+        if (!isWhite)
+         promotionFile = 7 - promotionFile;
       }
-        
-      for (let i = 0; i < this.props.promotablePieces.length; i++) {
-        let color = this.props.isWhite ? "W" : "B"
-        let piece = color + this.props.promotablePieces[i]
-        let Piece = pieceComponents(piece)
 
-        let styles = Object.assign({
-          position: 'absolute',
-          left: `${12.5 * promotionFile}%`,
-          
-          //center them
-          top: `${i * 12.5}%`,//`${(i + ((8 - this.props.promotablePieces.length) / 2))*12.5}%`,
-          background: (promotionFile + i) % 2 === 0 ? this.props.lightSquareColor : this.props.darkSquareColor,
-          //boxShadow : piece === chosenPromoter ? 'inset 0px 0px 0px 0.4vmin red' : undefined,
-          //size of one square
-          width: '12.5%',
-          height: '12.5%',
+      const color = isWhite ? "W" : "B";
+      promotionElems = promotablePieces.map((piece, i) => {
+        const Piece = pieceComponents(color + piece);
 
-          textAlign: 'center',
-          cursor: 'grab',
-          zIndex: 1000
-        })
-        //const styles = Object.assign({background, boxShadow}, squareStyles)
-        
-        
-        //The y=7 comes from piecePositionHoc, which sends 7 to 7 - y. This maps 7 to 0 later, so I'm really just telling it to
-        //put the piece on the div.
-        promotion.push(<div style={styles} onClick={this.handlePromotionSelection(piece)}>
-            <Piece key = {i+''+piece+'-promoter'} x={0} y={7} size = '100%'/>
-          </div>)
-      }
+        return (
+          <div onClick={this.handlePromotionSelection(color + piece)}>
+            <Promoter 
+              piece={piece} Piece={Piece} 
+              promotionFile={promotionFile} i={i} 
+              lightSquareColor={lightSquareColor} darkSquareColor={darkSquareColor} 
+            />
+          </div>
+        );
+      });
     }
+    
+    const dotElems = dots.map(s => 
+      <Dot
+        key={`${s}-dot`}
+        s={fromPieceDecl(s)} 
+        pieces={pieces} 
+        isWhite={isWhite} 
+        dotColor={dotColor}
+      />
+    );
 
-    const dots = this.props.dots.map(s => {
-      let {x, y, piece} = fromPieceDecl(s);
-      if (!this.props.isWhite) {
-        x = 7 - x
-        y = 7 - y
-      }
-      // following piecePositionHoc as example
-      const scale = 12.5; // do not change
-      let size = 5; // scale of dot
-      let borderRadius = "100%";
-      
-      let pieceOnSquare = this.props.pieces.filter(p => p.split("@")[1] === s.split("@")[1]).length > 0;
+    const boardStyles = {position: 'relative', width: '100%', height: boardSize};
 
-      if (pieceOnSquare) {
-        size = 12;
-      }
-
-      const dot_style = {
-        position: "absolute",
-
-        width:  `${size}%`,
-        height: `${size}%`,
-        top:  `${((scale-size)/2) + (scale * (7-y))}%`,
-        left: `${((scale-size)/2) + (scale * x)}%`,
-
-        background: `${this.props.dotColor}`,
-        borderRadius: `${borderRadius}`,
-        //zIndex: 500,
-        pointerEvents : "none",
-        mask: ''
-        };
-      
-      if (pieceOnSquare) {
-        dot_style['background'] = `radial-gradient(ellipse at center, #0000 58%, ${this.props.dotColor} 40%)`;
-      }
-      // console.log(dot_style);
-      return (
-        <div 
-          className="dot"
-          key={`dot-${x}-${y}-${piece}`}
-          style={dot_style}>
-        </div>
-      );
-    });
-
-    const boardStyles = {position: 'relative', width: '100%', height: boardSize}
-    const children = tiles.concat(pieces).concat(promotion).concat(dots)
-
+    const children = tileElems.concat(piecesElems).concat(promotionElems).concat(dotElems);
 
     return (
-      <div
-        ref={this.setBoardRef}
-        // onlyEvent
-        // onResize={this.handleResize}
-        style={boardStyles}>
-        
+      <div ref={this.setBoardRef} style={boardStyles}>
         {children}
       </div>
-    )
+    );
   }
 }
 
