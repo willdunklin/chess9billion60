@@ -453,14 +453,14 @@ export class ChessBoard extends React.Component {
                 i++
                 let Piece = pieceComponents(imbPiece)
                 if (i * 20 < getSize() - 220)
-                    wImbalance.push(<div style={{width: "20px", zIndex: 100-i}}><Piece size = {"30px"} key = {i + "-wInbPiece"}/></div>)
+                    wImbalance.push(<div style={{width: "20px", zIndex: 100-i, paddingTop: "5px"}}><Piece size = {"30px"} key = {i + "-wInbPiece"}/></div>)
             }
             i=0
             for (let imbPiece of imbalence[1]) {
                 i++
                 let Piece = pieceComponents(imbPiece)
                 if (i * 20 < getSize() - 220)
-                    bImbalance.push(<div style={{width: "20px", zIndex: 100-i}}><Piece size = {"30px"} key = {i + "-bInbPiece"}/></div>)
+                    bImbalance.push(<div style={{width: "20px", zIndex: 100-i, paddingTop: "5px"}}><Piece size = {"30px"} key = {i + "-bInbPiece"}/></div>)
             }
         }
 
