@@ -23,7 +23,6 @@
         "react-scripts": "^5.0.0",
         "uifx": "^2.0.7",
         "util": "^0.12.4",
-        "uuid": "^8.3.2",
         "web-vitals": "^1.1.2"
     },
     "engines": {
