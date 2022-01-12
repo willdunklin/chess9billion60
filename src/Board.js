@@ -56,6 +56,14 @@ const result_style = {
     pointerEvents: "none"
 }
 
+const buttonStyles = {
+    backgroundColor: "#222222",
+    border: "3px solid black",
+    color: "white",
+    textAlign: "center",
+    fontSize: "16px"
+}
+
 export class ChessBoard extends React.Component {
     constructor(props) {
         super(props);
@@ -449,20 +457,20 @@ export class ChessBoard extends React.Component {
                 i++
                 let Piece = pieceComponents(imbPiece)
                 if (i * 20 < getSize() - 220)
-                    wImbalance.push(<div style={{width: "20px", zIndex: 100-i}}><Piece size = {"30px"} key = {i + "-wInbPiece"}/></div>)
+                    wImbalance.push(<div style={{width: "20px", zIndex: 100-i, paddingTop: "5px"}}><Piece size = {"30px"} key = {i + "-wInbPiece"}/></div>)
             }
             i=0
             for (let imbPiece of imbalence[1]) {
                 i++
                 let Piece = pieceComponents(imbPiece)
                 if (i * 20 < getSize() - 220)
-                    bImbalance.push(<div style={{width: "20px", zIndex: 100-i}}><Piece size = {"30px"} key = {i + "-bInbPiece"}/></div>)
+                    bImbalance.push(<div style={{width: "20px", zIndex: 100-i, paddingTop: "5px"}}><Piece size = {"30px"} key = {i + "-bInbPiece"}/></div>)
             }
         }
 
         return (
             <div style={s1} onKeyDown={evt => {console.log(evt)}}>
-                <button onClick={() => window.scrollTo(0,getSize())} style = {{position: "fixed", right: "10px", bottom: "10px", width: "30px", height: "30px"}}>
+                <button onClick={() => window.scrollTo(0,getSize())} style = {Object.assign({},{position: "fixed", right: "10px", bottom: "10px", width: "30px", height: "30px"},buttonStyles)}>
                     ?
                 </button>
                 <div style={boardContainerStyles}>
@@ -496,16 +504,16 @@ export class ChessBoard extends React.Component {
                                 {isWhite ? wImbalance : bImbalance}
                             </div>
                             <div style={{display: "flex", alignItems: "middle"}}>
-                                <button onClick={this.startHistoryButton}>
+                                <button onClick={this.startHistoryButton} style={buttonStyles}>
                                     &#60;&#60;
                                 </button>
-                                <button onClick={this.backHistoryButton}>
+                                <button onClick={this.backHistoryButton} style={buttonStyles}>
                                     &#60;
                                 </button>
-                                <button onClick={this.forwardHistoryButton}>
+                                <button onClick={this.forwardHistoryButton} style={buttonStyles}>
                                     &#62;
                                 </button>
-                                <button onClick={this.endHistoryButton}>
+                                <button onClick={this.endHistoryButton} style={buttonStyles}>
                                     &#62;&#62;
                                 </button>
                             </div>
