@@ -426,6 +426,9 @@ export class ChessBoard extends React.Component {
 
         return (
             <div style={s1} onKeyDown={evt => {console.log(evt)}}>
+                <button onClick={() => window.scrollTo(0,getSize())} style = {{position: "fixed", right: "10px", bottom: "10px", width: "30px", height: "30px"}}>
+                    ?
+                </button>
                 <div style={boardContainerStyles}>
                     <div style={{position: "relative", width : this.state.boardWidth +"px"}}>
                         <div style={{display: "flex"}}>
