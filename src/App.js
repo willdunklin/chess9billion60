@@ -4,8 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Multiplayer } from './components/Multiplayer';
 import { Main } from './components/Main';
 
-import { CookiesProvider } from "react-cookie";
-import { useCookies } from "react-cookie";
+import { CookiesProvider, useCookies } from "react-cookie";
 import { nanoid } from "nanoid";
 
 const App = () => {
