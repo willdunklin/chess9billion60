@@ -216,7 +216,8 @@ export class ChessBoard extends React.Component {
     }
 
     onClickPiece(piece, clear) {
-        if(clear) {
+        //either toggle the dots or run the clear
+        if(clear || this.state.dots.length > 0) {
             // clear the dots on the screen
             this.setState({dots: []});
             return;
