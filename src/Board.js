@@ -141,15 +141,19 @@ export class ChessBoard extends React.Component {
         switch(event.key) {
             case "ArrowLeft":
                 this.backHistoryButton()
+                event.preventDefault();
                 break;
             case "ArrowRight":
                 this.forwardHistoryButton()
+                event.preventDefault();
                 break;
             case "ArrowUp":
                 this.endHistoryButton()
+                event.preventDefault();
                 break;
             case "ArrowDown":
                 this.startHistoryButton()
+                event.preventDefault();
                 break;
             default:
                 break;

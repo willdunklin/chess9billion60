@@ -1,19 +1,21 @@
+import { nanoid } from 'nanoid';
+import { Link } from 'react-router-dom';
 import React from 'react';
-// TODO: change this to nanoid
-import {parse, v4} from "uuid";
 
 export const Main = props => {
     function getNewID() {
         // some kind of game id unique string
-        const bytes = [...parse(v4())].map((v) => v.toString(16).padStart(2, '0'));
-        const str = bytes[0] + bytes[3] + bytes[7];
-        return str;
+        const str = nanoid();
+        return str.substring(0, 6);
     }
 
     return (
-        <div>
-            <h1>main menu</h1>
-            <h3>{getNewID()}</h3>
+        <div style={{display: "flex", justifyContent: "center", padding: "4em"}}>
+            <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                
+                <h2>Welcome to Chess 9,000,000,060</h2>
+                <Link to={getNewID()}>Create new game</Link>
+            </div>
         </div>
     );
 }
