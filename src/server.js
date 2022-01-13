@@ -3,7 +3,7 @@ const { Chess } = require("./Game");
 const serve = require("koa-static");
 const path = require("path");
 
-const db = new FlatFile({dir: './storage'})
+const db = new FlatFile({dir: './storage', logging: true})
 
 const server = Server({
     games: [Chess],
