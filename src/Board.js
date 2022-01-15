@@ -220,7 +220,8 @@ export class ChessBoard extends React.Component {
     }
 
     onClickPiece(piece, clear) {
-        if(clear) {
+        //either toggle the dots or run the clear
+        if(clear || this.state.dots.length > 0) {
             // clear the dots on the screen
             this.setState({dots: []});
             return;
@@ -358,10 +359,10 @@ export class ChessBoard extends React.Component {
         for (const [piece, score] of Object.entries(A)) {
             if (score > 0) {
                 for(let i = 0; i < score; i++)
-                    whitePieces.push("W" + piece)
+                    whitePieces.push("B" + piece)
             } else if (score < 0) {
                 for(let i = 0; i < -score; i++)
-                    blackPieces.push("B" + piece)
+                    blackPieces.push("W" + piece)
             }
         }
         return [whitePieces,blackPieces]
