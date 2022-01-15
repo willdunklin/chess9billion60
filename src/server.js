@@ -1,9 +1,11 @@
-const { Server, FlatFile, Origins } = require("boardgame.io/server");
+const { Server, Origins } = require("boardgame.io/server");
 const { Chess } = require("./Game");
 const serve = require("koa-static");
 const path = require("path");
+const { DynamnoStore } = require("./db.ts");
+const { creds } = require("./creds.js");
 
-const db = new FlatFile({dir: './storage', logging: true})
+const db = new DynamnoStore("us-east-2", creds, "bgio")
 
 const server = Server({
     games: [Chess],
