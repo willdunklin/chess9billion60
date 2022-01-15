@@ -10,7 +10,7 @@ node_modules
 
 # production
 /build
-creds.js
+secret.js
 
 # misc
 .DS_Store
