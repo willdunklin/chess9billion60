@@ -1,11 +1,14 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import { Nav } from "./Nav";
 import { Multiplayer } from './Multiplayer';
 import { Main } from './Main';
+import { NotFound } from "./NotFound";
 
 import { CookiesProvider, useCookies } from "react-cookie";
 import { nanoid } from "nanoid";
+import { New } from "./New";
 
 const App = () => {
     const [ cookies, setCookie ] = useCookies(['user']);
@@ -15,14 +18,19 @@ const App = () => {
 
     return (
         <CookiesProvider>
-
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/:gameid/" element={<Multiplayer />} />
-                    <Route exact path="/" element={<Main />} />
+                    <Route path="/" element={<Nav />}>
+                        <Route exact path="new" element={<New/>}/>
+                        <Route exact path="zoo" element={<h1>yo</h1>}/>
+                        <Route exact path="patreon" element={<h1>patreon</h1>}/>
+                        <Route exact path="settings" element={<h1>settings</h1>}/>
+                        <Route exact path="" element={<Main />}/>
+                        <Route path=":gameid" element={<Multiplayer />}/>
+                    </Route>
+                    <Route path="*" element={<NotFound />}/>
                 </Routes>
             </BrowserRouter>
-
         </CookiesProvider>
     );
 };
