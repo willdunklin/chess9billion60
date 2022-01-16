@@ -1,8 +1,8 @@
 import React from 'react';
 import { Client } from "boardgame.io/react";
 import { SocketIO } from "boardgame.io/multiplayer";
-import { Chess } from "../Game";
-import { ChessBoard } from "../Board";
+import { Chess } from "../bgio/Game";
+import { ChessBoard } from "../bgio/Board";
 import { useParams } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { DynamoDBClient, PutItemCommand, GetItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
@@ -19,7 +19,7 @@ const client_style = {
     padding: "1em",
 };
 
-const dbclient = new DynamoDBClient({ region: 'us-east-2', credentials: require("../creds").creds});
+const dbclient = new DynamoDBClient({ region: 'us-east-2', credentials: require("../bgio/creds").creds});
 const tableName = "games";
 
 // TODO: care about security: 

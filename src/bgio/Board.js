@@ -1,11 +1,11 @@
 import React from "react";
-const { Visualizer } = require("./visualizer.js");
-const { Chess } = require("./react-chess/react-chess.js");
-const { Timer } = require("./timer.js")
+const { Visualizer } = require("../components/visualizer.js");
+const { Chess } = require("../react-chess/react-chess.js");
+const { Timer } = require("../components/timer.js")
 const { move, capture, end } = require("./sound.js");
 const { PieceTypes } = require("./pieces.js");
 const { validMove } = require("./Game.js");
-const pieceComponents = require('./react-chess/pieces')
+const pieceComponents = require('../react-chess/pieces')
 let wImbalance = []
 let bImbalance = []
 

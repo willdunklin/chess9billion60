@@ -1,8 +1,8 @@
 const React = require('react')
-const {Chess} = require("./react-chess/react-chess.js");
+const {Chess} = require("../react-chess/react-chess.js");
 const PropTypes = require('prop-types')
-const { PieceTypes } = require("./pieces.js");
-const {move} = require("./sound.js");
+const { PieceTypes } = require("../bgio/pieces.js");
+const {move} = require("../bgio/sound.js");
                 //0 1 2 3 4 5 6 7 8
 const widthMap = [4,4,4,4,4,3,3,4,4]; //anything below 4 looks dumb, don't really like 3.
 

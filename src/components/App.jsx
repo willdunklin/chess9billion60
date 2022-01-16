@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Multiplayer } from './components/Multiplayer';
-import { Main } from './components/Main';
+import { Multiplayer } from './Multiplayer';
+import { Main } from './Main';
 
 import { CookiesProvider, useCookies } from "react-cookie";
 import { nanoid } from "nanoid";
