@@ -22,9 +22,9 @@ const visualizerStyles = {
     alignItems: "center",
 }
 
-let visualizers = []
-let temp = []
-for (let [piece,value] of Object.entries(PieceTypes)) {
+const visualizers = []
+const temp = []
+for (let [piece] of Object.entries(PieceTypes)) {
     if (piece !== "P")
         temp.push(piece)
 }
