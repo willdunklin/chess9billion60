@@ -39,7 +39,9 @@ async function getGame(gameid) {
             "gameid": {S: gameid}
         }
     }));
-    return results.Item;
+    if(!results)
+        return undefined;
+    return results.Item ? results.Item : undefined;
 }
 
 async function makeGame(gameid) {
@@ -104,7 +106,7 @@ async function join(gameid, token) {
     let game = await getGame(gameid);
 
     // if the game doens't exist, make one
-    if(game === undefined) {
+    if(!game) {
         await makeGame(gameid);
 
         // set game object to be blank
