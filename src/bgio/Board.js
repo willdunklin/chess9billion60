@@ -471,7 +471,7 @@ export class ChessBoard extends React.Component {
 
         return (
             <div style={s1} onKeyDown={evt => {console.log(evt)}}>
-                <button onClick={() => window.scrollTo(0,getSize())} style = {Object.assign({},{position: "fixed", right: "10px", bottom: "10px", width: "30px", height: "30px"},buttonStyles)}>
+                <button class="noselect" onClick={() => window.scrollTo(0,getSize())} style = {Object.assign({},{position: "fixed", right: "10px", bottom: "10px", width: "30px", height: "30px"},buttonStyles)}>
                     ?
                 </button>
                 <div style={boardContainerStyles}>
@@ -505,16 +505,16 @@ export class ChessBoard extends React.Component {
                                 {isWhite ? wImbalance : bImbalance}
                             </div>
                             <div style={{display: "flex", alignItems: "middle"}}>
-                                <button onClick={this.startHistoryButton} style={buttonStyles}>
+                                <button onClick={this.startHistoryButton} style={buttonStyles} class="noselect">
                                     &#60;&#60;
                                 </button>
-                                <button onClick={this.backHistoryButton} style={buttonStyles}>
+                                <button onClick={this.backHistoryButton} style={buttonStyles} class="noselect">
                                     &#60;
                                 </button>
-                                <button onClick={this.forwardHistoryButton} style={buttonStyles}>
+                                <button onClick={this.forwardHistoryButton} style={buttonStyles} class="noselect"> 
                                     &#62;
                                 </button>
-                                <button onClick={this.endHistoryButton} style={buttonStyles}>
+                                <button onClick={this.endHistoryButton} style={buttonStyles} class="noselect">
                                     &#62;&#62;
                                 </button>
                             </div>
