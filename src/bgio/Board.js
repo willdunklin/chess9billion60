@@ -416,6 +416,7 @@ export class ChessBoard extends React.Component {
                 }); 
                 // set flag so this doesnt repeat
                 this.gameover = true;
+                this.updateBoard(false)
             }
         }
     }
