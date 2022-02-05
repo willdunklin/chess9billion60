@@ -2,7 +2,7 @@ const { Visualizer } = require("./visualizer.js");
 const { PieceTypes } = require("../bgio/pieces");
 
 const visualizerStyles = {
-    paddingTop: "50px",
+    paddingTop: "1em",
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
@@ -28,5 +28,10 @@ for (let piece of temp) {
 }
 
 export const Zoo = () => {
-    return <div style={visualizerStyles}>{visualizers}</div>
+    return (
+        <div>
+            <h1 style={{textAlign: 'center'}}>Zoo</h1>
+            <div style={visualizerStyles}>{visualizers}</div>
+        </div>
+    )
 }
