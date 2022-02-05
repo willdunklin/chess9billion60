@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
 
-
 const React = require('react')
 const PropTypes = require('prop-types')
 const Draggable = require('react-draggable')

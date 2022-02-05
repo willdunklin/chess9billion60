@@ -4,10 +4,10 @@ const {Chess} = require("../react-chess/react-chess.js");
 
 export const Settings = () => {
     const [ cookies, setCookie ] = useCookies(['user']);
-    let [colorl, setColorl] = useState(cookies.lightSquareColor === undefined ? '#f0d9b5': cookies.lightSquareColor)
-    let [colord, setColord] = useState(cookies.darkSquareColor === undefined ? '#b58863': cookies.darkSquareColor)
-    let [darkMode, setDarkMode] = useState() 
-    let [volume, setVolume] = useState() 
+    let [colorl, setColorl] = useState(cookies.lightSquareColor ?? '#f0d9b5')
+    let [colord, setColord] = useState(cookies.darkSquareColor  ?? '#b58863')
+    let [darkMode, setDarkMode] = useState(cookies.darkMode ?? "false") 
+    let [volume, setVolume] = useState(cookies.volume ?? 100) 
     return <div style={{
                 padding: '50px',
                 display: "flex",
@@ -17,11 +17,11 @@ export const Settings = () => {
                 zIndex: "1",
             }}>
             <label for="volume">Volume</label>
-            <input type="range" id="volume" name="volume" defaultValue={cookies.volume === undefined ? '100': cookies.volume} onChange={event => {
+            <input type="range" id="volume" name="volume" defaultValue={volume} onChange={event => {
                     setVolume( event.target.value)
                 }}/>
-            <input type="checkbox" id="darkMode" name="darkMode" onChange={event => {
-                  setDarkMode(event.target.value)
+            <input type="checkbox" id="darkMode" name="darkMode" defaultChecked = {darkMode === "true" ? "true" : ""} onChange={event => {
+                  setDarkMode(event.target.checked)
                 }}/>
             <input type="color"  id="lightSquareColor" defaultValue={colorl} onChange={event => {
                     setColorl(event.target.value)
@@ -30,7 +30,7 @@ export const Settings = () => {
                 setColord(event.target.value)
                 }}></input>
             <button onClick={() => {
-                 setCookie('lightSquareColor', colorl)
+                setCookie('lightSquareColor', colorl)
                 setCookie('darkSquareColor', colord)
                 setCookie('volume', volume)
                 setCookie('darkMode', darkMode)
