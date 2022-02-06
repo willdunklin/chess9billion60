@@ -125,7 +125,7 @@ const PlayerChoice = props => {
     const [increment, setIncrement] = useState(10);
     const [spectator, setSpectator] = useState(false);
 
-    const [ cookies, setCookie ] = useCookies(['user']);
+    //const [ cookies, setCookie ] = useCookies(['user']);
 
     async function start_game() {
         if(await updatePlayer(gameid, token, !isWhite) !== token)
