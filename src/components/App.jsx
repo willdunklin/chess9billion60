@@ -19,8 +19,13 @@ const App = () => {
         setCookie('idtoken', nanoid());
 
     console.log('dark mode', cookies.darkMode, typeof cookies.darkMode);
+
+    React.useEffect(() => {
+        document.documentElement.setAttribute('data-theme', cookies.darkMode === 'true' ? 'dark' : 'light');
+    }, [cookies.darkMode])
+    
     return (
-        <div className="app" data-theme={cookies.darkMode === "true" ? "dark" : "light"}>
+        <div className="app">
             <CookiesProvider>
                 <BrowserRouter>
                     <Routes>

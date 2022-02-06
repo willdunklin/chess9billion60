@@ -24,11 +24,16 @@
     background: transparent;
     border: 2px solid;
     transition: 0.15s ease-in-out;
+    border-color: var(--highlight-alt);
 }
 
 .ReactModal__Content button:hover {
-    background: #eee;
-    border-color: #555;
+    background: var(--highlight-alt);
+    border-color: var(--highlight-alt);
+}
+
+.buttonHighlight {
+    border-color: var(--highlight) !important;
 }
 
 .ReactModal__Content div {

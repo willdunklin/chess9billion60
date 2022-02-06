@@ -27,13 +27,22 @@ code {
   --text: #000000;
   --link: #559;
   --link-alt: #86f;
+  --highlight: #000;
+  --highlight-alt: #555;
+  
+  color-scheme: normal;
 }
 
-[data-theme="dark"] {
+:root[data-theme="dark"] {
   --bg: #222;
   --text: aliceblue;
   --link: #aaf;
   --link-alt: #dbf;
+  --highlight: #eee;
+  --highlight-alt: #444;
+
+  scrollbar-color: #000 #222 !important;
+  color-scheme: dark;
 }
 
 .app {
