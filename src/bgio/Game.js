@@ -42,8 +42,65 @@ function colorInStalemate(history, color) {
     return true;
 }
 
-//run on board generation to prevent instant losses 
-function colorHasMateInOnes(history, color) {
+//to be eventually replaced by fairy stockfish
+function colorHasMateInN(history, color, N) {
+    if (N === 0 || colorInStalemate(history, color))
+        return false;
+    let otherColor = "W";
+    if (color === "W") {
+        otherColor = "B";
+    }
+    for (let j = 0; j < 8 * 8; j++) {
+        let piece = history[0][j];
+        let from = [j % 8, 7 - Math.floor(j / 8)];
+        if (piece !== null && piece.charAt(0) === color) {
+            let moves = PieceTypes[piece.substring(1)].getAvailableMoves(from[0], from[1], history, piece.charAt(0));
+            for (const [x, y] of moves) {
+                let result = validMove(history, piece, `${String.fromCharCode(97 + from[0])}${1+from[1]}`, `${String.fromCharCode(97 + (x))}${1+y}`);
+                if (result !== null) {
+                    history.unshift(result);
+                    if (colorInCheck(result, otherColor) && colorInStalemate(history, otherColor)) {
+                        //fix the board I prepended in stalemate check
+                        //console.log("mate at "+ N +  "\n" + history[0] + "\n" + history[1])
+                        history.splice(0, 1);
+                        return true;
+                    } else if (N > 1) {
+                        let canDefend = false
+                        for (let k = 0; (k < 8 * 8) && !canDefend; k++) {
+                            let enemyPiece = history[0][k];
+                            let from2 = [k % 8, 7 - Math.floor(k / 8)];
+                            if (enemyPiece !== null && enemyPiece.charAt(0) === otherColor) {
+                                let responses = PieceTypes[enemyPiece.substring(1)].getAvailableMoves(from2[0], from2[1], history, enemyPiece.charAt(0));
+                                for (const [x1, y1] of responses) {
+                                    let secondresult = validMove(history, enemyPiece, `${String.fromCharCode(97 + from2[0])}${1+from2[1]}`, `${String.fromCharCode(97 + (x1))}${1+y1}`);
+                                    if (secondresult !== null) {
+                                        history.unshift(secondresult)
+                                        if(!colorHasMateInN(history, color, N - 1))
+                                            canDefend = true
+                                        history.splice(0, 1);
+                                    }
+                                }
+                            }
+                        }
+                        if (!canDefend) {
+                            //console.log(N +  "\n" + history[0] + "\n" + history[1])
+                            history.splice(0, 1);
+                            return true;
+                        }
+                    }
+                    //fix the board I prepended
+                    history.splice(0, 1);
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+//run on board generation to prevent instant losses
+//to be eventually replaced by fairy stockfish 
+/*function colorHasMateInOnes(history, color) {
     let otherColor = "W";
     if (color === "W") {
         otherColor = "B";
@@ -75,7 +132,7 @@ function colorHasMateInOnes(history, color) {
     }
 
     return false;
-}
+}*/
 
 function colorInCheck(board, color) {
     let kingPos;
@@ -187,8 +244,7 @@ function initialBoard() {
         //         .filter(p => !["K", "P"].includes(p)) // filter pawns and kings
         //         .sort((a, b) => (PieceTypes[a].strength < PieceTypes[b].strength) ? 1 : -1)
         //no instant loss positions
-    } while (colorHasMateInOnes([board], "W"))
-
+    } while (colorHasMateInN([board], "W", 2))
     //remove duplicates and sort promotion options by strength
     return board;
 }
