@@ -4,9 +4,10 @@ import { Client } from "boardgame.io/react";
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Chess } from "../bgio/Game";
 import { ChessBoard } from "../bgio/Board";
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { DynamoDBClient, PutItemCommand, GetItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
+import '../css/modal.css';
 
 const { protocol, hostname, port } = window.location;
 const ChessClient = Client({
@@ -124,7 +125,9 @@ const PlayerChoice = props => {
     const [increment, setIncrement] = useState(10);
     const [spectator, setSpectator] = useState(false);
 
-    async function close() {
+    const [ cookies, setCookie ] = useCookies(['user']);
+
+    async function start_game() {
         if(await updatePlayer(gameid, token, !isWhite) !== token)
             setSpectator(true);
         else {
@@ -132,12 +135,23 @@ const PlayerChoice = props => {
         }
         setIsOpen(false);
     }
+    function close() {
+        setIsOpen(false);
+    }
+
+    Modal.setAppElement("#root");
 
     return (
         <div>
-            <Modal isOpen={isOpen} onRequestClose={close} contentLabel="Test Dialog">
-                <button onClick={() => {setIsWhite(true)}} style={{background: isWhite ? "#442" : "transparent"}}>White</button>
-                <button onClick={() => {setIsWhite(false)}} style={{background: isWhite ? "transparent" : "#442"}}>Black</button>
+            <Modal isOpen={isOpen} onRequestClose={() => {}}>
+                <h3>Game settings</h3>
+                <div>
+                    <p>Color: </p>
+                    <div>
+                        <button onClick={() => {setIsWhite(true)}} style={{borderColor: isWhite ? "#222" : "#7777"}}>White</button>
+                        <button onClick={() => {setIsWhite(false)}} style={{borderColor: isWhite ? "#7777" : "#222"}}>Black</button>
+                    </div>
+                </div>
                 <div>
                     <p>Start time: </p>
                     <input type="text" defaultValue={time} onChange={event => {
@@ -150,7 +164,10 @@ const PlayerChoice = props => {
                         setIncrement(event.target.value);
                     }}/>
                 </div>
-                <button onClick={close}>Start</button>
+                <div className="links">
+                    <Link to="" onClick={start_game}>Start</Link>
+                    <Link to="/" onClick={close}>Cancel</Link>
+                </div>
             </Modal>
             <div style={client_style}>
                 <ChessClient debug={false} playerID={isWhite ? '0' : '1'} matchID={gameid} spectator={spectator} />
