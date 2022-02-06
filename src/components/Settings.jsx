@@ -16,6 +16,12 @@ export const Settings = () => {
                 alignItems: "center",
                 zIndex: "1",
             }}>
+            <div style={{
+                position: "relative",
+                padding: '5px', 
+                width:  "200px",
+                height: "200px"}}><Chess pieces = {["WP@d4","BP@d5","WP@e4","BP@e5","WK@a1","BR@b1"]} dots = {["WK@a2","WK@b2"]} highlights = {["BR@b1", "BR@g1"]} check = {"W"} width = "100%" height = "100%" drawLabels = {false} lightSquareColor = {colorl} darkSquareColor = {colord} onDragStart = {() => {return false}}/>
+            </div>
             <label for="volume">Volume</label>
             <input type="range" id="volume" name="volume" defaultValue={volume} onChange={event => {
                     setVolume( event.target.value)
@@ -31,12 +37,7 @@ export const Settings = () => {
                 <input type="color" id="darkSquareColor" defaultValue={colord} onChange={event => {setColord(event.target.value)}}></input>
             </div>
             
-            <div style={{
-                    position: "relative",
-                    padding: '5px', 
-                    width:  "200px",
-                    height: "200px"}}><Chess pieces = {["WP@d4","BP@d5","WP@e4","BP@e5","WK@a1","BR@b1"]} dots = {["WK@a2","WK@b2"]} highlights = {["BR@b1", "BR@g1"]} check = {"W"} width = "100%" height = "100%" drawLabels = {false} lightSquareColor = {colorl} darkSquareColor = {colord} onDragStart = {() => {return false}}/>
-            </div>
+            
             <div style={{padding:"5px"}}>
                 <button onClick={() => {
                 setCookie('lightSquareColor', colorl)
