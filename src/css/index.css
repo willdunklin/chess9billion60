@@ -21,3 +21,33 @@ code {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+:root {
+  --bg: #fff;
+  --text: #000000;
+  --link: #559;
+  --link-alt: #86f;
+}
+
+[data-theme="dark"] {
+  --bg: #222;
+  --text: aliceblue;
+  --link: #aaf;
+  --link-alt: #dbf;
+}
+
+.app {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: var(--link);
+  transition: 0.15s ease-in-out;
+}
+
+a:hover {
+  color: var(--link-alt);
+}
