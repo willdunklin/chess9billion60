@@ -3,7 +3,6 @@ import "../css/nav.css";
 import { Outlet, Link } from 'react-router-dom';
 import { MdClose } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
-import { IconContext } from "react-icons";
 
 export const Nav = props => {
     const [navbarOpen, setNavbarOpen] = useState(false);
