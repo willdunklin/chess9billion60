@@ -1,5 +1,5 @@
 .ReactModal__Overlay {
-    z-index: 99;
+    z-index: 1999;
     position: fixed;
 }
 
