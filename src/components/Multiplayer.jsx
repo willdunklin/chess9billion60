@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Modal from 'react-modal';
 import { Client } from "boardgame.io/react";
 import { SocketIO } from "boardgame.io/multiplayer";
-import { Chess } from "../Game";
-import { ChessBoard } from "../Board";
-import { useParams } from 'react-router-dom';
+import { Chess } from "../bgio/Game";
+import { ChessBoard } from "../bgio/Board";
+import { useParams, Link } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { DynamoDBClient, PutItemCommand, GetItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
+import '../css/modal.css';
 
 const { protocol, hostname, port } = window.location;
 const ChessClient = Client({
@@ -19,7 +21,7 @@ const client_style = {
     padding: "1em",
 };
 
-const dbclient = new DynamoDBClient({ region: 'us-east-2', credentials: require("../creds").creds});
+const dbclient = new DynamoDBClient({ region: 'us-east-2', credentials: require("../bgio/creds").creds});
 const tableName = "games";
 
 // TODO: care about security: 
@@ -39,7 +41,9 @@ async function getGame(gameid) {
             "gameid": {S: gameid}
         }
     }));
-    return results.Item;
+    if(!results)
+        return undefined;
+    return results.Item ? results.Item : undefined;
 }
 
 async function makeGame(gameid) {
@@ -55,6 +59,13 @@ async function makeGame(gameid) {
 
 async function updatePlayer(gameid, token, isBlack) {
     console.log('updating player');
+    const game = await getGame(gameid);
+    
+    // get the current player if it exists
+    const player = isBlack ? game.players.M.b.S : game.players.M.w.S;
+    if (player)
+        return player; // if the player is already taken, return the player
+
     await dbclient.send(new UpdateItemCommand({
         TableName: tableName,
         Key: { 
@@ -65,6 +76,7 @@ async function updatePlayer(gameid, token, isBlack) {
         },
         UpdateExpression: isBlack ? "set players.b = :t" : "set players.w = :t"
     }));
+    return token; // otherwise, add the player and return the token
 }
 
 async function choosePlayer(gameid, token, game) {
@@ -87,24 +99,90 @@ async function choosePlayer(gameid, token, game) {
     if(white !== "" && black !== "")
         return player;
 
-    if(white !== "") {  // if white is taken
-        await updatePlayer(gameid, token, true);  // make the player black
+    if(white !== "") {         // if white is taken
+        if(await updatePlayer(gameid, token, true) !== token)  // make the player black
+            return null; // if the player is already taken, make them spectator
         player = "1";
-    } else {            // otherwise black is taken
-        await updatePlayer(gameid, token, false); // make the player white
+
+    } else if (black !== "") { // if black is taken
+        if(await updatePlayer(gameid, token, false) !== token) // make the player white
+            return null; // if the player is already taken, make them spectator
         player = "0";
+
+    } else {  // neither player is taken, let the user choose which player they want to be
+        return [gameid, token];
     }
 
     return player;
 }
 // </API>
 
+const PlayerChoice = props => {
+    const { gameid, token } = props;
+    const [isOpen, setIsOpen] = useState(true);
+    const [isWhite, setIsWhite] = useState("0");
+    const [time, setTime] = useState(600);
+    const [increment, setIncrement] = useState(10);
+    const [spectator, setSpectator] = useState(false);
+
+    const [ cookies, setCookie ] = useCookies(['user']);
+
+    async function start_game() {
+        if(await updatePlayer(gameid, token, !isWhite) !== token)
+            setSpectator(true);
+        else {
+            // TODO: set the time and increment  
+        }
+        setIsOpen(false);
+    }
+    function close() {
+        setIsOpen(false);
+    }
+
+    Modal.setAppElement("#root");
+
+    return (
+        <div>
+            <Modal isOpen={isOpen} onRequestClose={() => {}}>
+                <h3>Game settings</h3>
+                <div>
+                    <p>Color: </p>
+                    <div>
+                        <button onClick={() => {setIsWhite("0")}} className={isWhite === "0" ? "buttonHighlight" : ""}>White</button>
+                        <button onClick={() => {setIsWhite("1")}} className={isWhite === "1" ? "buttonHighlight" : ""}>Black</button>
+                        <button onClick={() => {setIsWhite(Math.random() > 0.5 ? "0" : "1")}}>Random</button>
+                    </div>
+                </div>
+                <div>
+                    <p>Start time: </p>
+                    <input type="text" defaultValue={time} onChange={event => {
+                        setTime(event.target.value);
+                    }}/>
+                </div>
+                <div>
+                    <p>Increment: </p>
+                    <input type="text" defaultValue={increment} onChange={event => {
+                        setIncrement(event.target.value);
+                    }}/>
+                </div>
+                <div className="links">
+                    <Link to="" onClick={start_game}>Start</Link>
+                    <Link to="/" onClick={close}>Cancel</Link>
+                </div>
+            </Modal>
+            <div style={client_style}>
+                <ChessClient debug={false} playerID={isWhite} matchID={gameid} spectator={spectator} />
+            </div>
+        </div>
+    )
+}
+
 async function join(gameid, token) {
     // if the game doesn't exist, create one
     let game = await getGame(gameid);
 
     // if the game doens't exist, make one
-    if(game === undefined) {
+    if(!game) {
         await makeGame(gameid);
 
         // set game object to be blank
@@ -117,7 +195,15 @@ async function join(gameid, token) {
     if (playerID === null) // player is a spectator
         return (
             <div style={client_style}>
-                <ChessClient debug={true} playerID={'0'} matchID={gameid} spectator={true} />
+                <ChessClient debug={false} playerID={'0'} matchID={gameid} spectator={true} />
+            </div>
+        );
+
+    if (playerID.length === 2) // player is choosing which player they are
+        return (
+            <div style={client_style}>
+                <PlayerChoice gameid={playerID[0]} token={playerID[1]}/>
+                {/* <ChessClient debug={false} playerID={'0'} matchID={gameid} spectator={true} /> */}
             </div>
         );
 

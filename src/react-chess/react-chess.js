@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 const React = require('react')
 const PropTypes = require('prop-types')
 const Draggable = require('react-draggable')
@@ -10,7 +12,6 @@ const { Tile } = require("../components/Tile")
 
 const getDefaultLineup = () => defaultLineup.slice()
 const noop = () => {/* intentional noop */}
-
 
 
 const labelStyles = {fontSize: 'calc(7px + .5vw)', position: 'absolute', userSelect: 'none'};
@@ -32,6 +33,7 @@ export class Chess extends React.Component {
   getSquareColor(x, y) {
 
     let {lightSquareColor, darkSquareColor} = this.props
+
     if (this.state.showPromotion) {
       lightSquareColor = this.props.lightGreyedOutColor
       darkSquareColor = this.props.darkGreyedOutColor
@@ -386,8 +388,8 @@ Chess.defaultProps = {
   darkCheckColor: '#ff2010',
   lightGreyedOutColor: '#aaaaaa',
   darkGreyedOutColor: '#555555',
-  lightSquareColor: '#f0d9b5',
-  darkSquareColor: '#b58863',
+  lightSquareColor: Cookies.get('lightSquareColor') ?? '#f0d9b5',
+  darkSquareColor: Cookies.get('darkSquareColor') ?? '#b58863',
   dotColor: '#421a',
 
   onMovePiece: noop,
@@ -398,7 +400,7 @@ Chess.defaultProps = {
   promotablePieces: ["Q","N","R","B","M"],
 
   highlights: [],
-  dots: ["Q@h3"],
+  dots: [],
 
   check : "",
   isWhite : true,

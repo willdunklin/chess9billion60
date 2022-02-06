@@ -1,9 +1,9 @@
 const { Server, Origins } = require("boardgame.io/server");
-const { Chess } = require("./Game");
+const { Chess } = require("./bgio/Game");
 const serve = require("koa-static");
 const path = require("path");
-const { DynamnoStore } = require("./db.ts");
-const { creds } = require("./creds.js");
+const { DynamnoStore } = require("./bgio/db.ts");
+const { creds } = require("./bgio/creds.js");
 
 const db = new DynamnoStore("us-east-2", creds, "bgio")
 
