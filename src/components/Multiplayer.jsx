@@ -128,7 +128,7 @@ const PlayerChoice = props => {
     const [ cookies, setCookie ] = useCookies(['user']);
 
     async function start_game() {
-        if(await updatePlayer(gameid, token, !isWhite) !== token)
+        if(await updatePlayer(gameid, token, isWhite === "1") !== token)
             setSpectator(true);
         else {
             // TODO: set the time and increment  
