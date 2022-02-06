@@ -46,7 +46,7 @@ nav * {
 
 .menuNav.showMenu {width: 100%;}
 
-a {
+a, .link {
     display: block;
     padding: 1em 1.6em;
     text-decoration: none;
