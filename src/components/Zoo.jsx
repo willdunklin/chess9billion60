@@ -2,6 +2,7 @@ const { Visualizer } = require("./visualizer.js");
 const { PieceTypes } = require("../bgio/pieces");
 
 const visualizerStyles = {
+    padding: "3em",
     paddingTop: "1em",
     display: "flex",
     flexDirection: "row",
@@ -22,7 +23,7 @@ for (let piece of temp) {
         key={`${piece}-zoo-visualizer`} // fixes bug when promPieces changes
         piece={piece} 
         color={"W"}
-        count={5} // TODO this is a stupid name for this or a stupid way of doing this
+        count={7} // TODO this is a stupid name for this or a stupid way of doing this
         />
     )
 }
