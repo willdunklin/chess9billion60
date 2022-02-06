@@ -10,6 +10,7 @@ import { CookiesProvider, useCookies } from "react-cookie";
 import { nanoid } from "nanoid";
 import { New } from "./New";
 import { Zoo } from "./Zoo"
+import { Settings } from "./Settings"
 
 const App = () => {
     const [ cookies, setCookie ] = useCookies(['user']);
@@ -25,7 +26,7 @@ const App = () => {
                         <Route exact path="new" element={<New/>}/>
                         <Route exact path="zoo" element={<Zoo/>}/>
                         <Route exact path="patreon" element={<h1>patreon</h1>}/>
-                        <Route exact path="settings" element={<h1>settings</h1>}/>
+                        <Route exact path="settings" element={<Settings/>}/>
                         <Route exact path="" element={<Main />}/>
                         <Route path=":gameid" element={<Multiplayer />}/>
                     </Route>
