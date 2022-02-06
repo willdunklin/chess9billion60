@@ -3,15 +3,27 @@ import "../css/nav.css";
 import { Outlet, Link } from 'react-router-dom';
 import { MdClose } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
+import Modal from 'react-modal';
+import { Settings } from "./Settings";
 
 export const Nav = props => {
+    const [isOpen, setIsOpen] = useState('false');
     const [navbarOpen, setNavbarOpen] = useState(false);
+
     const toggleNavbar = () => {
         setNavbarOpen(!navbarOpen);
     }
-    const closeNavebar = () => {
+    const closeNavbar = () => {
         setNavbarOpen(false);
     }
+    const openSettings = () => {
+        setIsOpen('true');
+        closeNavbar();
+    }
+    const closeModal = () => {
+        setIsOpen('false');
+    }
+    Modal.setAppElement("#root");
 
     return (
         <div>
@@ -25,18 +37,21 @@ export const Nav = props => {
                         )}
                     </button>
                     <ul className={`menuNav ${navbarOpen ? "showMenu" : ""}`}>
-                        <li><Link className="homeButton" to="/" onClick={closeNavebar}>
+                        <li><Link className="homeButton" to="/" onClick={closeNavbar}>
                             <h2>Chess 9,000,000,060</h2>
                         </Link></li>
-                        <li><Link to="/new" onClick={closeNavebar}><h4>Create new game</h4></Link></li>
-                        <li><Link to="/zoo" onClick={closeNavebar}><h4>Piece zoo</h4></Link></li>
-                        <li><Link to="/patreon" onClick={closeNavebar}><h4>Patreon</h4></Link></li>
-                        <li><Link className="settings" to="/settings" onClick={closeNavebar}>
+                        <li><Link to="/new" onClick={closeNavbar}><h4>Create new game</h4></Link></li>
+                        <li><Link to="/zoo" onClick={closeNavbar}><h4>Piece zoo</h4></Link></li>
+                        <li><Link to="/patreon" onClick={closeNavbar}><h4>Patreon</h4></Link></li>
+                        <li><div className="settings link" onClick={openSettings}>
                             <h4>Settings</h4>
-                        </Link></li>
+                        </div></li>
                     </ul>
                 </div>
             </nav>
+            <Modal isOpen={isOpen === 'true'} onRequestClose={closeModal} style={{content: {maxWidth: '400px'}}}>
+                <Settings close={closeModal}/>
+            </Modal>
             <Outlet />
         </div>
     );

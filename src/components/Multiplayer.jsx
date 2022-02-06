@@ -125,8 +125,6 @@ const PlayerChoice = props => {
     const [increment, setIncrement] = useState(10);
     const [spectator, setSpectator] = useState(false);
 
-    const [ cookies, setCookie ] = useCookies(['user']);
-
     async function start_game() {
         if(await updatePlayer(gameid, token, isWhite === "1") !== token)
             setSpectator(true);
@@ -143,7 +141,7 @@ const PlayerChoice = props => {
 
     return (
         <div>
-            <Modal isOpen={isOpen} onRequestClose={() => {}}>
+            <Modal isOpen={isOpen}>
                 <h3>Game settings</h3>
                 <div>
                     <p>Color: </p>
