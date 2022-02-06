@@ -30,16 +30,17 @@ export const Settings = () => {
                 setColord(event.target.value)
                 }}></input>
             <button onClick={() => {
+                
                 setCookie('lightSquareColor', colorl)
                 setCookie('darkSquareColor', colord)
                 setCookie('volume', volume)
                 setCookie('darkMode', darkMode)
                 window.location.reload(false)}}
-                >Apply!</button>
+                >Apply</button>
             <div style={{
                     position: "relative",
                     padding: '5px', 
                     width:  "200px",
-                    height: "200px"}}><Chess pieces = {[]} dots = {[]} width = "100%" height = "100%" drawLabels = {false} lightSquareColor = {colorl} darkSquareColor = {colord}/></div>
+                    height: "200px"}}><Chess pieces = {["WP@d4","BP@d5","WP@e4","BP@e5"]} dots = {[]} width = "100%" height = "100%" drawLabels = {false} lightSquareColor = {colorl} darkSquareColor = {colord} onDragStart = {() => {return false}}/></div>
             </div>
 }
