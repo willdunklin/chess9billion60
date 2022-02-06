@@ -20,27 +20,34 @@ export const Settings = () => {
             <input type="range" id="volume" name="volume" defaultValue={volume} onChange={event => {
                     setVolume( event.target.value)
                 }}/>
-            <input type="checkbox" id="darkMode" name="darkMode" defaultChecked = {darkMode === "true" ? "true" : ""} onChange={event => {
-                  setDarkMode(event.target.checked)
-                }}/>
-            <input type="color"  id="lightSquareColor" defaultValue={colorl} onChange={event => {
-                    setColorl(event.target.value)
-                }}></input>
-            <input type="color" id="darkSquareColor" defaultValue={colord} onChange={event => {
-                setColord(event.target.value)
-                }}></input>
-            <button onClick={() => {
-                
+            <div style={{padding:"5px"}}>
+                <label for="darkMode">Dark Mode</label>
+                <input type="checkbox" id="darkMode" name="darkMode" defaultChecked = {darkMode === "true" ? "true" : ""} onChange={event => {setDarkMode(event.target.checked)}}/>
+            </div>
+            
+            <div style={{padding:"5px"}}>
+                <label for = "lightSquareColor">Theme </label>
+                <input type="color" id="lightSquareColor" defaultValue={colorl} onChange={event => {setColorl(event.target.value)}}></input>
+                <input type="color" id="darkSquareColor" defaultValue={colord} onChange={event => {setColord(event.target.value)}}></input>
+            </div>
+            
+            <div style={{
+                    position: "relative",
+                    padding: '5px', 
+                    width:  "200px",
+                    height: "200px"}}><Chess pieces = {["WP@d4","BP@d5","WP@e4","BP@e5","WK@a1","BR@b1"]} dots = {["WK@a2","WK@b2"]} highlights = {["BR@b1", "BR@g1"]} check = {"W"} width = "100%" height = "100%" drawLabels = {false} lightSquareColor = {colorl} darkSquareColor = {colord} onDragStart = {() => {return false}}/>
+            </div>
+            <div style={{padding:"5px"}}>
+                <button onClick={() => {
                 setCookie('lightSquareColor', colorl)
                 setCookie('darkSquareColor', colord)
                 setCookie('volume', volume)
                 setCookie('darkMode', darkMode)
                 window.location.reload(false)}}
                 >Apply</button>
-            <div style={{
-                    position: "relative",
-                    padding: '5px', 
-                    width:  "200px",
-                    height: "200px"}}><Chess pieces = {["WP@d4","BP@d5","WP@e4","BP@e5"]} dots = {[]} width = "100%" height = "100%" drawLabels = {false} lightSquareColor = {colorl} darkSquareColor = {colord} onDragStart = {() => {return false}}/></div>
             </div>
+            
+            </div>
+
+            
 }

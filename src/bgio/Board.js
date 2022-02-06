@@ -10,7 +10,7 @@ let wImbalance = []
 let bImbalance = []
 
 function getSize() {
-    return Math.min(window.innerWidth - 50, window.innerHeight - 150)
+    return Math.min(window.innerWidth - 50, window.innerHeight - 170)
 }
 
 const visualizerStyles = {
