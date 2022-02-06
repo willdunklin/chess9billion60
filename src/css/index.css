@@ -27,13 +27,26 @@ code {
   --text: #000000;
   --link: #559;
   --link-alt: #86f;
+  --highlight: #000;
+  --highlight-alt: #aaa;
+  --modal-bg: #fffa;
+  --modal-border: #aaa;
+
+  color-scheme: normal;
 }
 
-[data-theme="dark"] {
+:root[data-theme="dark"] {
   --bg: #222;
   --text: aliceblue;
   --link: #aaf;
   --link-alt: #dbf;
+  --highlight: #eee;
+  --highlight-alt: #444;
+  --modal-bg: #000a;
+  --modal-border: #000;
+
+  scrollbar-color: #000 #222 !important;
+  color-scheme: dark;
 }
 
 .app {
@@ -42,12 +55,16 @@ code {
   min-height: 100vh;
 }
 
-a {
+a, .link {
   text-decoration: none;
   color: var(--link);
   transition: 0.15s ease-in-out;
 }
 
-a:hover {
+a:hover, .link:hover {
   color: var(--link-alt);
+}
+
+.link {
+  cursor: pointer;
 }

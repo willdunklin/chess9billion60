@@ -120,15 +120,13 @@ async function choosePlayer(gameid, token, game) {
 const PlayerChoice = props => {
     const { gameid, token } = props;
     const [isOpen, setIsOpen] = useState(true);
-    const [isWhite, setIsWhite] = useState(true);
+    const [isWhite, setIsWhite] = useState("0");
     const [time, setTime] = useState(600);
     const [increment, setIncrement] = useState(10);
     const [spectator, setSpectator] = useState(false);
 
-    //const [ cookies, setCookie ] = useCookies(['user']);
-
     async function start_game() {
-        if(await updatePlayer(gameid, token, !isWhite) !== token)
+        if(await updatePlayer(gameid, token, isWhite === "1") !== token)
             setSpectator(true);
         else {
             // TODO: set the time and increment  
@@ -143,13 +141,14 @@ const PlayerChoice = props => {
 
     return (
         <div>
-            <Modal isOpen={isOpen} onRequestClose={() => {}}>
+            <Modal isOpen={isOpen}>
                 <h3>Game settings</h3>
                 <div>
                     <p>Color: </p>
                     <div>
-                        <button onClick={() => {setIsWhite(true)}} style={{borderColor: isWhite ? "#222" : "#7777"}}>White</button>
-                        <button onClick={() => {setIsWhite(false)}} style={{borderColor: isWhite ? "#7777" : "#222"}}>Black</button>
+                        <button onClick={() => {setIsWhite("0")}} className={isWhite === "0" ? "buttonHighlight" : ""}>White</button>
+                        <button onClick={() => {setIsWhite("1")}} className={isWhite === "1" ? "buttonHighlight" : ""}>Black</button>
+                        <button onClick={() => {setIsWhite(Math.random() > 0.5 ? "0" : "1")}}>Random</button>
                     </div>
                 </div>
                 <div>
@@ -170,7 +169,7 @@ const PlayerChoice = props => {
                 </div>
             </Modal>
             <div style={client_style}>
-                <ChessClient debug={false} playerID={isWhite ? '0' : '1'} matchID={gameid} spectator={spectator} />
+                <ChessClient debug={false} playerID={isWhite} matchID={gameid} spectator={spectator} />
             </div>
         </div>
     )
