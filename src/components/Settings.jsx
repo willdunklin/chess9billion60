@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
 const {Chess} = require("../react-chess/react-chess.js");
 
 export const Settings = props => {

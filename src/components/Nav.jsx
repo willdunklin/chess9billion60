@@ -5,12 +5,10 @@ import { MdClose } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import Modal from 'react-modal';
 import { Settings } from "./Settings";
-import { useCookies } from "react-cookie";
 
 export const Nav = props => {
     const [isOpen, setIsOpen] = useState('false');
     const [navbarOpen, setNavbarOpen] = useState(false);
-    const [cookies, setCookie] = useCookies(['user']);
 
     const toggleNavbar = () => {
         setNavbarOpen(!navbarOpen);
@@ -20,11 +18,9 @@ export const Nav = props => {
     }
     const openSettings = () => {
         setIsOpen('true');
-        setCookie('settingsOpen', 'true');
         closeNavbar();
     }
     const closeModal = () => {
-        setCookie('settingsOpen', 'false');
         setIsOpen('false');
     }
     Modal.setAppElement("#root");
