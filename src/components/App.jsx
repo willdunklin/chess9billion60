@@ -18,22 +18,25 @@ const App = () => {
     if (cookies.idtoken === undefined)
         setCookie('idtoken', nanoid());
 
+    console.log('dark mode', cookies.darkMode, typeof cookies.darkMode);
     return (
-        <CookiesProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Nav />}>
-                        <Route exact path="new" element={<New/>}/>
-                        <Route exact path="zoo" element={<Zoo/>}/>
-                        <Route exact path="patreon" element={<h1>patreon</h1>}/>
-                        <Route exact path="settings" element={<Settings/>}/>
-                        <Route exact path="" element={<Main />}/>
-                        <Route path=":gameid" element={<Multiplayer />}/>
-                    </Route>
-                    <Route path="*" element={<NotFound />}/>
-                </Routes>
-            </BrowserRouter>
-        </CookiesProvider>
+        <div className="app" data-theme={cookies.darkMode === "true" ? "dark" : "light"}>
+            <CookiesProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Nav />}>
+                            <Route exact path="new" element={<New/>}/>
+                            <Route exact path="zoo" element={<Zoo/>}/>
+                            <Route exact path="patreon" element={<h1>patreon</h1>}/>
+                            <Route exact path="settings" element={<Settings/>}/>
+                            <Route exact path="" element={<Main />}/>
+                            <Route path=":gameid" element={<Multiplayer />}/>
+                        </Route>
+                        <Route path="*" element={<NotFound />}/>
+                    </Routes>
+                </BrowserRouter>
+            </CookiesProvider>
+        </div>
     );
 };
 
