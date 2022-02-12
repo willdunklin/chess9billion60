@@ -313,6 +313,8 @@ function colorHasMateInN(history, color, N) {
     return false;
 }
 
+
+// Helpers 
 function compareTwoBoards(A, B) {
     for (let i = 0; i < 8 * 8; i++) {
         if (A[i] !== B[i])

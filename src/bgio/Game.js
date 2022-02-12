@@ -40,6 +40,7 @@ export const Chess = {
             noProgressCounter: 0,
 
             // times for each of the players (multiplied by 1000 for ms)
+            timer_enabled: true,
             startTime:  startTime,
             wTime:      startTime,
             bTime:      startTime,
@@ -61,7 +62,7 @@ export const Chess = {
 
             if (board !== null) {
                 // don't start timers until first move
-                if (G.history.length <= 2) {
+                if (G.history.length <= 2 || !G.timer_enabled) {
                     G.last_event = Date.now();
                     G.wTime = G.startTime;
                     G.bTime = G.startTime;

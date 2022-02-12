@@ -387,7 +387,7 @@ export class ChessBoard extends React.Component {
             }); // sync
             
             // decrement time while game is running (but not for each color's first move)
-            if(!this.props.ctx.gameover && this.current_length > 2)
+            if(!this.props.ctx.gameover && this.current_length > 2 && this.props.G.timer_enabled)
                 this.timer = setInterval(this.decrementTimer, this.dec_amt);
             
             this.gameover = this.props.ctx.gameover;
@@ -481,7 +481,7 @@ export class ChessBoard extends React.Component {
                 <div style={boardContainerStyles}>
                     <div style={{position: "relative", width : this.state.boardWidth +"px"}}>
                         <div style={{display: "flex"}}>
-                            <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/>     
+                            {this.props.G.timer_enabled ? <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/> : null}  
                             {isWhite ? bImbalance : wImbalance}
                         </div>
                         <div>
@@ -505,7 +505,7 @@ export class ChessBoard extends React.Component {
                         </div>
                         <div style={{display: "flex", justifyContent: "space-between"}}>
                             <div style={{display: "flex"}}>
-                                <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/>   
+                                {this.props.G.timer_enabled ? <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/> : null}  
                                 {isWhite ? wImbalance : bImbalance}
                             </div>
                             <div style={{display: "flex", alignItems: "middle"}}>
