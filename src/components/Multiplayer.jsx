@@ -3,11 +3,10 @@ import { Client } from "boardgame.io/react";
 import { SocketIO } from "boardgame.io/multiplayer";
 import { Chess } from "../bgio/Game";
 import { ChessBoard } from "../bgio/Board";
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { getGame, updatePlayer, makeGame } from "../bgio/api";
-import '../css/modal.css';
 
 const { protocol, hostname, port } = window.location;
 const ChessClient = Client({
@@ -45,15 +44,17 @@ async function assignPlayerID(gameid, token, game) {
     if(white !== "" && black !== "")
         return player;
 
-    if(white !== "") {  // if white is taken
+    if(white !== "") {          // if white is taken
         if(await updatePlayer(dbclient, tableName, gameid, token, true) !== token)  // make the player black
             return null; // if the player is already taken, make them spectator
         player = "1";
 
-    } else {            // if black is taken
+    } else if (black !== "") {  // if black is taken
         if(await updatePlayer(dbclient, tableName, gameid, token, false) !== token) // make the player white
             return null; // if the player is already taken, make them spectator
         player = "0";
+    } else {
+        return "invalid";
     }
 
     return player;
@@ -62,10 +63,9 @@ async function assignPlayerID(gameid, token, game) {
 
 
 async function join(gameid, token) {
-    // return <div></div>;
     // if the game doesn't exist, create one
     let game = await getGame(dbclient, tableName, gameid);
-    console.log('!!game:', game);
+
     // if the game doens't exist, make one
     if(!game) {
         await makeGame(dbclient, tableName, gameid);
@@ -83,6 +83,9 @@ async function join(gameid, token) {
                 <ChessClient debug={false} playerID={'0'} matchID={gameid} spectator={true} />
             </div>
         );
+
+    if (playerID === "invalid")
+        return <Navigate to="/new"/>;
 
     // return player board
     return (

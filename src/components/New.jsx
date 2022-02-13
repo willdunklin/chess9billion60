@@ -9,6 +9,7 @@ import { PieceTypes } from "../bgio/pieces";
 import { initialBoard } from "../bgio/logic";
 import { getGame, updatePlayer, makeGame } from "../bgio/api";
 
+import '../css/modal.css';
 
 // <API>
 // TODO: move to actual api
@@ -17,7 +18,7 @@ const tableName = "bgio";
 
 function getNewID() {
     // some kind of game id unique string
-    const str = nanoid();
+    const str = nanoid().replace(/[^a-zA-Z0-9]/g, 'w');
     return str.substring(0, 6);
 }
 
@@ -108,7 +109,7 @@ export const New = props => {
     const [ increment, setIncrement ] = useState(10);
     const [ enableTimer, setEnableTimer ] = useState(true);
     const [ spectator, setSpectator ] = useState(false);
-    const [ gameid, setGameid ] = useState(getNewID());
+    const [ gameid ] = useState(getNewID());
     const [ cookies ] = useCookies(['user']);
 
     React.useEffect(() => {
@@ -126,15 +127,20 @@ export const New = props => {
 
 
     async function start_game() {
-        if (isWhite === "random") 
-            setIsWhite(Math.random() > 0.5 ? "0" : "1");
+        if (isWhite === "random") {
+            start(Math.random() > 0.5 ? "0" : "1");
+            return;
+        }
 
+        start(isWhite);
+    }
+    async function start(white) {
         let game = await getGame(dbclient, "games", gameid);
         // if the game doens't exist, make one
         if(!game)
             await makeGame(dbclient, "games", gameid);
 
-        if(await updatePlayer(dbclient, "games", gameid, cookies.idtoken, isWhite === "1") !== cookies.idtoken)
+        if(await updatePlayer(dbclient, "games", gameid, cookies.idtoken, white === "1") !== cookies.idtoken)
             setSpectator(true);
 
         setIsOpen(false);
@@ -165,7 +171,7 @@ export const New = props => {
                 </div>
                 <div>
                     <p>Enable Timers:</p>
-                    <input type="checkbox" id="darkMode" name="darkMode" defaultChecked={enableTimer? "true" : ""} onChange={event => {
+                    <input type="checkbox" id="darkMode" name="darkMode" defaultChecked={enableTimer ? "true" : ""} onChange={event => {
                         setEnableTimer(event.target.checked === "true");
                     }}/>
                 </div>
