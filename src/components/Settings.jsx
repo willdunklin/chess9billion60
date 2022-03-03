@@ -45,7 +45,7 @@ export const Settings = props => {
                         position: "relative",
                         padding: '5px',
                         width:  "200px",
-                        height: "200px"}}><Chess pieces = {["WP@d4","BP@d5","WP@e4","BP@e5","WK@a1","BR@b1"]} dots = {["WK@a2","WK@b2"]} highlights = {["BR@b1", "BR@g1"]} check = {"W"} width = "100%" height = "100%" drawLabels = {false} lightSquareColor = {colorl} darkSquareColor = {colord} onDragStart = {() => {return false}}/>
+                        height: "200px"}}><Chess pieces = {["WP@d4","BP@d5","WP@e4","BP@e5","WK@a1","BR@d1","BK@g7"]} dots = {["WK@a2","WK@b2"]} highlights = {["BR@d1", "BR@g1"]} check = {"W"} width = "100%" height = "100%" drawLabels = {false} lightSquareColor = {colorl} darkSquareColor = {colord} onDragStart = {() => {return false}}/>
                 </div>
             </div>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
