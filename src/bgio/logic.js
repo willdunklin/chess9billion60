@@ -1,4 +1,4 @@
-const { PieceTypes } = require("./pieces.js");
+import { PieceTypes } from "./pieces.js";
 
 export function initialBoard() {
     let board;
