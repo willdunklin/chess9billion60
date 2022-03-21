@@ -7,7 +7,7 @@ const Z_leap = leaper(3, 2);
 //const L_leap = leaper(4, 3);
 const K_leap = W_leap.concat(F_leap);
 
-function leaper(dx, dy, x = 0, y = 0) {
+function leaper(dx: number, dy: number, x: number=0, y: number=0) {
     return [
         [x + dx, y + dy],
         [x - dx, y + dy],
@@ -20,12 +20,12 @@ function leaper(dx, dy, x = 0, y = 0) {
     ]
 }
 
-function isInBounds(x, y) {
+function isInBounds(x: number, y: number) {
     return ((0 <= x) && (x <= 7) && (0 <= y) && (y <= 7));
 }
 
-function rider(startx, starty, history, color, intervals, n = 7) {
-    let squares = [];
+function rider(startx: number, starty: number, history: Array<Array<string|null>>|null, color: string, intervals: Array<Array<number>>, n = 7) {
+    let squares: Array<Array<number>> = [];
     // let squares = intervals.map(
     //     ([x, y]) => {
     //         // look at continuation of vector to n steps
@@ -38,7 +38,7 @@ function rider(startx, starty, history, color, intervals, n = 7) {
     //         ([x, y]) => isInBounds(x,y)
     //     );
     // squares = [...new Set(squares)];
-    intervals.forEach(([dx, dy]) => {
+    intervals.forEach(([dx, dy]: Array<number>) => {
         let x = startx + dx;
         let y = starty + dy;
         let i = 0;
@@ -67,6 +67,16 @@ function rider(startx, starty, history, color, intervals, n = 7) {
 }
 
 class Piece {
+    id: string;
+    strength: number;
+    canPromote: boolean;
+    colorbound: boolean;
+    onlyOne: boolean;
+    pieceName: string;
+    blurb: string;
+    ruleText: string;
+    canMate: boolean;
+    
     allowOnlyOne() {
         this.onlyOne = true
         return this 
@@ -87,7 +97,7 @@ class Piece {
         return this
     }
 
-    getAvailableMoves = function (x, y, gameboard, color) {
+    getAvailableMoves = function (x: number, y: number, gameboard: Array<Array<string|null>>|null, color: string): Array<any> {
         return [];
     }
 
@@ -99,7 +109,7 @@ class Piece {
         return this.strength;
     }
 
-    name(string) {
+    name(string: string) {
         this.pieceName = string
         return this
     }
@@ -108,7 +118,7 @@ class Piece {
         return this.pieceName;
     }
 
-    setBlurb(string) {
+    setBlurb(string: string) {
         this.blurb = string
         return this
     }
@@ -117,7 +127,7 @@ class Piece {
         return this.blurb;
     }
 
-    setRules(string) {
+    setRules(string: string) {
         this.ruleText = string
         return this
     }
@@ -135,7 +145,7 @@ class Piece {
         return !this.canMate
     }
 
-    constructor(id, strength, getAvailableMoves) {
+    constructor(id: string, strength: number, getAvailableMoves: (x: number, y: number, gameboard: Array<Array<string | null>> | null, color: string) => Array<any>) {
         this.getAvailableMoves = getAvailableMoves;
         this.id = id;
         this.strength = strength;
@@ -223,11 +233,11 @@ const P =  new Piece("P", 100, (x, y, history, color) => {
         xtemp = x - 1;
         if (isInBounds(xtemp, ytemp)) {
             if (gameboard[xtemp + 8 * (7 - ytemp)] !== null) {
-                if (gameboard[xtemp + 8 * (7 - ytemp)].charAt(0) !== color)
+                if (gameboard[xtemp + 8 * (7 - ytemp)]?.charAt(0) !== color)
                     moves.push([xtemp, ytemp]);
                 //begin vague enpassant check - requires knowledge of history to be perfect. 
             } else if (y === en_passant_rank && (gameboard[xtemp + 8 * (7 - y)] === "WP" || gameboard[xtemp + 8 * (7 - y)] === "BP")) {
-                if (gameboard[xtemp + 8 * (7 - y)].charAt(0) !== color)
+                if (gameboard[xtemp + 8 * (7 - y)]?.charAt(0) !== color)
                     //was the last move a double pawn push in the direction I want to take? Calling history[1] here is fine since the pawns can't en passant move 1
                     if (history[1][xtemp + 8 * (7 - (y + 2 * direction))] === gameboard[xtemp + 8 * (7 - y)] && gameboard[xtemp + 8 * (7 - (y + 2 * direction))] === null)
                         moves.push([xtemp, ytemp]);
@@ -239,11 +249,11 @@ const P =  new Piece("P", 100, (x, y, history, color) => {
         xtemp = x + 1;
         if (isInBounds(xtemp, ytemp)) {
             if (gameboard[xtemp + 8 * (7 - ytemp)] !== null) {
-                if (gameboard[xtemp + 8 * (7 - ytemp)].charAt(0) !== color)
+                if (gameboard[xtemp + 8 * (7 - ytemp)]?.charAt(0) !== color)
                     moves.push([xtemp, ytemp]);
                 //begin vague enpassant check - requires knowledge of history to be perfect. 
             } else if (y === en_passant_rank && (gameboard[xtemp + 8 * (7 - y)] === "WP" || gameboard[xtemp + 8 * (7 - y)] === "BP")) {
-                if (gameboard[xtemp + 8 * (7 - y)].charAt(0) !== color)
+                if (gameboard[xtemp + 8 * (7 - y)]?.charAt(0) !== color)
                     //was the last move a double pawn push in the direction I want to take? Calling history[1] here is fine since the pawns can't en passant move 1
                     if (history[1][xtemp + 8 * (7 - (y + 2 * direction))] === gameboard[xtemp + 8 * (7 - y)] && gameboard[xtemp + 8 * (7 - (y + 2 * direction))] === null)
                         moves.push([xtemp, ytemp]);
