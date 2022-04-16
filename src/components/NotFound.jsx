@@ -7,3 +7,11 @@ export const NotFound = props => {
         </div>
     );
 }
+
+export const Error = props => {
+    return (
+        <div>
+            <h3>Error: could not load page</h3>
+        </div>
+    );
+}

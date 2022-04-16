@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Nav } from "./Nav";
 import { Multiplayer } from './Multiplayer';
 import { Main } from './Main';
-import { NotFound } from "./NotFound";
+import { NotFound, Error } from "./NotFound";
 
 import { CookiesProvider, useCookies } from "react-cookie";
 import { nanoid } from "nanoid";
@@ -27,6 +27,8 @@ const App = () => {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Nav />}>
+                            <Route exact path="404" element={<NotFound/>}/>
+                            <Route exact path="error" element={<Error/>}/>
                             <Route exact path="new" element={<New/>}/>
                             <Route exact path="zoo" element={<Zoo/>}/>
                             <Route exact path="patreon" element={<h1>patreon</h1>}/>
