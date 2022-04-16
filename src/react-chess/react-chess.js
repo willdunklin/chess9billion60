@@ -38,7 +38,6 @@ export class Chess extends React.Component {
       lightSquareColor = this.props.lightGreyedOutColor
       darkSquareColor = this.props.darkGreyedOutColor
     }
-    const odd = x % 2
 
     if (this.props.highlights.length === 2) {
       const square0 = fromPieceDecl(this.props.highlights[0]);
@@ -61,11 +60,7 @@ export class Chess extends React.Component {
       }
     }
     
-    if (y % 2) {
-      return odd ? lightSquareColor : darkSquareColor
-    }
-
-    return odd ? darkSquareColor : lightSquareColor
+    return (y + x) % 2 ? darkSquareColor : lightSquareColor
   }
 
   componentDidMount() {
