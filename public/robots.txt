@@ -6,6 +6,5 @@ Allow: /404/
 Allow: /
 Disallow: /error/
 Disallow: /play/*
-Disallow: /*
 
 Sitemap: https://chess9b60.com/sitemap.xml
