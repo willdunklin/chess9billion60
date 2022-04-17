@@ -53,6 +53,8 @@ async function join(gameid, token) {
 
 
 export const Multiplayer = props => {
+    document.title = "Play Online Chess Variant | Chess9b60";
+
     const { gameid } = useParams();
     const [ cookies ] = useCookies(['user']);
 
@@ -60,7 +62,6 @@ export const Multiplayer = props => {
     const [ content, setContent ] = React.useState(<div></div>)
 
     React.useEffect(() => {
-        console.log('running join')
         // join the multiplayer game
         join(gameid, cookies.idtoken)
             .then(elem => {
@@ -76,7 +77,7 @@ export const Multiplayer = props => {
     // TODO: add stronger clientside checks
     // if the gameid is invalidly formatted, draw an error
     if (gameid.length !== 6) { // also checked in getGame fyi
-        return <p>error, gameid should be 6 chars</p>;
+        return <Navigate to="/404"/>
     }
     
     // TODO: switch to API(?) instead of direct db access in this element
