@@ -41,7 +41,7 @@ async function join(gameid, token) {
         );
 
     if (playerID === "invalid") {
-        return <Navigate to="/new"/>;
+        return <Navigate to="/play"/>;
     }
     // return player board
     return (
