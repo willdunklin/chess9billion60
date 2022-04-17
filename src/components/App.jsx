@@ -31,7 +31,6 @@ const App = () => {
                             <Route exact path="error" element={<Error/>}/>
                             <Route exact path="new" element={<New/>}/>
                             <Route exact path="zoo" element={<Zoo/>}/>
-                            <Route exact path="patreon" element={<h1>patreon</h1>}/>
                             <Route exact path="" element={<Main/>}/>
                             <Route path=":gameid" element={<Multiplayer/>}/>
                         </Route>
