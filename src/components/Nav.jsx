@@ -40,9 +40,10 @@ export const Nav = props => {
                         <li><Link className="homeButton" to="/" onClick={closeNavbar}>
                             <h2>Chess 9,000,000,060</h2>
                         </Link></li>
-                        <li><Link to="/new" onClick={closeNavbar}><h4>Create new game</h4></Link></li>
+                        <li><Link to="/play" onClick={closeNavbar}><h4>Create new game</h4></Link></li>
                         <li><Link to="/zoo" onClick={closeNavbar}><h4>Piece zoo</h4></Link></li>
-                        <li><Link to="/patreon" onClick={closeNavbar}><h4>Patreon</h4></Link></li>
+                        <li><a href="https://www.patreon.com/chess9b60" target="_blank" rel="noopener noreferrer" onClick={closeNavbar}><h4>Patreon</h4></a></li>
+                        <li><a href="https://discord.gg/qu9MP3QRYx" target="_blank" rel="noopener noreferrer" onClick={closeNavbar}><h4>Discord</h4></a></li>
                         <li><div className="settings link" onClick={openSettings}>
                             <h4>Settings</h4>
                         </div></li>

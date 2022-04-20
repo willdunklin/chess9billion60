@@ -1,3 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /play/
+Allow: /zoo/
+Allow: /404/
+Disallow: /error/
+Disallow: /play/*
+
+Sitemap: https://chess9b60.com/sitemap.xml
