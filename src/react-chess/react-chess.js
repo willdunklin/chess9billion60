@@ -116,7 +116,7 @@ export class Chess extends React.Component {
     evt.preventDefault()
 
     const node = drag.node
-    node.style.cursor = "grabbing";
+    if (this.props.allowMoves) node.style.cursor = "grabbing";
 
     const dragFrom = this.coordsToPosition({x: node.offsetLeft, y: node.offsetTop})
     const draggingPiece = this.findPieceAtPosition(dragFrom.pos)
@@ -124,7 +124,7 @@ export class Chess extends React.Component {
     this.props.onClickPiece(draggingPiece, false);
 
     if (this.props.onDragStart(draggingPiece, dragFrom.pos) === false) {
-      node.style.cursor = "grab";
+      if (this.props.allowMoves) node.style.cursor = "grab";
       return false
     }
 
@@ -138,7 +138,7 @@ export class Chess extends React.Component {
 
   handleDragStop(evt, drag) {
     const node = drag.node
-    node.style.cursor = "grab";
+    if (this.props.allowMoves) node.style.cursor = "grab";
 
     const {dragFrom, draggingPiece} = this.state
     const dragTo = this.coordsToPosition({x: node.offsetLeft + drag.x, y: node.offsetTop + drag.y})
