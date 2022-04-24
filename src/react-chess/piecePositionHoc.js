@@ -8,7 +8,8 @@ module.exports = function (Piece) {
         onTouchEnd = props.onTouchEnd,
         onTouchStart = props.onTouchStart,
         style = props.style,
-        isMoving = props.isMoving;
+        isMoving = props.isMoving,
+        cursor = props.cursor
 
     let y = 7 - props.y;
 
@@ -21,7 +22,7 @@ module.exports = function (Piece) {
       width: props.size === undefined ? '12.5%' : props.size,
       height: props.size === undefined ? '12.5%' : props.size,
       textAlign: 'center',
-      cursor: 'grab',
+      cursor: cursor,
       userSelect: 'none',
       zIndex: isMoving ? 1000 : undefined
     });

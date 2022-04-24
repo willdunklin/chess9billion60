@@ -25,7 +25,7 @@ export const Promoter = props => {
     //put the piece on the div.
     return (
         <div style={styles}>
-            <Piece  key={i+''+piece+'-promoter'} x={0} y={7} size={'100%'}/>
+            <Piece  key={i+''+piece+'-promoter'} x={0} y={7} size={'100%'} cursor = "default"/>
         </div>
     );
 }

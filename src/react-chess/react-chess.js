@@ -116,7 +116,9 @@ export class Chess extends React.Component {
     evt.preventDefault()
 
     const node = drag.node
-    node.style.cursor = "grabbing";
+
+    if (this.props.allowMoves) node.style.cursor = "grabbing";
+    else node.style.cursor = "default";
 
     const dragFrom = this.coordsToPosition({x: node.offsetLeft, y: node.offsetTop})
     const draggingPiece = this.findPieceAtPosition(dragFrom.pos)
@@ -239,7 +241,7 @@ export class Chess extends React.Component {
   }
 
   render() {
-    const { isWhite, pieces, update, promotablePieces, lightSquareColor, darkSquareColor, dots, dotColor } = this.props;
+    const { isWhite, pieces, update, promotablePieces, lightSquareColor, darkSquareColor, dots, dotColor, allowMoves } = this.props;
     const { targetTile, draggingPiece, boardSize, showPromotion, promotionArgs } = this.state;
 
     const tileElems = [];
@@ -289,7 +291,7 @@ export class Chess extends React.Component {
           onDrag={this.handleDrag}
           onStop={this.handleDragStop}
           key={`${piece}-${x}-${y}-${update}-${showPromotion}`}>
-          <Piece isMoving={isMoving} x={x} y={y} />
+          <Piece isMoving={isMoving} x={x} y={y} cursor ={allowMoves ? "grab": "default"} />
         </Draggable>
       )
     })

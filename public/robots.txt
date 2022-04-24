@@ -3,7 +3,5 @@ User-agent: *
 Allow: /play/
 Allow: /zoo/
 Allow: /404/
-Disallow: /error/
-Disallow: /play/*
 
 Sitemap: https://chess9b60.com/sitemap.xml
