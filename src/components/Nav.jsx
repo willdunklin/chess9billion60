@@ -36,14 +36,19 @@ export const Nav = props => {
                             <FiMenu className="closeNav"/>
                         )}
                     </button>
+                    <div style={{position: 'relative'}}>
+                        <div className="play">
+                            <Link to='/play'>START GAME</Link>
+                        </div>
+                    </div>
                     <ul className={`menuNav ${navbarOpen ? "showMenu" : ""}`}>
-                        <li><Link className="homeButton" to="/" onClick={closeNavbar}>
+                        <li><Link className="homeButton link" to="/" onClick={closeNavbar}>
                             <h2>Chess 9,000,000,060</h2>
                         </Link></li>
-                        <li><Link to="/play" onClick={closeNavbar}><h4>Create new game</h4></Link></li>
-                        <li><Link to="/zoo" onClick={closeNavbar}><h4>Piece zoo</h4></Link></li>
-                        <li><a href="https://www.patreon.com/chess9b60" target="_blank" rel="noopener noreferrer" onClick={closeNavbar}><h4>Patreon</h4></a></li>
-                        <li><a href="https://discord.gg/qu9MP3QRYx" target="_blank" rel="noopener noreferrer" onClick={closeNavbar}><h4>Discord</h4></a></li>
+                        <li><Link className="link" to="/play" onClick={closeNavbar}><h4>Create new game</h4></Link></li>
+                        <li><Link className="link" to="/zoo" onClick={closeNavbar}><h4>Piece zoo</h4></Link></li>
+                        <li><a className="link" href="https://www.patreon.com/chess9b60" target="_blank" rel="noopener noreferrer" onClick={closeNavbar}><h4>Patreon</h4></a></li>
+                        <li><a className="link" href="https://discord.gg/qu9MP3QRYx" target="_blank" rel="noopener noreferrer" onClick={closeNavbar}><h4>Discord</h4></a></li>
                         <li><div className="settings link" onClick={openSettings}>
                             <h4>Settings</h4>
                         </div></li>

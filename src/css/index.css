@@ -25,8 +25,9 @@ code {
 :root {
   --bg: #fff;
   --text: #000000;
-  --link: #559;
-  --link-alt: #86f;
+  --link: rgb(160, 76, 185);
+  --link-alt: rgb(227, 137, 255);
+  --alt: #5a5a5a;
   --highlight: #000;
   --highlight-alt: #aaa;
   --modal-bg: #fffa;
@@ -39,6 +40,7 @@ code {
   --bg: #222;
   --text: aliceblue;
   --link: #aaf;
+  --alt: rgb(211, 211, 211);
   --link-alt: #dbf;
   --highlight: #eee;
   --highlight-alt: #444;
@@ -55,16 +57,69 @@ code {
   min-height: 100vh;
 }
 
-a, .link {
+a, .link, .play>a {
   text-decoration: none;
   color: var(--link);
-  transition: 0.15s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 
-a:hover, .link:hover {
+a:hover, .link:hover, .play>a:hover {
   color: var(--link-alt);
+}
+
+.play {
+  position: absolute;
+  right: 1.4em;
+  top: 0.85em;
+  /* z-index: 1000; */
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+
+.play a {
+  color: var(--link);
 }
 
 .link {
   cursor: pointer;
+}
+
+li {
+  padding-bottom: 1em;
+  color: var(--alt);
+}
+
+br {
+  user-select: none;
+}
+
+.content-list {
+  flex-direction: row;
+  align-items: start;
+}
+.resize-width-1 {
+  width: 35%;
+}
+.main-content {
+  width: 80%;
+  margin: auto;
+  align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  .content-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .resize-width-1 {
+    width: 80%;
+  }
+  .resize-width-2 {
+    width: 100% !important;
+  }
+  .main-content {
+    width: 90%;
+    margin: auto;
+    align-items: center;
+  }
 }
