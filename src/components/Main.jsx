@@ -15,12 +15,12 @@ export const Main = props => {
 
     return (
         <div style={{display: "flex", justifyContent: "center", padding: "4em"}}>
-            <div style={{fontSize: "1.2em"}}>
+            <div className="main-page">
                 <div style={{display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
                     <h1>Chess 9,000,000,060</h1>
                     {/* <Link className="link" to="/play">Create new game</Link> */}
                 </div>
-                <div className="main-content" style={{}}>
+                <div className="main-content">
                     <div style={{display: "flex", flexDirection: "column", alignItems: "center", textAlign: "left"}}>
                         <p style={{marginBottom: '0', fontSize: '1.25em'}}>
                             Welcome to <b>Chess 9,000,000,060</b> - like <a href="https://en.wikipedia.org/wiki/Fischer_random_chess" target="_blank" rel="noopener noreferrer">Chess 960</a> but better since there's more of it.
