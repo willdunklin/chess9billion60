@@ -9,7 +9,8 @@ import { NotFound, Error } from "./NotFound";
 import { CookiesProvider, useCookies } from "react-cookie";
 import { nanoid } from "nanoid";
 import { New } from "./New";
-import { Zoo } from "./Zoo"
+import { Zoo } from "./Zoo";
+import { ScrollToTop } from "./ScrollToTop";
 
 const App = () => {
     const [ cookies, setCookie ] = useCookies(['user']);
@@ -25,6 +26,7 @@ const App = () => {
         <div className="app">
             <CookiesProvider>
                 <BrowserRouter>
+                    <ScrollToTop />
                     <Routes>
                         <Route path="/" element={<Nav />}>
                             <Route exact path="404" element={<NotFound/>}/>
