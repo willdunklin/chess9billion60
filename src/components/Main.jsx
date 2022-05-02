@@ -10,8 +10,8 @@ const board_style = {
 const boardWidth = "400px"
 const visualizerSize = "300"
 
-export const Main = props => {
-    document.title = "Chess9b60 | Free Online Chess Variant";
+export const Main = _props => {
+    document.title = "Chess 9,000,000,060 | Chess9b60 Variant";
 
     return (
         <div style={{display: "flex", justifyContent: "center", padding: "4em"}}>

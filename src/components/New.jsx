@@ -7,8 +7,8 @@ import '../css/modal.css';
 
 const axios = require('axios');
 
-export const New = props => {
-    document.title = "Play Online Chess Variant | Chess9b60";
+export const New = _props => {
+    document.title = "Play | Chess9b60";
 
     const [ loadedSuccessfully, setLoadedSuccessfully ] = useState(null);
     const [ isOpen, setIsOpen ] = useState(true);

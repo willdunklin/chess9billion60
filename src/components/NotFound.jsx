@@ -10,7 +10,7 @@ const center = {
     padding: "2em"
 }
 
-const Exit = props => {
+const Exit = _props => {
     return (
         <div style={center}>
             <Link to="/">Home</Link>
@@ -18,7 +18,7 @@ const Exit = props => {
     );
 }
 
-export const NotFound = props => {
+export const NotFound = _props => {
     document.title = "Missing Page | Chess9b60";
 
     return (
@@ -29,7 +29,7 @@ export const NotFound = props => {
     );
 }
 
-export const Error = props => {
+export const Error = _props => {
     document.title = "Something went wrong... | Chess9b60";
 
     return (

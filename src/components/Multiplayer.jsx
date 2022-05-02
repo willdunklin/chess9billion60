@@ -52,8 +52,8 @@ async function join(gameid, token) {
 }
 
 
-export const Multiplayer = props => {
-    document.title = "Play Online Chess Variant | Chess9b60";
+export const Multiplayer = _props => {
+    document.title = "Play | Chess9b60";
 
     const { gameid } = useParams();
     const [ cookies ] = useCookies(['user']);
