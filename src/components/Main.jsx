@@ -147,7 +147,7 @@ export const Main = _props => {
                             <h3 style={{textAlign: 'center'}}>More Pieces</h3>
 
                             < p>
-                                Note that some pieces may move with limited scope, for example the Short Rook moves like a rook, but only up to four squares.
+                                Note that some pieces may move with limited scope, for example the Short Rook moves like a rook, but only up to two squares.
                             </p>
                         </div>
 
