@@ -67,13 +67,17 @@ export function validMove(history, name, from, to, G, promotion) {
                 //a pawn just moved to the last row
                 else if (to_y === 0 || to_y === 7) {
                     //are we promoting a legal piece type, and is it our color.
-                    if (promotion !== undefined && promotion !== null) {
+                    if (promotion !== undefined && promotion !== null && G !== undefined) {
                         if (G.promotablePieces.indexOf(promotion.substring(1)) > -1 && promotion.charAt(0) === name.charAt(0)) {
                             //we're moving this piece now.
                             name = promotion
                         } else {
                             return null
                         }
+                    } else if (G === undefined) { //Make sure internal logic understands promotion as a legal move 
+                                                //TODO undo this garbage, it always fake promotes to Wazir and may interfere with mate checking
+                                                //I am also terrified it may end up in the real game.
+                        name = name[0] + "W"
                     } else {
                         return null
                     }

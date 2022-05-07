@@ -260,6 +260,7 @@ export class Chess extends React.Component {
             targetTile={targetTile} 
             background={this.getSquareColor(x, y)} 
             text={this.renderLabelText(x, y)}
+            onClick={this.props.onClickSquare}
           />
         );
 
@@ -357,6 +358,7 @@ Chess.propTypes = {
   onMovePiece: PropTypes.func,
   onDragStart: PropTypes.func,
   onClickPiece: PropTypes.func,
+  onClickSquare: PropTypes.func,
 
   // piece lists
   pieces: PropTypes.arrayOf(PropTypes.string),
@@ -392,6 +394,7 @@ Chess.defaultProps = {
   onMovePiece: noop,
   onDragStart: noop,
   onClickPiece: noop,
+  onClickSquare: noop,
 
   pieces: getDefaultLineup(),
   promotablePieces: ["Q","N","R","B","M"],
