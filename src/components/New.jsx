@@ -20,6 +20,9 @@ export const New = _props => {
     const [ gameid, setGameid ] = useState("");
     const [ cookies ] = useCookies(['user']);
 
+    const [ lobby1, setLobby1 ] = useState(false);
+    const [ lobby1Players, setLobby1Players ] = useState("0");
+
     async function start_game() {
         let whitetoken = null;
         let blacktoken = null;
@@ -59,6 +62,37 @@ export const New = _props => {
         });
     }
 
+    async function refresh_players() {
+        axios.post('https://chess9b60-api.herokuapp.com/queue', {})
+        .then(res => {
+            if (res.status === 200) {
+                setLobby1Players(res.data);
+            }
+            console.log(res);
+        })
+        .catch(e => {
+            console.log('error!', e);
+        });
+    }
+
+    async function join_pool() {
+        axios.post('https://chess9b60-api.herokuapp.com/pool', {
+            token: cookies.idtoken,
+        })
+        .then(res => {
+            if (res.status === 200) {
+                console.log('gameid: ', res.data)
+                setGameid(res.data);
+                setLoadedSuccessfully(true);
+                setIsOpen(false);
+            }
+            console.log(res);
+        })
+        .catch(e => {
+            console.log('error!', e);
+        });
+    }
+
     function close() {
         setIsOpen(false);
         setExit(true);
@@ -70,11 +104,21 @@ export const New = _props => {
     if (loadedSuccessfully)
         return <Navigate to={`/${gameid}`}/>;
 
+    refresh_players();
+
     Modal.setAppElement("#root");
+
     return (
         <div>
             <Modal isOpen={isOpen}>
-                <h3>Game settings</h3>
+                <h2>Join a Lobby</h2>
+                <div>
+                    <button onClick={() => {setLobby1(true); join_pool(); refresh_players()}} className={lobby1 ? "buttonHighlight" : ""}>
+                        10 | 10 <b>{lobby1Players}</b>
+                    </button>
+                    <button onClick={() => {refresh_players()}}>Refresh</button>
+                </div>
+                <h2>Create a Custom Game</h2>
                 <div>
                     <p>Color: </p>
                     <div>
