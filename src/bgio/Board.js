@@ -184,14 +184,19 @@ export class ChessBoard extends React.Component {
         if(this.props.ctx.turn < 2 || !play_sound)
             return;
         // calculate the number of pieces on previous and current boards
-        const prev_num_pieces = this.props.G.history[1].filter(p => p !== null).length;
-        const num_pieces = this.props.G.history[0].filter(p => p !== null).length;
-        
-        if(prev_num_pieces !== num_pieces)
-            capture(0.9);
+        if (this.props.G.history.length > 1 && this.props.ctx.gameover === undefined) {
+            const prev_num_pieces = this.props.G.history[1].filter(p => p !== null).length;
+            const num_pieces = this.props.G.history[0].filter(p => p !== null).length;
+            
+            if(prev_num_pieces !== num_pieces)
+                capture(0.9);
+            else
+                move(1);
+        }
         else
-            move(1);
-
+        {
+            end(1);
+        }
     }
 
     // if returns false, will cancel the drag animation
@@ -436,11 +441,8 @@ export class ChessBoard extends React.Component {
         const {pieces, update, highlights, dots, wTime, bTime, historyIndex} = this.state;
         const isWhite = this.props.playerID === "0";
         
-        //console.log('spec', this.props.spectator)
-
         let winner = "";
         if (this.props.ctx.gameover && this.state.historyIndex === 0) {
-
             winner =
                 this.props.ctx.gameover.winner !== undefined ? (
                     <div id="winner" style={ Object.assign({}, result_style, {width: this.state.boardWidth +"px", height: this.state.boardWidth +"px"})}>Winner: {this.props.ctx.gameover.winner}</div>
@@ -513,7 +515,7 @@ export class ChessBoard extends React.Component {
                                 />
                             </div>
                             {winner}
-                        </div>
+                        </div>                
                         <div style={{display: "flex", justifyContent: "space-between"}}>
                             <div style={{display: "flex"}}>
                                 {this.props.G.timer_enabled ? <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/> : null}  
@@ -533,6 +535,11 @@ export class ChessBoard extends React.Component {
                                     &#62;&#62;
                                 </button>
                             </div>
+                        </div>
+                        <div style={{display: 'flex'}}>
+                            <button style={{margin: 'auto', height: '2.5em'}} onClick={this.props.moves.resign}>
+                                <p style={{padding: '0 1em', margin: 'auto'}}>Resign</p>
+                            </button>
                         </div>
                     </div>
                 </div>
