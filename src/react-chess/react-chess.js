@@ -215,6 +215,7 @@ export class Chess extends React.Component {
           }
       }
       this.props.onMovePiece(draggingPiece, dragFrom.pos, dragTo.pos, null)
+      this.setState({clickedPiece : null, clickedFrom: null})
       this.setState({promotionArgs : null})
       this.setState({showPromotion : false})
       this.setState({promotionFile : null})
