@@ -536,7 +536,7 @@ export class ChessBoard extends React.Component {
                                 </button>
                             </div>
                         </div>
-                        <div style={{display: 'flex'}}>
+                        <div style={{display: this.props.spectator ? 'none' : 'flex'}}>
                             <button style={{margin: 'auto', height: '2.5em'}} onClick={this.props.moves.resign}>
                                 <p style={{padding: '0 1em', margin: 'auto'}}>Resign</p>
                             </button>
