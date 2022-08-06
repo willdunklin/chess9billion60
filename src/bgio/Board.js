@@ -85,7 +85,6 @@ export class ChessBoard extends React.Component {
         this.onMovePiece = this.onMovePiece.bind(this);
         this.onDragStart = this.onDragStart.bind(this);
         this.onClickPiece = this.onClickPiece.bind(this);
-        this.onClickSquare = this.onClickSquare.bind(this);
 
         this.handleResize = this.handleResize.bind(this);
         this.backHistoryButton = this.backHistoryButton.bind(this);
@@ -261,12 +260,12 @@ export class ChessBoard extends React.Component {
         }
     }
 
-    onClickSquare(x, y) {
+    /*onClickSquare(x, y) {
         if (this.state.lastClickedPiece !== "") {
             //TODO using movePiece here is insufficient. It needs to handle promotion and behave more like normal attempts to make a move
             //including move validation
         }
-    }
+    }*/
 
     decrementTimer() {
         const isWhite = this.props.playerID === "0";
@@ -509,7 +508,6 @@ export class ChessBoard extends React.Component {
                                     onMovePiece={this.onMovePiece}
                                     onDragStart={this.onDragStart}
                                     onClickPiece={this.onClickPiece}
-                                    onClickSquare={this.onClickSquare}
                                     isWhite={this.props.playerID === "0"}
                                     allowMoves={!this.props.spectator}
                                 />

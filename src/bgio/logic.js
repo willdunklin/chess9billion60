@@ -42,6 +42,10 @@ export function colorInStalemate(history, color) {
 }
 
 export function validMove(history, name, from, to, G, promotion) {
+    //No moving your opponents pieces
+    if ((name.substring(0, 1) === "W") === (history.length % 2 === 0)) {
+        return null
+    }
     let progressMade = false;
     let new_board = [...history[0]];
     // coordinates of "from" position
