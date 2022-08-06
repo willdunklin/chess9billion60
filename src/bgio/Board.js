@@ -85,6 +85,7 @@ export class ChessBoard extends React.Component {
         this.onMovePiece = this.onMovePiece.bind(this);
         this.onDragStart = this.onDragStart.bind(this);
         this.onClickPiece = this.onClickPiece.bind(this);
+
         this.handleResize = this.handleResize.bind(this);
         this.backHistoryButton = this.backHistoryButton.bind(this);
         this.forwardHistoryButton = this.forwardHistoryButton.bind(this);
@@ -227,14 +228,20 @@ export class ChessBoard extends React.Component {
         if(clear || (this.state.dots.length > 0 && this.state.lastClickedPiece === piece.notation)) {
             // clear the dots on the screen
             this.setState({dots: []});
+            this.setState({lastClickedPiece: ""});
             return;
         }
-        this.setState({lastClickedPiece: piece.notation});
 
         const from_square = piece.position;
         const from_x = from_square.toLowerCase().charCodeAt(0) - 97;
         const from_y = Number(from_square[1]) - 1;
         const clicked_square = piece.notation
+
+       /* if (!clear && this.state.lastClickedPiece !== "") {
+            this.onClickSquare(from_x, 7-from_y)
+        }*/ //TODO some form of onClickSquare needs to happen but this seems really bugged
+        this.setState({lastClickedPiece: piece.notation});
+
         // get available moves, filter through validity check if its our turn
         if ((this.props.G.whiteTurn && piece.name.charAt(0) === "W") || (!this.props.G.whiteTurn && piece.name.charAt(0) !== "W") || this.state.historyIndex !== 0) {
             let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, this.props.G.history.slice(this.state.historyIndex), piece.name.charAt(0))
@@ -247,14 +254,18 @@ export class ChessBoard extends React.Component {
             this.setState({dots: [...new Set(dot_locations)]});
         } else {
             //don't filter out invalid moves for the player who is not about to move
-            let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, null, piece.name.charAt(0))
-                .map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
-                .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
+            let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, null, piece.name.charAt(0)).map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`).map(to_square => `${piece.name}@${to_square}`);
             dot_locations.push(clicked_square)
-            // set the new dot locations but remove duplicates
             this.setState({dots: [...new Set(dot_locations)]});
         }
     }
+
+    /*onClickSquare(x, y) {
+        if (this.state.lastClickedPiece !== "") {
+            //TODO using movePiece here is insufficient. It needs to handle promotion and behave more like normal attempts to make a move
+            //including move validation
+        }
+    }*/
 
     decrementTimer() {
         const isWhite = this.props.playerID === "0";

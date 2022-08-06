@@ -26,8 +26,55 @@ export class Chess extends React.Component {
     this.handleDragStop = this.handleDragStop.bind(this)
     this.handleDrag = this.handleDrag.bind(this)
     this.handleResize = this.handleResize.bind(this)
+    this.onClickSquare = this.onClickSquare.bind(this)
 
     window.addEventListener('resize', this.handleResize)
+  }
+
+  onClickSquare(x, y) {
+    console.log("This didn't work")
+    let {clickedFrom, clickedPiece} = this.state
+    if (clickedPiece === null || clickedPiece === undefined) {
+      clickedFrom = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`}
+      clickedPiece = this.findPieceAtPosition(clickedFrom.pos)
+      if (clickedPiece !== null) {
+        //TODO figure out if this is needed or not. I think dot handling should be only in on ClickPiece
+        //this.props.onClickPiece(clickedPiece, false);
+        if (this.props.onDragStart(clickedPiece, clickedFrom.pos) === false) {
+          return false
+        }
+        if (!this.props.allowMoves) {
+          return false;
+        }
+        this.setState({clickedFrom, clickedPiece})
+      }
+    } else {
+      const clickTo = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`}
+
+      this.setState({clickedFrom: null, targetTile: null, clickedPiece: null})
+      if (clickedFrom.pos !== clickTo.pos) {
+        //Are we promoting? Lots of checks since its really annoying if the menu shows up unwanted.
+        if (clickedPiece.name.substring(1) === "P" && ((clickTo.y === 0 && this.props.isWhite) || (clickTo.y === 7 && !this.props.isWhite))) {
+            //Are we moving from the previous rank?
+            if ((clickedFrom.y === 1 && this.props.isWhite) || (clickedFrom.y === 6 && !this.props.isWhite)) {
+              //Are we moving to a nearby file?
+              if((clickedFrom.x - clickTo.x) * (clickedFrom.x - clickTo.x) < 2) {
+                //Render the promotion menu, and save where we are moving to.
+                this.setState({promotionArgs : [clickedPiece, clickedFrom.pos, clickTo.pos]})
+                this.setState({showPromotion : true})
+                this.setState({promotionFile : clickTo.x})
+                return false
+              }
+            }
+        }
+        this.props.onMovePiece(clickedPiece, clickedFrom.pos, clickTo.pos, null)
+        this.setState({promotionArgs : null})
+        this.setState({showPromotion : false})
+        this.setState({promotionFile : null})
+        return false
+      }
+      return true
+    }
   }
 
   getSquareColor(x, y) {
@@ -125,13 +172,18 @@ export class Chess extends React.Component {
 
     this.props.onClickPiece(draggingPiece, false);
 
+    if (!this.props.allowMoves) {
+      return false;
+    }
+
+    this.onClickSquare(dragFrom.x, dragFrom.y)
+    const clickedFrom = dragFrom
+    const clickedPiece = draggingPiece
+    this.setState({clickedFrom, clickedPiece})
+
     if (this.props.onDragStart(draggingPiece, dragFrom.pos) === false) {
       node.style.cursor = "grab";
       return false
-    }
-
-    if (!this.props.allowMoves) {
-      return false;
     }
 
     this.setState({dragFrom, draggingPiece})
@@ -151,11 +203,14 @@ export class Chess extends React.Component {
       if (draggingPiece.name.substring(1) === "P" && ((dragTo.y === 0 && this.props.isWhite) || (dragTo.y === 7 && !this.props.isWhite))) {
           //Are we moving from the previous rank?
           if ((dragFrom.y === 1 && this.props.isWhite) || (dragFrom.y === 6 && !this.props.isWhite)) {
-            //Render the promotion menu, and save where we are moving to.
-            this.setState({promotionArgs : [draggingPiece, dragFrom.pos, dragTo.pos]})
-            this.setState({showPromotion : true})
-            this.setState({promotionFile : dragTo.x})
-            return false
+            //Are we moving to a nearby file?
+            if((dragFrom.x - dragTo.x) * (dragFrom.x - dragTo.x) < 2) {
+              //Render the promotion menu, and save where we are moving to.
+              this.setState({promotionArgs : [draggingPiece, dragFrom.pos, dragTo.pos]})
+              this.setState({showPromotion : true})
+              this.setState({promotionFile : dragTo.x})
+              return false
+            }
           }
       }
       this.props.onMovePiece(draggingPiece, dragFrom.pos, dragTo.pos, null)
@@ -260,6 +315,7 @@ export class Chess extends React.Component {
             targetTile={targetTile} 
             background={this.getSquareColor(x, y)} 
             text={this.renderLabelText(x, y)}
+            onClick={this.onClickSquare}
           />
         );
 
