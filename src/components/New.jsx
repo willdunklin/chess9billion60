@@ -21,7 +21,7 @@ export const New = _props => {
     const [ cookies ] = useCookies(['user']);
 
     const [ lobby1, setLobby1 ] = useState(false);
-    const [ lobby1Players, setLobby1Players ] = useState("0");
+    const [ lobby1Players, setLobby1Players ] = useState(0);
 
     async function start_game() {
         let whitetoken = null;
@@ -64,11 +64,14 @@ export const New = _props => {
 
     async function refresh_players() {
         axios.post('https://chess9b60-api.herokuapp.com/queue', {})
+        // axios.post('http://localhost:8080/queue', {})
         .then(res => {
             if (res.status === 200) {
                 setLobby1Players(res.data);
+            } else if ( res.status === 429 )
+            {
+                // setLobby1(false);
             }
-            console.log(res);
         })
         .catch(e => {
             console.log('error!', e);
@@ -76,21 +79,53 @@ export const New = _props => {
     }
 
     async function join_pool() {
+        // axios.post('http://localhost:8080/pool', {
         axios.post('https://chess9b60-api.herokuapp.com/pool', {
             token: cookies.idtoken,
         })
         .then(res => {
             if (res.status === 200) {
-                console.log('gameid: ', res.data)
-                setGameid(res.data);
-                setLoadedSuccessfully(true);
-                setIsOpen(false);
+                console.log('gameid: ', res.data['id'])
+                if (res.data['id'] !== undefined) {
+                    setGameid(res.data['id']);
+                    setLoadedSuccessfully(true);
+                    setIsOpen(false);
+                    return true;
+                }
+                return false;
             }
-            console.log(res);
+            // console.log(res);
         })
         .catch(e => {
             console.log('error!', e);
         });
+    }
+
+    async function unjoin_pool() {
+        // axios.post('http://localhost:8080/depool', {
+        axios.post('https://chess9b60-api.herokuapp.com/depool', {
+            token: cookies.idtoken,
+        })
+        .catch(e => {
+            console.log('error!', e);
+        });
+    }
+
+    async function join_lobby() {
+        setLobby1(!lobby1);
+        if (lobby1) {
+            setLobby1Players(lobby1Players - 1 > 0 ? lobby1Players - 1 : 0);
+            unjoin_pool();
+        } else {
+            if (!join_pool()) {
+                setLobby1(false);
+                console.log( lobby1 );
+                setLobby1Players(lobby1Players - 1 > 0 ? lobby1Players - 1 : 0);
+                // refresh_players();
+            } else {
+                setLobby1Players(lobby1Players + 1);   
+            }
+        }
     }
 
     function close() {
@@ -98,13 +133,15 @@ export const New = _props => {
         setExit(true);
     }
 
+    React.useEffect(() => {
+        refresh_players();
+    }, []);
+
     if (exit)
         return <Navigate to="/"/>;
 
     if (loadedSuccessfully)
         return <Navigate to={`/${gameid}`}/>;
-
-    refresh_players();
 
     Modal.setAppElement("#root");
 
@@ -113,7 +150,7 @@ export const New = _props => {
             <Modal isOpen={isOpen}>
                 <h2>Join a Lobby</h2>
                 <div>
-                    <button onClick={() => {setLobby1(true); join_pool(); refresh_players()}} className={lobby1 ? "buttonHighlight" : ""}>
+                    <button onClick={() => {join_lobby();}} className={lobby1 ? "buttonHighlight" : ""}>
                         10 | 10 <b>{lobby1Players}</b>
                     </button>
                     <button onClick={() => {refresh_players()}}>Refresh</button>
