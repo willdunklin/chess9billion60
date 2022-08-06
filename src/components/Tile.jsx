@@ -7,11 +7,11 @@ const squareStyles = {
     paddingBottom: squareSize,
     float: 'left',
     position: 'relative',
-    pointerEvents: 'none'
+    //pointerEvents: 'none'
 };
 
 export const Tile = props => {
-    const { xpos, ypos, targetTile, background, text } = props;
+    const { xpos, ypos, targetTile, background, text, onClick} = props;
     let x = xpos;
     let y = ypos;
 
@@ -20,7 +20,7 @@ export const Tile = props => {
     const styles = Object.assign({background, boxShadow}, squareStyles)
 
     return (
-        <div style={styles}>
+        <div style={styles} onClick={() => onClick(x, y)}>
             {text}
         </div>
     );
