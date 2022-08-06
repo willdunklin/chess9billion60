@@ -46,6 +46,7 @@ export function validMove(history, name, from, to, G, promotion) {
     if ((name.substring(0, 1) === "W") === (history.length % 2 === 0)) {
         return null
     }
+
     let progressMade = false;
     let new_board = [...history[0]];
     // coordinates of "from" position
@@ -57,6 +58,11 @@ export function validMove(history, name, from, to, G, promotion) {
     const to_y = Number(to[1]) - 1;
 
     let moves = PieceTypes[name.substring(1)].getAvailableMoves(from_x, from_y, history, name.charAt(0));
+
+    //No moving a piece which doesn't exist
+    if (history[0][(from_x + (7 - from_y) * 8)] !== name) {
+        return null
+    }
 
     for (const [x, y] of moves) {
         if ((x === to_x) && (y === to_y)) {

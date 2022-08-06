@@ -32,7 +32,6 @@ export class Chess extends React.Component {
   }
 
   onClickSquare(x, y) {
-    console.log("This didn't work")
     let {clickedFrom, clickedPiece} = this.state
     if (clickedPiece === null || clickedPiece === undefined) {
       clickedFrom = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`}
@@ -140,9 +139,9 @@ export class Chess extends React.Component {
   }
 
   handleDrag(evt, drag) {
-    if(this.props.dots.length !== 0) {
+    /*if(this.props.dots.length !== 0) {
       this.props.onClickPiece(undefined, true);
-    }
+    }*/
 
     if (!this.props.highlightTarget) {
       return
@@ -170,16 +169,18 @@ export class Chess extends React.Component {
     const dragFrom = this.coordsToPosition({x: node.offsetLeft, y: node.offsetTop})
     const draggingPiece = this.findPieceAtPosition(dragFrom.pos)
 
+    //This if block is here since the onClickPiece (probably) has to happen after onClickSquare, but
+    //if we attempt an invalid move I think this gets cut short.
+    //To be honest its here because when I did it like this it fixed the bug
+    if (this.props.allowMoves) {
+      this.onClickSquare(dragFrom.x, dragFrom.y)
+    }
+
     this.props.onClickPiece(draggingPiece, false);
 
     if (!this.props.allowMoves) {
       return false;
     }
-
-    this.onClickSquare(dragFrom.x, dragFrom.y)
-    const clickedFrom = dragFrom
-    const clickedPiece = draggingPiece
-    this.setState({clickedFrom, clickedPiece})
 
     if (this.props.onDragStart(draggingPiece, dragFrom.pos) === false) {
       node.style.cursor = "grab";
@@ -214,6 +215,7 @@ export class Chess extends React.Component {
           }
       }
       this.props.onMovePiece(draggingPiece, dragFrom.pos, dragTo.pos, null)
+      this.setState({clickedPiece : null, clickedFrom: null})
       this.setState({promotionArgs : null})
       this.setState({showPromotion : false})
       this.setState({promotionFile : null})

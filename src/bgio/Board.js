@@ -242,9 +242,6 @@ export class ChessBoard extends React.Component {
         const from_y = Number(from_square[1]) - 1;
         const clicked_square = piece.notation
 
-       /* if (!clear && this.state.lastClickedPiece !== "") {
-            this.onClickSquare(from_x, 7-from_y)
-        }*/ //TODO some form of onClickSquare needs to happen but this seems really bugged
         this.setState({lastClickedPiece: piece.notation});
 
         // get available moves, filter through validity check if its our turn
@@ -264,13 +261,6 @@ export class ChessBoard extends React.Component {
             this.setState({dots: [...new Set(dot_locations)]});
         }
     }
-
-    /*onClickSquare(x, y) {
-        if (this.state.lastClickedPiece !== "") {
-            //TODO using movePiece here is insufficient. It needs to handle promotion and behave more like normal attempts to make a move
-            //including move validation
-        }
-    }*/
 
     decrementTimer() {
         const isWhite = this.props.playerID === "0";
