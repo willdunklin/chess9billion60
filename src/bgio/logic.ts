@@ -216,6 +216,11 @@ function generateArmy(lowerBound: number, upperBound: number) {
         }
         attempts += 1;
     }
+    //TODO, gracefully handle when this loop doesn't find an army, or make army generation more intelligent
+    //With lowerBound and upperBound as 3000 and 4000 it seems to work almost always, but if we let users choose...
+    if (attempts === 1000) {
+        army = ["W","W","W","W","W","W","W"]
+    }
     army.push("K");
 
     //mix the king in
