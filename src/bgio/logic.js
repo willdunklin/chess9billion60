@@ -205,10 +205,12 @@ export function insufficentMaterialDraw(board) {
 
 function generateArmy(lowerBound, upperBound) {
     const pool = Object.keys(PieceTypes);
+    const max_attempts = 1000
+
     let attempts = 0;
     
     let army = [];
-    while (attempts < 1000) {
+    while (attempts < max_attempts) {
         army = [];
         let banned_pieces = ["P", "K"];
         let pieces_found = 0;
@@ -232,7 +234,7 @@ function generateArmy(lowerBound, upperBound) {
 
     //TODO, gracefully handle when this loop doesn't find an army, or make army generation more intelligent
     //With lowerBound and upperBound as 3000 and 4000 it seems to work almost always, but if we let users choose...
-    if (attempts === 1000) {
+    if (attempts === max_attempts) {
         army = ["W","W","W","W","W","W","W"]
     }
     army.push("K");
