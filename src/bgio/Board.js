@@ -463,14 +463,14 @@ export class ChessBoard extends React.Component {
                 i++
                 let Piece = pieceComponents(imbPiece)
                 if (i * 20 < getSize() - 220)
-                    wImbalance.push(<div style={{width: "20px", zIndex: 100-i, paddingTop: "5px"}}><Piece size = {"30px"} key = {i + "-wInbPiece"}/></div>)
+                    wImbalance.push(<div style={{width: "20px", height: "30px", zIndex: 100-i, paddingTop: "5px"}}><Piece size = {"30px"} key = {i + "-wInbPiece"}/></div>)
             }
             i=0
             for (let imbPiece of imbalence[1]) {
                 i++
                 let Piece = pieceComponents(imbPiece)
                 if (i * 20 < getSize() - 220)
-                    bImbalance.push(<div style={{width: "20px", zIndex: 100-i, paddingTop: "5px"}}><Piece size = {"30px"} key = {i + "-bInbPiece"}/></div>)
+                    bImbalance.push(<div style={{width: "20px", height: "30px", zIndex: 100-i, paddingTop: "5px"}}><Piece size = {"30px"} key = {i + "-bInbPiece"}/></div>)
             }
         }
 
@@ -482,6 +482,7 @@ export class ChessBoard extends React.Component {
                 <div style={boardContainerStyles}>
                     <div style={{position: "relative", width : this.state.boardWidth +"px"}}>
                         <div style={{display: "flex"}}>
+                            <div style={{height: "35px"}}></div>
                             {this.props.G.timer_enabled ? <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/> : null}  
                             {isWhite ? bImbalance : wImbalance}
                         </div>
@@ -509,7 +510,7 @@ export class ChessBoard extends React.Component {
                                 {this.props.G.timer_enabled ? <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/> : null}  
                                 {isWhite ? wImbalance : bImbalance}
                             </div>
-                            <div style={{display: "flex", alignItems: "middle"}}>
+                            <div style={{display: "flex", alignItems: "middle", height: "30px"}}>
                                 <button onClick={this.startHistoryButton} style={buttonStyles} class="noselect">
                                     &#60;&#60;
                                 </button>
