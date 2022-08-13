@@ -80,7 +80,7 @@ export const Chess = {
         },
         timeout: (G, ctx) => {
             handleTimers(G, G.whiteTurn, false);
-            if (G.bTime > 0 || G.wTime > 0)
+            if (G.bTime > 0 && G.wTime > 0)
                 return INVALID_MOVE;
             ctx.events.endGame({ winner: G.whiteTurn ? "Black" : "White" });
         },
