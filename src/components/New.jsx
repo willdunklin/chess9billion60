@@ -42,9 +42,12 @@ export const New = _props => {
         console.log('black:', blacktoken);
 
         axios.post('https://chess9b60-api.herokuapp.com/create', {
+        // axios.post('http://localhost:8080/create', {
             time: time * 1000,
             increment: increment * 1000,
             timer: enableTimer,
+            lower_strength: 400,
+            upper_strength: 2000,
             white: whitetoken,
             black: blacktoken
         })
