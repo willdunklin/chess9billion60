@@ -79,10 +79,10 @@ export const Chess = {
                 return INVALID_MOVE;
         },
         timeout: (G, ctx) => {
-            handleTimers(G, G.whiteTurn, false)
-            if (G.bTime > 0 && G.wTime > 0)
+            handleTimers(G, G.whiteTurn, false);
+            if (G.bTime > 0 || G.wTime > 0)
                 return INVALID_MOVE;
-            // console.log("timeout!", G.wTime, G.bTime);
+            ctx.events.endGame({ winner: G.whiteTurn ? "Black" : "White" });
         },
         resign: (G, ctx) => {
             ctx.events.endGame({ winner: G.whiteTurn ? "Black" : "White" });
@@ -117,5 +117,12 @@ export const Chess = {
         if (G.noProgressCounter >= 200 || isRepetitionDraw(G.history) || insufficentMaterialDraw(G.history[0]))
             return {draw: true};
     },
+
+    // onEnd: (G, ctx) => {
+    //     let A = {};
+    //     Object.assign(A, G);
+    //     A['timer_enabled'] = false;
+    //     return A;
+    // }
 
 };
