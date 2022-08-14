@@ -16,7 +16,7 @@ export function initialBoard(lower=3000, upper=4000) {
             board[56 + i] = "W" + random_army[i];
         }
 
-        // promotablePieces = random_army      
+        // promotablePieces = random_army
         //         .filter(p => !["K", "P"].includes(p)) // filter pawns and kings
         //         .sort((a, b) => (PieceTypes[a].strength < PieceTypes[b].strength) ? 1 : -1)
         //no instant loss positions
@@ -42,6 +42,11 @@ export function colorInStalemate(history: Array<Array<string|null>>, color: stri
 }
 
 export function validMove(history: Array<Array<string|null>>, name: string, from: string, to: string, G: any, promotion: string|undefined) {
+    //No moving your opponents pieces
+    if ((name.substring(0, 1) === "W") === (history.length % 2 === 0)) {
+        return null
+    }
+
     let progressMade = false;
     let new_board = [...history[0]];
     // coordinates of "from" position
@@ -53,6 +58,11 @@ export function validMove(history: Array<Array<string|null>>, name: string, from
     const to_y = Number(to[1]) - 1;
 
     let moves = PieceTypes[name.substring(1)].getAvailableMoves(from_x, from_y, history, name.charAt(0));
+
+    //No moving a piece which doesn't exist
+    if (history[0][(from_x + (7 - from_y) * 8)] !== name) {
+        return null
+    }
 
     for (const [x, y] of moves) {
         if ((x === to_x) && (y === to_y)) {
@@ -70,15 +80,19 @@ export function validMove(history: Array<Array<string|null>>, name: string, from
                     if (promotion !== undefined && promotion !== null) {
                         if (G.promotablePieces.indexOf(promotion.substring(1)) > -1 && promotion.charAt(0) === name.charAt(0)) {
                             //we're moving this piece now.
-                            name = promotion
+                            name = promotion;
                         } else {
-                            return null
+                            return null;
                         }
+                    } else if (G === undefined) { //Make sure internal logic understands promotion as a legal move
+                                                  //TODO undo this garbage, it always fake promotes to Wazir and may interfere with mate checking
+                                                  //I am also terrified it may end up in the real game.
+                        name = name[0] + "W";
                     } else {
-                        return null
+                        return null;
                     }
                 }
-                
+
                 //Set 50 move counter to 0 since we made a pawn move
                 progressMade = true;
             }
@@ -191,11 +205,13 @@ export function insufficentMaterialDraw(board: Array<string|null>) {
 
 function generateArmy(lowerBound: number, upperBound: number) {
     const pool = Object.keys(PieceTypes);
+    const max_attempts = 1000;
+
     let attempts = 0;
     //TODO, gracefully handle when this loop doesn't find an army, or make army generation more intelligent
     //With lowerBound and upperBound as 3000 and 4000 it seems to work almost always, but if we let users choose...
     let army: Array<string> = [];
-    while (attempts < 1000) {
+    while (attempts < max_attempts) {
         army = [];
         let banned_pieces = ["P", "K"];
         let pieces_found = 0;
@@ -206,7 +222,7 @@ function generateArmy(lowerBound: number, upperBound: number) {
                 if (army.includes(piece) || PieceTypes[piece].tooStrong()) {
                     banned_pieces.push(piece);
                 }
-                army.push(piece)
+                army.push(piece);
                 pieces_found += 1;
                 strength += PieceTypes[piece].getStrength();
             }
@@ -219,7 +235,7 @@ function generateArmy(lowerBound: number, upperBound: number) {
     //TODO, gracefully handle when this loop doesn't find an army, or make army generation more intelligent
     //With lowerBound and upperBound as 3000 and 4000 it seems to work almost always, but if we let users choose...
     if (attempts === 1000) {
-        army = ["W","W","W","W","W","W","W"]
+        army = ["W","W","W","W","W","W","W"];
     }
     army.push("K");
 
@@ -240,14 +256,14 @@ function generateArmy(lowerBound: number, upperBound: number) {
     while (cb.length > 0) {
         if (cb.length % 2 === 0)
             evens.push(cb.pop() || "")
-        else 
+        else
             odds.push(cb.pop() || "")
     }
     while (evens.length < 4)
         evens.push(army.pop() || "");
     while (odds.length < 4)
         odds.push(army.pop() || "");
-       
+
     //mix in the colorbound pieces with the normal ones
     shuffleArray(evens);
     shuffleArray(odds);
@@ -319,7 +335,7 @@ function colorHasMateInN(history: Array<Array<string|null>>, color: string, N: n
 }
 
 
-// Helpers 
+// Helpers
 function compareTwoBoards(A: Array<string|null>, B: Array<string|null>) {
     for (let i = 0; i < 8 * 8; i++) {
         if (A[i] !== B[i])
