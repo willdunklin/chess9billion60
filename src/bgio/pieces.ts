@@ -198,7 +198,7 @@ const P =  new Piece("P", 100, (x, y, history, color) => {
             home_rank = 7 - home_rank;
             en_passant_rank = 7 - en_passant_rank;
         }
-        let moves = [];
+        let moves: number[][] = [];
         let xtemp = x;
         let ytemp = y + direction;
 

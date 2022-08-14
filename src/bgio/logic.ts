@@ -2,7 +2,7 @@ const { PieceTypes } = require("./pieces");
 
 export function initialBoard(lower=3000, upper=4000) {
     let board: Array<string|null> = [];
-    let random_army = [];
+    let random_army: string[] = [];
     do {
         board = Array(64).fill(null);
         for (let i = 0; i < 8; i++) {
