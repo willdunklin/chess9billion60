@@ -7,8 +7,8 @@ export const Settings = props => {
     const [ cookies, setCookie ] = useCookies(['user']);
     let [colorl, setColorl] = useState(cookies.lightSquareColor ?? '#f0d9b5')
     let [colord, setColord] = useState(cookies.darkSquareColor  ?? '#b58863')
-    let [darkMode, setDarkMode] = useState(cookies.darkMode ?? "false") 
-    let [volume, setVolume] = useState(cookies.volume ?? 100) 
+    let [darkMode, setDarkMode] = useState(cookies.darkMode ?? "false")
+    let [volume, setVolume] = useState(cookies.volume ?? 100)
     return <div style={{
                 padding: '0.5em 0',
                 display: "flex",
@@ -66,5 +66,5 @@ export const Settings = props => {
             </div>
         </div>
 
-            
+
 }

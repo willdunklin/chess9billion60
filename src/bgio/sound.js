@@ -14,6 +14,12 @@ const GenericNotify = new Howl({
     src: require("../sounds/GenericNotify.ogg")
 });
 
-export const move = volume => {Move.volume(volume * (Cookies.get("volume") ?? 100) / 100); Move.play();}
-export const capture = volume => {Capture.volume(volume * (Cookies.get("volume") ?? 100) / 100); Capture.play();}
-export const end = volume => {GenericNotify.volume(volume * (Cookies.get("volume") ?? 100) / 100); GenericNotify.play();}
+export const move = volume => {
+    Move.volume(volume * (Cookies.get("volume") ?? 100) / 100); Move.play();
+};
+export const capture = volume => {
+    Capture.volume(volume * (Cookies.get("volume") ?? 100) / 100); Capture.play();
+};
+export const end = volume => {
+    GenericNotify.volume(volume * (Cookies.get("volume") ?? 100) / 100); GenericNotify.play();
+};

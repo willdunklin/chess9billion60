@@ -14,14 +14,14 @@ import { ScrollToTop } from "./ScrollToTop";
 
 const App = () => {
     const [ cookies, setCookie ] = useCookies(['user']);
-    // Add cookie 
+    // Add cookie
     if (cookies.idtoken === undefined)
         setCookie('idtoken', nanoid());
 
     React.useEffect(() => {
         document.documentElement.setAttribute('data-theme', cookies.darkMode === 'true' ? 'dark' : 'light');
     }, [cookies.darkMode])
-    
+
     return (
         <div className="app">
             <CookiesProvider>

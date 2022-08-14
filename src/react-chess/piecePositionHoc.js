@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name, react/prop-types */
-const React = require('react')
+const React = require('react');
 
 module.exports = function (Piece) {
   return function (props) {
@@ -9,7 +9,7 @@ module.exports = function (Piece) {
         onTouchStart = props.onTouchStart,
         style = props.style,
         isMoving = props.isMoving,
-        cursor = props.cursor
+        cursor = props.cursor;
 
     let y = 7 - props.y;
 

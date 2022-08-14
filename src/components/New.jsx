@@ -126,7 +126,7 @@ export const New = _props => {
                 setLobby1Players(lobby1Players - 1 > 0 ? lobby1Players - 1 : 0);
                 // refresh_players();
             } else {
-                setLobby1Players(lobby1Players + 1);   
+                setLobby1Players(lobby1Players + 1);
             }
         }
     }

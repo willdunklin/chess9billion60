@@ -1,14 +1,14 @@
 import { INVALID_MOVE } from "boardgame.io/core";
-import { initialBoard, validMove, colorInCheck, colorInStalemate, isRepetitionDraw, insufficentMaterialDraw } from "./logic";
-import { PieceTypes } from "./pieces";
+const { initialBoard, validMove, colorInCheck, colorInStalemate, isRepetitionDraw, insufficentMaterialDraw } = require("./logic");
+const { PieceTypes } = require("./pieces");
 
 function handleTimers(G, whiteTurn, increment) {
     if (G.wTime <= 0 || G.bTime <= 0)
-        return
-            
+        return;
+
     let delta = Date.now() - G.last_event;
     if (increment)
-        delta -= G.increment
+        delta -= G.increment;
     if (whiteTurn)
         G.wTime = G.wTime - delta;
     else
@@ -32,7 +32,7 @@ export const Chess = {
             )],
 
             move_history: [],
-            // by default white to move 
+            // by default white to move
             // TODO: change to be dynamic for load from pos
             whiteTurn: true,
             // "" "W" "B" depending on who is in check
@@ -46,7 +46,7 @@ export const Chess = {
             bTime:      startTime,
             increment:  10 * 1000,
             last_event: Date.now(),
-        })
+        });
     },
 
     turn: {
@@ -69,7 +69,7 @@ export const Chess = {
                 }
                 else
                     handleTimers(G, G.whiteTurn, true);
-                
+
                 G.history.unshift(board); // prepend new board to history
                 G.whiteTurn = piece.name.charAt(0) !== "W";
                 G.move_history.unshift([`${piece.name}@${from}`, `${piece.name}@${to}`]);
@@ -96,7 +96,7 @@ export const Chess = {
         if(G.wTime <= 0)
             return {winner: "Black"};
 
-        const board = G.history[0]; 
+        const board = G.history[0];
         // check if white in stalemate
         if (G.whiteTurn && colorInStalemate(G.history, "W")) {
             if (colorInCheck(board, "W"))
@@ -116,13 +116,5 @@ export const Chess = {
         //check the weird draws
         if (G.noProgressCounter >= 200 || isRepetitionDraw(G.history) || insufficentMaterialDraw(G.history[0]))
             return {draw: true};
-    },
-
-    // onEnd: (G, ctx) => {
-    //     let A = {};
-    //     Object.assign(A, G);
-    //     A['timer_enabled'] = false;
-    //     return A;
-    // }
-
+    }
 };

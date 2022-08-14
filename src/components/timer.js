@@ -1,5 +1,5 @@
-const React = require('react')
-const PropTypes = require('prop-types')
+const React = require('react');
+const PropTypes = require('prop-types');
 
 const dark = '#222222'
 const light = '#DDDDDD'
@@ -38,17 +38,19 @@ export class Timer extends React.Component {
             userSelect: 'none',
         }
         if (this.props.white) {
-            timerStyles.background = light
-            timerStyles.color = dark
+            timerStyles.background = light;
+            timerStyles.color = dark;
         } else {
-            timerStyles.background = dark
-            timerStyles.color = light
+            timerStyles.background = dark;
+            timerStyles.color = light;
         }
-        let timeString = msToTime(this.props.milliseconds)
+        let timeString = msToTime(this.props.milliseconds);
         //timerStyles.background = dark
-        return <div style={timerStyles}>
-            {timeString}
-        </div>
+        return (
+            <div style={timerStyles}>
+                {timeString}
+            </div>
+        );
     }
 }
 
@@ -56,10 +58,10 @@ Timer.propTypes = {
     // vanilla react-chess
     white: PropTypes.bool,
     milliseconds: PropTypes.number,
-  }
+  };
 
 Timer.defaultProps = {
     // vanilla react-chess
     white: true,
     milliseconds: 0,
-  }
+  };

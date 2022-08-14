@@ -6,7 +6,7 @@ export const Promoter = props => {
     const styles = {
         position: 'absolute',
         left: `${12.5 * promotionFile}%`,
-        
+
         //center them
         top: `${i * 12.5}%`,
         background: (promotionFile + i) % 2 === 0 ? lightSquareColor : darkSquareColor,

@@ -32,7 +32,7 @@ async function join(gameid, token) {
         return <Navigate to="/error"/>;
 
     const playerID = response.data;
-    
+
     if (playerID === null) // player is a spectator
         return (
             <div style={client_style}>
@@ -79,7 +79,7 @@ export const Multiplayer = _props => {
     if (gameid.length !== 6) { // also checked in getGame fyi
         return <Navigate to="/404"/>
     }
-    
+
     // TODO: switch to API(?) instead of direct db access in this element
     if(loadedSuccessfully === null)
         return <h1>loading...</h1>;

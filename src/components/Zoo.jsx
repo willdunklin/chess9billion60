@@ -19,9 +19,9 @@ for (let [piece] of Object.entries(PieceTypes)) {
 }
 temp.sort((a, b) => (PieceTypes[a].strength < PieceTypes[b].strength) ? -1 :1 )
 for (let piece of temp) {
-    visualizers.push(<Visualizer 
+    visualizers.push(<Visualizer
         key={`${piece}-zoo-visualizer`} // fixes bug when promPieces changes
-        piece={piece} 
+        piece={piece}
         color={"W"}
         count={7} // TODO this is a stupid name for this or a stupid way of doing this
         />
