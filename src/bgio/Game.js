@@ -20,7 +20,7 @@ export const Chess = {
     name: "Chess",
 
     setup: () => {
-        let initialPos = initialBoard();
+        let initialPos = initialBoard(3000, 4000);
         let startTime = 15 * 60 * 1000;
         return ({
             history: [initialPos],

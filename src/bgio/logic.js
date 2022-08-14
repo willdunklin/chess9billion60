@@ -1,6 +1,6 @@
 const { PieceTypes } = require("./pieces.js");
 
-export function initialBoard() {
+export function initialBoard(lower=3000, upper=4000) {
     let board;
     let random_army = [];
     do {
@@ -10,7 +10,7 @@ export function initialBoard() {
             board[48 + i] = 'WP';
         }
 
-        random_army = generateArmy(3000, 4000)
+        random_army = generateArmy(lower, upper)
         for (let i = 0; i < 8; i++) {
             board[i] = "B" + random_army[i];
             board[56 + i] = "W" + random_army[i];
