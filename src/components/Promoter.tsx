@@ -1,14 +1,24 @@
-import React from 'react'
+import React from 'react';
+import CSS from 'csstype';
 
-export const Promoter = props => {
+interface PromoterProps {
+    piece: string;
+    Piece: (props: any) => JSX.Element;
+    promotionFile: number;
+    i: number;
+    lightSquareColor: string;
+    darkSquareColor: string;
+}
+
+export const Promoter = (props: PromoterProps) => {
     const { piece, Piece, promotionFile, i, lightSquareColor, darkSquareColor } = props;
 
-    const styles = {
+    const styles: CSS.Properties = {
         position: 'absolute',
         left: `${12.5 * promotionFile}%`,
 
         //center them
-        top: `${i * 12.5}%`,
+        top: `${i * 12.5 + 0.5}%`,
         background: (promotionFile + i) % 2 === 0 ? lightSquareColor : darkSquareColor,
         //boxShadow : piece === chosenPromoter ? 'inset 0px 0px 0px 0.4vmin red' : undefined,
 
@@ -25,7 +35,12 @@ export const Promoter = props => {
     //put the piece on the div.
     return (
         <div style={styles}>
-            <Piece  key={i+''+piece+'-promoter'} x={0} y={7} size={'100%'} cursor = "default"/>
+            <Piece key={i+''+piece+'-promoter'}
+                   x={0}
+                   y={7}
+                   size={'100%'}
+                   cursor="default"
+            />
         </div>
     );
 }

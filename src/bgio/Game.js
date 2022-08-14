@@ -1,4 +1,4 @@
-import { INVALID_MOVE } from "boardgame.io/core";
+const { INVALID_MOVE } = require("boardgame.io/core");
 const { initialBoard, validMove, colorInCheck, colorInStalemate, isRepetitionDraw, insufficentMaterialDraw } = require("./logic");
 const { PieceTypes } = require("./pieces");
 

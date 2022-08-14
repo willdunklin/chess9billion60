@@ -1,8 +1,21 @@
 import React from 'react';
+import CSS from 'csstype';
 
-export const Dot = props => {
+interface DotProps {
+    s: {
+        x: number,
+        y: number,
+        piece: string,
+        square: string,
+    };
+    pieces: string[];
+    isWhite: boolean;
+    dotColor: string;
+}
+
+export const Dot = (props: DotProps) => {
     const { s, pieces, isWhite, dotColor } = props;
-    let {x, y, piece, square} = s;
+    let { x, y, piece, square } = s;
 
     if (!isWhite) {
         x = 7 - x;
@@ -18,7 +31,7 @@ export const Dot = props => {
     if (pieceOnSquare)
         size = 12;
 
-    const dot_style = {
+    const dot_style: CSS.Properties = {
         position: "absolute",
 
         width:  `${size}%`,
@@ -43,4 +56,4 @@ export const Dot = props => {
             style={dot_style}>
         </div>
     );
-  }
+}

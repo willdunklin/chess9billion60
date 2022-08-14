@@ -6,7 +6,7 @@ import { FiMenu } from "react-icons/fi";
 import Modal from 'react-modal';
 import { Settings } from "./Settings";
 
-export const Nav = _props => {
+export const Nav = () => {
     const [isOpen, setIsOpen] = useState('false');
     const [navbarOpen, setNavbarOpen] = useState(false);
 

@@ -6,7 +6,7 @@ import { ChessBoard } from "../bgio/Board";
 import { useParams, Navigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
-const axios = require('axios');
+import axios from 'axios';
 
 const { protocol, hostname, port } = window.location;
 const ChessClient = Client({
@@ -20,7 +20,10 @@ const client_style = {
     padding: "1em",
 };
 
-async function join(gameid, token) {
+async function join(gameid: string | undefined, token: string) {
+    if (gameid === undefined)
+        throw new Error("gameid is undefined");
+
     const response = await axios.post(`https://chess9b60-api.herokuapp.com/game`, {
         id: gameid,
         token: token
@@ -52,13 +55,13 @@ async function join(gameid, token) {
 }
 
 
-export const Multiplayer = _props => {
+export const Multiplayer = () => {
     document.title = "Play | Chess9b60";
 
     const { gameid } = useParams();
-    const [ cookies ] = useCookies(['user']);
+    const [ cookies ] = useCookies(['idtoken']);
 
-    const [ loadedSuccessfully, setLoadedSuccessfully ] = React.useState(null);
+    const [ loadedSuccessfully, setLoadedSuccessfully ] = React.useState(false);
     const [ content, setContent ] = React.useState(<div></div>)
 
     React.useEffect(() => {
@@ -76,7 +79,7 @@ export const Multiplayer = _props => {
 
     // TODO: add stronger clientside checks
     // if the gameid is invalidly formatted, draw an error
-    if (gameid.length !== 6) { // also checked in getGame fyi
+    if (gameid === undefined || gameid.length !== 6) { // also checked in getGame fyi
         return <Navigate to="/404"/>
     }
 

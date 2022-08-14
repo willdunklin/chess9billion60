@@ -1,5 +1,5 @@
-import { Howl } from 'howler';
-import Cookies from 'js-cookie';
+const { Howl } = require('howler');
+const Cookies = require('js-cookie');
 
 const Move = new Howl({
     // src: 'https://chess9b60.s3.amazonaws.com/sounds/Move.mp3'
@@ -14,12 +14,12 @@ const GenericNotify = new Howl({
     src: require("../sounds/GenericNotify.ogg")
 });
 
-export const move = volume => {
+export const move = (volume: number) => {
     Move.volume(volume * (Cookies.get("volume") ?? 100) / 100); Move.play();
 };
-export const capture = volume => {
+export const capture = (volume: number) => {
     Capture.volume(volume * (Cookies.get("volume") ?? 100) / 100); Capture.play();
 };
-export const end = volume => {
+export const end = (volume: number) => {
     GenericNotify.volume(volume * (Cookies.get("volume") ?? 100) / 100); GenericNotify.play();
 };

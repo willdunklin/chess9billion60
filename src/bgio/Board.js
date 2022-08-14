@@ -1,11 +1,12 @@
-import React from "react";
+const React = require("react");
 const { Visualizer } = require("../components/visualizer");
 const { Chess } = require("../react-chess/react-chess");
 const { Timer } = require("../components/timer");
 const { move, capture, end } = require("./sound");
 const { PieceTypes } = require("./pieces");
 const { validMove } = require("./logic");
-const pieceComponents = require('../react-chess/pieces');
+const { pieceComponents } = require('../react-chess/chessPieces');
+const { charCodeOffset } = require("../react-chess/decode");
 let wImbalance = [];
 let bImbalance = [];
 
@@ -164,7 +165,7 @@ export class ChessBoard extends React.Component {
     piecify(board) {
         // convert from position in board to react-chess position string
         return board.map((piece, i) => {
-            return piece === null ? null : `${piece}@${String.fromCharCode(97 + (i % 8))}${8-Math.floor(i/8)}`;
+            return piece === null ? null : `${piece}@${String.fromCharCode(charCodeOffset + (i % 8))}${8-Math.floor(i/8)}`;
         }).filter(i => i !== null);
     }
 
@@ -231,7 +232,7 @@ export class ChessBoard extends React.Component {
         }
 
         const from_square = piece.position;
-        const from_x = from_square.toLowerCase().charCodeAt(0) - 97;
+        const from_x = from_square.toLowerCase().charCodeAt(0) - charCodeOffset;
         const from_y = Number(from_square[1]) - 1;
         const clicked_square = piece.notation;
 
@@ -240,7 +241,7 @@ export class ChessBoard extends React.Component {
         // get available moves, filter through validity check if its our turn
         if ((this.props.G.whiteTurn && piece.name.charAt(0) === "W") || (!this.props.G.whiteTurn && piece.name.charAt(0) !== "W") || this.state.historyIndex !== 0) {
             let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, this.props.G.history.slice(this.state.historyIndex), piece.name.charAt(0))
-                .map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`) // map from coordinates to square
+                .map(([to_x, to_y]) => `${String.fromCharCode(charCodeOffset + (to_x))}${1+to_y}`) // map from coordinates to square
                 .filter(to_square => // filter move validity (stolen from colorHasMateInOnes)
                     validMove(this.props.G.history.slice(this.state.historyIndex), piece.name, from_square, to_square) !== null)
                 .map(to_square => `${piece.name}@${to_square}`); // of the form piece_name@to_square
@@ -249,7 +250,7 @@ export class ChessBoard extends React.Component {
             this.setState({dots: [...new Set(dot_locations)]});
         } else {
             //don't filter out invalid moves for the player who is not about to move
-            let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, null, piece.name.charAt(0)).map(([to_x, to_y]) => `${String.fromCharCode(97 + (to_x))}${1+to_y}`).map(to_square => `${piece.name}@${to_square}`);
+            let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, null, piece.name.charAt(0)).map(([to_x, to_y]) => `${String.fromCharCode(charCodeOffset + (to_x))}${1+to_y}`).map(to_square => `${piece.name}@${to_square}`);
             dot_locations.push(clicked_square);
             this.setState({dots: [...new Set(dot_locations)]});
         }

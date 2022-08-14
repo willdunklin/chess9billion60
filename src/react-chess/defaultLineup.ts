@@ -1,4 +1,4 @@
-module.exports = [
+export const defaultLineup = [
   'BA@a1',
   'BAB@a2',
   'BB@a7',
@@ -63,4 +63,4 @@ module.exports = [
   'WP@h4',
   'WP@h6',
   'WP@h5',
-]
+];

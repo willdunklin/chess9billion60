@@ -1,8 +1,15 @@
 /* eslint-disable react/display-name, react/prop-types */
-const React = require('react');
+import React from 'react';
 
-module.exports = function (Piece) {
-  return function (props) {
+export const piecePositionHoc = (Piece: (props: any) => React.DetailedReactHTMLElement<{
+                                                          src: any;
+                                                          style: any;
+                                                          alt: string;
+                                                          width: any;
+                                                          height: any;
+                                                        }, HTMLElement>): ((props: any) => JSX.Element) =>
+{
+  return function (props: any) {
     let onMouseDown = props.onMouseDown,
         onMouseUp = props.onMouseUp,
         onTouchEnd = props.onTouchEnd,
@@ -16,7 +23,7 @@ module.exports = function (Piece) {
     let styles = Object.assign({}, style, {
       position: 'absolute',
       left: props.x * 12.5 + '%',
-      top: y * 12.5 + '%',
+      top: (y * 12.5 + 0.5) + '%',
       //The pieces on the board are always 12.5% of the board, but if we want to render little ones this is good,
       //or if we want the pieces to be contained in something which isn't the board
       width: props.size === undefined ? '12.5%' : props.size,
@@ -27,15 +34,16 @@ module.exports = function (Piece) {
       zIndex: isMoving ? 1000 : undefined
     });
 
-    return React.createElement(
-      'div',
-      {
-        onMouseDown: onMouseDown,
-        onMouseUp: onMouseUp,
-        onTouchEnd: onTouchEnd,
-        onTouchStart: onTouchStart,
-        style: styles },
-      React.createElement(Piece, { size: '85%' })
+    return (
+      <div
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+        onTouchEnd={onTouchEnd}
+        onTouchStart={onTouchStart}
+        style={styles}
+      >
+        <Piece size={'85%'} />
+      </div>
     );
   };
-};
+}

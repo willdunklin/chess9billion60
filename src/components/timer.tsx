@@ -1,16 +1,16 @@
+import CSS from 'csstype';
 const React = require('react');
 const PropTypes = require('prop-types');
 
-const dark = '#222222'
-const light = '#DDDDDD'
+const dark = '#222222';
+const light = '#DDDDDD';
 
-function msToTime(s) {
+function msToTime(s: number) {
   if (s < 0)
     s = 0;
 
   // Pad to 2 or 3 digits, default is 2
-  function pad(n, z) {
-      z = z || 2;
+  function pad(n: number, z: number = 2) {
       return ('00' + n).slice(-z);
   }
 
@@ -27,25 +27,19 @@ function msToTime(s) {
 }
 
 export class Timer extends React.Component {
-
     render() {
-        let timerStyles = {
+        const timerStyles: CSS.Properties = {
             width: '100px',
             height: '30px',
             lineHeight: '30px',
             textAlign: 'center',
             border: '3px solid black',
             userSelect: 'none',
+            background: this.props.white ? light : dark,
+            color: this.props.white ? dark : light
         }
-        if (this.props.white) {
-            timerStyles.background = light;
-            timerStyles.color = dark;
-        } else {
-            timerStyles.background = dark;
-            timerStyles.color = light;
-        }
+
         let timeString = msToTime(this.props.milliseconds);
-        //timerStyles.background = dark
         return (
             <div style={timerStyles}>
                 {timeString}
@@ -58,10 +52,10 @@ Timer.propTypes = {
     // vanilla react-chess
     white: PropTypes.bool,
     milliseconds: PropTypes.number,
-  };
+};
 
 Timer.defaultProps = {
     // vanilla react-chess
     white: true,
     milliseconds: 0,
-  };
+};

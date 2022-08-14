@@ -1,10 +1,10 @@
-import Cookies from 'js-cookie';
+const Cookies = require('js-cookie');
 
 const React = require('react');
 const PropTypes = require('prop-types');
 const Draggable = require('react-draggable');
-const defaultLineup = require('./defaultLineup');
-let pieceComponents = require('./pieces');
+const { defaultLineup } = require('./defaultLineup');
+const { pieceComponents } = require('./chessPieces');
 const {fromPieceDecl, charCodeOffset} = require('./decode');
 const { Dot } = require("../components/Dot");
 const { Promoter } = require("../components/Promoter");

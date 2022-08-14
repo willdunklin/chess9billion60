@@ -66,7 +66,7 @@ function rider(startx: number, starty: number, history: Array<Array<string|null>
     return squares;
 }
 
-class Piece {
+export class Piece {
     id: string;
     strength: number;
     canPromote: boolean;
@@ -97,7 +97,7 @@ class Piece {
         return this;
     }
 
-    getAvailableMoves = function (_x: number, _y: number, _gameboard: Array<Array<string|null>>|null, _color: string): Array<any> {
+    getAvailableMoves = function (_x: number, _y: number, _gameboard: Array<Array<string|null>>|null, _color: string): number[][] {
         return [];
     }
 
@@ -145,7 +145,7 @@ class Piece {
         return !this.canMate;
     }
 
-    constructor(id: string, strength: number, getAvailableMoves: (x: number, y: number, gameboard: Array<Array<string | null>> | null, color: string) => Array<any>) {
+    constructor(id: string, strength: number, getAvailableMoves: (x: number, y: number, gameboard: Array<Array<string | null>> | null, color: string) => number[][]) {
         this.getAvailableMoves = getAvailableMoves;
         this.id = id;
         this.strength = strength;
@@ -262,7 +262,7 @@ const P =  new Piece("P", 100, (x, y, history, color) => {
         return moves;
     }).makePromoter().name("Pawn").setBlurb("Google en passant").setRules("Standard pawn moves");
 
-export const PieceTypes = {
+export const PieceTypes: { [key: string]: Piece } = {
     "N": N,
     "R": R,
     "B": B,
