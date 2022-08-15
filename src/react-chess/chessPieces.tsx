@@ -1,8 +1,8 @@
 /* eslint-disable id-length */
 import React from 'react';
+import { piecePositionHoc } from './piecePositionHoc';
 
 let images: { [key: string]: ((props: any) => JSX.Element) } = {};
-const { piecePositionHoc } = require('./piecePositionHoc');
 
 function make_piece(id: string) {
   return function b(props: any) {

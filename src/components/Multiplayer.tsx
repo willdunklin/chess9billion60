@@ -7,6 +7,7 @@ import { useParams, Navigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
 import axios from 'axios';
+// console.log('!', Chess);
 
 const { protocol, hostname, port } = window.location;
 const ChessClient = Client({
