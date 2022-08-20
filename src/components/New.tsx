@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useCookies } from "react-cookie";
 
@@ -11,7 +11,6 @@ export const New = () => {
 
     const [ loadedSuccessfully, setLoadedSuccessfully ] = useState(false);
     const [ isOpen, setIsOpen ] = useState(true);
-    const [ exit, setExit ] = useState(false);
     const [ isWhite, setIsWhite ] = useState("0");
     const [ time, setTime ] = useState(900);
     const [ increment, setIncrement ] = useState(10);
@@ -21,6 +20,8 @@ export const New = () => {
 
     const [ lobby1, setLobby1 ] = useState(false);
     const [ lobby1Players, setLobby1Players ] = useState(0);
+
+    const navigate = useNavigate();
 
     async function start_game() {
         let whitetoken: string | null = null;
@@ -132,15 +133,12 @@ export const New = () => {
 
     function close() {
         setIsOpen(false);
-        setExit(true);
+        navigate(-1);
     }
 
     React.useEffect(() => {
         refresh_players();
     }, []);
-
-    if (exit)
-        return <Navigate to="/"/>;
 
     if (loadedSuccessfully)
         return <Navigate to={`/${gameid}`}/>;
