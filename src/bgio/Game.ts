@@ -3,8 +3,6 @@ import { INVALID_MOVE } from "boardgame.io/core";
 const { PieceTypes } = require("./pieces");
 const { initialBoard, validMove, colorInCheck, colorInStalemate, isRepetitionDraw, insufficentMaterialDraw } = require("./logic");
 
-console.log('pieces', PieceTypes);
-
 export interface GameState {
     history: (string | null)[][];
     promotablePieces: string[];
@@ -35,7 +33,6 @@ function handleTimers(G: GameState, add_increment: boolean) {
 }
 
 const movePiece: Move<GameState> = (G, _ctx, piece, from, to, promotion) => {
-    console.log(typeof(initialBoard));
     // simulate move
     let board = validMove(G.history, piece.name, from, to, G, promotion);
 
