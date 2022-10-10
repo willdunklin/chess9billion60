@@ -30,6 +30,7 @@
     transition: 0.15s ease-in-out;
     border-color: var(--highlight-alt);
     border-radius: 3px;
+    user-select: none;
 }
 
 .ReactModal__Content button:hover, .specButton:hover {
@@ -47,4 +48,12 @@
     justify-content: space-evenly;
     align-items: center;
     /* margin: 1em 0; */
+}
+
+.ReactModal__Content > aside > p
+{
+    margin: 0.5em 0;
+    margin-bottom: 1.5em;
+    font-size: small;
+    color: var(--alt);
 }
