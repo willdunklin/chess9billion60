@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
-const { Visualizer } = require("./visualizer.js");
-const { Chess } = require("../react-chess/react-chess.js");
+import { Visualizer } from "./visualizer";
+import { Chess } from "../react-chess/react-chess";
 
 const board_style = {
     "width": "100%",
     "height": "100%",
 };
 
-const boardWidth = "400px"
-const visualizerSize = "300"
+const boardWidth = "400px";
+const visualizerSize = 300;
 
-export const Main = _props => {
+export const Main = () => {
     document.title = "Chess 9,000,000,060 | Chess9b60 Variant";
 
     return (
@@ -71,7 +71,7 @@ export const Main = _props => {
                                 piece={"W"}
                                 color={"W"}
                                 count={7}
-                                size = {visualizerSize}
+                                size={visualizerSize}
                                 />
                         </div>
                         {/* <br></br> */}
@@ -85,21 +85,21 @@ export const Main = _props => {
                                 piece={"M"}
                                 color={"W"}
                                 count={7}
-                                size = {visualizerSize}
+                                size={visualizerSize}
                                 />
                             <Visualizer
                                 key={`$C-main-visualizer`}
                                 piece={"C"}
                                 color={"W"}
                                 count={7}
-                                size = {visualizerSize}
+                                size={visualizerSize}
                                 />
                             <Visualizer
                                 key={`$Z-main-visualizer`}
                                 piece={"Z"}
                                 color={"W"}
                                 count={7}
-                                size = {visualizerSize}
+                                size={visualizerSize}
                                 />
                         </div>
 
@@ -113,7 +113,7 @@ export const Main = _props => {
                                 piece={"NR"}
                                 color={"W"}
                                 count={7} // TODO this is a stupid name for this or a stupid way of doing this
-                                size = {visualizerSize}
+                                size={visualizerSize}
                                 />
                             <div className="resize-width-2" style={{width: '50%', padding: '1em'}}>
                                 <p>The <i>Knightrider</i> is to the Knight as the Rook is to the Wazir.</p>
@@ -138,7 +138,7 @@ export const Main = _props => {
                             piece={"CN"}
                             color={"W"}
                             count={7} // TODO this is a stupid name for this or a stupid way of doing this
-                            size = {visualizerSize}
+                            size={visualizerSize}
                             />
 
                         <br></br>

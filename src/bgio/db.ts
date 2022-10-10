@@ -22,7 +22,7 @@ export class DynamnoStore extends Async {
     private tableName: string;
 
     constructor(region: string, creds: Credentials, tableName: string) {
-      super();      
+      super();
       this.client = new DynamoDBClient({region: region, credentials: creds});
       this.tableName = tableName;
     }
@@ -33,7 +33,7 @@ export class DynamnoStore extends Async {
      * @param result GetItemCommandOutput from GetItemCommand
      * @returns Match
      */
-    matchify(item?: {[key: string]: AttributeValue}): Match | null {        
+    matchify(item?: {[key: string]: AttributeValue}): Match | null {
         if(!item)
             return null;
 
@@ -61,7 +61,7 @@ export class DynamnoStore extends Async {
     async connect(): Promise<void> {
         return;
     }
-  
+
     /**
      * Create a new match.
      *
@@ -74,7 +74,7 @@ export class DynamnoStore extends Async {
      * initial match state in a separate field for easier retrieval.
      */
     /* istanbul ignore next */
-    async createMatch(id: string, {        
+    async createMatch(id: string, {
         initialState,
         metadata: {
             gameName,
@@ -97,14 +97,14 @@ export class DynamnoStore extends Async {
             state: {S: JSON.stringify(initialState)},
             initialState: {S: JSON.stringify(initialState)},
             log: {S: JSON.stringify([])},
-        } 
+        }
         // console.log(content)
         await this.client.send(new PutItemCommand({
             Item: content,
             TableName: this.tableName,
         }));
     }
-  
+
     /**
      * Create a new game.
      *
@@ -121,7 +121,7 @@ export class DynamnoStore extends Async {
     async createGame(matchID: string, opts: StorageAPI.CreateGameOpts): Promise<void> {
         return this.createMatch(matchID, opts);
     }
-  
+
     /**
      * Update the game state.
      *
@@ -146,7 +146,7 @@ export class DynamnoStore extends Async {
 
         const prevState: State | undefined = match?.state;
         const prevLog: LogEntry[] | undefined = match?.log;
-        
+
         if(!prevState || prevState._stateID < state._stateID) {
             await this.client.send(new UpdateItemCommand({
                 Key: {
@@ -165,7 +165,7 @@ export class DynamnoStore extends Async {
             }));
         }
     }
-  
+
     /**
      * Update the game metadata.
      */
@@ -200,7 +200,7 @@ export class DynamnoStore extends Async {
             TableName: this.tableName,
         }));
     }
-  
+
     /**
      * Fetch the game state.
      */
@@ -223,7 +223,7 @@ export class DynamnoStore extends Async {
         if (!match) {
             return result;
         }
-    
+
         if (metadata) {
             result.metadata = {
                 gameName: match.gameName,
@@ -245,10 +245,10 @@ export class DynamnoStore extends Async {
         if (log) {
             result.log = match.log;
         }
-    
+
         return result as StorageAPI.FetchResult<O>;
     }
-  
+
     /**
      * Remove the game state.
      */
@@ -262,7 +262,7 @@ export class DynamnoStore extends Async {
             TableName: this.tableName,
         }));
     }
-  
+
     /**
      * Return all matches.
      */
@@ -271,7 +271,7 @@ export class DynamnoStore extends Async {
         // console.log("listMatches");
 
         const addFilter = (s: string, f: string) => s ? s + " AND " + f : f;
-        
+
         let filter = "";
         let attributeValues: {[key: string]: AttributeValue} = {};
 
@@ -307,7 +307,7 @@ export class DynamnoStore extends Async {
 
         return results.Items?.map(i => i.id.S || "") || [];
     }
-  
+
     /**
      * Return all games.
      *

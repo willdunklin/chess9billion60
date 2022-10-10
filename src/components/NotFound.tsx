@@ -1,16 +1,17 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import CSS from 'csstype';
 
-const center = {
+const center: CSS.Properties = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
     padding: "2em"
-}
+};
 
-const Exit = _props => {
+const Exit = () => {
     return (
         <div style={center}>
             <Link to="/">Home</Link>
@@ -18,7 +19,7 @@ const Exit = _props => {
     );
 }
 
-export const NotFound = _props => {
+export const NotFound = () => {
     document.title = "Missing Page | Chess9b60";
 
     return (
@@ -29,7 +30,7 @@ export const NotFound = _props => {
     );
 }
 
-export const Error = _props => {
+export const Error = () => {
     document.title = "Something went wrong... | Chess9b60";
 
     return (

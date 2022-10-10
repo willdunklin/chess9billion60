@@ -13,15 +13,15 @@ import { Zoo } from "./Zoo";
 import { ScrollToTop } from "./ScrollToTop";
 
 const App = () => {
-    const [ cookies, setCookie ] = useCookies(['user']);
-    // Add cookie 
+    const [ cookies, setCookie ] = useCookies(['idtoken', 'darkMode']);
+    // Add cookie
     if (cookies.idtoken === undefined)
         setCookie('idtoken', nanoid());
 
     React.useEffect(() => {
         document.documentElement.setAttribute('data-theme', cookies.darkMode === 'true' ? 'dark' : 'light');
     }, [cookies.darkMode])
-    
+
     return (
         <div className="app">
             <CookiesProvider>
@@ -29,11 +29,11 @@ const App = () => {
                     <ScrollToTop />
                     <Routes>
                         <Route path="/" element={<Nav />}>
-                            <Route exact path="404" element={<NotFound/>}/>
-                            <Route exact path="error" element={<Error/>}/>
-                            <Route exact path="play" element={<New/>}/>
-                            <Route exact path="zoo" element={<Zoo/>}/>
-                            <Route exact path="" element={<Main/>}/>
+                            <Route path="404" element={<NotFound/>}/>
+                            <Route path="error" element={<Error/>}/>
+                            <Route path="play" element={<New/>}/>
+                            <Route path="zoo" element={<Zoo/>}/>
+                            <Route path="" element={<Main/>}/>
                             <Route path="play/:gameid" element={<Multiplayer/>}/>
                             <Route path=":gameid" element={<Multiplayer/>}/>
                         </Route>

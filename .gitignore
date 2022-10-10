@@ -11,6 +11,7 @@ node_modules
 # production
 /build
 secret.js
+secret.ts
 
 # misc
 .DS_Store
