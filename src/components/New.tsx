@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
+import { MultiRangeSlider } from "./MultiRangeSlider";
 import { useCookies } from "react-cookie";
 
 import '../css/modal.css';
@@ -17,6 +18,9 @@ export const New = () => {
     const [ enableTimer, setEnableTimer ] = useState(true);
     const [ gameid, setGameid ] = useState("");
     const [ cookies ] = useCookies(['idtoken']);
+
+    const [ minStrength, setMinStrength ] = useState(30);
+    const [ maxStrength, setMaxStrength ] = useState(40);
 
     const [ lobby, setLobby ] = useState(-1);
 
@@ -37,13 +41,16 @@ export const New = () => {
                 blacktoken = cookies.idtoken;
         }
 
+        console.log('min strength is ' + minStrength);
+        console.log('max strength is ' + maxStrength);
+
         axios.post('https://chess9b60-api.herokuapp.com/create', {
         // axios.post('http://localhost:8080/create', {
             time: time * 1000,
             increment: increment * 1000,
             timer: enableTimer,
-            lower_strength: 3000,
-            upper_strength: 4000,
+            lower_strength: minStrength * 100,
+            upper_strength: maxStrength * 100,
             white: whitetoken,
             black: blacktoken
         })
@@ -153,7 +160,9 @@ export const New = () => {
                     </button>
                     {/* <button onClick={refresh_players}>Refresh</button> */}
                 </div>
+                <br/>
                 <h2>Create a Custom Game</h2>
+
                 <div>
                     <p>Color: </p>
                     <div>
@@ -189,6 +198,20 @@ export const New = () => {
                            onChange={event => {
                                setIncrement( Number(event.target.value) );
                            }}
+                    />
+                </div>
+                <div>
+                    <p>Strength:</p>
+                    <MultiRangeSlider
+                        min={20}
+                        max={55}
+                        startLeft={30}
+                        startRight={40}
+                        onChange={(min: number, max: number) => {
+                            // Set min/max between 20- and 55+
+                            setMinStrength(min === 20 ? 0 : min);
+                            setMaxStrength(max === 55 ? 1000 : max);
+                        }}
                     />
                 </div>
                 <div className="links">

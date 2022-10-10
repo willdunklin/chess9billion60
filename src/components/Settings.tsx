@@ -84,6 +84,11 @@ export const Settings = (props: SettingsProps) => {
             </div>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
                 <div className="link noselect" style={{padding:"10px 20px"}}>
+                    <div onClick={close}>
+                        Close
+                    </div>
+                </div>
+                <div className="link noselect" style={{padding:"10px 20px"}}>
                     <div onClick={() => {
                         setCookie('lightSquareColor', colorl);
                         setCookie('darkSquareColor', colord);
@@ -92,11 +97,6 @@ export const Settings = (props: SettingsProps) => {
                         window.location.reload();
                     }}>
                         Apply
-                    </div>
-                </div>
-                <div className="link noselect" style={{padding:"10px 20px"}}>
-                    <div onClick={close}>
-                        Close
                     </div>
                 </div>
             </div>

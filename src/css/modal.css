@@ -5,10 +5,11 @@
 }
 
 .ReactModal__Content {
-    max-width: 300px;
+    max-width: 325px;
     height: min-content;
     margin: 1em auto;
-    padding: 0 1em !important;
+    padding: 0.2em 1.5em !important;
+    padding-bottom: 0.5em !important;
     background: var(--bg) !important;
     color: var(--text) !important;
     border: 1px solid var(--modal-border) !important;

@@ -32,6 +32,7 @@ code {
   --highlight-alt: #aaa;
   --modal-bg: #fffa;
   --modal-border: #aaa;
+  --slider: #555;
 
   color-scheme: normal;
 }
@@ -46,6 +47,7 @@ code {
   --highlight-alt: #444;
   --modal-bg: #000a;
   --modal-border: #000;
+  --slider: #fff;
 
   scrollbar-color: #000 #222 !important;
   color-scheme: dark;
