@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import CSS from 'csstype';
+// import { test } from "../server";
 
 const center: CSS.Properties = {
     display: "flex",
@@ -21,6 +22,8 @@ const Exit = () => {
 
 export const NotFound = () => {
     document.title = "Missing Page | Chess9b60";
+
+    // test();
 
     return (
         <div style={center}>
