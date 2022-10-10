@@ -18,8 +18,7 @@ export const New = () => {
     const [ gameid, setGameid ] = useState("");
     const [ cookies ] = useCookies(['idtoken']);
 
-    const [ lobby1, setLobby1 ] = useState(false);
-    const [ lobby1Players, setLobby1Players ] = useState(0);
+    const [ lobby, setLobby ] = useState(-1);
 
     const navigate = useNavigate();
 
@@ -50,7 +49,7 @@ export const New = () => {
         })
         .then(res => {
             if (res.status === 200) {
-                console.log('gameid: ', res.data);
+                // console.log('gameid: ', res.data);
                 setGameid(res.data);
                 setLoadedSuccessfully(true);
                 setIsOpen(false);
@@ -62,51 +61,35 @@ export const New = () => {
         });
     }
 
-    async function refresh_players() {
-        axios.get('https://chess9b60-api.herokuapp.com/queue', {})
-        // axios.get('http://localhost:8080/queue', {})
-        .then(res => {
-            if (res.status === 200) {
-                setLobby1Players(res.data);
-            }
-        })
-        .catch(e => {
-            console.log('error!', e);
-        });
-    }
+    // async function refresh_players() {
+    //     // axios.get('https://chess9b60-api.herokuapp.com/queue', {})
+    //     axios.get('http://localhost:8080/queue', {})
+    //     .then(res => {
+    //         if (res.status === 200) {
+    //             console.log('queue: ', res.data);
+    //             // setLobbyPlayers(res.data);
+    //         }
+    //     })
+    //     .catch(e => {
+    //         console.log('error!', e);
+    //     });
+    // }
 
-    async function join_lobby() {
-        setLobby1(!lobby1);
-        if (lobby1) {
-            setLobby1Players(lobby1Players - 1 > 0 ? lobby1Players - 1 : 0);
-        } else {
-            setLobby1Players(lobby1Players + 1);
-            join_pool();
-        }
-    }
-
-    function close() {
-        setIsOpen(false);
-        navigate(-1);
-    }
-
-    const join_pool = useCallback(async () => {
+    const join_pool = useCallback(async (q_id) => {
         axios.post('https://chess9b60-api.herokuapp.com/pool', {
         // axios.post('http://localhost:8080/pool', {
             token: cookies.idtoken,
+            q_id: q_id,
         })
         .then(res => {
             if (res.status === 200) {
                 const gid = res.data['id']; // gameid
-                // console.log('gid: ', gid);
 
-                if (gid === undefined)
-                    return false;
-                if (gid === "unjoined")
+                if (gid === undefined || gid === "unjoined")
                     return false;
                 if (gid === 'timeout') {
-                    setLobby1(false);
-                    refresh_players();
+                    setLobby(-1);
+                    // refresh_players();
                     return false;
                 }
 
@@ -121,22 +104,33 @@ export const New = () => {
         });
     }, [cookies.idtoken]);
 
-    React.useEffect(() => {
-        refresh_players();
-    }, []);
+    async function join_lobby(lobby_id: number) {
+        if (lobby === lobby_id || lobby_id === -1) {
+            setLobby(-1);
+            return;
+        }
+
+        setLobby(lobby_id);
+        join_pool(lobby_id);
+    }
+
+    function close() {
+        setIsOpen(false);
+        navigate(-1);
+    }
 
     React.useEffect(() => {
         const interval = setInterval(() => {
-            join_pool();
-            refresh_players();
-            // console.log('refreshing...');
-        }, 8000);
+            join_pool(lobby);
+            // refresh_players();
+        }, 4500);
 
-        if (!lobby1)
+        if (lobby === -1)
             clearInterval(interval);
 
         return () => clearInterval(interval);
-    }, [lobby1, join_pool]);
+    }, [lobby, join_pool]);
+
 
     if (loadedSuccessfully)
         return <Navigate to={`/${gameid}`}/>;
@@ -148,10 +142,16 @@ export const New = () => {
             <Modal isOpen={isOpen}>
                 <h2>Join a Lobby</h2>
                 <div>
-                    <button onClick={join_lobby} className={lobby1 ? "buttonHighlight" : ""}>
-                        10 | 10 <b>{lobby1Players}</b>
+                    <button onClick={() => { join_lobby(0) }} className={lobby === 0 ? "buttonHighlight" : ""}>
+                        3 | 2
                     </button>
-                    <button onClick={refresh_players}>Refresh</button>
+                    <button onClick={() => { join_lobby(1) }} className={lobby === 1 ? "buttonHighlight" : ""}>
+                        5 | 3
+                    </button>
+                    <button onClick={() => { join_lobby(2) }} className={lobby === 2 ? "buttonHighlight" : ""}>
+                        10 | 10
+                    </button>
+                    {/* <button onClick={refresh_players}>Refresh</button> */}
                 </div>
                 <h2>Create a Custom Game</h2>
                 <div>
