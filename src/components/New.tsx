@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
@@ -38,9 +38,6 @@ export const New = () => {
                 blacktoken = cookies.idtoken;
         }
 
-        // console.log('whitetoken:', whitetoken);
-        // console.log('black:', blacktoken);
-
         axios.post('https://chess9b60-api.herokuapp.com/create', {
         // axios.post('http://localhost:8080/create', {
             time: time * 1000,
@@ -58,45 +55,6 @@ export const New = () => {
                 setLoadedSuccessfully(true);
                 setIsOpen(false);
             }
-            console.log(res);
-        })
-        .catch(e => {
-            console.log('error!', e);
-        });
-    }
-
-    async function refresh_players() {
-        axios.post('https://chess9b60-api.herokuapp.com/queue', {})
-        // axios.post('http://localhost:8080/queue', {})
-        .then(res => {
-            if (res.status === 200) {
-                setLobby1Players(res.data);
-            } else if ( res.status === 429 )
-            {
-                // setLobby1(false);
-            }
-        })
-        .catch(e => {
-            console.log('error!', e);
-        });
-    }
-
-    async function join_pool() {
-        // axios.post('http://localhost:8080/pool', {
-        axios.post('https://chess9b60-api.herokuapp.com/pool', {
-            token: cookies.idtoken,
-        })
-        .then(res => {
-            if (res.status === 200) {
-                console.log('gameid: ', res.data['id'])
-                if (res.data['id'] !== undefined) {
-                    setGameid(res.data['id']);
-                    setLoadedSuccessfully(true);
-                    setIsOpen(false);
-                    return true;
-                }
-                return false;
-            }
             // console.log(res);
         })
         .catch(e => {
@@ -104,10 +62,13 @@ export const New = () => {
         });
     }
 
-    async function unjoin_pool() {
-        // axios.post('http://localhost:8080/depool', {
-        axios.post('https://chess9b60-api.herokuapp.com/depool', {
-            token: cookies.idtoken,
+    async function refresh_players() {
+        axios.get('https://chess9b60-api.herokuapp.com/queue', {})
+        // axios.get('http://localhost:8080/queue', {})
+        .then(res => {
+            if (res.status === 200) {
+                setLobby1Players(res.data);
+            }
         })
         .catch(e => {
             console.log('error!', e);
@@ -118,16 +79,9 @@ export const New = () => {
         setLobby1(!lobby1);
         if (lobby1) {
             setLobby1Players(lobby1Players - 1 > 0 ? lobby1Players - 1 : 0);
-            unjoin_pool();
         } else {
-            if (!join_pool()) {
-                setLobby1(false);
-                console.log( lobby1 );
-                setLobby1Players(lobby1Players - 1 > 0 ? lobby1Players - 1 : 0);
-                // refresh_players();
-            } else {
-                setLobby1Players(lobby1Players + 1);
-            }
+            setLobby1Players(lobby1Players + 1);
+            join_pool();
         }
     }
 
@@ -136,9 +90,53 @@ export const New = () => {
         navigate(-1);
     }
 
+    const join_pool = useCallback(async () => {
+        axios.post('https://chess9b60-api.herokuapp.com/pool', {
+        // axios.post('http://localhost:8080/pool', {
+            token: cookies.idtoken,
+        })
+        .then(res => {
+            if (res.status === 200) {
+                const gid = res.data['id']; // gameid
+                // console.log('gid: ', gid);
+
+                if (gid === undefined)
+                    return false;
+                if (gid === "unjoined")
+                    return false;
+                if (gid === 'timeout') {
+                    setLobby1(false);
+                    refresh_players();
+                    return false;
+                }
+
+                setGameid(res.data['id']);
+                setLoadedSuccessfully(true);
+                setIsOpen(false);
+                return true;
+            }
+        })
+        .catch(e => {
+            console.log('error!', e);
+        });
+    }, [cookies.idtoken]);
+
     React.useEffect(() => {
         refresh_players();
     }, []);
+
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            join_pool();
+            refresh_players();
+            // console.log('refreshing...');
+        }, 8000);
+
+        if (!lobby1)
+            clearInterval(interval);
+
+        return () => clearInterval(interval);
+    }, [lobby1, join_pool]);
 
     if (loadedSuccessfully)
         return <Navigate to={`/${gameid}`}/>;

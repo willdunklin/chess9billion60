@@ -1,6 +1,4 @@
 import CSS from 'csstype';
-const React = require('react');
-const PropTypes = require('prop-types');
 
 const dark = '#222222';
 const light = '#DDDDDD';
@@ -26,36 +24,26 @@ function msToTime(s: number) {
       return pad(mins) + ':' + pad(secs) + '.' + (pad(ms, 3)+'')[0];
 }
 
-export class Timer extends React.Component {
-    render() {
-        const timerStyles: CSS.Properties = {
-            width: '100px',
-            height: '30px',
-            lineHeight: '30px',
-            textAlign: 'center',
-            border: '3px solid black',
-            userSelect: 'none',
-            background: this.props.white ? light : dark,
-            color: this.props.white ? dark : light
-        }
-
-        let timeString = msToTime(this.props.milliseconds);
-        return (
-            <div style={timerStyles}>
-                {timeString}
-            </div>
-        );
-    }
+interface TimerProps {
+    white: boolean;
+    milliseconds: number;
 }
 
-Timer.propTypes = {
-    // vanilla react-chess
-    white: PropTypes.bool,
-    milliseconds: PropTypes.number,
-};
+export const Timer = (props: TimerProps) => {
+    const timerStyles: CSS.Properties = {
+        width: '100px',
+        height: '30px',
+        lineHeight: '30px',
+        textAlign: 'center',
+        border: '3px solid black',
+        userSelect: 'none',
+        background: props.white ? light : dark,
+        color: props.white ? dark : light
+    };
 
-Timer.defaultProps = {
-    // vanilla react-chess
-    white: true,
-    milliseconds: 0,
-};
+    return (
+        <div style={timerStyles}>
+            {msToTime(props.milliseconds)}
+        </div>
+    );
+}

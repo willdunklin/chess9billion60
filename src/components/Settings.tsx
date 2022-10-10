@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-const { Chess } = require("../react-chess/react-chess");
+import { Chess } from "../react-chess/react-chess";
 
 interface SettingsProps {
     close: () => void;

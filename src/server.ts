@@ -1,9 +1,9 @@
 import { Server, Origins } from "boardgame.io/server";
-import { Chess } from "./bgio/Game";
 import serve from "koa-static";
 import path from "path";
 const { DynamnoStore } = require("./bgio/db");
 const { creds } = require("./bgio/creds");
+const { Chess } = require("./bgio/Game");
 
 const db = new DynamnoStore("us-east-2", creds, "bgio");
 
@@ -19,7 +19,7 @@ server.app.use(serve(frontEndAppBuildPath));
 const PORT = (process.env.NODE_ENV === "production") ? Number(process.env.PORT || 8000) : 8000;
 server.run(PORT, () => {
     server.app.use(
-        async (ctx, next) => serve(frontEndAppBuildPath)(
+        async (ctx: any, next: any) => serve(frontEndAppBuildPath)(
             Object.assign(ctx, { path: 'index.html' }),
             next
         )
