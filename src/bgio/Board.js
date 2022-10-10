@@ -3,8 +3,8 @@ import '../css/modal.css';
 const React = require("react");
 const { Visualizer } = require("../components/visualizer");
 const { Chess } = require("../react-chess/react-chess");
-const { Timer } = require("../components/timer");
-const { move, capture, end } = require("./sound");
+const { Timer } = require("../components/timer")
+const { move, capture, end, lowtime } = require("./sound");
 const { PieceTypes } = require("./pieces");
 const { validMove } = require("./logic");
 const { pieceComponents } = require('../react-chess/chessPieces');
@@ -83,6 +83,7 @@ export class ChessBoard extends React.Component {
             boardWidth: getSize(),
             historyIndex: 0,
             lastClickedPiece: "",
+            timerFired: false
         };
 
         this.onMovePiece = this.onMovePiece.bind(this);
@@ -275,7 +276,11 @@ export class ChessBoard extends React.Component {
             // if the player's time expires play a timeout move
             if (isWhite && this.state.wTime <= 0)
                 this.props.moves.timeout();
-
+            if (isWhite && this.state.wTime <= 10_000 && !this.state.timerFired) {
+                lowtime(1)
+                this.setState({timerFired: true})
+            }
+        
         } else {
             // don't decrement on black's first move (edge case)
             if (!isWhite && this.current_length <= 3)
@@ -288,6 +293,10 @@ export class ChessBoard extends React.Component {
             // if the player's time expires play a timeout move
             if (!isWhite && this.state.bTime <= 0)
                 this.props.moves.timeout();
+            if (!isWhite && this.state.bTime <= 10_000 && !this.state.timerFired) {
+                lowtime(1)
+                this.setState({timerFired: true})
+            }
         }
     }
 
