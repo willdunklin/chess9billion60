@@ -164,8 +164,8 @@ export const New = () => {
                     {/* <button onClick={refresh_players}>Refresh</button> */}
                 </div>
                 <aside>
-                    <h2 style={{marginBottom: 0, marginTop: '1.2em'}}>Create a Custom Game</h2>
-                    <p><i>(Share the link with opponent once created)</i></p>
+                    <h2 style={{marginBottom: 0, marginTop: '1.2em'}}>Play With a Friend</h2>
+                    <p><i>(Share the link once customized game is created)</i></p>
                 </aside>
                 <div>
                     <p>Color: </p>
