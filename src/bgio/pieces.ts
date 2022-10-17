@@ -167,7 +167,7 @@ export class Piece {
         this.betza = ""
         if (id !== "P") {
             for (let i = 0; i < atoms.length; i++) {
-                this.betza.concat(atoms[i][0] + atoms[i][1].toString())
+                this.betza += atoms[i][0] + atoms[i][1].toString()
             }
         } else {
             this.betza = "fmWfceF"
