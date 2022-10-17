@@ -147,7 +147,10 @@ export const New = () => {
     return (
         <div>
             <Modal isOpen={isOpen}>
-                <h2>Join a Lobby</h2>
+                <aside>
+                    <h2 style={{marginBottom: 0, marginTop: '1em'}}>Join a Lobby</h2>
+                    <p><i>Choose a time control</i></p>
+                </aside>
                 <div>
                     <button onClick={() => { join_lobby(0) }} className={lobby === 0 ? "buttonHighlight" : ""}>
                         3 | 2
@@ -160,9 +163,10 @@ export const New = () => {
                     </button>
                     {/* <button onClick={refresh_players}>Refresh</button> */}
                 </div>
-                <br/>
-                <h2>Create a Custom Game</h2>
-
+                <aside>
+                    <h2 style={{marginBottom: 0, marginTop: '1.2em'}}>Play With a Friend</h2>
+                    <p><i>(Share the link once customized game is created)</i></p>
+                </aside>
                 <div>
                     <p>Color: </p>
                     <div>
