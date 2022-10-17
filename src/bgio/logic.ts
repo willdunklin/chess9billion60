@@ -1,6 +1,6 @@
 const { PieceTypes } = require("./pieces");
 
-export function initialBoard(lower=3000, upper=4000) {
+export const initialBoard = (lower=3000, upper=4000) => {
     let board: Array<string|null> = [];
     let random_army: string[] = [];
     do {
@@ -26,7 +26,7 @@ export function initialBoard(lower=3000, upper=4000) {
 }
 
 //checkmate checking is just stalemate + check. logic could either be added to this method or just two calls
-export function colorInStalemate(history: Array<Array<string|null>>, color: string) {
+export const colorInStalemate = (history: (string|null)[][], color: string) => {
     for (let j = 0; j < 8 * 8; j++) {
         let piece = history[0][j];
         let from = [j % 8, 7 - Math.floor(j / 8)];
@@ -41,10 +41,10 @@ export function colorInStalemate(history: Array<Array<string|null>>, color: stri
     return true;
 }
 
-export function validMove(history: Array<Array<string|null>>, name: string, from: string, to: string, G: any, promotion: string|undefined) {
+export const validMove = (history: (string|null)[][], name: string, from: string, to: string, G?: any, promotion?: string) => {
     //No moving your opponents pieces
     if ((name.substring(0, 1) === "W") === (history.length % 2 === 0)) {
-        return null
+        return null;
     }
 
     let progressMade = false;
@@ -61,7 +61,7 @@ export function validMove(history: Array<Array<string|null>>, name: string, from
 
     //No moving a piece which doesn't exist
     if (history[0][(from_x + (7 - from_y) * 8)] !== name) {
-        return null
+        return null;
     }
 
     for (const [x, y] of moves) {
@@ -121,7 +121,7 @@ export function validMove(history: Array<Array<string|null>>, name: string, from
     return null;
 }
 
-export function colorInCheck(board: Array<string|null>, color: string) {
+export const colorInCheck = (board: (string|null)[], color: string) => {
     let kingPos = [0, 0];
     for (let i = 0; i < (8 * 8); i++) {
         if (board[i] === color + "K")
@@ -142,7 +142,7 @@ export function colorInCheck(board: Array<string|null>, color: string) {
 }
 
 //TODO, make sure the legal moves are the same in all positions
-export function isRepetitionDraw(history: Array<Array<string|null>>) {
+export const isRepetitionDraw = (history: (string|null)[][]) => {
     let count = 0;
     let A = history[0];
     //incrementing by 2 so we don't count a position with other side to move as the same
@@ -154,7 +154,7 @@ export function isRepetitionDraw(history: Array<Array<string|null>>) {
         }
 }
 
-export function insufficentMaterialDraw(board: Array<string|null>) {
+export const insufficentMaterialDraw = (board: (string|null)[]) => {
     let wa = 0;
     let ba = 0;
     let lsFound = false;
@@ -203,7 +203,7 @@ export function insufficentMaterialDraw(board: Array<string|null>) {
 }
 
 
-function generateArmy(lowerBound: number, upperBound: number) {
+const generateArmy = (lowerBound: number, upperBound: number) => {
     const pool = Object.keys(PieceTypes);
     const max_attempts = 1000;
 
@@ -247,17 +247,17 @@ function generateArmy(lowerBound: number, upperBound: number) {
     let cb: Array<string> = [];
     for (let i = 7; i >= 0; i--) {
         if (PieceTypes[army[i]].colorbound) {
-            cb.push(army[i])
-            army.splice(i,1)
+            cb.push(army[i]);
+            army.splice(i,1);
         }
     }
     //sort cb pieces based on strength, to prevent strange drawish endgames where each side has complete control of a color
-    cb.sort((a, b) => (PieceTypes[a].strength > PieceTypes[b].strength) ? 1 :-1 )
+    cb.sort((a, b) => (PieceTypes[a].strength > PieceTypes[b].strength) ? 1 :-1 );
     while (cb.length > 0) {
         if (cb.length % 2 === 0)
-            evens.push(cb.pop() || "")
+            evens.push(cb.pop() || "");
         else
-            odds.push(cb.pop() || "")
+            odds.push(cb.pop() || "");
     }
     while (evens.length < 4)
         evens.push(army.pop() || "");
@@ -280,7 +280,7 @@ function generateArmy(lowerBound: number, upperBound: number) {
     return army;
 }
 
-function colorHasMateInN(history: Array<Array<string|null>>, color: string, N: number) {
+const colorHasMateInN = (history: (string|null)[][], color: string, N: number) => {
     if (N === 0 || colorInStalemate(history, color))
         return false;
     let otherColor = "W";
@@ -311,9 +311,9 @@ function colorHasMateInN(history: Array<Array<string|null>>, color: string, N: n
                                 for (const [x1, y1] of responses) {
                                     let secondresult = validMove(history, enemyPiece, `${String.fromCharCode(97 + from2[0])}${1+from2[1]}`, `${String.fromCharCode(97 + (x1))}${1+y1}`, undefined, undefined);
                                     if (secondresult !== null) {
-                                        history.unshift(secondresult)
+                                        history.unshift(secondresult);
                                         if(!colorHasMateInN(history, color, N - 1))
-                                            canDefend = true
+                                            canDefend = true;
                                         history.splice(0, 1);
                                     }
                                 }
@@ -336,7 +336,7 @@ function colorHasMateInN(history: Array<Array<string|null>>, color: string, N: n
 
 
 // Helpers
-function compareTwoBoards(A: Array<string|null>, B: Array<string|null>) {
+const compareTwoBoards = (A: (string|null)[], B: (string|null)[]) => {
     for (let i = 0; i < 8 * 8; i++) {
         if (A[i] !== B[i])
             return false;
@@ -345,7 +345,7 @@ function compareTwoBoards(A: Array<string|null>, B: Array<string|null>) {
 }
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
-function shuffleArray(array: Array<any>) {
+const shuffleArray = (array: Array<any>) => {
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         let temp = array[i];
