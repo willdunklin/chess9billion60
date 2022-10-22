@@ -32,10 +32,14 @@ export class Chess extends React.Component {
   }
 
   onClickSquare(x, y) {
+
+    const clickTo = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
+    const pieceClicked = this.findPieceAtPosition(clickTo.pos);
+
     let {clickedFrom, clickedPiece} = this.state;
     if (clickedPiece === null || clickedPiece === undefined) {
-      clickedFrom = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
-      clickedPiece = this.findPieceAtPosition(clickedFrom.pos);
+      clickedFrom = clickTo;
+      clickedPiece = pieceClicked;
       if (clickedPiece !== null) {
         //TODO figure out if this is needed or not. I think dot handling should be only in on ClickPiece
         //this.props.onClickPiece(clickedPiece, false);
@@ -48,8 +52,15 @@ export class Chess extends React.Component {
         this.setState({clickedFrom, clickedPiece});
       }
     } else {
-      const clickTo = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
-
+      if (pieceClicked !== null && pieceClicked !== undefined) {
+        //Don't attempt a move from a piece onto a piece which it cannot capture. 
+        if (pieceClicked.name.substring(0,1) === clickedPiece.name.substring(0,1)) {
+          clickedFrom = clickTo;
+          clickedPiece = pieceClicked;
+          this.setState({clickedFrom, clickedPiece});
+          return
+        } 
+      }
       this.setState({clickedFrom: null, targetTile: null, clickedPiece: null});
       if (clickedFrom.pos !== clickTo.pos) {
         //Are we promoting? Lots of checks since its really annoying if the menu shows up unwanted.
@@ -66,7 +77,9 @@ export class Chess extends React.Component {
             }
           }
         }
+        //TODO, does this try and move our opponent's pieces???
         this.props.onMovePiece(clickedPiece, clickedFrom.pos, clickTo.pos, null);
+        this.setState({clickedPiece : null, clickedFrom: null});
         this.setState({promotionArgs : null});
         this.setState({showPromotion : false});
         this.setState({promotionFile : null});
@@ -291,8 +304,10 @@ export class Chess extends React.Component {
       const {promotionArgs} = this.state;
       // console.log("wanted to promote to " + piece, promotionArgs)
       this.props.onMovePiece(promotionArgs[0], promotionArgs[1], promotionArgs[2], piece);
+      this.setState({clickedPiece : null, clickedFrom: null});
       this.setState({promotionArgs : null});
       this.setState({showPromotion : false});
+      this.setState({promotionFile : null});
       //this.setState({chosenPromoter: piece})
     };
   }
