@@ -77,7 +77,6 @@ export class Chess extends React.Component {
             }
           }
         }
-        //TODO, does this try and move our opponent's pieces???
         this.props.onMovePiece(clickedPiece, clickedFrom.pos, clickTo.pos, null);
         this.setState({clickedPiece : null, clickedFrom: null});
         this.setState({promotionArgs : null});
