@@ -41,8 +41,10 @@ export const New = () => {
                 blacktoken = cookies.idtoken;
         }
 
-        console.log('min strength is ' + minStrength);
-        console.log('max strength is ' + maxStrength);
+        if (time < 1)
+            setTime(1);
+        if (increment < 0)
+            setIncrement(0);
 
         axios.post('https://chess9b60-api.herokuapp.com/create', {
         // axios.post('http://localhost:8080/create', {
