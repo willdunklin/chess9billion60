@@ -27,7 +27,7 @@ function isInBounds(x: number, y: number) {
 function rider(startx: number, starty: number, history: Array<Array<string|null>>|null, color: string, intervals: Array<Array<number>>, n = 7) {
     //TODO there seems to be an implicit assumption here that the atoms never overlap eachother. Should probably prevent adding duplicate squares 
     let squares: Array<Array<number>> = [];
-    
+
     intervals.forEach(([dx, dy]: Array<number>) => {
         let x = startx + dx;
         let y = starty + dy;
@@ -166,9 +166,18 @@ export class Piece {
         this.canMate = true;
         this.betza = ""
         if (id !== "P") {
+            let knight_atom = '';
             for (let i = 0; i < atoms.length; i++) {
-                this.betza += atoms[i][0] + atoms[i][1].toString()
+                const num = atoms[i][1];
+
+                if (atoms[i][0] === "N") {
+                    knight_atom += atoms[i][0] + (num === 1 ? '' : num);
+                    continue;
+                }
+
+                this.betza += atoms[i][0] + (num === 1 ? '' : num);
             }
+            this.betza += knight_atom;
         } else {
             this.betza = "fmWfceF"
         }
@@ -183,7 +192,7 @@ const B   =  new Piece("B"  , 315   , [["F", 0]]).name("Bishop").setBlurb("A che
 const Q   =  new Piece("Q"  , 975   , [["K", 0]]).name("Queen").setBlurb("A chess classic").setRules("Standard queen moves").allowOnlyOne();
 const K   =  new Piece("K"  , 100000, [["K", 1]]).name("King").setBlurb("A chess classic").setRules("Standard king moves").allowOnlyOne();
 const NR  =  new Piece("NR" , 475   , [["N", 0]]).name("Knightrider").setBlurb("If knights weren't lazy").setRules("Knight moves, but can keep going").cantMate();
-const M   =  new Piece("M"  , 375   , [["K", 1]]).name("Mann").setBlurb("Like the king, but poor").setRules("Moves like a King");
+const M   =  new Piece("M"  , 375   , [["W", 1], ["F", 1]]).name("Mann").setBlurb("Like the king, but poor").setRules("Moves like a King");
 const F   =  new Piece("F"  , 150   , [["F", 1]]).name("Ferz").setBlurb("Slow and steady wins the race").setRules("Bishop moves up to one square").markColorbound();
 const W   =  new Piece("W"  , 170   , [["W", 1]]).name("Wazir").setBlurb("Wins some endgames").setRules("Rook moves up to one square").cantMate();
 const A   =  new Piece("A"  , 1250  , [["K", 0], ["N", 1]]).name("Amazon").setBlurb("Terrifying").setRules("Combo queen and knight").allowOnlyOne();
@@ -197,13 +206,13 @@ const U   =  new Piece("U"  , 900   , [["N", 0], ["F", 0]]).name("Unicorn").setB
 const C   =  new Piece("C"  , 220   , [["C", 1]]).name("Camel").setBlurb("Cannot leave its color").setRules("3 one way 1 the other").markColorbound();
 const Z   =  new Piece("Z"  , 180   , [["Z", 1]]).name("Zebra").setBlurb("Annoying to maneuver").setRules("3 one way 2 the other").cantMate();
 const ZC  =  new Piece("ZC" , 400   , [["Z", 1], ["C", 1]]).name("Zebramel").setBlurb("Watch out for smothered mates!").setRules("Combo Camel (3,1) and Zebra (3,2)").allowOnlyOne();
-const CN  =  new Piece("CN" , 600   , [["N", 1], ["K", 1]]).name("Centaur").setBlurb("A strong piece with limited range").setRules("King and Knight moves");
-const CNR =  new Piece("CNR", 900   , [["N", 0], ["K", 1]]).name("Centaur Rider").setBlurb("Scary").setRules("King and Knightrider moves").allowOnlyOne();
+const CN  =  new Piece("CN" , 600   , [["N", 1], ["W", 1], ["F", 1]]).name("Centaur").setBlurb("A strong piece with limited range").setRules("King and Knight moves");
+const CNR =  new Piece("CNR", 900   , [["N", 0], ["W", 1], ["F", 1]]).name("Centaur Rider").setBlurb("Scary").setRules("King and Knightrider moves").allowOnlyOne();
 const BC  =  new Piece("BC" , 750   , [["F", 0], ["C", 1]]).name("Bishop Camel").setBlurb("Queen tier, but just on one color!").setRules("Combo Camel (3,1) and Bishop").markColorbound();
 const NZ  =  new Piece("NZ" , 600   , [["N", 1], ["Z", 1]]).name("Zorse").setBlurb("Do not leave holes in your position.").setRules("Combo Zebra (3,2) and Knight").cantMate().allowOnlyOne();
 const M2  =  new Piece("M2" , 500   , [["K", 2]]).name("Freddie Mercury").setBlurb("Part of Queen!").setRules("Queen moves up to two squares");
-const BM  =  new Piece("BM" , 550   , [["K", 1], ["F", 0]]).name("Cardinal").setBlurb("Can reach both colors!").setRules("Combo Bishop and King");
-const RM  =  new Piece("RM" , 700   , [["K", 1], ["W", 0]]).name("Rook Mann").setBlurb("The rook's been working out").setRules("Combo Rook and King");
+const BM  =  new Piece("BM" , 550   , [["W", 1], ["F", 1], ["F", 0]]).name("Cardinal").setBlurb("Can reach both colors!").setRules("Combo Bishop and King");
+const RM  =  new Piece("RM" , 700   , [["W", 1], ["F", 1], ["W", 0]]).name("Rook Mann").setBlurb("The rook's been working out").setRules("Combo Rook and King");
 //Pawn is very special
 const P =  new Piece("P", 100, [], (x, y, history, color) => {
         let direction = 1;
