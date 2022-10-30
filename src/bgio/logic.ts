@@ -1,7 +1,6 @@
 import { PieceTypes } from "./pieces";
 
 export const initialBoard = (lower=3000, upper=4000) => {
-    console.log(PieceTypes);
     let board: Array<string|null> = [];
     let random_army: string[] = [];
     do {
@@ -295,7 +294,6 @@ const colorHasMateInN = (history: (string|null)[][], color: string, N: number) =
                     history.unshift(result);
                     if (colorInCheck(result, otherColor) && colorInStalemate(history, otherColor)) {
                         //fix the board I prepended in stalemate check
-                        //console.log("mate at "+ N +  "\n" + history[0] + "\n" + history[1])
                         history.splice(0, 1);
                         return true;
                     } else if (N > 1) {

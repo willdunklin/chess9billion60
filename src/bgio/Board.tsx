@@ -332,7 +332,6 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
     }
 
     backHistoryButton() {
-        //console.log(this.props.ctx.turn + " " + this.state.historyIndex)
         if (this.state.historyIndex < this.props.G.history.length - 1) {
             this.setState((state, props) => {
                 return {
@@ -346,7 +345,6 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
     }
 
     forwardHistoryButton() {
-        //console.log(this.props.G.history.length + " " + this.state.historyIndex)
         if (this.state.historyIndex > 0) {
             this.setState((state, props) => {
                 return {

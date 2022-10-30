@@ -451,7 +451,6 @@ export class Chess extends React.Component<ChessProps, ChessState> {
 
     const piecesElems = pieces.map((decl, i) => {
       const isMoving = draggingPiece && i === draggingPiece.index;
-      console.log("isMoving: " + isMoving, "i: " + i, 'decl ' + decl,  "draggingPiece: " + draggingPiece.index);
       let {x, y, piece} = fromPieceDecl(decl);
       const Piece = pieceComponents(piece);
       if (!isWhite) {
