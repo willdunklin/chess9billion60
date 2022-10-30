@@ -73,8 +73,8 @@ export const Settings = (props: SettingsProps) => {
                            dots={["WK@a2","WK@b2"]}
                            highlights={["BR@d1", "BR@g1"]}
                            check={"W"}
-                           width="100%"
-                           height="100%"
+                        //    width="100%"
+                        //    height="100%"
                            drawLabels={false}
                            lightSquareColor={colorl}
                            darkSquareColor={colord}

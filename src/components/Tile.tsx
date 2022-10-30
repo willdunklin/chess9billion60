@@ -14,10 +14,10 @@ const squareStyles: CSS.Properties = {
 interface TileProps {
     xpos: number;
     ypos: number;
-    targetTile: { x: number, y: number };
+    targetTile: { x: number, y: number } | null;
     background: string;
-    text: string;
-    onClick: (xpos: number, ypos: number) => boolean;
+    text: string | JSX.Element;
+    onClick: (xpos: number, ypos: number) => boolean | undefined;
 }
 
 export const Tile = (props: TileProps) => {
@@ -25,7 +25,7 @@ export const Tile = (props: TileProps) => {
     let x = xpos;
     let y = ypos;
 
-    const isTarget = targetTile && targetTile.x === x && targetTile.y === y;
+    const isTarget = targetTile !== null && targetTile.x === x && targetTile.y === y;
     const boxShadow = isTarget ? 'inset 0px 0px 0px 0.4vmin yellow' : undefined;
     const styles: CSS.Properties = Object.assign({background, boxShadow}, squareStyles);
 

@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import React from 'react';
-import PropTypes from 'prop-types';
-import Draggable from 'react-draggable';
+import CSS from 'csstype';
+import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 import { defaultLineup } from './defaultLineup';
 import { pieceComponents } from './chessPieces';
 import { fromPieceDecl, charCodeOffset } from './decode';
@@ -10,17 +10,118 @@ import { Promoter } from "../components/Promoter";
 import { Tile } from "../components/Tile";
 
 const getDefaultLineup = () => defaultLineup.slice();
-const noop = () => {/* intentional noop */};
 
+const labelStyles: CSS.Properties = {fontSize: 'calc(7px + .5vw)', position: 'absolute', userSelect: 'none'};
 
-const labelStyles = {fontSize: 'calc(7px + .5vw)', position: 'absolute', userSelect: 'none'};
+export interface PieceType {
+  notation: string;
+  name: string;
+  index: number;
+  position: string;
+}
 
-export class Chess extends React.Component {
-  constructor(...args) {
-    super(...args);
+interface ChessProps {
+  // vanilla react-chess
+  allowMoves: boolean;
+  highlightTarget: boolean;
+  drawLabels: boolean;
 
-    this.state = {};
-    this.setBoardRef = el => (this.state.board = el);
+  // colors
+  lightSquareColor: string;
+  darkSquareColor: string;
+  lightHighlightColor: string;
+  darkHighlightColor: string;
+  lightCheckColor: string;
+  darkCheckColor: string;
+  lightGreyedOutColor: string;
+  darkGreyedOutColor: string;
+  dotColor: string;
+
+  // callbacks
+  onMovePiece: (piece: PieceType, fromSquare: string, toSquare: string, promotion: string | null) => void;
+  onDragStart: (piece: PieceType, fromSquare: string) => boolean;
+  onClickPiece: (piece: PieceType, clear: boolean) => void;
+
+  // piece lists
+  pieces: string[];
+  promotablePieces: string[];
+
+  // highlight features
+  highlights: string[];
+  dots: string[];
+
+  // game/move properties
+  check : string;
+  isWhite : boolean;
+
+  // util -> force update value
+  update : number;
+}
+
+interface ChessState {
+  clickedFrom: { x: number; y: number, pos: string } | null;
+  clickedPiece: PieceType | null;
+  targetTile: { x: number; y: number } | null;
+  promotionArgs: { piece: PieceType, from: string, to: string } | null;
+  showPromotion: boolean;
+  promotionFile: number | null;
+  boardSize: number;
+  tileSize: number;
+  dragFrom: { x: number; y: number, pos: string };
+  draggingPiece: PieceType;
+}
+
+export class Chess extends React.Component<ChessProps, ChessState> {
+  static defaultProps = {
+    allowMoves: true,
+    highlightTarget: true,
+    drawLabels: true,
+
+    lightHighlightColor: '#ffb000',
+    darkHighlightColor: '#ff9200',
+    lightCheckColor: '#ff4020',
+    darkCheckColor: '#ff2010',
+    lightGreyedOutColor: '#aaaaaa',
+    darkGreyedOutColor: '#555555',
+    lightSquareColor: Cookies.get('lightSquareColor') ?? '#f0d9b5',
+    darkSquareColor: Cookies.get('darkSquareColor') ?? '#b58863',
+    dotColor: '#421a',
+
+    onMovePiece: (_p: PieceType, _f: string, _t: string, _r: string | null) => { return },
+    onDragStart: (_p: PieceType, _f: string) => { return false },
+    onClickPiece: (_p: PieceType, _c: boolean) => { return },
+
+    pieces: getDefaultLineup(),
+    promotablePieces: ["Q","N","R","B","M"],
+
+    highlights: [],
+    dots: [],
+
+    check : "",
+    isWhite : true,
+
+    update : 0,
+  };
+
+  boardRef: React.RefObject<HTMLDivElement>;
+
+  constructor(props: ChessProps) {
+    super(props);
+
+    this.state = {
+      clickedFrom: null,
+      clickedPiece: null,
+      targetTile: null,
+      promotionArgs: null,
+      showPromotion: false,
+      promotionFile: null,
+      boardSize: 0,
+      tileSize: 0,
+      dragFrom: { x: 0, y: 0, pos: '' },
+      draggingPiece: { notation: '', name: '', index: -1, position: '' },
+    };
+
+    this.boardRef = React.createRef<HTMLDivElement>();
     this.handleDragStart = this.handleDragStart.bind(this);
     this.handleDragStop = this.handleDragStop.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
@@ -30,8 +131,10 @@ export class Chess extends React.Component {
     window.addEventListener('resize', this.handleResize);
   }
 
-  onClickSquare(x, y) {
+  onClickSquare(x: number, y: number) {
     let {clickedFrom, clickedPiece} = this.state;
+
+    this.handleResize();
     if (clickedPiece === null || clickedPiece === undefined) {
       clickedFrom = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
       clickedPiece = this.findPieceAtPosition(clickedFrom.pos);
@@ -49,8 +152,12 @@ export class Chess extends React.Component {
     } else {
       const clickTo = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
 
+      // this.setState({targetTile: null});
       this.setState({clickedFrom: null, targetTile: null, clickedPiece: null});
-      if (clickedFrom.pos !== clickTo.pos) {
+      if (clickedFrom === null || clickedPiece === null || clickedPiece === null) {
+        return false;
+      }
+      if (clickedFrom?.pos !== clickTo.pos) {
         //Are we promoting? Lots of checks since its really annoying if the menu shows up unwanted.
         if (clickedPiece.name.substring(1) === "P" && ((clickTo.y === 0 && this.props.isWhite) || (clickTo.y === 7 && !this.props.isWhite))) {
           //Are we moving from the previous rank?
@@ -58,7 +165,7 @@ export class Chess extends React.Component {
             //Are we moving to a nearby file?
             if((clickedFrom.x - clickTo.x) * (clickedFrom.x - clickTo.x) < 2) {
               //Render the promotion menu, and save where we are moving to.
-              this.setState({promotionArgs : [clickedPiece, clickedFrom.pos, clickTo.pos]});
+              this.setState({promotionArgs : {piece: clickedPiece, from: clickedFrom.pos, to: clickTo.pos}});
               this.setState({showPromotion : true});
               this.setState({promotionFile : clickTo.x});
               return false;
@@ -75,7 +182,7 @@ export class Chess extends React.Component {
     }
   }
 
-  getSquareColor(x, y) {
+  getSquareColor(x: number, y: number) {
 
     let {lightSquareColor, darkSquareColor} = this.props;
 
@@ -109,21 +216,21 @@ export class Chess extends React.Component {
   }
 
   componentDidMount() {
-    const boardSize = this.state.board.clientWidth;
+    const boardSize: number = this.boardRef.current?.clientWidth || 100;
     const tileSize = boardSize / 8;
     this.setState({boardSize, tileSize});
   }
 
   handleResize() {
-    if (this.state.board !== undefined && this.state.board !== null) {
+    if (this.boardRef !== undefined && this.boardRef !== null) {
       // TODO: change to using a hook https://stackoverflow.com/questions/43817118/how-to-get-the-width-of-a-react-element
-      const boardSize = this.state.board.clientWidth;
+      const boardSize: number = this.boardRef.current?.clientWidth || 100;
       const tileSize = boardSize / 8;
       this.setState({boardSize, tileSize});
     }
   }
 
-  coordsToPosition(coords) {
+  coordsToPosition(coords: { x: number; y: number }) {
     let x = Math.round(coords.x / this.state.tileSize);
     let y = Math.round(coords.y / this.state.tileSize);
     if (!this.props.isWhite) {
@@ -137,10 +244,8 @@ export class Chess extends React.Component {
     };
   }
 
-  handleDrag(evt, drag) {
-    /*if(this.props.dots.length !== 0) {
-      this.props.onClickPiece(undefined, true);
-    }*/
+  handleDrag(evt: DraggableEvent, drag: DraggableData): void | false {
+    this.handleResize();
 
     if (!this.props.highlightTarget) {
       return;
@@ -157,7 +262,7 @@ export class Chess extends React.Component {
     }
   }
 
-  handleDragStart(evt, drag) {
+  handleDragStart(evt: DraggableEvent, drag: DraggableData): void | false {
     evt.preventDefault();
 
     const node = drag.node;
@@ -165,8 +270,13 @@ export class Chess extends React.Component {
     if (this.props.allowMoves) node.style.cursor = "grabbing";
     else node.style.cursor = "default";
 
+    this.handleResize();
     const dragFrom = this.coordsToPosition({x: node.offsetLeft, y: node.offsetTop});
     const draggingPiece = this.findPieceAtPosition(dragFrom.pos);
+
+    if (!draggingPiece) {
+      return false;
+    }
 
     //This if block is here since the onClickPiece (probably) has to happen after onClickSquare, but
     //if we attempt an invalid move I think this gets cut short.
@@ -187,30 +297,31 @@ export class Chess extends React.Component {
     }
 
     this.setState({dragFrom, draggingPiece});
-    return evt;
+    return;
   }
 
-  handleDragStop(evt, drag) {
+  handleDragStop(evt: DraggableEvent, drag: DraggableData): void | false {
     const node = drag.node;
     node.style.cursor = "grab";
 
     const {dragFrom, draggingPiece} = this.state;
     const dragTo = this.coordsToPosition({x: node.offsetLeft + drag.x, y: node.offsetTop + drag.y});
 
-    this.setState({dragFrom: null, targetTile: null, draggingPiece: null});
+    // this.setState({dragFrom: null, targetTile: null});
+    this.setState({targetTile: null});
 
-    if (dragFrom === null || dragTo === null)
+    if (dragFrom === null || dragTo === null || draggingPiece === null) {
       return false;
-
+    }
     if (dragFrom?.pos !== dragTo?.pos) {
       //Are we promoting? Lots of checks since its really annoying if the menu shows up unwanted.
-      if (draggingPiece.name.substring(1) === "P" && ((dragTo.y === 0 && this.props.isWhite) || (dragTo.y === 7 && !this.props.isWhite))) {
+      if (draggingPiece?.name.substring(1) === "P" && ((dragTo.y === 0 && this.props.isWhite) || (dragTo.y === 7 && !this.props.isWhite))) {
           //Are we moving from the previous rank?
           if ((dragFrom.y === 1 && this.props.isWhite) || (dragFrom.y === 6 && !this.props.isWhite)) {
             //Are we moving to a nearby file?
             if((dragFrom.x - dragTo.x) * (dragFrom.x - dragTo.x) < 2) {
               //Render the promotion menu, and save where we are moving to.
-              this.setState({promotionArgs : [draggingPiece, dragFrom.pos, dragTo.pos]});
+              this.setState({promotionArgs : {piece: draggingPiece, from: dragFrom.pos, to: dragTo.pos}});
               this.setState({showPromotion : true});
               this.setState({promotionFile : dragTo.x});
               return false;
@@ -225,10 +336,10 @@ export class Chess extends React.Component {
       return false;
     }
 
-    return true;
+    return;
   }
 
-  findPieceAtPosition(pos) {
+  findPieceAtPosition(pos: string): PieceType | null {
     for (let i = 0; i < this.props.pieces.length; i++) {
       const piece = this.props.pieces[i]
       if (piece.split('@')[1] === pos) {
@@ -239,7 +350,7 @@ export class Chess extends React.Component {
     return null;
   }
 
-  renderLabelText(x, y) {
+  renderLabelText(x: number, y: number) {
     const isLeftColumn = x === 0;
     let isBottomRow;
     if (this.props.isWhite)
@@ -248,24 +359,23 @@ export class Chess extends React.Component {
       isBottomRow = y === 0;
 
     if (!this.props.drawLabels || (!isLeftColumn && !isBottomRow)) {
-      return null;
+      return <div></div>;
     }
 
-    let xStyles;
-    let yStyles;
-    const c = {color : this.getSquareColor(x,y+17)}; //17 is huge hack, the point is that it's big and odd so highlights can't be a problem
+    let xStyles: CSS.Properties = {color : this.getSquareColor(x,y+17), bottom: '5%', ...labelStyles};
+    let yStyles: CSS.Properties = {color : this.getSquareColor(x,y+17), top: '5%', ...labelStyles};
     if (this.props.isWhite) {
-      xStyles = Object.assign({}, {bottom: '5%', right: '5%'},labelStyles, c);
-      yStyles = Object.assign({}, {top: '5%', left: '5%'},labelStyles, c);
+      xStyles.right = '5%';
+      yStyles.left = '5%';
     } else {
-      xStyles = Object.assign({},{bottom: '5%', left: '5%'},labelStyles, c);
-      yStyles = Object.assign({},{top: '5%', right: '5%'},labelStyles, c);
+      xStyles.left = '5%';
+      yStyles.right = '5%';
     }
 
 
     if (isLeftColumn && isBottomRow) {
       if(this.props.isWhite) {
-        return [
+        return (
           <>
             <span key="blx" style={xStyles}>
               a
@@ -274,16 +384,18 @@ export class Chess extends React.Component {
               1
             </span>
           </>
-        ];
+        );
       } else {
-        return [
-          <span key="blx" style={xStyles}>
-            a
-          </span>,
-          <span key="bly" style={yStyles}>
-            8
-          </span>
-        ];
+        return (
+          <>
+            <span key="blx" style={xStyles}>
+              a
+            </span>
+            <span key="bly" style={yStyles}>
+              8
+            </span>
+          </>
+        );
       }
     }
 
@@ -291,11 +403,14 @@ export class Chess extends React.Component {
     return <span style={isLeftColumn ? yStyles : xStyles}>{label}</span>;
   }
 
-  handlePromotionSelection(piece) {
+  handlePromotionSelection(piece: string) {
     return () => {
       const {promotionArgs} = this.state;
-      // console.log("wanted to promote to " + piece, promotionArgs)
-      this.props.onMovePiece(promotionArgs[0], promotionArgs[1], promotionArgs[2], piece);
+
+      if (promotionArgs === null)
+        return;
+
+      this.props.onMovePiece(promotionArgs.piece, promotionArgs.from, promotionArgs.to, piece);
       this.setState({promotionArgs : null});
       this.setState({showPromotion : false});
       //this.setState({chosenPromoter: piece})
@@ -336,6 +451,7 @@ export class Chess extends React.Component {
 
     const piecesElems = pieces.map((decl, i) => {
       const isMoving = draggingPiece && i === draggingPiece.index;
+      console.log("isMoving: " + isMoving, "i: " + i, 'decl ' + decl,  "draggingPiece: " + draggingPiece.index);
       let {x, y, piece} = fromPieceDecl(decl);
       const Piece = pieceComponents(piece);
       if (!isWhite) {
@@ -343,8 +459,8 @@ export class Chess extends React.Component {
         y = 7 - y;
       }
       // if this piece is the pawn promoting, don't render it
-      if (showPromotion && decl === promotionArgs[0].notation)
-        return null;
+      if (showPromotion && decl === promotionArgs?.piece.notation)
+        return <div></div>;
 
       return (
         <Draggable
@@ -359,7 +475,7 @@ export class Chess extends React.Component {
       );
     });
 
-    let promotionElems = [];
+    let promotionElems: JSX.Element[] = [];
     if (showPromotion) {
       let promotionFile = -1 + (-5 / 12.5);
       if (this.state.promotionFile !== null) {
@@ -394,76 +510,14 @@ export class Chess extends React.Component {
       />
     );
 
-    const boardStyles = {position: 'relative', width: '100%', height: boardSize};
+    const boardStyles: CSS.Properties = {position: 'relative', width: '100%', height: `${boardSize}px`};
 
     const children = tileElems.concat(piecesElems).concat(promotionElems).concat(dotElems);
 
     return (
-      <div ref={this.setBoardRef} style={boardStyles}>
+      <div ref={this.boardRef} style={boardStyles}>
         {children}
       </div>
     );
   }
 }
-
-Chess.propTypes = {
-  // vanilla react-chess
-  allowMoves: PropTypes.bool,
-  highlightTarget: PropTypes.bool,
-  drawLabels: PropTypes.bool,
-
-  // colors
-  lightSquareColor: PropTypes.string,
-  darkSquareColor: PropTypes.string,
-
-  // callbacks
-  onMovePiece: PropTypes.func,
-  onDragStart: PropTypes.func,
-  onClickPiece: PropTypes.func,
-
-  // piece lists
-  pieces: PropTypes.arrayOf(PropTypes.string),
-  promotablePieces: PropTypes.arrayOf(PropTypes.string),
-
-  // highlight features
-  highlights: PropTypes.arrayOf(PropTypes.string),
-  dots: PropTypes.arrayOf(PropTypes.string),
-
-  // game/move properties
-  check : PropTypes.string,
-  isWhite : PropTypes.bool,
-
-  // util -> force update value
-  update : PropTypes.number,
-};
-
-Chess.defaultProps = {
-  allowMoves: true,
-  highlightTarget: true,
-  drawLabels: true,
-
-  lightHighlightColor: '#ffb000',
-  darkHighlightColor: '#ff9200',
-  lightCheckColor: '#ff4020',
-  darkCheckColor: '#ff2010',
-  lightGreyedOutColor: '#aaaaaa',
-  darkGreyedOutColor: '#555555',
-  lightSquareColor: Cookies.get('lightSquareColor') ?? '#f0d9b5',
-  darkSquareColor: Cookies.get('darkSquareColor') ?? '#b58863',
-  dotColor: '#421a',
-
-  onMovePiece: noop,
-  onDragStart: noop,
-  onClickPiece: noop,
-
-  pieces: getDefaultLineup(),
-  promotablePieces: ["Q","N","R","B","M"],
-
-  highlights: [],
-  dots: [],
-
-  check : "",
-  isWhite : true,
-
-  update : 0,
-};

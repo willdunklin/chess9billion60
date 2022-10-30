@@ -7,14 +7,12 @@ import { useParams, Navigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
 import axios from 'axios';
-// console.log('!', Chess);
 
 const { protocol, hostname, port } = window.location;
 const ChessClient = Client({
     game: Chess,
     board: ChessBoard,
     multiplayer: SocketIO({server: `${protocol}//${hostname}:${process.env.NODE_ENV === "development" ? 8000 : port}`}),
-    // debug: false,
 });
 
 const client_style = {
@@ -40,7 +38,8 @@ async function join(gameid: string | undefined, token: string) {
     if (playerID === null) // player is a spectator
         return (
             <div style={client_style}>
-                <ChessClient debug={false} playerID={'0'} matchID={gameid} spectator={true} />
+                <ChessClient debug={false} playerID={'spec'} matchID={gameid} />
+                <h1>MUST ADD SPEC MODE</h1>
             </div>
         );
 
@@ -50,7 +49,7 @@ async function join(gameid: string | undefined, token: string) {
     // return player board
     return (
         <div style={client_style}>
-            <ChessClient debug={false} playerID={playerID} matchID={gameid} spectator={false} />
+            <ChessClient debug={false} playerID={playerID} matchID={gameid} />
         </div>
     );
 }
