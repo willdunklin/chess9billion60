@@ -1,9 +1,11 @@
-import { accessKey, secretKey } from "../secret";
+import * as dotenv from 'dotenv';
 
-const access = process.env.NODE_ENV === "production" ? process.env.REACT_APP_AWS_KEY_ID! : accessKey;
-const secret = process.env.NODE_ENV === "production" ? process.env.REACT_APP_AWS_SECRET_KEY! : secretKey;
-
-export const creds = {
-    accessKeyId: access,
-    secretAccessKey: secret
+export const creds = () => {
+    if (process.env.NODE_ENV === "production") {
+        return { accessKeyId:     process.env.REACT_APP_AWS_KEY_ID!,
+                 secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY! };
+    }
+    dotenv.config();
+    return { accessKeyId:     process.env.AWS_KEY_ID!,
+             secretAccessKey: process.env.AWS_SECRET_KEY! };
 };

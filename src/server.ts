@@ -5,7 +5,7 @@ import { DynamnoStore } from "./bgio/db";
 import { creds } from "./bgio/creds";
 import { Chess } from "./bgio/Game";
 
-const db = new DynamnoStore("us-east-2", creds, "bgio");
+const db = new DynamnoStore("us-east-2", creds(), "bgio");
 
 const server = Server({
     games: [Chess],
