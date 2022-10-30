@@ -14,7 +14,7 @@ import { ScrollToTop } from "./ScrollToTop";
 
 const App = () => {
     const [ cookies, setCookie ] = useCookies(['idtoken', 'darkMode']);
-    // Add cookie
+
     if (cookies.idtoken === undefined)
         setCookie('idtoken', nanoid());
 

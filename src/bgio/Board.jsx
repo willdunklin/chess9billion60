@@ -1,14 +1,14 @@
 import '../css/modal.css';
 
-const React = require("react");
-const { Visualizer } = require("../components/visualizer");
-const { Chess } = require("../react-chess/react-chess");
-const { Timer } = require("../components/timer")
-const { move, capture, end, lowtime } = require("./sound");
-const { PieceTypes } = require("./pieces");
-const { validMove } = require("./logic");
-const { pieceComponents } = require('../react-chess/chessPieces');
-const { charCodeOffset } = require("../react-chess/decode");
+import React from "react";
+import { Visualizer } from "../components/visualizer"
+import { Chess } from "../react-chess/react-chess"
+import { Timer } from "../components/timer"
+import { move, capture, end, lowtime } from "./sound"
+import { PieceTypes } from "./pieces"
+import { validMove } from "./logic"
+import { pieceComponents } from '../react-chess/chessPieces'
+import { charCodeOffset } from "../react-chess/decode"
 let wImbalance = [];
 let bImbalance = [];
 

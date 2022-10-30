@@ -1,7 +1,7 @@
 import type { Game, Move } from 'boardgame.io';
 import { INVALID_MOVE } from "boardgame.io/core";
-const { PieceTypes } = require("./pieces");
-const { initialBoard, validMove, colorInCheck, colorInStalemate, isRepetitionDraw, insufficentMaterialDraw } = require("./logic");
+import { PieceTypes } from "./pieces";
+import { initialBoard, validMove, colorInCheck, colorInStalemate, isRepetitionDraw, insufficentMaterialDraw } from "./logic";
 
 export interface GameState {
     history: (string | null)[][];
@@ -32,7 +32,7 @@ function handleTimers(G: GameState, add_increment: boolean) {
     G.last_event = Date.now();
 }
 
-const movePiece: Move<GameState> = (G, _ctx, piece, from, to, promotion) => {
+const movePiece: Move<GameState> = ({G, _ctx}, piece, from, to, promotion) => {
     // simulate move
     let board = validMove(G.history, piece.name, from, to, G, promotion);
 
@@ -66,7 +66,7 @@ export const Chess: Game<GameState> = {
             history: [initialPos],
             promotablePieces: [...new Set(
                 initialPos.filter(p => p !== null)
-                    .map(p => p?.substring(1) || 'X') // remove color
+                    .map(p => p!.substring(1)) // remove color
                     .filter(p => !["K", "P"].includes(p)) // filter pawns and kings
                     .sort((a, b) => (PieceTypes[a].strength < PieceTypes[b].strength) ? 1 : -1)
             )],
@@ -95,18 +95,18 @@ export const Chess: Game<GameState> = {
     moves: {
         // moves a piece and produces new board, if move is illegal: returns null
         movePiece: movePiece,
-        timeout: (G, ctx) => {
+        timeout: ({G, _ctx, events}) => {
             handleTimers(G, false);
             if (G.bTime > 0 && G.wTime > 0)
                 return INVALID_MOVE;
-            ctx.events?.endGame({ winner: G.whiteTurn ? "Black" : "White" });
+            events.endGame({ winner: G.whiteTurn ? "Black" : "White" });
         },
-        resign: (G, ctx) => {
-            ctx.events?.endGame({ winner: G.whiteTurn ? "Black" : "White" });
+        resign: ({G, _ctx, events}) => {
+            events.endGame({ winner: G.whiteTurn ? "Black" : "White" });
         }
     },
 
-    endIf: (G, _ctx) => {
+    endIf: ({G, _ctx}) => {
         // Check for timeout
         if(G.bTime <= 0)
             return {winner: "White"};

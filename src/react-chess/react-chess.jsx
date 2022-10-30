@@ -1,14 +1,13 @@
-const Cookies = require('js-cookie');
-
-const React = require('react');
-const PropTypes = require('prop-types');
-const Draggable = require('react-draggable');
-const { defaultLineup } = require('./defaultLineup');
-const { pieceComponents } = require('./chessPieces');
-const { fromPieceDecl, charCodeOffset } = require('./decode');
-const { Dot } = require("../components/Dot");
-const { Promoter } = require("../components/Promoter");
-const { Tile } = require("../components/Tile");
+import Cookies from 'js-cookie';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Draggable from 'react-draggable';
+import { defaultLineup } from './defaultLineup';
+import { pieceComponents } from './chessPieces';
+import { fromPieceDecl, charCodeOffset } from './decode';
+import { Dot } from "../components/Dot";
+import { Promoter } from "../components/Promoter";
+import { Tile } from "../components/Tile";
 
 const getDefaultLineup = () => defaultLineup.slice();
 const noop = () => {/* intentional noop */};
@@ -32,14 +31,10 @@ export class Chess extends React.Component {
   }
 
   onClickSquare(x, y) {
-
-    const clickTo = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
-    const pieceClicked = this.findPieceAtPosition(clickTo.pos);
-
     let {clickedFrom, clickedPiece} = this.state;
     if (clickedPiece === null || clickedPiece === undefined) {
-      clickedFrom = clickTo;
-      clickedPiece = pieceClicked;
+      clickedFrom = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
+      clickedPiece = this.findPieceAtPosition(clickedFrom.pos);
       if (clickedPiece !== null) {
         //TODO figure out if this is needed or not. I think dot handling should be only in on ClickPiece
         //this.props.onClickPiece(clickedPiece, false);
@@ -52,15 +47,8 @@ export class Chess extends React.Component {
         this.setState({clickedFrom, clickedPiece});
       }
     } else {
-      if (pieceClicked !== null && pieceClicked !== undefined) {
-        //Don't attempt a move from a piece onto a piece which it cannot capture. 
-        if (pieceClicked.name.substring(0,1) === clickedPiece.name.substring(0,1)) {
-          clickedFrom = clickTo;
-          clickedPiece = pieceClicked;
-          this.setState({clickedFrom, clickedPiece});
-          return
-        } 
-      }
+      const clickTo = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
+
       this.setState({clickedFrom: null, targetTile: null, clickedPiece: null});
       if (clickedFrom.pos !== clickTo.pos) {
         //Are we promoting? Lots of checks since its really annoying if the menu shows up unwanted.
@@ -78,7 +66,6 @@ export class Chess extends React.Component {
           }
         }
         this.props.onMovePiece(clickedPiece, clickedFrom.pos, clickTo.pos, null);
-        this.setState({clickedPiece : null, clickedFrom: null});
         this.setState({promotionArgs : null});
         this.setState({showPromotion : false});
         this.setState({promotionFile : null});
@@ -211,7 +198,11 @@ export class Chess extends React.Component {
     const dragTo = this.coordsToPosition({x: node.offsetLeft + drag.x, y: node.offsetTop + drag.y});
 
     this.setState({dragFrom: null, targetTile: null, draggingPiece: null});
-    if (dragFrom.pos !== dragTo.pos) {
+
+    if (dragFrom === null || dragTo === null)
+      return false;
+
+    if (dragFrom?.pos !== dragTo?.pos) {
       //Are we promoting? Lots of checks since its really annoying if the menu shows up unwanted.
       if (draggingPiece.name.substring(1) === "P" && ((dragTo.y === 0 && this.props.isWhite) || (dragTo.y === 7 && !this.props.isWhite))) {
           //Are we moving from the previous rank?
@@ -275,12 +266,14 @@ export class Chess extends React.Component {
     if (isLeftColumn && isBottomRow) {
       if(this.props.isWhite) {
         return [
-          <span key="blx" style={xStyles}>
-            a
-          </span>,
-          <span key="bly" style={yStyles}>
-            1
-          </span>
+          <>
+            <span key="blx" style={xStyles}>
+              a
+            </span>
+            <span key="bly" style={yStyles}>
+              1
+            </span>
+          </>
         ];
       } else {
         return [
@@ -303,10 +296,8 @@ export class Chess extends React.Component {
       const {promotionArgs} = this.state;
       // console.log("wanted to promote to " + piece, promotionArgs)
       this.props.onMovePiece(promotionArgs[0], promotionArgs[1], promotionArgs[2], piece);
-      this.setState({clickedPiece : null, clickedFrom: null});
       this.setState({promotionArgs : null});
       this.setState({showPromotion : false});
-      this.setState({promotionFile : null});
       //this.setState({chosenPromoter: piece})
     };
   }

@@ -1,9 +1,9 @@
 import { Server, Origins } from "boardgame.io/server";
 import serve from "koa-static";
 import path from "path";
-const { DynamnoStore } = require("./bgio/db");
-const { creds } = require("./bgio/creds");
-const { Chess } = require("./bgio/Game");
+import { DynamnoStore } from "./bgio/db";
+import { creds } from "./bgio/creds";
+import { Chess } from "./bgio/Game";
 
 const db = new DynamnoStore("us-east-2", creds, "bgio");
 

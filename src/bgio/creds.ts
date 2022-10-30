@@ -1,7 +1,9 @@
-const accessKey = process.env.NODE_ENV === "production" ? process.env.REACT_APP_AWS_KEY_ID : require("../secret").accessKey;
-const secretKey = process.env.NODE_ENV === "production" ? process.env.REACT_APP_AWS_SECRET_KEY : require("../secret").secretKey;
+import { accessKey, secretKey } from "../secret";
+
+const access = process.env.NODE_ENV === "production" ? process.env.REACT_APP_AWS_KEY_ID! : accessKey;
+const secret = process.env.NODE_ENV === "production" ? process.env.REACT_APP_AWS_SECRET_KEY! : secretKey;
 
 export const creds = {
-    accessKeyId: accessKey,
-    secretAccessKey: secretKey
+    accessKeyId: access,
+    secretAccessKey: secret
 };

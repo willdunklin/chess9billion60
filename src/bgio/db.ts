@@ -275,27 +275,30 @@ export class DynamnoStore extends Async {
         let filter = "";
         let attributeValues: {[key: string]: AttributeValue} = {};
 
-        if(opts?.gameName) {
-            filter = addFilter(filter, "gameName = :gameName");
-            attributeValues[":gameName"] = {S: opts?.gameName};
-        }
+        if (opts !== undefined) {
+            if(opts.gameName) {
+                filter = addFilter(filter, "gameName = :gameName");
+                attributeValues[":gameName"] = {S: opts.gameName};
+            }
+            if(opts.where !== undefined) {
+                if(opts.where.isGameover === true) {
+                    filter = addFilter(filter, "gameover <> :null");
+                    attributeValues[":null"] = {S: JSON.stringify(null)};
+                }
+                if(opts.where.isGameover === false) {
+                    filter = addFilter(filter, "gameover = :null");
+                    attributeValues[":null"] = {S: JSON.stringify(null)};
+                }
 
-        if(opts?.where?.isGameover === true) {
-            filter = addFilter(filter, "gameover <> :null");
-            attributeValues[":null"] = {S: JSON.stringify(null)};
-        }
-        if(opts?.where?.isGameover === false) {
-            filter = addFilter(filter, "gameover = :null");
-            attributeValues[":null"] = {S: JSON.stringify(null)};
-        }
-
-        if(opts?.where?.updatedBefore !== undefined) {
-            filter = addFilter(filter, "updatedAt < :updatedBefore")
-            attributeValues[":updatedBefore"] = {N: JSON.stringify(opts?.where?.updatedBefore)};
-        }
-        if(opts?.where?.updatedAfter !== undefined) {
-            filter = addFilter(filter, "updatedAt > :updatedAfter")
-            attributeValues[":updatedAfter"] = {N: JSON.stringify(opts?.where?.updatedAfter)};
+                if(opts.where.updatedBefore !== undefined) {
+                    filter = addFilter(filter, "updatedAt < :updatedBefore")
+                    attributeValues[":updatedBefore"] = {N: JSON.stringify(opts.where.updatedBefore)};
+                }
+                if(opts.where.updatedAfter !== undefined) {
+                    filter = addFilter(filter, "updatedAt > :updatedAfter")
+                    attributeValues[":updatedAfter"] = {N: JSON.stringify(opts.where.updatedAfter)};
+                }
+            }
         }
 
         // console.log("filter", typeof(filter), `"${filter}"`)
@@ -305,7 +308,10 @@ export class DynamnoStore extends Async {
             TableName: this.tableName,
         }));
 
-        return results.Items?.map(i => i.id.S || "") || [];
+        if (results.Items === undefined)
+            return [];
+
+        return results.Items.map(i => i.id.S || "") || [];
     }
 
     /**

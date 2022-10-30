@@ -1,13 +1,6 @@
-/* eslint-disable react/display-name, react/prop-types */
 import React from 'react';
 
-export const piecePositionHoc = (Piece: (props: any) => React.DetailedReactHTMLElement<{
-                                                          src: any;
-                                                          style: any;
-                                                          alt: string;
-                                                          width: any;
-                                                          height: any;
-                                                        }, HTMLElement>): ((props: any) => JSX.Element) =>
+export const piecePositionHoc = (Piece: (props: any) => JSX.Element): ((props: any) => JSX.Element) =>
 {
   return function (props: any) {
     let onMouseDown = props.onMouseDown,

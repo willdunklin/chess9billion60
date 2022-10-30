@@ -2,8 +2,8 @@ import React, { useState, useCallback } from "react";
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
-import { MultiRangeSlider } from "./MultiRangeSlider";
 import { useCookies } from "react-cookie";
+import { MultiRangeSlider } from "./MultiRangeSlider";
 
 import '../css/modal.css';
 
@@ -84,7 +84,7 @@ export const New = () => {
     //     });
     // }
 
-    const join_pool = useCallback(async (q_id) => {
+    const join_pool = useCallback(async (q_id: number) => {
         axios.post('https://chess9b60-api.herokuapp.com/pool', {
         // axios.post('http://localhost:8080/pool', {
             token: cookies.idtoken,

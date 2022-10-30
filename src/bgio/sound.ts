@@ -1,21 +1,22 @@
 import { Howl } from 'howler';
 import Cookies from 'js-cookie';
 
+import MoveSound from '../assets/sounds/Move.ogg';
+import CaptureSound from '../assets/sounds/Capture.ogg';
+import GenericNotifySound from '../assets/sounds/GenericNotify.ogg';
+import LowTimeSound from '../assets/sounds/LowTime.ogg';
+
 const Move = new Howl({
-    // src: 'https://chess9b60.s3.amazonaws.com/sounds/Move.mp3'
-    src: require("../sounds/Move.ogg")
+    src: MoveSound
 });
 const Capture = new Howl({
-    // src: 'https://chess9b60.s3.amazonaws.com/sounds/Capture.mp3'
-    src: require("../sounds/Capture.ogg")
+    src: CaptureSound
 });
 const GenericNotify = new Howl({
-    // src: 'https://chess9b60.s3.amazonaws.com/sounds/GenericNotify.mp3'
-    src: require("../sounds/GenericNotify.ogg")
+    src: GenericNotifySound
 });
 const LowTime = new Howl({
-    // src: 'https://chess9b60.s3.amazonaws.com/sounds/LowTime.mp3'
-    src: require("../sounds/LowTime.ogg")
+    src: LowTimeSound
 });
 
 export const move = (volume: number) => {

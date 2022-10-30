@@ -16,10 +16,6 @@ export const initialBoard = (lower=3000, upper=4000) => {
             board[i] = "B" + random_army[i];
             board[56 + i] = "W" + random_army[i];
         }
-
-        // promotablePieces = random_army
-        //         .filter(p => !["K", "P"].includes(p)) // filter pawns and kings
-        //         .sort((a, b) => (PieceTypes[a].strength < PieceTypes[b].strength) ? 1 : -1)
         //no instant loss positions
     } while (colorHasMateInN([board], "W", 2))
     //remove duplicates and sort promotion options by strength
