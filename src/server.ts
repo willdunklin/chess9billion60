@@ -13,7 +13,7 @@ const server = Server({
     db: db,
 });
 
-const frontEndAppBuildPath = path.resolve(__dirname, '../build');
+const frontEndAppBuildPath = path.resolve(__dirname, '../dist');
 server.app.use(serve(frontEndAppBuildPath));
 
 const PORT = (process.env.NODE_ENV === "production") ? Number(process.env.PORT || 8000) : 8000;

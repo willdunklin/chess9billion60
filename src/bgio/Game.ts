@@ -35,7 +35,6 @@ function handleTimers(G: GameState, add_increment: boolean) {
 
 const movePiece: Move<GameState> = ({G, _ctx}, piece: PieceType, from: string, to: string, promotion: string | null) => {
     // simulate move
-    console.log("movePiece", piece, from, to, promotion);
     let board = validMove(G.history, piece.name, from, to, G, promotion ?? undefined);
 
     if (board !== null) {
