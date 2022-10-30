@@ -45,9 +45,6 @@ export const Main = () => {
                                     ]}
                                         drawLabels = {false}
                                         allowMoves = {false}
-                                        onClickPiece = {() => {}}
-                                        onDragStart = {() => {}}
-                                        onMovePiece = {() => {}}
                                     />
                                 </div>
                             </div>

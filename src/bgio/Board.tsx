@@ -1,14 +1,18 @@
 import '../css/modal.css';
 
-import React from "react";
-import { Visualizer } from "../components/visualizer"
-import { Chess } from "../react-chess/react-chess"
-import { Timer } from "../components/timer"
-import { move, capture, end, lowtime } from "./sound"
-import { PieceTypes } from "./pieces"
-import { validMove } from "./logic"
-import { pieceComponents } from '../react-chess/chessPieces'
-import { charCodeOffset } from "../react-chess/decode"
+import React, { WheelEvent } from "react";
+import { Visualizer } from "../components/visualizer";
+import { Chess, PieceType } from "../react-chess/react-chess";
+import { Timer } from "../components/timer";
+import { move, capture, end, lowtime } from "./sound";
+import { PieceTypes } from "./pieces";
+import { validMove } from "./logic";
+import { pieceComponents } from '../react-chess/chessPieces';
+import { charCodeOffset } from "../react-chess/decode";
+import CSS from 'csstype';
+import { GameState } from './Game';
+import { Ctx } from 'boardgame.io';
+import { BoardProps } from 'boardgame.io/react';
 let wImbalance = [];
 let bImbalance = [];
 
@@ -16,7 +20,7 @@ function getSize() {
     return Math.min(window.innerWidth - 50, window.innerHeight - 170);
 }
 
-const visualizerStyles = {
+const visualizerStyles: CSS.Properties = {
     paddingTop: "50px",
     display: "flex",
     flexDirection: "row",
@@ -25,14 +29,14 @@ const visualizerStyles = {
     alignItems: "center",
 };
 
-const boardContainerStyles = {
+const boardContainerStyles: CSS.Properties = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
 };
 
-const s1 = {
+const s1: CSS.Properties = {
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
@@ -40,12 +44,12 @@ const s1 = {
     alignItems: "center",
 };
 
-const board_style = {
+const board_style: CSS.Properties = {
     "width": "100%",
     "height": "100%",
 };
 
-const result_style = {
+const result_style: CSS.Properties = {
     position: "absolute",
     top: "36px",
     left: "0",
@@ -59,7 +63,7 @@ const result_style = {
     pointerEvents: "none"
 };
 
-const buttonStyles = {
+const buttonStyles: CSS.Properties = {
     backgroundColor: "#222222",
     border: "3px solid black",
     color: "white",
@@ -67,8 +71,35 @@ const buttonStyles = {
     fontSize: "16px"
 };
 
-export class ChessBoard extends React.Component {
-    constructor(props) {
+// interface ChessProps {
+//     G: GameState;
+//     ctx: Ctx;
+//     isActive: boolean;
+//     moves: {[key: string]: (...args: any[]) => any};
+//     playerID: string;
+// }
+
+interface ChessState {
+    pieces: string[];
+    update: number;
+    highlights: string[];
+    dots: string[];
+    wTime: number;
+    bTime: number;
+    boardWidth: number;
+    historyIndex: number;
+    lastClickedPiece: string;
+    timerFired: boolean;
+}
+
+export class ChessBoard extends React.Component<BoardProps<GameState>, ChessState> {
+    timer: NodeJS.Timer;
+    dec_amt: number;
+    current_length: number;
+    curr_promotablePieces: string[];
+    gameover: undefined | boolean;
+
+    constructor(props: BoardProps<GameState>) {
         super(props);
 
         document.body.style.overflowY = "scroll";
@@ -102,7 +133,7 @@ export class ChessBoard extends React.Component {
         this.piecify = this.piecify.bind(this);
 
         // timer stuff
-        this.timer = 0;
+        this.timer = setTimeout(() => {});
         this.decrementTimer = this.decrementTimer.bind(this);
         this.dec_amt = 100; // 10ms
 
@@ -123,13 +154,13 @@ export class ChessBoard extends React.Component {
 
     handleMouseExitBoard() {
         let top = document.body.style.top;
-        top = Math.abs(top.substring(0,top.length - 2));
+        const top_px = Math.abs(Number(top.slice(0, -2)));
         document.body.style.position = "static";
-        document.documentElement.scrollTo(0,top);
+        document.documentElement.scrollTo(0, top_px);
     }
 
-    handleScroll = e => {
-        if (e.nativeEvent.wheelDelta > 0) {
+    handleScroll = (e: WheelEvent<HTMLDivElement>) => {
+        if (e.deltaY < 0) {
             this.forwardHistoryButton();
         } else {
             this.backHistoryButton();
@@ -142,7 +173,7 @@ export class ChessBoard extends React.Component {
         });
     }
 
-    handleKey(event) {
+    handleKey(event: KeyboardEvent) {
         switch(event.key) {
             case "ArrowLeft":
                 this.backHistoryButton();
@@ -165,14 +196,14 @@ export class ChessBoard extends React.Component {
         }
     }
 
-    piecify(board) {
+    piecify(board: (string | null)[]): string[] {
         // convert from position in board to react-chess position string
         return board.map((piece, i) => {
-            return piece === null ? null : `${piece}@${String.fromCharCode(charCodeOffset + (i % 8))}${8-Math.floor(i/8)}`;
-        }).filter(i => i !== null);
+            return piece === null ? '' : `${piece}@${String.fromCharCode(charCodeOffset + (i % 8))}${8-Math.floor(i/8)}`;
+        }).filter(piece => piece !== '');
     }
 
-    updateBoard(play_sound) {
+    updateBoard(play_sound: boolean) {
         this.setState((state, props) => {
             return {
                 pieces: this.piecify(props.G.history[0]),
@@ -201,7 +232,7 @@ export class ChessBoard extends React.Component {
     }
 
     // if returns false, will cancel the drag animation
-    onDragStart(piece, fromSquare) {
+    onDragStart(piece: PieceType, fromSquare: string) {
         if (!this.props.isActive)
             return false;
 
@@ -217,7 +248,7 @@ export class ChessBoard extends React.Component {
         return !((black_piece && !black_turn) || (!black_piece && black_turn));
     }
 
-    onMovePiece(piece, fromSquare, toSquare, promotion) {
+    onMovePiece(piece: PieceType, fromSquare: string, toSquare: string, promotion: string | null) {
         // handle piece capture, snap to grid
         this.props.moves.movePiece(piece, fromSquare, toSquare, promotion);
 
@@ -225,7 +256,7 @@ export class ChessBoard extends React.Component {
         this.updateBoard(false);
     }
 
-    onClickPiece(piece, clear) {
+    onClickPiece(piece: PieceType, clear: boolean) {
         //either toggle the dots or run the clear
         if(clear || (this.state.dots.length > 0 && this.state.lastClickedPiece === piece.notation)) {
             // clear the dots on the screen
@@ -354,8 +385,8 @@ export class ChessBoard extends React.Component {
         }
     }
 
-    getMaterialDifferences(pieces) {
-        let A = [];
+    getMaterialDifferences(pieces: string[]) {
+        let A: {[key: string]: number} = {};
         for (let piece of pieces) {
             if (piece !== null) {
                 const name = piece.split("@")[0];
@@ -435,7 +466,7 @@ export class ChessBoard extends React.Component {
         const {pieces, update, highlights, dots, wTime, bTime, historyIndex} = this.state;
         const isWhite = this.props.playerID === "0";
 
-        let winner = "";
+        let winner: JSX.Element = <div></div>;
         if (this.props.ctx.gameover && this.state.historyIndex === 0) {
             winner =
                 this.props.ctx.gameover.winner !== undefined ? (
@@ -492,7 +523,9 @@ export class ChessBoard extends React.Component {
 
         return (
             <div style={s1} onKeyDown={evt => {console.log(evt)}}>
-                <button class="noselect" onClick={() => window.scrollTo(0,getSize())} style = {Object.assign({},{position: "fixed", right: "10px", bottom: "10px", width: "30px", height: "30px"},buttonStyles)}>
+                <button className="noselect" onClick={() => window.scrollTo(0,getSize())} style={
+                    {position: "fixed", right: "10px", bottom: "10px", width: "30px", height: "30px", ...buttonStyles}
+                }>
                     ?
                 </button>
                 <div style={boardContainerStyles}>
@@ -511,12 +544,11 @@ export class ChessBoard extends React.Component {
                                     update={update}
                                     check={historyIndex === 0 ? this.props.G.inCheck : ""}
                                     promotablePieces = {this.props.G.promotablePieces}
-                                    whiteTurn={this.props.G.whiteTurn}
                                     onMovePiece={this.onMovePiece}
                                     onDragStart={this.onDragStart}
                                     onClickPiece={this.onClickPiece}
-                                    isWhite={this.props.playerID === "0"}
-                                    allowMoves={!this.props.spectator}
+                                    isWhite={this.props.playerID === "0" || this.props.playerID === "spec"}
+                                    allowMoves={this.props.playerID !== "spec"}
                                 />
                             </div>
                             {winner}
@@ -527,21 +559,21 @@ export class ChessBoard extends React.Component {
                                 {isWhite ? wImbalance : bImbalance}
                             </div>
                             <div style={{display: "flex", alignItems: "middle", height: "30px"}}>
-                                <button onClick={this.startHistoryButton} style={buttonStyles} class="noselect">
+                                <button onClick={this.startHistoryButton} style={buttonStyles} className="noselect">
                                     &#60;&#60;
                                 </button>
-                                <button onClick={this.backHistoryButton} style={buttonStyles} class="noselect">
+                                <button onClick={this.backHistoryButton} style={buttonStyles} className="noselect">
                                     &#60;
                                 </button>
-                                <button onClick={this.forwardHistoryButton} style={buttonStyles} class="noselect">
+                                <button onClick={this.forwardHistoryButton} style={buttonStyles} className="noselect">
                                     &#62;
                                 </button>
-                                <button onClick={this.endHistoryButton} style={buttonStyles} class="noselect">
+                                <button onClick={this.endHistoryButton} style={buttonStyles} className="noselect">
                                     &#62;&#62;
                                 </button>
                             </div>
                         </div>
-                        <div style={{display: this.props.spectator ? 'none' : 'flex'}}>
+                        <div style={{display: this.props.playerID === "spec" ? 'none' : 'flex'}}>
                             <button className='specButton buttonHighlight' style={{
                                     margin: 'auto',
                                     height: '2.5em',

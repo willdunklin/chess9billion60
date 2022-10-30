@@ -2,6 +2,7 @@ import type { Game, Move } from 'boardgame.io';
 import { INVALID_MOVE } from "boardgame.io/core";
 import { PieceTypes } from "./pieces";
 import { initialBoard, validMove, colorInCheck, colorInStalemate, isRepetitionDraw, insufficentMaterialDraw } from "./logic";
+import { PieceType } from '../react-chess/react-chess';
 
 export interface GameState {
     history: (string | null)[][];
@@ -32,9 +33,10 @@ function handleTimers(G: GameState, add_increment: boolean) {
     G.last_event = Date.now();
 }
 
-const movePiece: Move<GameState> = ({G, _ctx}, piece, from, to, promotion) => {
+const movePiece: Move<GameState> = ({G, _ctx}, piece: PieceType, from: string, to: string, promotion: string | null) => {
     // simulate move
-    let board = validMove(G.history, piece.name, from, to, G, promotion);
+    console.log("movePiece", piece, from, to, promotion);
+    let board = validMove(G.history, piece.name, from, to, G, promotion ?? undefined);
 
     if (board !== null) {
         // don't start timers until first move

@@ -3,7 +3,7 @@ import CSS from "csstype";
 import React, { useState } from 'react';
 import { move } from "../bgio/sound";
 import { charCodeOffset } from "../react-chess/decode";
-import { Chess } from "../react-chess/react-chess";
+import { Chess, PieceType } from "../react-chess/react-chess";
                 //0 1 2 3 4 5 6 7 8
 const widthMap = [4,4,4,4,4,3,3,4,4]; //anything below 4 looks dumb, don't really like 3.
 
@@ -48,7 +48,7 @@ export const Visualizer = (props: VisualizerProps) => {
     const [x, setX] = useState(4);
     const [y, setY] = useState(4);
 
-    const handleMove = (_p: any, _fromSquare: string, toSquare: string, _promotion: boolean) => {
+    const handleMove = (_p: PieceType, _fromSquare: string, toSquare: string, _promotion: string | null) => {
         setX(toSquare.toLowerCase().charCodeAt(0) - charCodeOffset);
         setY(Number(toSquare[1]) - 1);
         move(0.05);
@@ -92,6 +92,7 @@ export const Visualizer = (props: VisualizerProps) => {
                         drawLabels={false}
                         dots={dots}
                         onMovePiece={handleMove}
+                        onDragStart={(_p: PieceType, _f: string) => true}
                     />
                 </div>
             </div>
