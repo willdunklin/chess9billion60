@@ -1,0 +1,59 @@
+.ReactModal__Overlay {
+    z-index: 1999;
+    position: fixed;
+    background-color: var(--modal-bg) !important;
+}
+
+.ReactModal__Content {
+    max-width: 325px;
+    height: min-content;
+    margin: 1em auto;
+    padding: 0.2em 1.5em !important;
+    padding-bottom: 0.5em !important;
+    background: var(--bg) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--modal-border) !important;
+    border-radius: 10px !important;
+}
+
+.ReactModal__Content a {
+    width: min-content;
+    padding: 0.4em 0em;
+    margin-bottom: 1em;
+}
+
+.ReactModal__Content button, .specButton {
+    width: 5em;
+    height: 3em;
+    background: transparent;
+    border: 2px solid;
+    transition: 0.15s ease-in-out;
+    border-color: var(--highlight-alt);
+    border-radius: 3px;
+    user-select: none;
+}
+
+.ReactModal__Content button:hover, .specButton:hover {
+    background: var(--highlight-alt);
+    border-color: var(--highlight-alt);
+}
+
+.buttonHighlight {
+    border-color: var(--highlight) !important;
+}
+
+.ReactModal__Content > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    /* margin: 1em 0; */
+}
+
+.ReactModal__Content > aside > p
+{
+    margin: 0.5em 0;
+    margin-bottom: 1.5em;
+    font-size: small;
+    color: var(--alt);
+}

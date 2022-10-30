@@ -1,20 +1,20 @@
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-// import { Nav } from "./Nav";
-// import { Multiplayer } from './Multiplayer';
-// import { Main } from './Main';
-// import { NotFound, Error } from "./NotFound";
+import { Nav } from "./Nav";
+import { Multiplayer } from './Multiplayer';
+import { Main } from './Main';
+import { NotFound, Error } from "./NotFound";
 
 import { CookiesProvider, useCookies } from "react-cookie";
 import { nanoid } from "nanoid";
-// import { New } from "./New";
-// import { Zoo } from "./Zoo";
-// import { ScrollToTop } from "./ScrollToTop";
+import { New } from "./New";
+import { Zoo } from "./Zoo";
+import { ScrollToTop } from "./ScrollToTop";
 
 const App = () => {
     const [ cookies, setCookie ] = useCookies(['idtoken', 'darkMode']);
-    // Add cookie
+
     if (cookies.idtoken === undefined)
         setCookie('idtoken', nanoid());
 
@@ -26,9 +26,9 @@ const App = () => {
         <div className="app">
             <CookiesProvider>
                 <BrowserRouter>
-                    {/* <ScrollToTop /> */}
+                    <ScrollToTop />
                     <Routes>
-                        {/* <Route path="/" element={<Nav />}>
+                        <Route path="/" element={<Nav />}>
                             <Route path="404" element={<NotFound/>}/>
                             <Route path="error" element={<Error/>}/>
                             <Route path="play" element={<New/>}/>
@@ -36,7 +36,7 @@ const App = () => {
                             <Route path="" element={<Main/>}/>
                             <Route path="play/:gameid" element={<Multiplayer/>}/>
                             <Route path=":gameid" element={<Multiplayer/>}/>
-                        </Route> */}
+                        </Route>
                         <Route path="*" element={<Navigate to="/404"/>}/>
                     </Routes>
                 </BrowserRouter>

@@ -1,0 +1,136 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+:root {
+  --bg: #fff;
+  --text: #000000;
+  --link: rgb(160, 76, 185);
+  --link-alt: rgb(227, 137, 255);
+  --alt: #5a5a5a;
+  --highlight: #000;
+  --highlight-alt: #aaa;
+  --modal-bg: #fffa;
+  --modal-border: #aaa;
+  --slider: #555;
+
+  color-scheme: normal;
+}
+
+:root[data-theme="dark"] {
+  --bg: #222;
+  --text: aliceblue;
+  --link: #aaf;
+  --alt: rgb(211, 211, 211);
+  --link-alt: #dbf;
+  --highlight: #eee;
+  --highlight-alt: #444;
+  --modal-bg: #000a;
+  --modal-border: #000;
+  --slider: #fff;
+
+  scrollbar-color: #000 #222 !important;
+  color-scheme: dark;
+}
+
+.app {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+a, .link, .play>a {
+  text-decoration: none;
+  color: var(--link);
+  transition: 0.1s ease-in-out;
+}
+
+a:hover, .link:hover, .play>a:hover {
+  color: var(--link-alt);
+}
+
+.play {
+  position: absolute;
+  right: 1.4em;
+  top: 0.85em;
+  /* z-index: 1000; */
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+
+.play a {
+  color: var(--link);
+}
+
+.link {
+  cursor: pointer;
+}
+
+li {
+  padding-bottom: 1em;
+  color: var(--alt);
+}
+
+br {
+  user-select: none;
+}
+
+.content-list {
+  flex-direction: row;
+  align-items: start;
+}
+.resize-width-1 {
+  width: 35%;
+}
+.main-content {
+  width: 80%;
+  margin: auto;
+  align-items: center;
+}
+.main-page {
+  font-size: 1.4em;
+}
+
+@media screen and (max-width: 600px) {
+  .content-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .resize-width-1 {
+    width: 80%;
+  }
+  .resize-width-2 {
+    width: 100% !important;
+  }
+  .main-content {
+    width: 90%;
+    margin: auto;
+    align-items: center;
+  }
+  .main-page {
+    font-size: 1.1em;
+  }
+  br {
+    display: none;
+  }
+}

@@ -1,21 +1,31 @@
 {
   "name": "chess9billion60",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "0.1.0",
   "scripts": {
     "dev": "vite",
+    "start": "node -r esm -r ts-node/register src/server.ts",
+    "serve": "node -r esm -r ts-node/register src/server.ts",
     "build": "tsc && vite build",
+    "deps": "depcruise src --exclude \"src/assets|src/css\" --include-only \"^src\" --config --output-type dot | dot -T svg > dep.svg",
     "preview": "vite preview"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.199.0",
+    "@aws-sdk/types": "^3.198.0",
+    "@types/howler": "^2.2.7",
+    "@types/js-cookie": "^3.0.2",
+    "@types/koa-static": "^4.0.2",
+    "@types/react-modal": "^3.13.1",
     "axios": "^1.1.3",
     "boardgame.io": "^0.50.1",
+    "csstype": "^3.1.1",
+    "esm": "^3.2.25",
     "howler": "^2.2.3",
     "js-cookie": "^3.0.1",
     "koa-static": "^5.0.0",
     "nanoid": "^4.0.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
@@ -23,13 +33,15 @@
     "react-icons": "^4.6.0",
     "react-modal": "^3.16.1",
     "react-resize-aware": "^3.1.2",
-    "react-router-dom": "^6.4.2"
+    "react-router-dom": "^6.4.2",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "@vitejs/plugin-react": "^2.2.0",
-    "typescript": "^4.6.4",
+    "dependency-cruiser": "^11.18.0",
+    "typescript": "^4.8.4",
     "vite": "^3.2.0"
   }
 }
