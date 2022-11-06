@@ -69,6 +69,7 @@ interface ChessState {
   tileSize: number;
   dragFrom: { x: number; y: number, pos: string };
   draggingPiece: PieceType;
+  dragging: boolean;
 }
 
 export class Chess extends React.Component<ChessProps, ChessState> {
@@ -119,6 +120,7 @@ export class Chess extends React.Component<ChessProps, ChessState> {
       tileSize: 0,
       dragFrom: { x: 0, y: 0, pos: '' },
       draggingPiece: { notation: '', name: '', index: -1, position: '' },
+      dragging: false,
     };
 
     this.boardRef = React.createRef<HTMLDivElement>();
@@ -247,7 +249,7 @@ export class Chess extends React.Component<ChessProps, ChessState> {
   handleDrag(evt: DraggableEvent, drag: DraggableData): void | false {
     this.handleResize();
 
-    if (!this.props.highlightTarget) {
+    if (!this.props.highlightTarget || !this.state.dragging) {
       return;
     }
 
@@ -266,6 +268,8 @@ export class Chess extends React.Component<ChessProps, ChessState> {
     evt.preventDefault();
 
     const node = drag.node;
+
+    this.setState({dragging: true});
 
     if (this.props.allowMoves) node.style.cursor = "grabbing";
     else node.style.cursor = "default";
@@ -308,7 +312,7 @@ export class Chess extends React.Component<ChessProps, ChessState> {
     const dragTo = this.coordsToPosition({x: node.offsetLeft + drag.x, y: node.offsetTop + drag.y});
 
     // this.setState({dragFrom: null, targetTile: null});
-    this.setState({targetTile: null});
+    this.setState({targetTile: null, dragging: false});
 
     if (dragFrom === null || dragTo === null || draggingPiece === null) {
       return false;
