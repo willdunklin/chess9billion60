@@ -10,8 +10,8 @@ import { validMove } from "./logic";
 import { pieceComponents } from '../react-chess/chessPieces';
 import { charCodeOffset } from "../react-chess/decode";
 import CSS from 'csstype';
+import Cookies from 'js-cookie';
 import { GameState } from './Game';
-import { Ctx } from 'boardgame.io';
 import { BoardProps } from 'boardgame.io/react';
 let wImbalance = [];
 let bImbalance = [];
@@ -70,14 +70,6 @@ const buttonStyles: CSS.Properties = {
     textAlign: "center",
     fontSize: "16px"
 };
-
-// interface ChessProps {
-//     G: GameState;
-//     ctx: Ctx;
-//     isActive: boolean;
-//     moves: {[key: string]: (...args: any[]) => any};
-//     playerID: string;
-// }
 
 interface ChessState {
     pieces: string[];
@@ -140,30 +132,32 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
         this.current_length = 0;
         this.curr_promotablePieces = [];
         this.gameover = false;
-
-        window.addEventListener('resize', this.handleResize);
-
-        window.addEventListener('keydown', this.handleKey);
     }
 
     handleMouseEnterBoard() {
-        const top = document.documentElement.scrollTop;
-        document.body.style.position = "fixed";
-        document.body.style.top = -top + "px";
+        if (Cookies.get('scroll') === 'true') {
+            const top = document.documentElement.scrollTop;
+            document.body.style.position = "fixed";
+            document.body.style.top = -top + "px";
+        }
     }
 
     handleMouseExitBoard() {
-        let top = document.body.style.top;
-        const top_px = Math.abs(Number(top.slice(0, -2)));
-        document.body.style.position = "static";
-        document.documentElement.scrollTo(0, top_px);
+        if (Cookies.get('scroll') === 'true') {
+            let top = document.body.style.top;
+            const top_px = Math.abs(Number(top.slice(0, -2)));
+            document.body.style.position = "static";
+            document.documentElement.scrollTo(0, top_px);
+        }
     }
 
     handleScroll = (e: WheelEvent<HTMLDivElement>) => {
-        if (e.deltaY < 0) {
-            this.forwardHistoryButton();
-        } else {
-            this.backHistoryButton();
+        if (Cookies.get('scroll') === 'true') {
+            if (e.deltaY < 0) {
+                this.forwardHistoryButton();
+            } else {
+                this.backHistoryButton();
+            }
         }
     }
 
@@ -311,7 +305,6 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
                 lowtime(1)
                 this.setState({timerFired: true})
             }
-        
         } else {
             // don't decrement on black's first move (edge case)
             if (!isWhite && this.current_length <= 3)
@@ -409,6 +402,16 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
             }
         }
         return [whitePieces, blackPieces];
+    }
+
+    componentDidMount(): void {
+        window.addEventListener('resize', this.handleResize);
+        window.addEventListener('keydown', this.handleKey);
+    }
+
+    componentWillUnmount(): void {
+        window.removeEventListener('resize', this.handleResize);
+        window.removeEventListener('keydown', this.handleKey);
     }
 
     componentDidUpdate() {
@@ -520,7 +523,7 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
         }
 
         return (
-            <div style={s1} onKeyDown={evt => {console.log(evt)}}>
+            <div style={s1}>
                 <button className="noselect" onClick={() => window.scrollTo(0,getSize())} style={
                     {position: "fixed", right: "10px", bottom: "10px", width: "30px", height: "30px", ...buttonStyles}
                 }>

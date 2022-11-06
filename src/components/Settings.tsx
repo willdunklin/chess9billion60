@@ -8,10 +8,11 @@ interface SettingsProps {
 
 export const Settings = (props: SettingsProps) => {
     const { close } = props;
-    const [ cookies, setCookie ] = useCookies(['lightSquareColor', 'darkSquareColor', 'darkMode', 'volume']);
+    const [ cookies, setCookie ] = useCookies(['lightSquareColor', 'darkSquareColor', 'darkMode', 'volume', 'scroll']);
     let [colorl, setColorl] = useState<string>(cookies.lightSquareColor ?? '#f0d9b5');
     let [colord, setColord] = useState<string>(cookies.darkSquareColor  ?? '#b58863');
     let [darkMode, setDarkMode] = useState<boolean>((cookies.darkMode === "true") ?? false);
+    let [scroll, setScroll] = useState<boolean>((cookies.scroll === "true") ?? false);
     let [volume, setVolume] = useState<number>(cookies.volume ?? 100);
     return (
         <div style={{
@@ -39,6 +40,15 @@ export const Settings = (props: SettingsProps) => {
                        name="darkMode"
                        checked={darkMode}
                        onChange={event => {setDarkMode(event.target.checked)}}
+                />
+            </div>
+            <div style={{padding:"5px"}}>
+                <label htmlFor="darkMode">Scroll Through History</label>
+                <input type="checkbox"
+                       id="moveScroll"
+                       name="scroll"
+                       checked={scroll}
+                       onChange={event => {setScroll(event.target.checked)}}
                 />
             </div>
 
@@ -94,6 +104,7 @@ export const Settings = (props: SettingsProps) => {
                         setCookie('darkSquareColor', colord);
                         setCookie('volume', volume);
                         setCookie('darkMode', darkMode);
+                        setCookie('scroll', scroll);
                         window.location.reload();
                     }}>
                         Apply
