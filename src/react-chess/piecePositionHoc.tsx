@@ -24,7 +24,7 @@ export const piecePositionHoc = (Piece: (props: any) => JSX.Element): ((props: a
       textAlign: 'center',
       cursor: cursor,
       userSelect: 'none',
-      zIndex: isMoving ? 900 : undefined
+      zIndex: isMoving ? 2 : undefined
     });
 
     return (
