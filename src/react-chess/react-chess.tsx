@@ -200,6 +200,9 @@ export class Chess extends React.Component<ChessProps, ChessState> {
   onClickSquare(x: number, y: number) {
     let {clickedFrom, clickedPiece} = this.state;
 
+    if (Cookies.get('clickMoves') !== 'true')
+      return;
+
     this.handleResize();
     if (clickedPiece === null || clickedPiece === undefined) {
       clickedFrom = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};

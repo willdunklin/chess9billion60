@@ -8,11 +8,12 @@ interface SettingsProps {
 
 export const Settings = (props: SettingsProps) => {
     const { close } = props;
-    const [ cookies, setCookie ] = useCookies(['lightSquareColor', 'darkSquareColor', 'darkMode', 'volume', 'scroll']);
+    const [ cookies, setCookie ] = useCookies(['lightSquareColor', 'darkSquareColor', 'darkMode', 'volume', 'scroll', 'clickMoves']);
     let [colorl, setColorl] = useState<string>(cookies.lightSquareColor ?? '#f0d9b5');
     let [colord, setColord] = useState<string>(cookies.darkSquareColor  ?? '#b58863');
     let [darkMode, setDarkMode] = useState<boolean>((cookies.darkMode === "true") ?? false);
     let [scroll, setScroll] = useState<boolean>((cookies.scroll === "true") ?? false);
+    let [clickMoves, setClickMoves] = useState<boolean>((cookies.clickMoves === "true") ?? false);
     let [volume, setVolume] = useState<number>(cookies.volume ?? 100);
     return (
         <div style={{
@@ -49,6 +50,16 @@ export const Settings = (props: SettingsProps) => {
                        name="scroll"
                        checked={scroll}
                        onChange={event => {setScroll(event.target.checked)}}
+                />
+            </div>
+
+            <div style={{padding:"5px"}}>
+                <label htmlFor="darkMode">Use Click To Move Pieces</label>
+                <input type="checkbox"
+                       id="clickMoves"
+                       name="clickMoves"
+                       checked={clickMoves}
+                       onChange={event => {setClickMoves(event.target.checked)}}
                 />
             </div>
 
@@ -105,6 +116,7 @@ export const Settings = (props: SettingsProps) => {
                         setCookie('volume', volume);
                         setCookie('darkMode', darkMode);
                         setCookie('scroll', scroll);
+                        setCookie('clickMoves', clickMoves);
                         window.location.reload();
                     }}>
                         Apply
