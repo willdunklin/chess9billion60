@@ -595,6 +595,7 @@ export class Chess extends React.Component<ChessProps, ChessState> {
             pos2={arrowEnd}
             arrowColor={'#15781B'}
             isWhite={isWhite}
+            isPreview={true}
           />
       ]
     }
@@ -606,6 +607,7 @@ export class Chess extends React.Component<ChessProps, ChessState> {
                 pos2={a.end}
                 arrowColor={'#15781B'}
                 isWhite={isWhite}
+                isPreview={false}
               />);
     });
 

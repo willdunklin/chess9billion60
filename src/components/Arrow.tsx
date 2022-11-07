@@ -14,10 +14,11 @@ interface ArrowProps {
     };
     arrowColor: string;
     isWhite: boolean;
+    isPreview: boolean;
 }
 
 export const Arrow = (props: ArrowProps) => {
-    const { pos1, pos2, arrowColor, isWhite } = props;
+    const { pos1, pos2, arrowColor, isWhite, isPreview } = props;
     let { x: x1, y: y1, pos: p1 } = pos1;
     let { x: x2, y: y2, pos: p2 } = pos2;
 
@@ -49,11 +50,11 @@ export const Arrow = (props: ArrowProps) => {
             </defs>
             <g>
                 {p1 != p2 ?
-                    <line stroke={arrowColor} strokeWidth="1.75%" strokeLinecap='round' markerEnd="url(#arrowhead)" opacity="1"
-                        x1={`${(x1 + 0.5) * scale}%`} y1={`${(y1 + 0.5) * scale}%`}
-                        x2={`${(x2 + 0.5) * scale}%`} y2={`${(y2 + 0.5) * scale}%`} />
+                    <line strokeWidth={isPreview ? "1.6%" : "1.75%"} strokeLinecap='round' markerEnd="url(#arrowhead)" opacity="1" stroke={arrowColor}
+                          x1={`${(x1 + 0.5) * scale}%`} y1={`${(y1 + 0.5) * scale}%`}
+                          x2={`${(x2 + 0.5) * scale}%`} y2={`${(y2 + 0.5) * scale}%`} />
                     :
-                    <circle stroke={arrowColor} strokeWidth="1.2%" fill="none" opacity="1"
+                    <circle strokeWidth={isPreview ? "1%" : "1.2%"} fill="none" opacity="1" stroke={arrowColor}
                             cx={`${(x1 + 0.5) * scale}%`} cy={`${(y1 + 0.5) * scale}%`} r="5.5%" />
                 }
             </g>
