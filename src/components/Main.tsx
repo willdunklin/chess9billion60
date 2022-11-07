@@ -14,7 +14,7 @@ export const Main = () => {
     document.title = "Chess 9,000,000,060 | Chess9b60 Variant";
 
     return (
-        <div style={{display: "flex", justifyContent: "center", padding: "4em"}}>
+        <main style={{display: "flex", justifyContent: "center", padding: "4em"}}>
             <div className="main-page">
                 <div style={{display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
                     <h1>Chess 9,000,000,060</h1>
@@ -29,7 +29,7 @@ export const Main = () => {
                         <p>
                             Battle with a randomized back row chosen from <i>25+ piece types</i>, see sample position below:
                         </p>
-                        <div className='content-list' style={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly'}}>
+                        <section className='content-list' style={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly'}}>
                             <div style={{width: '20px'}}></div>
                             <div style={{
                                 position: "relative",
@@ -53,11 +53,11 @@ export const Main = () => {
                                 <li>Promotion can be done to any piece you began the game with</li>
                                 <li>Castling is currently not a thing</li>
                             </ul>
-                        </div>
+                        </section>
                         <br></br>
                         <br></br>
                         <br></br>
-                        <div className='content-list' style={{display: "flex", justifyContent: 'center', textAlign: "left"}}>
+                        <section className='content-list' style={{display: "flex", justifyContent: 'center', textAlign: "left"}}>
                             <div className='resize-width-2' style={{width: '40%', padding: '0.4em'}}>
                                 <p style={{fontWeight: '500', fontSize: '1.1em'}}>Each piece in the game is built from a number of <i>“atoms”</i></p>
                                 <p>To the right you see a Wazir, the atom underlying the classical rook piece</p>
@@ -70,56 +70,59 @@ export const Main = () => {
                                 count={7}
                                 size={visualizerSize}
                                 />
-                        </div>
-                        {/* <br></br> */}
-                        <p className="resize-width-2" style={{width: '70%', fontSize: '1.1em'}}>
-                            Some new <i>atoms</i> which may be unfamiliar are the <i>Mann</i>, <i>Camel</i>, and <i>Zebra</i>. Try dragging them around to see how the dots change!
-                        </p>
+                        </section>
 
-                        <div className='content-list' style={{display: "flex", alignItems: "center", textAlign: "center"}}>
-                            <Visualizer
-                                key={`$M-main-visualizer`}
-                                piece={"M"}
-                                color={"W"}
-                                count={7}
-                                size={visualizerSize}
-                                />
-                            <Visualizer
-                                key={`$C-main-visualizer`}
-                                piece={"C"}
-                                color={"W"}
-                                count={7}
-                                size={visualizerSize}
-                                />
-                            <Visualizer
-                                key={`$Z-main-visualizer`}
-                                piece={"Z"}
-                                color={"W"}
-                                count={7}
-                                size={visualizerSize}
-                                />
-                        </div>
+                        <section style={{display: "flex", flexDirection: "column", alignItems: "center", textAlign: "left"}}>
+                            <p className="resize-width-2" style={{width: '70%', fontSize: '1.1em'}}>
+                                Some new <i>atoms</i> which may be unfamiliar are the <i>Mann</i>, <i>Camel</i>, and <i>Zebra</i>. Try dragging them around to see how the dots change!
+                            </p>
 
-                        {/* <br></br> */}
-                        <div>
-                            <p style={{fontSize: '1.15em', marginBottom: '0.5em'}}>A surprising new piece is the <b><i>Knightrider:</i></b></p>
-                        </div>
-                        <div className='content-list' style={{display: "flex", justifyContent: 'center', textAlign: "left"}}>
-                            <Visualizer
-                                key={`$NR-main-visualizer`} // fixes bug when promPieces changes
-                                piece={"NR"}
-                                color={"W"}
-                                count={7} // TODO this is a stupid name for this or a stupid way of doing this
-                                size={visualizerSize}
-                                />
-                            <div className="resize-width-2" style={{width: '50%', padding: '1em'}}>
-                                <p>The <i>Knightrider</i> is to the Knight as the Rook is to the Wazir.</p>
-                                <ul>
-                                    <li style={{padding: 0}}><p>In the same way Rooks repeat Wazir moves, Knightriders repeat Knight moves</p></li>
-                                </ul>
-                                <p>Jumps the same way the classical Knight does, <b><i>however</i></b>, it cannot jump over a piece occupying a dotted square.</p>
+                            <div className='content-list' style={{display: "flex", alignItems: "center", textAlign: "center"}}>
+                                <Visualizer
+                                    key={`$M-main-visualizer`}
+                                    piece={"M"}
+                                    color={"W"}
+                                    count={7}
+                                    size={visualizerSize}
+                                    />
+                                <Visualizer
+                                    key={`$C-main-visualizer`}
+                                    piece={"C"}
+                                    color={"W"}
+                                    count={7}
+                                    size={visualizerSize}
+                                    />
+                                <Visualizer
+                                    key={`$Z-main-visualizer`}
+                                    piece={"Z"}
+                                    color={"W"}
+                                    count={7}
+                                    size={visualizerSize}
+                                    />
                             </div>
-                        </div>
+                        </section>
+
+                        <article style={{display: "flex", flexDirection: "column", alignItems: "center", textAlign: "left"}}>
+                            <header>
+                                <p style={{fontSize: '1.15em', marginBottom: '0.5em'}}>A surprising new piece is the <b><i>Knightrider:</i></b></p>
+                            </header>
+                            <div className='content-list' style={{display: "flex", justifyContent: 'center', textAlign: "left"}}>
+                                <Visualizer
+                                    key={`$NR-main-visualizer`} // fixes bug when promPieces changes
+                                    piece={"NR"}
+                                    color={"W"}
+                                    count={7} // TODO this is a stupid name for this or a stupid way of doing this
+                                    size={visualizerSize}
+                                    />
+                                <aside className="resize-width-2" style={{width: '50%', padding: '1em'}}>
+                                    <p>The <i>Knightrider</i> is to the Knight as the Rook is to the Wazir.</p>
+                                    <ul>
+                                        <li style={{padding: 0}}><p>In the same way Rooks repeat Wazir moves, Knightriders repeat Knight moves</p></li>
+                                    </ul>
+                                    <p>Jumps the same way the classical Knight does, <b><i>however</i></b>, it cannot jump over a piece occupying a dotted square.</p>
+                                </aside>
+                            </div>
+                        </article>
 
                         {/* <br></br> */}
                         <div className="resize-width-2" style={{width: '70%'}}>
@@ -156,22 +159,23 @@ export const Main = () => {
                             size = {visualizerSize}
                             />
 
-                        {/* <br></br> */}
-                        <div className="resize-width-2" style={{width: '80%'}}>
+                        <section className="resize-width-2" style={{width: '80%'}}>
                             <p style={{textAlign: 'center', fontSize: '1.2em'}}>
                                 Visit our piece zoo to check out all currently available pieces.
                             </p>
                             <div style={{display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", margin: 0, padding: 0, fontSize: '0.9em'}}>
                                 <Link className="link" to="/zoo">Visit the Zoo</Link>
                             </div>
-                            <p>
-                                If you want to just dive into playing we've made sure to always draw dots and provide you with piece visualizers under your board to play with in case you forget how a piece moves.
-                            </p>
-                        </div>
+                            <aside>
+                                <p>
+                                    If you want to just dive into playing we've made sure to always draw dots and provide you with piece visualizers under your board to play with in case you forget how a piece moves.
+                                </p>
+                            </aside>
+                        </section>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
 
     );
 }

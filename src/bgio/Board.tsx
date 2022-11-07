@@ -537,7 +537,8 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
                             {isWhite ? bImbalance : wImbalance}
                         </div>
                         <div>
-                            <div className="board" style={board_style} onWheel={this.handleScroll} onMouseEnter={this.handleMouseEnterBoard} onMouseLeave={this.handleMouseExitBoard}>
+                            <div className="board" style={board_style}
+                                 onWheel={this.handleScroll} onMouseEnter={this.handleMouseEnterBoard} onMouseLeave={this.handleMouseExitBoard}>
                                 <Chess
                                     pieces={pieces}
                                     highlights={historyIndex === 0 ? highlights : []}

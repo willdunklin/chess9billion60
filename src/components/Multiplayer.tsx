@@ -48,9 +48,9 @@ async function join(gameid: string | undefined, token: string) {
     }
     // return player board
     return (
-        <div style={client_style}>
+        <main style={client_style}>
             <ChessClient debug={false} playerID={playerID} matchID={gameid} />
-        </div>
+        </main>
     );
 }
 

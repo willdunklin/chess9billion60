@@ -6,6 +6,7 @@ import { defaultLineup } from './defaultLineup';
 import { pieceComponents } from './chessPieces';
 import { fromPieceDecl, charCodeOffset } from './decode';
 import { Dot } from "../components/Dot";
+import { Arrow } from "../components/Arrow";
 import { Promoter } from "../components/Promoter";
 import { Tile } from "../components/Tile";
 
@@ -18,6 +19,12 @@ export interface PieceType {
   name: string;
   index: number;
   position: string;
+}
+
+interface PiecePos {
+  x: number;
+  y: number;
+  pos: string;
 }
 
 interface ChessProps {
@@ -59,7 +66,7 @@ interface ChessProps {
 }
 
 interface ChessState {
-  clickedFrom: { x: number; y: number, pos: string } | null;
+  clickedFrom: PiecePos | null;
   clickedPiece: PieceType | null;
   targetTile: { x: number; y: number } | null;
   promotionArgs: { piece: PieceType, from: string, to: string } | null;
@@ -67,9 +74,12 @@ interface ChessState {
   promotionFile: number | null;
   boardSize: number;
   tileSize: number;
-  dragFrom: { x: number; y: number, pos: string };
+  dragFrom: PiecePos;
   draggingPiece: PieceType;
   dragging: boolean;
+  arrowStart: PiecePos | null;
+  arrowEnd: PiecePos | null;
+  arrows: { start: PiecePos, end: PiecePos }[];
 }
 
 export class Chess extends React.Component<ChessProps, ChessState> {
@@ -121,6 +131,9 @@ export class Chess extends React.Component<ChessProps, ChessState> {
       dragFrom: { x: 0, y: 0, pos: '' },
       draggingPiece: { notation: '', name: '', index: -1, position: '' },
       dragging: false,
+      arrowStart: null,
+      arrowEnd: null,
+      arrows: [],
     };
 
     this.boardRef = React.createRef<HTMLDivElement>();
@@ -129,8 +142,59 @@ export class Chess extends React.Component<ChessProps, ChessState> {
     this.handleDrag = this.handleDrag.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.onClickSquare = this.onClickSquare.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.calculateSquare = this.calculateSquare.bind(this);
+  }
 
-    window.addEventListener('resize', this.handleResize);
+  calculateSquare = (rect: DOMRect, x: number, y: number) => {
+    const xnorm = x - rect.left;
+    const ynorm = y - rect.top;
+    const board_x = Math.floor(8 * xnorm / rect.width);
+    const board_y = Math.floor(8 * ynorm / rect.height);
+    return this.coordsToPosition({x: board_x, y: board_y}, false);
+  }
+
+  handleMouseMove(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (!this.boardRef.current)
+      return;
+
+    const { arrowStart } = this.state;
+
+    if (arrowStart !== null) {
+      const pos = this.calculateSquare(this.boardRef.current.getBoundingClientRect(), e.clientX, e.clientY);
+      this.setState({arrowEnd: pos});
+    }
+  }
+
+  handleMouseUp(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (!this.boardRef.current)
+      return;
+
+    const { arrowStart, arrowEnd, arrows } = this.state;
+
+    if (e.button === 2 && arrowStart !== null && arrowEnd !== null) {
+      const newArrow = { start: arrowStart, end: arrowEnd };
+      const newArrows = arrows.filter((a) => {return a.start.pos !== arrowStart.pos || a.end.pos !== arrowEnd.pos});
+
+      if (newArrows.length === arrows.length)
+        this.setState({arrows: [...arrows, newArrow]});
+      else
+        this.setState({arrows: newArrows});
+
+    }
+    this.setState({arrowStart: null, arrowEnd: null});
+  }
+
+  handleMouseDown(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (!this.boardRef.current)
+      return;
+
+    if (e.button === 2) {
+      const pos = this.calculateSquare(this.boardRef.current.getBoundingClientRect(), e.clientX, e.clientY);
+      this.setState({arrowStart: pos, arrowEnd: pos});
+    }
   }
 
   onClickSquare(x: number, y: number) {
@@ -218,9 +282,14 @@ export class Chess extends React.Component<ChessProps, ChessState> {
   }
 
   componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
     const boardSize: number = this.boardRef.current?.clientWidth || 100;
     const tileSize = boardSize / 8;
     this.setState({boardSize, tileSize});
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
   }
 
   handleResize() {
@@ -232,9 +301,9 @@ export class Chess extends React.Component<ChessProps, ChessState> {
     }
   }
 
-  coordsToPosition(coords: { x: number; y: number }) {
-    let x = Math.round(coords.x / this.state.tileSize);
-    let y = Math.round(coords.y / this.state.tileSize);
+  coordsToPosition(coords: { x: number; y: number }, tile: boolean = true) {
+    let x = tile ? Math.round(coords.x / this.state.tileSize) : coords.x;
+    let y = tile ? Math.round(coords.y / this.state.tileSize) : coords.y;
     if (!this.props.isWhite) {
       x = 7 - x;
       y = 7 - y;
@@ -423,7 +492,7 @@ export class Chess extends React.Component<ChessProps, ChessState> {
 
   render() {
     const { isWhite, pieces, update, promotablePieces, lightSquareColor, darkSquareColor, dots, dotColor, allowMoves } = this.props;
-    const { targetTile, draggingPiece, boardSize, showPromotion, promotionArgs } = this.state;
+    const { targetTile, draggingPiece, boardSize, showPromotion, promotionArgs, arrows, arrowStart, arrowEnd } = this.state;
 
     const tileElems = [];
     for (let y = 0; y < 8; y++) {
@@ -503,6 +572,7 @@ export class Chess extends React.Component<ChessProps, ChessState> {
       });
     }
 
+
     const dotElems = dots.map(s =>
       <Dot
         key={`${s}-dot`}
@@ -513,12 +583,45 @@ export class Chess extends React.Component<ChessProps, ChessState> {
       />
     );
 
+    let active_arrow: JSX.Element[] = [];
+    if (arrowStart !== null && arrowEnd !== null) {
+      active_arrow = [
+        <Arrow
+            key={`${arrowStart}-${arrowEnd}-arrow-active`}
+            pos1={arrowStart}
+            pos2={arrowEnd}
+            arrowColor={'#15781B'}
+            isWhite={isWhite}
+          />
+      ]
+    }
+
+    const arrowElems = arrows.map(a => {
+      return (<Arrow
+                key={`${a.start.pos}-${a.end.pos}-arrow`}
+                pos1={a.start}
+                pos2={a.end}
+                arrowColor={'#15781B'}
+                isWhite={isWhite}
+              />);
+    });
+
     const boardStyles: CSS.Properties = {position: 'relative', width: '100%', height: `${boardSize}px`};
 
-    const children = tileElems.concat(piecesElems).concat(promotionElems).concat(dotElems);
+    const children = tileElems.concat(piecesElems)
+                              .concat(promotionElems)
+                              .concat(dotElems)
+                              .concat(arrowElems)
+                              .concat(active_arrow);
 
     return (
-      <div ref={this.boardRef} style={boardStyles}>
+      <div ref={this.boardRef} style={boardStyles}
+           onClick={evt => {this.setState({arrows: []})}}
+           onMouseMove={this.handleMouseMove}
+           onMouseDown={this.handleMouseDown}
+           onMouseUp={this.handleMouseUp}
+           onContextMenu={e => e.preventDefault()}
+      >
         {children}
       </div>
     );

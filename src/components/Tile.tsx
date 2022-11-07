@@ -21,7 +21,7 @@ interface TileProps {
 }
 
 export const Tile = (props: TileProps) => {
-    const { xpos, ypos, targetTile, background, text, onClick} = props;
+    const { xpos, ypos, targetTile, background, text, onClick } = props;
     let x = xpos;
     let y = ypos;
 
@@ -30,7 +30,7 @@ export const Tile = (props: TileProps) => {
     const styles: CSS.Properties = Object.assign({background, boxShadow}, squareStyles);
 
     return (
-        <div style={styles} onClick={() => onClick(x, y)}>
+        <div style={styles} onClick={() => {onClick(x, y)}}>
             {text}
         </div>
     );
