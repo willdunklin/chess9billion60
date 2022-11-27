@@ -16,6 +16,7 @@ export const Main = () => {
     return (
         <main style={{display: "flex", justifyContent: "center", padding: "4em"}}>
             <div className="main-page">
+
                 <div style={{display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
                     <h1>Chess 9,000,000,060</h1>
                     {/* <Link className="link" to="/play">Create new game</Link> */}

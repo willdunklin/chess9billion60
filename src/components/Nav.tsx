@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/nav.css";
 import { Outlet, Link } from 'react-router-dom';
 import { MdClose } from "react-icons/md";
@@ -6,9 +6,17 @@ import { FiMenu } from "react-icons/fi";
 import Modal from 'react-modal';
 import { Settings } from "./Settings";
 
+import { GoogleLogin, GoogleLogout, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { gapi } from 'gapi-script';
+import { useCookies } from "react-cookie";
+import { nanoid } from 'nanoid';
+
+
 export const Nav = () => {
     const [isOpen, setIsOpen] = useState('false');
     const [navbarOpen, setNavbarOpen] = useState(false);
+    const [ profile, setProfile ] = useState<string>('');
+    const [ cookies, setCookie ] = useCookies(['idtoken', 'darkMode']);
 
     const toggleNavbar = () => {
         setNavbarOpen(!navbarOpen);
@@ -25,11 +33,40 @@ export const Nav = () => {
     }
     Modal.setAppElement("#root");
 
+    const clientId = "133618897899-r09kll12dns8j0q1rv8iiulf8qel485h.apps.googleusercontent.com";
+    useEffect(() => {
+        const initClient = () => {
+            gapi.client.init({
+                clientId: clientId,
+                scope: 'openid'
+            });
+        };
+        gapi.load('client:auth2', initClient);
+    });
+
+    const onSuccess = (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+        if('profileObj' in res) {
+            console.log('Login Success: currentUser:', res.googleId);
+            setCookie('idtoken', res.googleId, { path: '/' });
+            setProfile(res.profileObj.givenName);
+        }
+    };
+
+    const onFailure = (err: any) => {
+        console.log('failed', err);
+    };
+
+    const logOut = () => {
+        setProfile('');
+        setCookie('idtoken', nanoid(), { path: '/' });
+    };
+
+
     return (
         <div>
             <nav className="navBar">
                 <div className="navBackground">
-                    <button onClick={toggleNavbar}>
+                    <button className="openClose" onClick={toggleNavbar}>
                         {navbarOpen ? (
                             <MdClose className="openNav"/>
                         ) : (
@@ -52,6 +89,31 @@ export const Nav = () => {
                         <li><div className="settings link" onClick={openSettings}>
                             <h4>Settings</h4>
                         </div></li>
+
+                        <li>
+                            { profile !== '' ? 
+                            <div className="signin" style={{display: 'flex', justifyContent: 'space-around'}}>
+                                <p>{profile}</p>
+                                <GoogleLogout
+                                    clientId={clientId}
+                                    buttonText="Logout"
+                                    onLogoutSuccess={logOut}
+                                    icon={false}
+                                />
+                            </div>
+                            :
+                            <div className="signin" style={{display: 'flex', justifyContent: 'center'}}>
+                                <GoogleLogin
+                                    clientId={clientId}
+                                    buttonText="Sign in with Google"
+                                    onSuccess={onSuccess}
+                                    onFailure={onFailure}
+                                    cookiePolicy={'single_host_origin'}
+                                    icon={false}
+                                />
+                            </div>
+                            }
+                        </li>
                     </ul>
                 </div>
             </nav>

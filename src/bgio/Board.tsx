@@ -57,7 +57,7 @@ const result_style: CSS.Properties = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    zIndex: "1",
+    zIndex: "5",
     backgroundColor: "#eee9",
     userSelect: "none",
     pointerEvents: "none"
