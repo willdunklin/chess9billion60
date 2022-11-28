@@ -10,13 +10,14 @@ import { GoogleLogin, GoogleLogout, GoogleLoginResponse, GoogleLoginResponseOffl
 import { gapi } from 'gapi-script';
 import { useCookies } from "react-cookie";
 import { nanoid } from 'nanoid';
+import axios from "axios";
 
 
 export const Nav = () => {
-    const [isOpen, setIsOpen] = useState('false');
-    const [navbarOpen, setNavbarOpen] = useState(false);
+    const [ isOpen, setIsOpen ] = useState('false');
+    const [ navbarOpen, setNavbarOpen ] = useState(false);
     const [ profile, setProfile ] = useState<string>('');
-    const [ cookies, setCookie ] = useCookies(['idtoken', 'darkMode']);
+    const [ cookies, setCookie ] = useCookies(['idtoken', 'darkMode', 'googleSession']);
 
     const toggleNavbar = () => {
         setNavbarOpen(!navbarOpen);
@@ -33,7 +34,7 @@ export const Nav = () => {
     }
     Modal.setAppElement("#root");
 
-    const clientId = "133618897899-r09kll12dns8j0q1rv8iiulf8qel485h.apps.googleusercontent.com";
+    const clientId: string = import.meta.env.VITE_GOOGLE_LOGIN || 'invalid';
     useEffect(() => {
         const initClient = () => {
             gapi.client.init({
@@ -44,11 +45,21 @@ export const Nav = () => {
         gapi.load('client:auth2', initClient);
     });
 
-    const onSuccess = (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+    const onSuccess = async (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
         if('profileObj' in res) {
-            console.log('Login Success: currentUser:', res.googleId);
-            setCookie('idtoken', res.googleId, { path: '/' });
-            setProfile(res.profileObj.givenName);
+            const resp = await axios.post('http://localhost:8080/auth/google', {
+                token: res.tokenId
+            });
+            if (resp.status !== 200 || !resp.data)
+                return;
+
+            if (resp.data.id === '')
+                // Navigate to create account page
+                return;
+
+            setCookie('googleSession', res.tokenId);
+            setCookie('idtoken', resp.data.id, { path: '/' });
+            setProfile(resp.data.username);
         }
     };
 
@@ -59,8 +70,32 @@ export const Nav = () => {
     const logOut = () => {
         setProfile('');
         setCookie('idtoken', nanoid(), { path: '/' });
+        setCookie('googleSession', '', { path: '/' });
     };
 
+    useEffect(() => {
+        if (!cookies.googleSession)
+            setProfile('');
+
+        if (profile === '' && cookies.googleSession) {
+            axios.post('http://localhost:8080/auth/google', {
+                token: cookies.googleSession
+            }).then(res => {
+                if (res.status === 200) {
+                    if (res.data.id === '') {
+                        setProfile('');
+                        setCookie('googleSession', '', { path: '/' });
+                        return;
+                    }
+
+                    setCookie('idtoken', res.data.id, { path: '/' });
+                    setProfile(res.data.username);
+                }
+            }).catch(e => {
+                console.log('error!', e);
+            });
+        }
+    }, []);
 
     return (
         <div>
@@ -91,7 +126,7 @@ export const Nav = () => {
                         </div></li>
 
                         <li>
-                            { profile !== '' ? 
+                            { cookies.googleSession ?
                             <div className="signin" style={{display: 'flex', justifyContent: 'space-around'}}>
                                 <p>{profile}</p>
                                 <GoogleLogout
