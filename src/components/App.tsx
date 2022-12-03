@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import { Nav } from "./Nav";
+import { Account, CreateAccount } from "./Account";
 import { Multiplayer } from './Multiplayer';
 import { Main } from './Main';
 import { NotFound, Error } from "./NotFound";
@@ -36,6 +37,9 @@ const App = () => {
                             <Route path="" element={<Main/>}/>
                             <Route path="play/:gameid" element={<Multiplayer/>}/>
                             <Route path=":gameid" element={<Multiplayer/>}/>
+                            <Route path="account" element={<Account/>}/>
+                            <Route path="account/create/:tokenid" element={<CreateAccount/>}/>
+                            <Route path="account/create" element={<Navigate to='/account'/>}/>
                         </Route>
                         <Route path="*" element={<Navigate to="/404"/>}/>
                     </Routes>

@@ -39,7 +39,6 @@ async function join(gameid: string | undefined, token: string) {
         return (
             <div style={client_style}>
                 <ChessClient debug={false} playerID={'spec'} matchID={gameid} />
-                <h1>MUST ADD SPEC MODE</h1>
             </div>
         );
 
@@ -61,7 +60,7 @@ export const Multiplayer = () => {
     const { gameid } = useParams();
     const [ cookies ] = useCookies(['idtoken']);
 
-    const [ loadedSuccessfully, setLoadedSuccessfully ] = React.useState(false);
+    const [ loadedSuccessfully, setLoadedSuccessfully ] = React.useState('false');
     const [ content, setContent ] = React.useState(<div></div>)
 
     React.useEffect(() => {
@@ -69,23 +68,20 @@ export const Multiplayer = () => {
         join(gameid, cookies.idtoken)
             .then(elem => {
                 setContent(elem);
-                setLoadedSuccessfully(true);
+                setLoadedSuccessfully('true');
             })
             .catch(e => {
-                    console.error('eror!', e);
-                    setLoadedSuccessfully(false);
+                    console.error(e);
+                    setLoadedSuccessfully('error');
             })
     }, [gameid, cookies.idtoken])
 
-    // TODO: add stronger clientside checks
-    // if the gameid is invalidly formatted, draw an error
-    if (gameid === undefined || gameid.length !== 6) { // also checked in getGame fyi
+    if (gameid === undefined || gameid.length !== 6) {
         return <Navigate to="/404"/>
     }
 
-    // TODO: switch to API(?) instead of direct db access in this element
-    if(loadedSuccessfully === null)
+    if(loadedSuccessfully === 'false')
         return <h1>loading...</h1>;
 
-    return loadedSuccessfully ? content : <p>there was an error in loading, probably from the database (idk)</p>
+    return loadedSuccessfully === 'true' ? content : <p>there was an error loading the current game</p>
 }

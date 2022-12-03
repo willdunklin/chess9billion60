@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../css/nav.css";
 import { Outlet, Link } from 'react-router-dom';
 import { MdClose } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import Modal from 'react-modal';
 import { Settings } from "./Settings";
+import { Signin } from "./Signin";
+
 
 export const Nav = () => {
-    const [isOpen, setIsOpen] = useState('false');
-    const [navbarOpen, setNavbarOpen] = useState(false);
+    const [ isOpen, setIsOpen ] = useState('false');
+    const [ navbarOpen, setNavbarOpen ] = useState(false);
 
     const toggleNavbar = () => {
         setNavbarOpen(!navbarOpen);
@@ -29,7 +31,7 @@ export const Nav = () => {
         <div>
             <nav className="navBar">
                 <div className="navBackground">
-                    <button onClick={toggleNavbar}>
+                    <button className="openClose" onClick={toggleNavbar}>
                         {navbarOpen ? (
                             <MdClose className="openNav"/>
                         ) : (
@@ -52,6 +54,10 @@ export const Nav = () => {
                         <li><div className="settings link" onClick={openSettings}>
                             <h4>Settings</h4>
                         </div></li>
+
+                        <li>
+                            <Signin showLogout={true} nav={true} />
+                        </li>
                     </ul>
                 </div>
             </nav>

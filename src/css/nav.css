@@ -16,7 +16,7 @@ nav * {
     z-index: 999;
 }
 
-.navBar button {
+.navBar .openClose {
     position: fixed;
     left: 1em;
     top: 1em;
@@ -54,6 +54,39 @@ nav * {
     font-weight: bold;
 }
 
+.signin {
+    padding: 1em 1.6em;
+    font-weight: bold;
+}
+
+.signin > p {
+    max-width: 50%;
+    text-overflow: ellipsis;
+    margin: auto 0;
+    overflow: hidden;
+}
+
+.signin > button {
+    height: 2.5rem;
+    display: block !important;
+    cursor: pointer;
+}
+
+.signinNav > button {
+    background-color: #525284 !important;
+}
+
+.signinPage > button {
+    background-color: var(--link) !important;
+    color: var(--bg) !important;
+}
+
 .menuNav li:first-child {
     margin-top: 3rem;
+}
+
+.menuNav li:last-child {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
