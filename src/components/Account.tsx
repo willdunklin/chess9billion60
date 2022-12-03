@@ -14,7 +14,8 @@ export const Account = () => {
             setCookie('username', '', { path: '/' });
 
         if (cookies.username === '' && cookies.googleSession && cookies.googleEmail) {
-            axios.post('http://localhost:8080/auth/user', {
+            // axios.post('http://localhost:8080/auth/user', {
+            axios.post('https://chess9b60-api.herokuapp.com/auth/user', {
                 token: cookies.googleSession,
                 email: cookies.googleEmail,
             }).then(res => {
@@ -78,7 +79,8 @@ export const CreateAccount = () => {
         if (!/^\w+$/.test(username))
             return;
 
-        const res = await axios.post('http://localhost:8080/auth/create', {
+        // const res = await axios.post('http://localhost:8080/auth/create', {
+        const res = await axios.post('https://chess9b60-api.herokuapp.com/auth/create', {
             username: username,
             token: tokenid,
         });

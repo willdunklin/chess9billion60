@@ -3,7 +3,7 @@ import { GoogleLogin, GoogleLogout, GoogleLoginResponse, GoogleLoginResponseOffl
 import { gapi } from 'gapi-script';
 import { useCookies } from "react-cookie";
 import { nanoid } from 'nanoid';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import axios from "axios";
 
 
@@ -26,7 +26,8 @@ export const Signin = (props: { showLogout: boolean; nav: boolean }) => {
 
     const onSuccess = async (google_res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
         if('profileObj' in google_res) {
-            const res = await axios.post('http://localhost:8080/auth/google', {
+            // const res = await axios.post('http://localhost:8080/auth/google', {
+            const res = await axios.post('https://chess9b60-api.herokuapp.com/auth/google', {
                 token: google_res.tokenId
             });
             if (res.status !== 200 || !res.data)
@@ -61,7 +62,8 @@ export const Signin = (props: { showLogout: boolean; nav: boolean }) => {
             setCookie('username', '', { path: '/' });
 
         if (cookies.username === '' && cookies.googleSession && cookies.googleEmail) {
-            axios.post('http://localhost:8080/auth/user', {
+            // axios.post('http://localhost:8080/auth/user', {
+            axios.post('https://chess9b60-api.herokuapp.com/auth/user', {
                 token: cookies.googleSession,
                 email: cookies.googleEmail,
             }).then(res => {
@@ -95,7 +97,7 @@ export const Signin = (props: { showLogout: boolean; nav: boolean }) => {
             <>
                 { props.showLogout ?
                 <div className={props.nav ? "signin signinNav" : "signin signinPage"} style={{display: 'flex', justifyContent: 'space-around'}}>
-                    <p>{cookies.username}</p>
+                    <p><Link to='/account'><p>{cookies.username}</p></Link></p>
                     <GoogleLogout
                         clientId={clientId}
                         buttonText="Logout"
