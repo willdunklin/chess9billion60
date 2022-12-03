@@ -67,10 +67,18 @@ nav * {
 }
 
 .signin > button {
-    background-color: #525284 !important;
     height: 2.5rem;
     display: block !important;
     cursor: pointer;
+}
+
+.signinNav > button {
+    background-color: #525284 !important;
+}
+
+.signinPage > button {
+    background-color: var(--link) !important;
+    color: var(--bg) !important;
 }
 
 .menuNav li:first-child {
