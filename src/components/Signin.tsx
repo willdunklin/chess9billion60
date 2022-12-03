@@ -8,10 +8,11 @@ import axios from "axios";
 
 
 export const Signin = (props: { showLogout: boolean; nav: boolean }) => {
-    const [ cookies, setCookie ] = useCookies(['idtoken', 'username', 'googleSession', 'googleEmail', 'googleTokenId']);
+    const [ cookies, setCookie ] = useCookies(['idtoken', 'username', 'googleSession', 'googleEmail']);
     const clientId: string = import.meta.env.VITE_GOOGLE_LOGIN || 'invalid';
 
     const [ createAccount, setCreateAccount ] = useState<boolean>(false);
+    const [ tokenid, setTokenid ] = useState('');
 
     useEffect(() => {
         const initClient = () => {
@@ -32,7 +33,7 @@ export const Signin = (props: { showLogout: boolean; nav: boolean }) => {
                 return;
 
             if (res.data.token === '') {
-                setCookie('googleTokenId', google_res.tokenId, { path: '/' });
+                setTokenid(google_res.tokenId);
                 setCreateAccount(true);
                 return;
             }
@@ -89,7 +90,7 @@ export const Signin = (props: { showLogout: boolean; nav: boolean }) => {
 
     return (
         <>
-        { createAccount ? <Navigate to='/create-account'/> : <></> }
+        { createAccount ? <Navigate to={`/account/create/${tokenid}`}/> : <></> }
         { cookies.googleSession ?
             <>
                 { props.showLogout ?

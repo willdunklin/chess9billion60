@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { Navigate, Link, useParams } from 'react-router-dom';
 import { Signin } from "./Signin";
 
 export const Account = () => {
@@ -45,6 +46,8 @@ export const Account = () => {
                         <Signin showLogout={false} nav={false} />
                     </> : <>
                         <h1>Hello, {cookies.username}</h1>
+                        <p><i>Account settings coming soon!</i></p>
+                        <Link className="homeButton link" to='/'>Home</Link>
                     </>}
                 </div>
             </div>
@@ -54,15 +57,17 @@ export const Account = () => {
 
 export const CreateAccount = () => {
     document.title = "Create an Account | Chess9b60";
-    const [ cookies, setCookie ] = useCookies(['idtoken', 'username', 'googleSession', 'googleEmail', 'googleTokenId']);
+    const { tokenid } = useParams();
+    const [ cookies, setCookie ] = useCookies(['idtoken', 'username', 'googleSession', 'googleEmail']);
     const [ username, setUsername ] = useState('');
+    const [ success, setSuccess ] = useState(false);
 
     const updateUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value);
     }
 
     const create = async () => {
-        if (!cookies.googleTokenId) {
+        if (!tokenid) {
             console.error('no google token id');
             return;
         }
@@ -70,12 +75,12 @@ export const CreateAccount = () => {
         if (username.length < 3 || username.length > 20)
             return;
 
-        if (!/^[a-zA-Z0-9_]+$/.test(username))
+        if (!/^\w+$/.test(username))
             return;
 
         const res = await axios.post('http://localhost:8080/auth/create', {
             username: username,
-            token: cookies.googleTokenId,
+            token: tokenid,
         });
 
         if (res.status === 200) {
@@ -90,11 +95,11 @@ export const CreateAccount = () => {
                 return;
             }
 
-            setCookie('googleTokenId', '', { path: '/' });
             setCookie('googleSession', res.data.token, { path: '/' });
             setCookie('googleEmail', res.data.email, { path: '/' });
             setCookie('idtoken', res.data.id, { path: '/' });
             setCookie('username', res.data.username, { path: '/' });
+            setSuccess(true);
         }
     }
 
@@ -102,6 +107,7 @@ export const CreateAccount = () => {
         <main style={{display: "flex", justifyContent: "center", padding: "4em"}}>
             <div className="main-page">
                 <div style={{display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
+                    { success ? <Navigate to='/account'/> : <></>}
                     <h2>Create an Account</h2>
                     <form>
                         <label htmlFor="username">Username

@@ -38,7 +38,8 @@ const App = () => {
                             <Route path="play/:gameid" element={<Multiplayer/>}/>
                             <Route path=":gameid" element={<Multiplayer/>}/>
                             <Route path="account" element={<Account/>}/>
-                            <Route path="create-account" element={<CreateAccount/>}/>
+                            <Route path="account/create/:tokenid" element={<CreateAccount/>}/>
+                            <Route path="account/create" element={<Navigate to='/account'/>}/>
                         </Route>
                         <Route path="*" element={<Navigate to="/404"/>}/>
                     </Routes>
