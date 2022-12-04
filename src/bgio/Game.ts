@@ -3,6 +3,7 @@ import { INVALID_MOVE } from "boardgame.io/core";
 import { PieceTypes } from "./pieces";
 import { initialBoard, validMove, colorInCheck, colorInStalemate, isRepetitionDraw, insufficentMaterialDraw } from "./logic";
 import { PieceType } from '../react-chess/react-chess';
+import axios from 'axios';
 
 export interface GameState {
     history: (string | null)[][];
@@ -11,6 +12,7 @@ export interface GameState {
     whiteTurn: boolean;
     inCheck: string;
     noProgressCounter: number;
+    gameid: string;
     timer_enabled: boolean;
     startTime: number;
     wTime: number;
@@ -77,6 +79,7 @@ export const Chess: Game<GameState> = {
             // "" "W" "B" depending on who is in check
             inCheck: "",
             noProgressCounter: 0,
+            gameid: "",
 
             // times for each of the players (multiplied by 1000 for ms)
             timer_enabled: true,
@@ -134,5 +137,13 @@ export const Chess: Game<GameState> = {
         //check the weird draws
         if (G.noProgressCounter >= 200 || isRepetitionDraw(G.history) || insufficentMaterialDraw(G.history[0]))
             return {draw: true};
-    }
+    },
+
+    onEnd: ({G, _ctx}) => {
+        axios.post("http://localhost:8080/end/" + G.gameid, {})
+            .catch(err => {
+                console.log(err);
+            });
+        return G;
+    },
 };
