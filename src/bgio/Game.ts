@@ -140,7 +140,7 @@ export const Chess: Game<GameState> = {
     },
 
     onEnd: ({G, _ctx}) => {
-        axios.post("http://localhost:8080/end/" + G.gameid, {})
+        axios.get("http://localhost:8080/end/" + G.gameid, {})
             .catch(err => {
                 console.log(err);
             });
