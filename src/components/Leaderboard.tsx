@@ -17,8 +17,14 @@ export const Leaderboard = () => {
 
                 setRanking(data.map((user: {username: string, elo: number}, index: number) => {
                     return (
-                        <li key={`leaderboard-${user.username}-${index}`}>
-                            <span>{user.username} - {user.elo}</span>
+                        <li key={`leaderboard-${user.username}-${index}`} style={{width: '100%'}}>
+                            <span style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+                                <p>{user.username}</p>
+                                <p>
+                                    {'9,000,000,000'.slice(0, -user.elo.toLocaleString('en-US').length)}
+                                    <b>{user.elo.toLocaleString('en-US')  }</b>
+                                </p>
+                            </span>
                         </li>
                     );
                 }))
@@ -28,7 +34,6 @@ export const Leaderboard = () => {
 
     const leaderboardStyles: CSS.Properties = {
         margin: 'auto',
-        width: '50%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -38,7 +43,7 @@ export const Leaderboard = () => {
         <div>
             <h1 style={{textAlign: 'center'}}>Leaderboard</h1>
             <div style={leaderboardStyles}>
-                <ol>
+                <ol style={{...leaderboardStyles, width: '20%', minWidth: '220px'}}>
                     {ranking}
                 </ol>
                 <Link className="homeButton link" to='/'>Home</Link>
