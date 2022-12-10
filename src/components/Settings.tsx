@@ -13,8 +13,9 @@ export const Settings = (props: SettingsProps) => {
     let [colord, setColord] = useState<string>(cookies.darkSquareColor  ?? '#b58863');
     let [darkMode, setDarkMode] = useState<boolean>((cookies.darkMode === "true") ?? false);
     let [scroll, setScroll] = useState<boolean>((cookies.scroll === "true") ?? false);
-    let [clickMoves, setClickMoves] = useState<boolean>((cookies.clickMoves === "true") ?? false);
+    let [clickMoves, setClickMoves] = useState<boolean>((cookies.clickMoves !== "false") ?? true);
     let [volume, setVolume] = useState<number>(cookies.volume ?? 100);
+    console.log('clicked moves', clickMoves, cookies.clickMoves)
     return (
         <div style={{
                 padding: '0.5em 0',

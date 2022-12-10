@@ -211,9 +211,11 @@ export class Chess extends React.Component<ChessProps, ChessState> {
     const clickTo = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
     const inDots = this.props.dots.some(dot => dot.split('@')[1] === clickTo.pos);
 
+    const clickMoves = Cookies.get('clickMoves');
+
     if (!inDots || clickedPiece === null || clickedPiece === undefined) {
       this.setState({showPromotion : false});
-      if (Cookies.get('clickMoves') !== 'true')
+      if (clickMoves !== undefined && clickMoves !== 'true')
         return;
 
       clickedFrom = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
@@ -230,8 +232,9 @@ export class Chess extends React.Component<ChessProps, ChessState> {
         this.setState({clickedFrom, clickedPiece});
       }
     } else {
-      if (Cookies.get('clickMoves') !== 'true')
+      if (clickMoves !== undefined && clickMoves !== 'true')
         return;
+
       // this.setState({targetTile: null});
       this.setState({clickedFrom: null, targetTile: null, clickedPiece: null});
       if (clickedFrom === null || clickedPiece === null || clickedPiece === null)

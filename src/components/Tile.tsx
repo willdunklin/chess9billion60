@@ -17,7 +17,7 @@ interface TileProps {
     targetTile: { x: number, y: number } | null;
     background: string;
     text: string | JSX.Element;
-    onClick: (xpos: number, ypos: number) => boolean | undefined;
+    onClick: (xpos: number, ypos: number) => void;
 }
 
 export const Tile = (props: TileProps) => {
