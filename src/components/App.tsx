@@ -12,6 +12,7 @@ import { nanoid } from "nanoid";
 import { New } from "./New";
 import { Zoo } from "./Zoo";
 import { ScrollToTop } from "./ScrollToTop";
+import { Leaderboard } from "./Leaderboard";
 
 const App = () => {
     const [ cookies, setCookie ] = useCookies(['idtoken', 'darkMode']);
@@ -37,6 +38,7 @@ const App = () => {
                             <Route path="" element={<Main/>}/>
                             <Route path="play/:gameid" element={<Multiplayer/>}/>
                             <Route path=":gameid" element={<Multiplayer/>}/>
+                            <Route path="leaderboard" element={<Leaderboard/>}/>
                             <Route path="account" element={<Account/>}/>
                             <Route path="account/create/:tokenid" element={<CreateAccount/>}/>
                             <Route path="account/create" element={<Navigate to='/account'/>}/>

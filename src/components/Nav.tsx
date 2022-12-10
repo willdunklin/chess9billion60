@@ -48,6 +48,7 @@ export const Nav = () => {
                             <h2>Chess 9,000,000,060</h2>
                         </Link></li>
                         <li><Link className="link" to="/play" onClick={closeNavbar}><h4>Create new game</h4></Link></li>
+                        <li><Link className="link" to="/leaderboard" onClick={closeNavbar}><h4>Leaderboard</h4></Link></li>
                         <li><Link className="link" to="/zoo" onClick={closeNavbar}><h4>Piece zoo</h4></Link></li>
                         <li><a className="link" href="https://www.patreon.com/chess9b60" target="_blank" rel="noopener noreferrer" onClick={closeNavbar}><h4>Patreon</h4></a></li>
                         <li><a className="link" href="https://discord.gg/qu9MP3QRYx" target="_blank" rel="noopener noreferrer" onClick={closeNavbar}><h4>Discord</h4></a></li>
