@@ -23,6 +23,7 @@ async function join(gameid: string | undefined, token: string) {
     if (gameid === undefined)
         throw new Error("gameid is undefined");
 
+    // const response = await axios.post(`http://localhost:8080/game`, {
     const response = await axios.post(`https://chess9b60-api.herokuapp.com/game`, {
         id: gameid,
         token: token

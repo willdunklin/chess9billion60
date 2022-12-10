@@ -70,20 +70,6 @@ export const New = () => {
         });
     }
 
-    // async function refresh_players() {
-    //     // axios.get('https://chess9b60-api.herokuapp.com/queue', {})
-    //     axios.get('http://localhost:8080/queue', {})
-    //     .then(res => {
-    //         if (res.status === 200) {
-    //             console.log('queue: ', res.data);
-    //             // setLobbyPlayers(res.data);
-    //         }
-    //     })
-    //     .catch(e => {
-    //         console.log('error!', e);
-    //     });
-    // }
-
     const join_pool = useCallback(async (q_id: number) => {
         axios.post('https://chess9b60-api.herokuapp.com/pool', {
         // axios.post('http://localhost:8080/pool', {

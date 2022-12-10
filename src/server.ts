@@ -1,5 +1,6 @@
 import { Server, Origins } from "boardgame.io/server";
 import serve from "koa-static";
+import * as Application from "koa";
 import path from "path";
 import { DynamnoStore } from "./bgio/db";
 import { creds } from "./bgio/creds";
@@ -19,9 +20,10 @@ server.app.use(serve(frontEndAppBuildPath));
 const PORT = (process.env.NODE_ENV === "production") ? Number(process.env.PORT || 8000) : 8000;
 server.run(PORT, () => {
     server.app.use(
-        async (ctx: any, next: any) => serve(frontEndAppBuildPath)(
-            Object.assign(ctx, { path: 'index.html' }),
-            next
-        )
+        async (ctx: Application.Context, next: Application.Next) =>
+            serve(frontEndAppBuildPath)(
+                Object.assign(ctx, { path: 'index.html' }),
+                next
+            )
     )
 });

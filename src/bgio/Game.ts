@@ -140,7 +140,8 @@ export const Chess: Game<GameState> = {
     },
 
     onEnd: ({G, _ctx}) => {
-        axios.get("http://localhost:8080/end/" + G.gameid, {})
+        // axios.get("http://localhost:8080/end/" + G.gameid, {})
+        axios.get("https://chess9b60-api.herokuapp.com/end/" + G.gameid, {})
             .catch(err => {
                 console.log(err);
             });
