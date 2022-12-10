@@ -200,32 +200,43 @@ export class Chess extends React.Component<ChessProps, ChessState> {
   onClickSquare(x: number, y: number) {
     let {clickedFrom, clickedPiece} = this.state;
 
-    if (Cookies.get('clickMoves') !== 'true')
-      return;
+    this.props.onClickPiece({
+      notation: '',
+      name: '',
+      index: -1,
+      position: ''}, true);
 
     this.handleResize();
-    if (clickedPiece === null || clickedPiece === undefined) {
+
+    const clickTo = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
+    const inDots = this.props.dots.some(dot => dot.split('@')[1] === clickTo.pos);
+
+    if (!inDots || clickedPiece === null || clickedPiece === undefined) {
+      this.setState({showPromotion : false});
+      if (Cookies.get('clickMoves') !== 'true')
+        return;
+
       clickedFrom = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
       clickedPiece = this.findPieceAtPosition(clickedFrom.pos);
       if (clickedPiece !== null) {
         //TODO figure out if this is needed or not. I think dot handling should be only in on ClickPiece
         //this.props.onClickPiece(clickedPiece, false);
-        if (this.props.onDragStart(clickedPiece, clickedFrom.pos) === false) {
-          return false;
-        }
-        if (!this.props.allowMoves) {
-          return false;
-        }
+        if (this.props.onDragStart(clickedPiece, clickedFrom.pos) === false)
+          return;
+
+        if (!this.props.allowMoves)
+          return;
+
         this.setState({clickedFrom, clickedPiece});
       }
     } else {
-      const clickTo = {x, y, pos: `${String.fromCharCode(charCodeOffset + x)}${8 - y}`};
-
+      if (Cookies.get('clickMoves') !== 'true')
+        return;
       // this.setState({targetTile: null});
       this.setState({clickedFrom: null, targetTile: null, clickedPiece: null});
-      if (clickedFrom === null || clickedPiece === null || clickedPiece === null) {
-        return false;
-      }
+      if (clickedFrom === null || clickedPiece === null || clickedPiece === null)
+        return;
+
       if (clickedFrom?.pos !== clickTo.pos) {
         //Are we promoting? Lots of checks since its really annoying if the menu shows up unwanted.
         if (clickedPiece.name.substring(1) === "P" && ((clickTo.y === 0 && this.props.isWhite) || (clickTo.y === 7 && !this.props.isWhite))) {
@@ -237,7 +248,7 @@ export class Chess extends React.Component<ChessProps, ChessState> {
               this.setState({promotionArgs : {piece: clickedPiece, from: clickedFrom.pos, to: clickTo.pos}});
               this.setState({showPromotion : true});
               this.setState({promotionFile : clickTo.x});
-              return false;
+              return;
             }
           }
         }
@@ -245,9 +256,8 @@ export class Chess extends React.Component<ChessProps, ChessState> {
         this.setState({promotionArgs : null});
         this.setState({showPromotion : false});
         this.setState({promotionFile : null});
-        return false;
+        return;
       }
-      return true;
     }
   }
 
