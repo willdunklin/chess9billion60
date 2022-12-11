@@ -34,9 +34,9 @@ export const Zoo = () => {
     document.title = "Piece Zoo - Fairy Chess Pieces | Chess9b60";
 
     return (
-        <div>
+        <>
             <h1 style={{textAlign: 'center'}}>Zoo</h1>
             <div style={visualizerStyles}>{visualizers}</div>
-        </div>
+        </>
     );
 }

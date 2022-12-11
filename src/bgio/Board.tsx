@@ -467,7 +467,7 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
         const {pieces, update, highlights, dots, wTime, bTime, historyIndex} = this.state;
         const isWhite = this.props.playerID === "0";
 
-        let winner: JSX.Element = <div></div>;
+        let winner: JSX.Element = <></>;
         if (this.props.ctx.gameover && this.state.historyIndex === 0) {
             winner =
                 this.props.ctx.gameover.winner !== undefined ? (
@@ -536,7 +536,7 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
                             {this.props.G.timer_enabled ? <Timer milliseconds={isWhite ? bTime : wTime} white = {!isWhite}/> : null}
                             {isWhite ? bImbalance : wImbalance}
                         </div>
-                        <div>
+                        <>
                             <div className="board" style={board_style}
                                  onWheel={this.handleScroll} onMouseEnter={this.handleMouseEnterBoard} onMouseLeave={this.handleMouseExitBoard}>
                                 <Chess
@@ -554,7 +554,7 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
                                 />
                             </div>
                             {winner}
-                        </div>
+                        </>
                         <div style={{display: "flex", justifyContent: "space-between"}}>
                             <div style={{display: "flex"}}>
                                 {this.props.G.timer_enabled ? <Timer milliseconds={isWhite ? wTime : bTime} white = {isWhite}/> : null}

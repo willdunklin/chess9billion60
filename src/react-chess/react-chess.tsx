@@ -448,7 +448,7 @@ export class Chess extends React.Component<ChessProps, ChessState> {
       isBottomRow = y === 0;
 
     if (!this.props.drawLabels || (!isLeftColumn && !isBottomRow)) {
-      return <div></div>;
+      return <></>;
     }
 
     let xStyles: CSS.Properties = {color : this.getSquareColor(x,y+17), bottom: '5%', ...labelStyles};
@@ -548,7 +548,7 @@ export class Chess extends React.Component<ChessProps, ChessState> {
       }
       // if this piece is the pawn promoting, don't render it
       if (showPromotion && decl === promotionArgs?.piece.notation)
-        return <div></div>;
+        return <></>;
 
       return (
         <Draggable

@@ -157,11 +157,11 @@ export const New = () => {
                 </aside>
                 <div>
                     <p>Color: </p>
-                    <div>
+                    <>
                         <button onClick={() => {setIsWhite("0")}} className={isWhite === "0" ? "buttonHighlight" : ""}>White</button>
                         <button onClick={() => {setIsWhite("1")}} className={isWhite === "1" ? "buttonHighlight" : ""}>Black</button>
                         <button onClick={() => {setIsWhite("random")}} className={isWhite === "random" ? "buttonHighlight" : ""}>Random</button>
-                    </div>
+                    </>
                 </div>
                 <div>
                     <p>Enable Timers:</p>

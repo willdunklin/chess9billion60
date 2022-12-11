@@ -62,7 +62,7 @@ export const Multiplayer = () => {
     const [ cookies ] = useCookies(['idtoken']);
 
     const [ loadedSuccessfully, setLoadedSuccessfully ] = React.useState('false');
-    const [ content, setContent ] = React.useState(<div></div>)
+    const [ content, setContent ] = React.useState(<></>)
 
     React.useEffect(() => {
         // join the multiplayer game

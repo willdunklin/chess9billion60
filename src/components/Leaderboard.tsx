@@ -40,7 +40,7 @@ export const Leaderboard = () => {
     };
 
     return (
-        <div>
+        <>
             <h1 style={{textAlign: 'center'}}>Leaderboard</h1>
             <div style={leaderboardStyles}>
                 <ol style={{...leaderboardStyles, width: '20%', minWidth: '220px'}}>
@@ -48,6 +48,6 @@ export const Leaderboard = () => {
                 </ol>
                 <Link className="homeButton link" to='/'>Home</Link>
             </div>
-        </div>
+        </>
     );
 }

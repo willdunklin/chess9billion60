@@ -28,7 +28,7 @@ export const Nav = () => {
     Modal.setAppElement("#root");
 
     return (
-        <div>
+        <>
             <nav className="navBar">
                 <div className="navBackground">
                     <button className="openClose" onClick={toggleNavbar}>
@@ -66,6 +66,6 @@ export const Nav = () => {
                 <Settings close={closeModal}/>
             </Modal>
             <Outlet />
-        </div>
+        </>
     );
 }
