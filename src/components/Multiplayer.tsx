@@ -1,19 +1,27 @@
 import React from 'react';
-import { Client } from "boardgame.io/react";
-import { SocketIO } from "boardgame.io/multiplayer";
-import { Chess } from "../bgio/Game";
-import { ChessBoard } from "../bgio/Board";
 import { useParams, Navigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
+import Loading from './Loading';
 
 import axios from 'axios';
 
+const getClient = async (protocol: string, hostname: string, port: string) => {
+    const { Chess } = await import("../bgio/Game");
+    const { ChessBoard } = await import("../bgio/Board");
+    const { SocketIO } = await import("boardgame.io/multiplayer");
+    const { Client } = await import("boardgame.io/react");
+
+    console.log("imported");
+    return Client({
+        game: Chess,
+        board: ChessBoard,
+        multiplayer: SocketIO({server: `${protocol}//${hostname}:${process.env.NODE_ENV === "development" ? 8000 : port}`}),
+    });
+}
+
 const { protocol, hostname, port } = window.location;
-const ChessClient = Client({
-    game: Chess,
-    board: ChessBoard,
-    multiplayer: SocketIO({server: `${protocol}//${hostname}:${process.env.NODE_ENV === "development" ? 8000 : port}`}),
-});
+const ChessClient = await getClient(protocol, hostname, port);
+
 
 const client_style = {
     padding: "1em",
@@ -55,7 +63,7 @@ async function join(gameid: string | undefined, token: string) {
 }
 
 
-export const Multiplayer = () => {
+const Multiplayer = () => {
     document.title = "Play | Chess9b60";
 
     const { gameid } = useParams();
@@ -82,7 +90,9 @@ export const Multiplayer = () => {
     }
 
     if(loadedSuccessfully === 'false')
-        return <h1>loading...</h1>;
+        return <Loading/>;
 
-    return loadedSuccessfully === 'true' ? content : <p>there was an error loading the current game</p>
+    return loadedSuccessfully === 'true' ? content : <p>There was an error loading the current game</p>
 }
+
+export default Multiplayer;

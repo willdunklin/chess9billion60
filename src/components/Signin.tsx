@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { GoogleLogin, GoogleLogout, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
-import { gapi } from 'gapi-script';
 import { useCookies } from "react-cookie";
 import { nanoid } from 'nanoid';
 import { Navigate, Link } from 'react-router-dom';
@@ -14,7 +13,9 @@ export const Signin = (props: { showLogout: boolean; nav: boolean }) => {
     const [ createAccount, setCreateAccount ] = useState<boolean>(false);
     const [ tokenid, setTokenid ] = useState('');
 
-    useEffect(() => {
+    const init = async () => {
+        const { gapi } = await import('gapi-script');
+
         const initClient = () => {
             gapi.client.init({
                 clientId: clientId,
@@ -22,6 +23,10 @@ export const Signin = (props: { showLogout: boolean; nav: boolean }) => {
             });
         };
         gapi.load('client:auth2', initClient);
+    }
+
+    useEffect(() => {
+        init();
     });
 
     const onSuccess = async (google_res: GoogleLoginResponse | GoogleLoginResponseOffline) => {

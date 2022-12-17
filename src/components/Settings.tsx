@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { Chess } from "../react-chess/react-chess";
+import '../css/modal.css';
 
 interface SettingsProps {
     close: () => void;

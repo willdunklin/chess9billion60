@@ -1,18 +1,22 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import { Nav } from "./Nav";
-import { Account, CreateAccount } from "./Account";
-import { Multiplayer } from './Multiplayer';
-import { Main } from './Main';
+import Main from './Main';
+import Loading from './Loading';
+import { ScrollToTop } from "./ScrollToTop";
 import { NotFound, Error } from "./NotFound";
 
 import { CookiesProvider, useCookies } from "react-cookie";
 import { nanoid } from "nanoid";
-import { New } from "./New";
-import { Zoo } from "./Zoo";
-import { ScrollToTop } from "./ScrollToTop";
-import { Leaderboard } from "./Leaderboard";
+
+const Nav = React.lazy(() => import("./Nav"));
+const Account = React.lazy(() => import("./Account"));
+const CreateAccount = React.lazy(() => import("./CreateAccount"));
+const Leaderboard = React.lazy(() => import("./Leaderboard"));
+const Zoo = React.lazy(() => import("./Zoo"));
+const Multiplayer = React.lazy(() => import('./Multiplayer'));
+const New = React.lazy(() => import("./New"));
+
 
 const App = () => {
     const [ cookies, setCookie ] = useCookies(['idtoken', 'darkMode']);
@@ -29,22 +33,24 @@ const App = () => {
             <CookiesProvider>
                 <BrowserRouter>
                     <ScrollToTop />
-                    <Routes>
-                        <Route path="/" element={<Nav />}>
-                            <Route path="404" element={<NotFound/>}/>
-                            <Route path="error" element={<Error/>}/>
-                            <Route path="play" element={<New/>}/>
-                            <Route path="zoo" element={<Zoo/>}/>
-                            <Route path="" element={<Main/>}/>
-                            <Route path="play/:gameid" element={<Multiplayer/>}/>
-                            <Route path=":gameid" element={<Multiplayer/>}/>
-                            <Route path="leaderboard" element={<Leaderboard/>}/>
-                            <Route path="account" element={<Account/>}/>
-                            <Route path="account/create/:tokenid" element={<CreateAccount/>}/>
-                            <Route path="account/create" element={<Navigate to='/account'/>}/>
-                        </Route>
-                        <Route path="*" element={<Navigate to="/404"/>}/>
-                    </Routes>
+                    <Suspense fallback={<Loading/>}>
+                        <Routes>
+                            <Route path="/" element={<Nav/>}>
+                                <Route path="404" element={<NotFound/>}/>
+                                <Route path="error" element={<Error/>}/>
+                                <Route path="play" element={<New/>}/>
+                                <Route path="zoo" element={<Zoo/>}/>
+                                <Route path="" element={<Main/>}/>
+                                <Route path="play/:gameid" element={<Multiplayer/>}/>
+                                <Route path=":gameid" element={<Multiplayer/>}/>
+                                <Route path="leaderboard" element={<Leaderboard/>}/>
+                                <Route path="account" element={<Account/>}/>
+                                <Route path="account/create/:tokenid" element={<CreateAccount/>}/>
+                                <Route path="account/create" element={<Navigate to='/account'/>}/>
+                            </Route>
+                            <Route path="*" element={<Navigate to="/404"/>}/>
+                        </Routes>
+                    </Suspense>
                 </BrowserRouter>
             </CookiesProvider>
         </div>

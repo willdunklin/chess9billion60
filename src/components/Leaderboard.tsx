@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import CSS from 'csstype';
 
-export const Leaderboard = () => {
+const Leaderboard = () => {
     document.title = "Leaderboard | Chess9b60";
 
     const [ ranking, setRanking ] = useState<JSX.Element[]>([]);
@@ -51,3 +51,5 @@ export const Leaderboard = () => {
         </>
     );
 }
+
+export default Leaderboard;

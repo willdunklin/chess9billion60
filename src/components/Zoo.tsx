@@ -30,7 +30,7 @@ for (let piece of temp) {
     );
 }
 
-export const Zoo = () => {
+const Zoo = () => {
     document.title = "Piece Zoo - Fairy Chess Pieces | Chess9b60";
 
     return (
@@ -40,3 +40,5 @@ export const Zoo = () => {
         </>
     );
 }
+
+export default Zoo;

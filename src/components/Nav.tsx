@@ -8,7 +8,7 @@ import { Settings } from "./Settings";
 import { Signin } from "./Signin";
 
 
-export const Nav = () => {
+const Nav = () => {
     const [ isOpen, setIsOpen ] = useState('false');
     const [ navbarOpen, setNavbarOpen ] = useState(false);
 
@@ -69,3 +69,5 @@ export const Nav = () => {
         </>
     );
 }
+
+export default Nav;

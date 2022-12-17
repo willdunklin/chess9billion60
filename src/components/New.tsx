@@ -7,7 +7,7 @@ import { MultiRangeSlider } from "./MultiRangeSlider";
 
 import '../css/modal.css';
 
-export const New = () => {
+const New = () => {
     document.title = "Play | Chess9b60";
 
     const [ loadedSuccessfully, setLoadedSuccessfully ] = useState(false);
@@ -214,3 +214,5 @@ export const New = () => {
         </div>
     );
 }
+
+export default New;

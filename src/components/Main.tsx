@@ -10,7 +10,7 @@ const board_style = {
 const boardWidth = "400px";
 const visualizerSize = 300;
 
-export const Main = () => {
+const Main = () => {
     document.title = "Chess 9,000,000,060 | Chess9b60 Variant";
 
     return (
@@ -180,3 +180,5 @@ export const Main = () => {
 
     );
 }
+
+export default Main;
