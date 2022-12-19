@@ -17,6 +17,7 @@
     "boardgame.io": "^0.50.1",
     "csstype": "^3.1.1",
     "dotenv": "^16.0.3",
+    "esm": "^3.2.25",
     "gapi-script": "^1.2.0",
     "howler": "^2.2.3",
     "js-cookie": "^3.0.1",
@@ -30,6 +31,8 @@
     "react-icons": "^4.6.0",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.4.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4",
     "vite-plugin-pwa": "^0.14.0"
   },
   "devDependencies": {
@@ -42,10 +45,7 @@
     "@types/react-modal": "^3.13.1",
     "@vitejs/plugin-react": "^2.2.0",
     "dependency-cruiser": "^11.18.0",
-    "esm": "^3.2.25",
     "nodemon": "^2.0.20",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.8.4",
     "vite": "^3.2.0"
   }
 }
