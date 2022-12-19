@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Visualizer } from "./visualizer";
 import { Chess } from "../react-chess/react-chess";
+import '../css/main.css';
 
 const board_style = {
     "width": "100%",
@@ -32,11 +33,7 @@ const Main = () => {
                         </p>
                         <section className='content-list' style={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly'}}>
                             <div style={{width: '20px'}}></div>
-                            <div style={{
-                                position: "relative",
-                                padding: '1px',
-                                width: boardWidth,
-                                height: boardWidth}}>
+                            <div className="mainBoard">
                                 <div className="board" style={board_style}>
                                     <Chess
                                         pieces={["BZ@a8", "BB@b8", "BK@c8", "BM2@d8", "BR2@e8", "BBM@f8", "BNR@g8", "BU@h8",

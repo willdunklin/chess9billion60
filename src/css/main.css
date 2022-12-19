@@ -1,0 +1,13 @@
+.mainBoard {
+    position: relative;
+    padding: 1px;
+    width: 400px;
+    height: 400px;
+}
+
+@media screen and (max-width: 500px) {
+    .mainBoard {
+        width: 250px;
+        height: 250px;
+    }
+}
