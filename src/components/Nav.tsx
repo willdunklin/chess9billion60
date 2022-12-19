@@ -31,7 +31,7 @@ const Nav = () => {
         <>
             <nav className="navBar">
                 <div className="navBackground">
-                    <button name="Nav Toggle" className="navBarToggle" onClick={toggleNavbar}>
+                    <button name="Nav Toggle" aria-label="Nav Toggle" className="navBarToggle" onClick={toggleNavbar}>
                         {navbarOpen ? (
                             <MdClose className="openNav"/>
                         ) : (
