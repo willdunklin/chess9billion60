@@ -10,7 +10,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'inline',
       workbox: {
-        globPatterns: ['**/*.{png,mp3,ogg}']
+        globPatterns: ['**/*.{js,css,html,png,jpg,gif,svg,woff,woff2,ttf,eot,otf,mp3,ogg}']
       }
     })
   ],
