@@ -7,8 +7,11 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      // registerType: 'autoUpdate',
+      registerType: 'autoUpdate',
       injectRegister: 'inline',
+      workbox: {
+        globPatterns: ['**/*.{png,mp3,ogg}']
+      }
     })
   ],
   build: {
