@@ -41,25 +41,28 @@ export const Settings = (props: SettingsProps) => {
                 <input type="checkbox"
                        id="darkMode"
                        name="darkMode"
+                       aria-label="Toggle Dark Mode"
                        checked={darkMode}
                        onChange={event => {setDarkMode(event.target.checked)}}
                 />
             </div>
             <div style={{padding:"5px"}}>
-                <label htmlFor="darkMode">Scroll Through History</label>
+                <label htmlFor="moveScroll">Scroll Through History</label>
                 <input type="checkbox"
                        id="moveScroll"
                        name="scroll"
+                       aria-label="Toggle Scroll Through History"
                        checked={scroll}
                        onChange={event => {setScroll(event.target.checked)}}
                 />
             </div>
 
             <div style={{padding:"5px"}}>
-                <label htmlFor="darkMode">Use Click To Move Pieces</label>
+                <label htmlFor="clickMoves">Use Click To Move Pieces</label>
                 <input type="checkbox"
                        id="clickMoves"
                        name="clickMoves"
+                       aria-label="Toggle Click To Move Pieces"
                        checked={clickMoves}
                        onChange={event => {setClickMoves(event.target.checked)}}
                 />
@@ -69,11 +72,13 @@ export const Settings = (props: SettingsProps) => {
                 <label htmlFor="lightSquareColor">Theme </label>
                 <input type="color"
                        id="lightSquareColor"
+                       aria-label="Light Square Color"
                        value={colorl}
                        onChange={event => {setColorl(event.target.value)}}
                 />
                 <input type="color"
                        id="darkSquareColor"
+                       aria-label="Dark Square Color"
                        value={colord}
                        onChange={event => {setColord(event.target.value)}}
                 />
