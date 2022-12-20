@@ -1,11 +1,13 @@
 {
   "short_name": "Chess 9b60",
   "name": "Chess 9,000,000,060",
+  "description": "Chess 9,000,000,060 chess variant. Play against friends for free.",
   "icons": [
     {
       "src": "logo512.png",
       "sizes": "512x512 256x256 192x192 152x152 144x144 128x128 96x96 72x72 64x64 48x48 36x36 32x32 24x24 16x16",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "logo512_filled.png",
@@ -14,8 +16,53 @@
       "purpose": "maskable"
     }
   ],
+  "screenshots": [
+    {
+      "src": "screenshots/home-portrait.png",
+      "sizes": "1125x2436 828x1792 1242x2688",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Chess 9,000,000,060 Homescreen"
+    },
+    {
+      "src": "screenshots/game-portrait.png",
+      "sizes": "1125x2436 828x1792 1242x2688",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Game of Chess 9,000,000,060"
+    },
+    {
+      "src": "screenshots/zoo-portrait.png",
+      "sizes": "1125x2436 828x1792 1242x2688",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Piece Zoo Page"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Play",
+      "url": "/play",
+      "description": "Create or join a new game"
+    },
+    {
+      "name": "Chess 9,000,000,060",
+      "url": "/",
+      "description":"Play Chess 9,000,000,060 chess variant"
+    },
+    {
+      "name": "Piece Zoo",
+      "url": "/zoo",
+      "description": "View all the pieces in the game"
+    },
+    {
+      "name": "Leaderboard",
+      "url": "/leaderboard"
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
+  "orientation": "portrait",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
