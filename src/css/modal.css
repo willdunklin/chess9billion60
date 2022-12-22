@@ -1,10 +1,16 @@
 .ReactModal__Overlay {
-    z-index: 1999;
+    z-index: 1000;
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
     background-color: var(--modal-bg) !important;
 }
 
 .ReactModal__Content {
+    z-index: 1001;
+    position: relative;
     max-width: 325px;
     height: min-content;
     margin: 1em auto;
@@ -50,10 +56,58 @@
     /* margin: 1em 0; */
 }
 
-.ReactModal__Content > aside > p
+.ReactModal__Content > aside > p, .modalAside
 {
     margin: 0.5em 0;
     margin-bottom: 1.5em;
     font-size: small;
     color: var(--alt);
+}
+
+.gameCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1em;
+    width: 30%;
+    max-width: 20em;
+}
+
+.gameRow {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+}
+
+.games {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: relative;
+    max-width: 85%;
+    margin: 4em auto 0 auto;
+    padding-bottom: 2em;
+}
+
+@media screen and (max-width: 1200px) {
+    .games { max-width: 95%; }
+}
+
+@media screen and (max-width: 1000px) {
+    .gameCol {
+        width: 100%;
+    }
+    .games {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0;
+    }
+    #customGame {
+        order: -2;
+        margin-bottom: 0;
+    }
+    #joinGame {
+        order: 2;
+    }
 }
