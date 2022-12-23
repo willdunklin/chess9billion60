@@ -44,7 +44,7 @@ const Leaderboard = () => {
         <>
             <h1 style={{textAlign: 'center'}}>Leaderboard</h1>
             <div style={leaderboardStyles}>
-                <ol style={{...leaderboardStyles, width: '30%', minWidth: 'min-content'}}>
+                <ol style={{...leaderboardStyles, width: '30%', maxWidth: '25em', minWidth: 'min-content'}}>
                     {ranking}
                 </ol>
                 <Link className="homeButton link" to='/'>Home</Link>
