@@ -1,8 +1,12 @@
+.leaderboardName {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 12em;
+}
+
 @media screen and (max-width: 500px) {
     .leaderboardName {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
         max-width: 7em;
         padding-right: 3em;
     }
