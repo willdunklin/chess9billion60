@@ -3,7 +3,7 @@ import { Visualizer } from "./visualizer";
 import { PieceTypes } from "../bgio/pieces";
 
 const visualizerStyles: CSS.Properties = {
-    padding: "3em",
+    padding: "2em",
     paddingTop: "1em",
     display: "flex",
     flexDirection: "row",
@@ -26,6 +26,7 @@ for (let piece of temp) {
             piece={piece}
             color={"W"}
             count={7} // TODO this is a stupid name for this or a stupid way of doing this
+            minSize={300}
         />
     );
 }

@@ -9,6 +9,7 @@ import { PieceTypes } from "./pieces";
 import { validMove } from "./logic";
 import { pieceComponents } from '../react-chess/chessPieces';
 import { charCodeOffset } from "../react-chess/decode";
+import { BiLink } from "react-icons/bi";
 import CSS from 'csstype';
 import Cookies from 'js-cookie';
 import { GameState } from './Game';
@@ -17,7 +18,7 @@ let wImbalance = [];
 let bImbalance = [];
 
 function getSize() {
-    return Math.min(window.innerWidth - 50, window.innerHeight - 170);
+    return Math.min(window.innerWidth - 40, window.innerHeight - 180);
 }
 
 const visualizerStyles: CSS.Properties = {
@@ -82,6 +83,8 @@ interface ChessState {
     historyIndex: number;
     lastClickedPiece: string;
     timerFired: boolean;
+    copied: boolean;
+    copiedColor: string;
 }
 
 export class ChessBoard extends React.Component<BoardProps<GameState>, ChessState> {
@@ -106,7 +109,9 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
             boardWidth: getSize(),
             historyIndex: 0,
             lastClickedPiece: "",
-            timerFired: false
+            timerFired: false,
+            copied: false,
+            copiedColor: '',
         };
 
         this.onMovePiece = this.onMovePiece.bind(this);
@@ -120,6 +125,7 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
         this.endHistoryButton = this.endHistoryButton.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.handleKey = this.handleKey.bind(this);
+        this.copyURL = this.copyURL.bind(this);
 
         this.updateBoard = this.updateBoard.bind(this);
         this.piecify = this.piecify.bind(this);
@@ -463,8 +469,19 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
         }
     }
 
+    copyURL() {
+        const url = window.location.href.split('/');
+        navigator.clipboard.writeText(window.location.href);
+        // navigator.clipboard.writeText(url[url.length - 1]);
+
+        if (!this.state.copied)
+            setTimeout(() => { this.setState({copiedColor: ''}); }, 1000);
+
+        this.setState({copied: !this.state.copied, copiedColor: '#2a4'});
+    }
+
     render() {
-        const {pieces, update, highlights, dots, wTime, bTime, historyIndex} = this.state;
+        const {pieces, update, highlights, dots, wTime, bTime, historyIndex, copied, copiedColor} = this.state;
         const isWhite = this.props.playerID === "0";
 
         let winner: JSX.Element = <></>;
@@ -575,14 +592,25 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
                                 </button>
                             </div>
                         </div>
-                        <div style={{display: this.props.playerID === "spec" ? 'none' : 'flex'}}>
+                        <div style={{display: this.props.playerID === "spec" ? 'none' : 'flex', justifyContent: 'space-evenly'}}>
                             <button className='specButton buttonHighlight' style={{
-                                    margin: 'auto',
                                     height: '2.5em',
                                     display: 'flex',
                                     justifyContent: 'center'
                             }} onClick={() => {this.props.moves.resign()}}>
                                 <p style={{padding: '0 1em', margin: 'auto'}}>Resign</p>
+                            </button>
+
+                            <button className={'specButton' + ((!copied || copiedColor === '') ? ' buttonHighlight' : '')} style={{
+                                    height: '2.5em',
+                                    width: copied ? '3em' : '7.5em',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    borderColor: copied ? copiedColor : '',
+                                    color: copied ? copiedColor : ''
+                            }} onClick={this.copyURL}>
+                                <p style={{padding: '0 1em', margin: 'auto'}}>{copied ? <BiLink/> : 'Copy Link'}</p>
                             </button>
                         </div>
                     </div>

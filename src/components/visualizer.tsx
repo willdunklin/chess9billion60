@@ -22,15 +22,9 @@ const blurb_style: CSS.Properties = {
 };
 
 // Thanks SO
-const getWidth = (count: number) => {
-    const page_width = Math.max(
-        document.body.scrollWidth,
-        document.documentElement.scrollWidth,
-        document.body.offsetWidth,
-        document.documentElement.offsetWidth,
-        document.documentElement.clientWidth
-    );
-    return Math.max(180, Math.floor((page_width - 120) / widthMap[count]));
+const getWidth = (count: number, min: number = 240) => {
+    const page_width = window.innerWidth;
+    return Math.max(Math.min(min, page_width - 32), Math.floor((page_width - 120) / widthMap[count]));
 }
 
 type VisualizerProps = {
@@ -38,10 +32,11 @@ type VisualizerProps = {
     color: string,
     count: number,
     size?: number,
+    minSize?: number,
 };
 
 export const Visualizer = (props: VisualizerProps) => {
-    const {piece, color, count, size} = props;
+    const {piece, color, count, size, minSize} = props;
     const [pieces, setPieces] = useState<string[]>([]);
     const [dots, setDots] = useState<string[]>([]);
     const [boardWidth, setBoardWidth] = useState<number>(Math.min(size || getWidth(count), getWidth(count)));
@@ -57,7 +52,7 @@ export const Visualizer = (props: VisualizerProps) => {
     React.useEffect(() => {
         const dot_locations1 = PieceTypes[piece].getAvailableMoves(x,y,null,"W")
                                    .map(([to_x, to_y]) => `${color + piece}@${String.fromCharCode(charCodeOffset + (to_x))}${1+to_y}`); // piece_name@to_square
-        let s = getWidth(count);
+        let s = getWidth(count, minSize);
         if(size !== undefined && size !== null)
             s = Math.min(s, size);
 
@@ -65,6 +60,15 @@ export const Visualizer = (props: VisualizerProps) => {
         setDots([...new Set(dot_locations1)]);
         setBoardWidth(s);
     }, [color, count, x, y, size, piece]);
+
+    React.useEffect(() => {
+        window.addEventListener("resize", () => {
+            let s = getWidth(count, minSize);
+            if(size !== undefined && size !== null)
+                s = Math.min(s, size);
+            setBoardWidth(s);
+        });
+    })
 
     return (
         <div style={{

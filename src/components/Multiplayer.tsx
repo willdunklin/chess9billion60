@@ -11,7 +11,6 @@ const getClient = async (protocol: string, hostname: string, port: string) => {
     const { SocketIO } = await import("boardgame.io/multiplayer");
     const { Client } = await import("boardgame.io/react");
 
-    console.log("imported");
     return Client({
         game: Chess,
         board: ChessBoard,
