@@ -601,7 +601,7 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
                                     margin: '0 1em',
                                     height: '2.5em',
                                     display: 'flex',
-                                    justifyContent: 'center'
+                                    justifyContent: 'space-evenly',
                             }} onClick={() => {this.props.moves.resign()}}>
                                 <p style={{padding: '0 1em', margin: 'auto'}}>Resign</p>
                             </div>
