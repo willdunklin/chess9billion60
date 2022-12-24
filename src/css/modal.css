@@ -28,6 +28,10 @@
     margin-bottom: 1em;
 }
 
+.specButton {
+    font-size: 0.8em;
+}
+
 .ReactModal__Content button, .specButton {
     width: 5em;
     height: 3em;

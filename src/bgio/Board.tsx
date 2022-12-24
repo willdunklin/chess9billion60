@@ -593,15 +593,15 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
                             </div>
                         </div>
                         <div style={{display: this.props.playerID === "spec" ? 'none' : 'flex', justifyContent: 'space-evenly'}}>
-                            <button className='specButton buttonHighlight' style={{
+                            <div className='specButton buttonHighlight' style={{
                                     height: '2.5em',
                                     display: 'flex',
                                     justifyContent: 'center'
                             }} onClick={() => {this.props.moves.resign()}}>
                                 <p style={{padding: '0 1em', margin: 'auto'}}>Resign</p>
-                            </button>
+                            </div>
 
-                            <button className={'specButton' + ((!copied || copiedColor === '') ? ' buttonHighlight' : '')} style={{
+                            <div className={'specButton' + ((!copied || copiedColor === '') ? ' buttonHighlight' : '')} style={{
                                     height: '2.5em',
                                     width: copied ? '3em' : '7.5em',
                                     display: 'flex',
@@ -611,7 +611,7 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
                                     color: copied ? copiedColor : ''
                             }} onClick={this.copyURL}>
                                 <p style={{padding: '0 1em', margin: 'auto'}}>{copied ? <BiLink/> : 'Copy Link'}</p>
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>
