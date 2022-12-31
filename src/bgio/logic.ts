@@ -1,4 +1,4 @@
-const { PieceTypes } = require("./pieces");
+import { PieceTypes } from "./pieces";
 
 export const initialBoard = (lower=3000, upper=4000) => {
     let board: Array<string|null> = [];
@@ -15,10 +15,6 @@ export const initialBoard = (lower=3000, upper=4000) => {
             board[i] = "B" + random_army[i];
             board[56 + i] = "W" + random_army[i];
         }
-
-        // promotablePieces = random_army
-        //         .filter(p => !["K", "P"].includes(p)) // filter pawns and kings
-        //         .sort((a, b) => (PieceTypes[a].strength < PieceTypes[b].strength) ? 1 : -1)
         //no instant loss positions
     } while (colorHasMateInN([board], "W", 2))
     //remove duplicates and sort promotion options by strength
@@ -97,11 +93,44 @@ export const validMove = (history: (string|null)[][], name: string, from: string
                 progressMade = true;
             }
 
+            let vaticano = false;
+            // Il Vaticano
+            if (name.includes("B") || name.includes("F")) {
+                // Horizontal Vaticano
+                if (Math.abs(to_x - from_x) === 3 && to_y - from_y === 0) {
+                    const dx = Math.sign(to_x - from_x);
+                    // Capture pieces
+                    new_board[(from_x + dx + (7 - from_y) * 8)] = null;
+                    new_board[(from_x + 2 * dx + (7 - from_y) * 8)] = null;
+                    // Swap the bishops
+                    new_board[(from_x + (7 - from_y) * 8)] = new_board[to_x + (7 - to_y) * 8];
+                    new_board[to_x + (7 - to_y) * 8] = name;
+
+                    progressMade = true;
+                    vaticano = true;
+                }
+                // Vertical Vaticano
+                if (Math.abs(to_y - from_y) === 3 && to_x - from_x === 0) {
+                    const dy = Math.sign(to_y - from_y);
+                    // Capture pieces
+                    new_board[(from_x + (7 - (from_y + dy)) * 8)] = null;
+                    new_board[(from_x + (7 - (from_y + 2 * dy)) * 8)] = null;
+                    // Swap the bishops
+                    new_board[(from_x + (7 - from_y) * 8)] = new_board[to_x + (7 - to_y) * 8];
+                    new_board[to_x + (7 - to_y) * 8] = name;
+
+                    progressMade = true;
+                    vaticano = true;
+                }
+            }
+
             //will we capture something on the square we are moving to
-            if (new_board[(to_x + (7 - to_y) * 8)] !== null)
-                progressMade = true;
-            new_board[(from_x + (7 - from_y) * 8)] = null;
-            new_board[(to_x + (7 - to_y) * 8)] = name;
+            if (!vaticano) {
+                if (new_board[(to_x + (7 - to_y) * 8)] !== null)
+                    progressMade = true;
+                new_board[(from_x + (7 - from_y) * 8)] = null;
+                new_board[(to_x + (7 - to_y) * 8)] = name;
+            }
             //Did we make a move which puts us or leaves us in check
             if (!colorInCheck(new_board, name.charAt(0))) {
                 //since the move is being made, we can update G if required. The cursed undefined check is because moving and
@@ -298,7 +327,6 @@ const colorHasMateInN = (history: (string|null)[][], color: string, N: number) =
                     history.unshift(result);
                     if (colorInCheck(result, otherColor) && colorInStalemate(history, otherColor)) {
                         //fix the board I prepended in stalemate check
-                        //console.log("mate at "+ N +  "\n" + history[0] + "\n" + history[1])
                         history.splice(0, 1);
                         return true;
                     } else if (N > 1) {

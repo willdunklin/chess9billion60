@@ -85,7 +85,6 @@ export class DynamnoStore extends Async {
             unlisted,
         },
     }: StorageAPI.CreateMatchOpts): Promise<void> {
-        // console.log("createMatch")//, id, initialState, gameName, players, setupData, gameover, nextMatchID, unlisted);
         const content: { [key: string]: AttributeValue } = {
             id: {S: id},
             gameName: {S: gameName},
@@ -98,7 +97,6 @@ export class DynamnoStore extends Async {
             initialState: {S: JSON.stringify(initialState)},
             log: {S: JSON.stringify([])},
         }
-        // console.log(content)
         await this.client.send(new PutItemCommand({
             Item: content,
             TableName: this.tableName,
@@ -133,8 +131,6 @@ export class DynamnoStore extends Async {
       state: State,
       deltalog?: LogEntry[]
     ): Promise<void> {
-        // console.log("setState");
-
         const item = await this.client.send(new GetItemCommand({
             Key: {
                 "id": {S: id}
@@ -181,8 +177,6 @@ export class DynamnoStore extends Async {
           updatedAt,
       }: Server.MatchData
     ): Promise<void> {
-        // console.log("setMetadata", id,gameName,players,gameover,nextMatchID,unlisted,createdAt,updatedAt,);
-
         await this.client.send(new UpdateItemCommand({
             Key: {
                 "id": {S: id}
@@ -208,8 +202,6 @@ export class DynamnoStore extends Async {
       id: string,
       { state, log, metadata, initialState }: O
     ): Promise<StorageAPI.FetchResult<O>> {
-        // console.log("fetch");
-
         const result = {} as StorageAPI.FetchFields;
         const item: GetItemCommandOutput = await this.client.send(new GetItemCommand({
             Key: {
@@ -253,8 +245,6 @@ export class DynamnoStore extends Async {
      * Remove the game state.
      */
     async wipe(id: string): Promise<void> {
-        // console.log("wipe");
-
         await this.client.send(new DeleteItemCommand({
             Key: {
                 "id": {S: id}
@@ -268,44 +258,47 @@ export class DynamnoStore extends Async {
      */
     /* istanbul ignore next */
     async listMatches(opts?: StorageAPI.ListMatchesOpts): Promise<string[]> {
-        // console.log("listMatches");
-
         const addFilter = (s: string, f: string) => s ? s + " AND " + f : f;
 
         let filter = "";
         let attributeValues: {[key: string]: AttributeValue} = {};
 
-        if(opts?.gameName) {
-            filter = addFilter(filter, "gameName = :gameName");
-            attributeValues[":gameName"] = {S: opts?.gameName};
+        if (opts !== undefined) {
+            if(opts.gameName) {
+                filter = addFilter(filter, "gameName = :gameName");
+                attributeValues[":gameName"] = {S: opts.gameName};
+            }
+            if(opts.where !== undefined) {
+                if(opts.where.isGameover === true) {
+                    filter = addFilter(filter, "gameover <> :null");
+                    attributeValues[":null"] = {S: JSON.stringify(null)};
+                }
+                if(opts.where.isGameover === false) {
+                    filter = addFilter(filter, "gameover = :null");
+                    attributeValues[":null"] = {S: JSON.stringify(null)};
+                }
+
+                if(opts.where.updatedBefore !== undefined) {
+                    filter = addFilter(filter, "updatedAt < :updatedBefore")
+                    attributeValues[":updatedBefore"] = {N: JSON.stringify(opts.where.updatedBefore)};
+                }
+                if(opts.where.updatedAfter !== undefined) {
+                    filter = addFilter(filter, "updatedAt > :updatedAfter")
+                    attributeValues[":updatedAfter"] = {N: JSON.stringify(opts.where.updatedAfter)};
+                }
+            }
         }
 
-        if(opts?.where?.isGameover === true) {
-            filter = addFilter(filter, "gameover <> :null");
-            attributeValues[":null"] = {S: JSON.stringify(null)};
-        }
-        if(opts?.where?.isGameover === false) {
-            filter = addFilter(filter, "gameover = :null");
-            attributeValues[":null"] = {S: JSON.stringify(null)};
-        }
-
-        if(opts?.where?.updatedBefore !== undefined) {
-            filter = addFilter(filter, "updatedAt < :updatedBefore")
-            attributeValues[":updatedBefore"] = {N: JSON.stringify(opts?.where?.updatedBefore)};
-        }
-        if(opts?.where?.updatedAfter !== undefined) {
-            filter = addFilter(filter, "updatedAt > :updatedAfter")
-            attributeValues[":updatedAfter"] = {N: JSON.stringify(opts?.where?.updatedAfter)};
-        }
-
-        // console.log("filter", typeof(filter), `"${filter}"`)
         const results = await this.client.send(new ScanCommand({
             FilterExpression:          filter === "" ? undefined : filter,
             ExpressionAttributeValues: filter === "" ? undefined : attributeValues,
             TableName: this.tableName,
         }));
 
-        return results.Items?.map(i => i.id.S || "") || [];
+        if (results.Items === undefined)
+            return [];
+
+        return results.Items.map(i => i.id.S || "") || [];
     }
 
     /**
