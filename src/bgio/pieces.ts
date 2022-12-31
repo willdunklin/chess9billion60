@@ -88,7 +88,7 @@ export class Piece {
         return this;
     }
 
-    getAvailableMoves = function (_x: number, _y: number, _gameboard: Array<Array<string|null>>|null, _color: string): number[][] {
+    getAvailableMoves = function (_x: number, _y: number, _gameboard: Array<Array<string|null>>|null, _color: string, display_all?: boolean): number[][] {
         return [];
     }
 
@@ -136,24 +136,29 @@ export class Piece {
         return !this.canMate;
     }
 
-    constructor(id: string, strength: number, atoms: Array<[string, number]>, move_function?: (x: number, y: number, gameboard: Array<Array<string | null>> | null, color: string) => number[][]) {
-        if (move_function === undefined || move_function === null) {
-            this.getAvailableMoves = (x,y,gameboard,color) => {
-                let moves: number[][]
-                if (atoms[0][1] === 0)
-                        moves = rider(x,y,gameboard,color, atomList[atoms[0][0]])
-                    else
-                        moves = rider(x,y,gameboard,color, atomList[atoms[0][0]], atoms[0][1])
-                for (let i = 1; i < atoms.length; i++) {
-                    if (atoms[i][1] === 0)
-                        moves.push(...rider(x,y,gameboard,color, atomList[atoms[i][0]]))
-                    else
-                        moves.push(...rider(x,y,gameboard,color, atomList[atoms[i][0]], atoms[i][1]))
-                }
-                return moves
+    constructor(id: string, strength: number, atoms: Array<[string, number]>, move_function?: (x: number, y: number, gameboard: Array<Array<string | null>> | null, color: string, display_all?: boolean) => number[][]) {
+        const normal_moves = (x: number, y: number, gameboard: Array<Array<string | null>> | null, color: string) => {
+            let moves: number[][]
+            if (atoms[0][1] === 0)
+                    moves = rider(x,y,gameboard,color, atomList[atoms[0][0]])
+                else
+                    moves = rider(x,y,gameboard,color, atomList[atoms[0][0]], atoms[0][1])
+            for (let i = 1; i < atoms.length; i++) {
+                if (atoms[i][1] === 0)
+                    moves.push(...rider(x,y,gameboard,color, atomList[atoms[i][0]]))
+                else
+                    moves.push(...rider(x,y,gameboard,color, atomList[atoms[i][0]], atoms[i][1]))
             }
+            return moves
+        }
+
+        if (move_function === undefined) {
+            this.getAvailableMoves = (x,y,gameboard,color,display_all) => normal_moves(x,y,display_all ? null : gameboard,color)
         } else {
-            this.getAvailableMoves = move_function
+            if (atoms.length > 0)
+                this.getAvailableMoves = (x,y,gameboard,color,display_all) => normal_moves(x,y,display_all ? null : gameboard,color).concat(move_function(x,y,gameboard,color,display_all))
+            else
+                this.getAvailableMoves = move_function
         }
         this.id = id;
         this.strength = strength;
@@ -184,37 +189,69 @@ export class Piece {
     }
 }
 
-// TODO: export these variables (export const ...)
-// have to fix Game.js's use of PieceTypes then
+const il_vaticano = (x: number, y: number, history: Array<Array<string | null>> | null, color: string, display_all?: boolean) => {
+    let moves: number[][] = [];
+    if (history === null)
+        return moves;
+
+    const offsets = [[3, 0], [0, 3], [-3, 0], [0, -3]];
+    for (const offset of offsets) {
+        // Check if the square is on the board
+        if (x + offset[0] < 0 || x + offset[0] > 7 || y + offset[1] < 0 || y + offset[1] > 7)
+            continue;
+
+        const target = history[0][x + offset[0] + 8 * (7 - (y + offset[1]))];
+        if (target === null)
+            continue;
+
+        // Check if the square is occupied by a bishop type of the same color
+        if (target[0] === color && (target.slice(1).includes("B") || target.includes("F"))) {
+            // Check the squares in between the bishops
+            const dx = Math.sign(offset[0]);
+            const dy = Math.sign(offset[1]);
+            const square_1 = history[0][x + dx + 8 * (7 - (y + dy))];
+            const square_2 = history[0][x + 2 * dx + 8 * (7 - (y + 2 * dy))];
+            if (square_1 === null || square_2 === null)
+                continue;
+
+            // Check you're capturing the opponent's pieces
+            if (square_1[0] !== color && square_2[0] !== color) {
+                moves.push([x + offset[0], y + offset[1]]);
+            }
+        }
+    }
+    return moves;
+}
+
 const N   =  new Piece("N"  , 315   , [["N", 1]]).name("Knight").setBlurb("A chess classic").setRules("Standard knight moves").cantMate();
 const R   =  new Piece("R"  , 500   , [["W", 0]]).name("Rook").setBlurb("A chess classic").setRules("Standard rook moves");
-const B   =  new Piece("B"  , 315   , [["F", 0]]).name("Bishop").setBlurb("A chess classic").setRules("Standard bishop moves").markColorbound();
+const B   =  new Piece("B"  , 315   , [["F", 0]], il_vaticano).name("Bishop").setBlurb("A chess classic").setRules("Standard bishop moves").markColorbound();
 const Q   =  new Piece("Q"  , 975   , [["K", 0]]).name("Queen").setBlurb("A chess classic").setRules("Standard queen moves").allowOnlyOne();
 const K   =  new Piece("K"  , 100000, [["K", 1]]).name("King").setBlurb("A chess classic").setRules("Standard king moves").allowOnlyOne();
 const NR  =  new Piece("NR" , 475   , [["N", 0]]).name("Knightrider").setBlurb("If knights weren't lazy").setRules("Knight moves, but can keep going").cantMate();
 const M   =  new Piece("M"  , 375   , [["W", 1], ["F", 1]]).name("Mann").setBlurb("Like the king, but poor").setRules("Moves like a King");
-const F   =  new Piece("F"  , 150   , [["F", 1]]).name("Ferz").setBlurb("Slow and steady wins the race").setRules("Bishop moves up to one square").markColorbound();
+const F   =  new Piece("F"  , 150   , [["F", 1]], il_vaticano).name("Ferz").setBlurb("Slow and steady wins the race").setRules("Bishop moves up to one square").markColorbound();
 const W   =  new Piece("W"  , 170   , [["W", 1]]).name("Wazir").setBlurb("Wins some endgames").setRules("Rook moves up to one square").cantMate();
 const A   =  new Piece("A"  , 1250  , [["K", 0], ["N", 1]]).name("Amazon").setBlurb("Terrifying").setRules("Combo queen and knight").allowOnlyOne();
 const CH  =  new Piece("CH" , 800   , [["W", 0], ["N", 1]]).name("Chancellor").setBlurb("The power behind the throne").setRules("Combo rook and knight").allowOnlyOne();
-const AB  =  new Piece("AB" , 770   , [["F", 0], ["N", 1]]).name("Archbishop").setBlurb("Owns a cool cathedral").setRules("Combo bishop and knight").allowOnlyOne();
+const AB  =  new Piece("AB" , 770   , [["F", 0], ["N", 1]], il_vaticano).name("Archbishop").setBlurb("Owns a cool cathedral").setRules("Combo bishop and knight").allowOnlyOne();
 const R4  =  new Piece("R4" , 380   , [["W", 4]]).name("Short Rook").setBlurb("Bullies the shorter rook").setRules("Rook moves up to four squares");
 const R2  =  new Piece("R2" , 270   , [["W", 2]]).name("Shorter Rook").setBlurb("Bullies the wazir").setRules("Rook moves up to two squares");
-const B4  =  new Piece("B4" , 250   , [["F", 4]]).name("Short Bishop").setBlurb("Not as good as a bishop").setRules("Bishop moves up to four squares").markColorbound();
-const B2  =  new Piece("B2" , 220   , [["F", 2]]).name("Shorter Bishop").setBlurb("Not as good as a short bishop").setRules("Bishop moves up to two squares").markColorbound();
+const B4  =  new Piece("B4" , 250   , [["F", 4]], il_vaticano).name("Short Bishop").setBlurb("Not as good as a bishop").setRules("Bishop moves up to four squares").markColorbound();
+const B2  =  new Piece("B2" , 220   , [["F", 2]], il_vaticano).name("Shorter Bishop").setBlurb("Not as good as a short bishop").setRules("Bishop moves up to two squares").markColorbound();
 const U   =  new Piece("U"  , 900   , [["N", 0], ["F", 0]]).name("Unicorn").setBlurb("Twelve directions!").setRules("Combo knightrider and bishop").allowOnlyOne();
 const C   =  new Piece("C"  , 220   , [["C", 1]]).name("Camel").setBlurb("Cannot leave its color").setRules("3 one way 1 the other").markColorbound();
 const Z   =  new Piece("Z"  , 180   , [["Z", 1]]).name("Zebra").setBlurb("Annoying to maneuver").setRules("3 one way 2 the other").cantMate();
 const ZC  =  new Piece("ZC" , 400   , [["Z", 1], ["C", 1]]).name("Zebramel").setBlurb("Watch out for smothered mates!").setRules("Combo Camel (3,1) and Zebra (3,2)").allowOnlyOne();
 const CN  =  new Piece("CN" , 600   , [["N", 1], ["W", 1], ["F", 1]]).name("Centaur").setBlurb("A strong piece with limited range").setRules("King and Knight moves");
 const CNR =  new Piece("CNR", 900   , [["N", 0], ["W", 1], ["F", 1]]).name("Centaur Rider").setBlurb("Scary").setRules("King and Knightrider moves").allowOnlyOne();
-const BC  =  new Piece("BC" , 750   , [["F", 0], ["C", 1]]).name("Bishop Camel").setBlurb("Queen tier, but just on one color!").setRules("Combo Camel (3,1) and Bishop").markColorbound();
+const BC  =  new Piece("BC" , 750   , [["F", 0], ["C", 1]], il_vaticano).name("Bishop Camel").setBlurb("Queen tier, but just on one color!").setRules("Combo Camel (3,1) and Bishop").markColorbound();
 const NZ  =  new Piece("NZ" , 600   , [["N", 1], ["Z", 1]]).name("Zorse").setBlurb("Do not leave holes in your position.").setRules("Combo Zebra (3,2) and Knight").cantMate().allowOnlyOne();
 const M2  =  new Piece("M2" , 500   , [["K", 2]]).name("Freddie Mercury").setBlurb("Part of Queen!").setRules("Queen moves up to two squares");
-const BM  =  new Piece("BM" , 550   , [["W", 1], ["F", 1], ["F", 0]]).name("Cardinal").setBlurb("Can reach both colors!").setRules("Combo Bishop and King");
+const BM  =  new Piece("BM" , 550   , [["W", 1], ["F", 1], ["F", 0]], il_vaticano).name("Cardinal").setBlurb("Can reach both colors!").setRules("Combo Bishop and King");
 const RM  =  new Piece("RM" , 700   , [["W", 1], ["F", 1], ["W", 0]]).name("Rook Mann").setBlurb("The rook's been working out").setRules("Combo Rook and King");
 //Pawn is very special
-const P =  new Piece("P", 100, [], (x, y, history, color) => {
+const P =  new Piece("P", 100, [], (x, y, history, color, display_all) => {
         let direction = 1;
         let home_rank = 1;
         let en_passant_rank = 4;
@@ -227,7 +264,7 @@ const P =  new Piece("P", 100, [], (x, y, history, color) => {
         let xtemp = x;
         let ytemp = y + direction;
 
-        if (history === null) {
+        if (history === null || display_all) {
             moves.push([xtemp, ytemp])
             if (isInBounds(xtemp+1, ytemp))
                 moves.push([xtemp+1, ytemp]);

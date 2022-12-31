@@ -1,7 +1,7 @@
 {
   "name": "chess9billion60",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "dev": "vite",
     "start": "node -r esm -r ts-node/register src/server.ts",
@@ -44,7 +44,6 @@
     "@types/react-dom": "^18.0.7",
     "@types/react-modal": "^3.13.1",
     "@vitejs/plugin-react": "^2.2.0",
-    "dependency-cruiser": "^11.18.0",
     "nodemon": "^2.0.20",
     "vite": "^3.2.0"
   }

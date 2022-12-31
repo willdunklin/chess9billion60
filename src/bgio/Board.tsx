@@ -274,7 +274,8 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
 
         // get available moves, filter through validity check if its our turn
         if ((this.props.G.whiteTurn && piece.name.charAt(0) === "W") || (!this.props.G.whiteTurn && piece.name.charAt(0) !== "W") || this.state.historyIndex !== 0) {
-            let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, this.props.G.history.slice(this.state.historyIndex), piece.name.charAt(0))
+            let dot_locations = PieceTypes[piece.name.substring(1)]
+                .getAvailableMoves(from_x, from_y, this.props.G.history.slice(this.state.historyIndex), piece.name.charAt(0))
                 .map(([to_x, to_y]) => `${String.fromCharCode(charCodeOffset + (to_x))}${1+to_y}`) // map from coordinates to square
                 .filter(to_square => // filter move validity (stolen from colorHasMateInOnes)
                     validMove(this.props.G.history.slice(this.state.historyIndex), piece.name, from_square, to_square) !== null)
@@ -284,7 +285,10 @@ export class ChessBoard extends React.Component<BoardProps<GameState>, ChessStat
             this.setState({dots: [...new Set(dot_locations)]});
         } else {
             //don't filter out invalid moves for the player who is not about to move
-            let dot_locations = PieceTypes[piece.name.substring(1)].getAvailableMoves(from_x, from_y, null, piece.name.charAt(0)).map(([to_x, to_y]) => `${String.fromCharCode(charCodeOffset + (to_x))}${1+to_y}`).map(to_square => `${piece.name}@${to_square}`);
+            let dot_locations = PieceTypes[piece.name.substring(1)]
+                .getAvailableMoves(from_x, from_y, this.props.G.history.slice(this.state.historyIndex), piece.name.charAt(0), true)
+                .map(([to_x, to_y]) => `${String.fromCharCode(charCodeOffset + (to_x))}${1+to_y}`)
+                .map(to_square => `${piece.name}@${to_square}`);
             dot_locations.push(clicked_square);
             this.setState({dots: [...new Set(dot_locations)]});
         }
