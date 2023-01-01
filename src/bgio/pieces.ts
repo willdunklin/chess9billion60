@@ -205,7 +205,7 @@ const il_vaticano = (x: number, y: number, history: Array<Array<string | null>> 
             continue;
 
         // Check if the square is occupied by a bishop type of the same color
-        if (target[0] === color && (target.slice(1).includes("B") || target.includes("F"))) {
+        if (target[0] === color && (target.slice(1).includes("B") || target.includes("F") || target.includes("U"))) {
             // Check the squares in between the bishops
             const dx = Math.sign(offset[0]);
             const dy = Math.sign(offset[1]);
@@ -239,7 +239,7 @@ const R4  =  new Piece("R4" , 380   , [["W", 4]]).name("Short Rook").setBlurb("B
 const R2  =  new Piece("R2" , 270   , [["W", 2]]).name("Shorter Rook").setBlurb("Bullies the wazir").setRules("Rook moves up to two squares");
 const B4  =  new Piece("B4" , 250   , [["F", 4]], il_vaticano).name("Short Bishop").setBlurb("Not as good as a bishop").setRules("Bishop moves up to four squares").markColorbound();
 const B2  =  new Piece("B2" , 220   , [["F", 2]], il_vaticano).name("Shorter Bishop").setBlurb("Not as good as a short bishop").setRules("Bishop moves up to two squares").markColorbound();
-const U   =  new Piece("U"  , 900   , [["N", 0], ["F", 0]]).name("Unicorn").setBlurb("Twelve directions!").setRules("Combo knightrider and bishop").allowOnlyOne();
+const U   =  new Piece("U"  , 900   , [["N", 0], ["F", 0]], il_vaticano).name("Unicorn").setBlurb("Twelve directions!").setRules("Combo knightrider and bishop").allowOnlyOne();
 const C   =  new Piece("C"  , 220   , [["C", 1]]).name("Camel").setBlurb("Cannot leave its color").setRules("3 one way 1 the other").markColorbound();
 const Z   =  new Piece("Z"  , 180   , [["Z", 1]]).name("Zebra").setBlurb("Annoying to maneuver").setRules("3 one way 2 the other").cantMate();
 const ZC  =  new Piece("ZC" , 400   , [["Z", 1], ["C", 1]]).name("Zebramel").setBlurb("Watch out for smothered mates!").setRules("Combo Camel (3,1) and Zebra (3,2)").allowOnlyOne();

@@ -95,7 +95,7 @@ export const validMove = (history: (string|null)[][], name: string, from: string
 
             let vaticano = false;
             // Il Vaticano
-            if (name.includes("B") || name.includes("F")) {
+            if (name.slice(1).includes("B") || name.includes("F") || name.includes("U")) {
                 // Horizontal Vaticano
                 if (Math.abs(to_x - from_x) === 3 && to_y - from_y === 0) {
                     const dx = Math.sign(to_x - from_x);
