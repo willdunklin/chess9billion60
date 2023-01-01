@@ -159,7 +159,7 @@ export const colorInCheck = (board: (string|null)[], color: string) => {
     for (let j = 0; j < (8 * 8); j++) {
         let piece = board[j];
         if (piece !== null && piece.charAt(0) !== color) {
-            let moves = PieceTypes[piece.substring(1)].getAvailableMoves(j % 8, 7 - Math.floor(j / 8), [board, board], piece.charAt(0));
+            let moves = PieceTypes[piece.substring(1)].getAttackedSquares(j % 8, 7 - Math.floor(j / 8), [board, board], piece.charAt(0));
             for (const [x, y] of moves) {
                 if ((x === kingPos[0]) && (y === kingPos[1])) {
                     return true;
